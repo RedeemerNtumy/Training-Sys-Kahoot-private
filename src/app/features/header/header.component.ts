@@ -1,4 +1,6 @@
-import { AfterViewInit, Component, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -7,16 +9,21 @@ import { AfterViewInit, Component, ElementRef } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements AfterViewInit {
+export class HeaderComponent implements AfterViewInit, OnInit {
   canUseBtn!: boolean;
-  dropDownClicked: boolean = true;
+  dropDownClicked: boolean = false;
+  routeName!: string;
 
-  constructor(private el: ElementRef) {}
+  constructor(
+    private el: ElementRef,
+    private router: Router, 
+  ) {}
 
   toggleDropDownBtn() {
     this.dropDownClicked = !this.dropDownClicked;
   }
 
+  // After View is initialized, check for the existence of class '.plus-btn-checker'
   ngAfterViewInit(): void {
     const targetElement = this.el.nativeElement.querySelector('.plus-btn-checker');
 
@@ -26,5 +33,22 @@ export class HeaderComponent implements AfterViewInit {
     else {
       this.canUseBtn = false;
     }
+  }
+
+  // Get current route name from current route
+  ngOnInit(): void {
+    // Get the current route
+    this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe(() => {
+      const currentPath = this.router.url.slice(1);
+
+      this.routeName = currentPath
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+
+      console.log('Formatted route name:', this.routeName);
+    }); 
   }
 }
