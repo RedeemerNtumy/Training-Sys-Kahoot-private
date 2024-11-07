@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './create-new-cohort.component.scss'
 })
 export class CreateNewCohortComponent {
-
+  
 }
