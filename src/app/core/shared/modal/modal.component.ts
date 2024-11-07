@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -9,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class ModalComponent {
 
+  @Input() icon: string = '../../../../../assets/images/Approval 5.png';
+  @Input() title: string = 'something';
+  @Input() description: string = 'something working here?';
 }
