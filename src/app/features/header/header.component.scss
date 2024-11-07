@@ -37,7 +37,13 @@ nav {
                 border: 0.1rem solid $clr-gray-100;
                 display: grid;
                 place-items: center;
+                transition: $btn-transition;
+                cursor: pointer;
             }
+            & .notification-container:hover {
+                background: $clr-gray-50;
+            }
+            
     
             & .search-container {
                 width: 2.836rem;
@@ -46,6 +52,11 @@ nav {
                 border: 0.1rem solid $clr-gray-100;
                 display: grid;
                 place-items: center;
+                transition: $btn-transition;
+                cursor: pointer;
+            }
+            & .search-container:hover {
+                background: $clr-gray-50;
             }
     
         } // End of Icons element
@@ -96,7 +107,8 @@ nav {
     background: $clr-primary-500;
     display: grid;
     place-items: center;
-    cursor: pointer;   
+    cursor: pointer;  
+    transition: $btn-transition; 
 }
 .btnEnabled:hover {
     background: $clr-primary-400;
