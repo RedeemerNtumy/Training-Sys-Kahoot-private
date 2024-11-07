@@ -35,21 +35,26 @@ export class HeaderComponent implements AfterViewInit, OnInit {
     }
   }
 
-  // Get current route name from current route
   ngOnInit(): void {
-    // Get the current route
+    // Set routeName immediately on component load, in case the NavigationEnd hasn't fired yet
+    this.updateRouteName();
+
+    // Subscribe to NavigationEnd events to capture route changes
     this.router.events
-    .pipe(filter(event => event instanceof NavigationEnd))
-    .subscribe(() => {
-      const urlSegments = this.router.url.split('/');
-      const currentPath = urlSegments[urlSegments.length - 1];
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.updateRouteName(); // Update route name when navigation ends
+      });
+  }
 
-      this.routeName = currentPath
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+  // Helper method to update route name
+  private updateRouteName(): void {
+    const urlSegments = this.router.url.split('/');
+    const currentPath = urlSegments[urlSegments.length - 1];
 
-      console.log('Formatted route name:', this.routeName);
-    }); 
+    this.routeName = currentPath
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
   }
 }
