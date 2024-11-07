@@ -1,7 +1,4 @@
-*{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-
+@use "./styleSheet/base" as *;
+@use "./styleSheet/typography" as *;
+@use "./styleSheet/variables" as *;
+@use "./styleSheet/mixins" as *;
