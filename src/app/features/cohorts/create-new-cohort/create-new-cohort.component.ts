@@ -3,17 +3,20 @@ import { InputFieldComponent } from "../../../core/shared/input-field/input-fiel
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
+import { ModalService } from '../../../core/services/modal/modal.service';
+import { ModalComponent } from '../../../core/shared/modal/modal.component';
 
 @Component({
   selector: 'app-create-new-cohort',
   standalone: true,
-  imports: [InputFieldComponent, ReactiveFormsModule, NgIf, NgFor],
+  imports: [InputFieldComponent, ReactiveFormsModule, NgIf, NgFor, ModalComponent],
   templateUrl: './create-new-cohort.component.html',
   styleUrl: './create-new-cohort.component.scss'
 })
 export class CreateNewCohortComponent {
 
   newCohortForm!: FormGroup;
+  isModalOpen: boolean = false;
   
   allSpecializations = [
     { label: 'UI/UX', value: 'UI/UX' },
@@ -24,6 +27,7 @@ export class CreateNewCohortComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    public modalService: ModalService,
   ) {}
 
   ngOnInit() {
@@ -75,7 +79,7 @@ export class CreateNewCohortComponent {
       //     console.error('Error submitting data', error);
       //   }
       // }) 
-      // this.toggleSuccessModal()
+      this.modalService.toggleSuccessModal()
     }
     else {
       this.newCohortForm.markAllAsTouched();
