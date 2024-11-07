@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { AdminNavigationsComponent } from "../admin-navigations/admin-navigations.component";
 import { TrainerNavigationsComponent } from "../trainer-navigations/trainer-navigations.component";
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { UserRoleService } from '../../../services/user-role.service';
 import { NgIf } from '@angular/common';
+import { UserRoleService } from '../../../core/services/user-role/user-role.service';
 
 @Component({
   selector: 'app-navigations',
