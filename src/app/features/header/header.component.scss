@@ -28,18 +28,6 @@ nav {
             align-items: center;
             gap: 1.2rem;
     
-            // & .plus-container {
-            //     width: 2.836rem;
-            //     height: 2.836rem;
-            //     border-radius: 0.315rem;
-            //     background: $clr-primary-500;
-            //     display: grid;
-            //     place-items: center;
-            //     cursor: pointer;
-            // }
-            // & .plus-container:hover {
-            //     background: $clr-primary-400;
-            // }
     
             & .notification-container {
                 width: 2.836rem;
@@ -98,4 +86,27 @@ nav {
             }
         }
     }
+}
+
+.btnEnabled {
+    width: 2.836rem;
+    height: 2.836rem;
+    border-radius: 0.315rem;
+    background: $clr-primary-500;
+    display: grid;
+    place-items: center;
+    cursor: pointer;   
+}
+.btnEnabled:hover {
+    background: $clr-primary-400;
+}
+
+.btnDisabled {
+    width: 2.836rem;
+    height: 2.836rem;
+    border-radius: 0.315rem;
+    background: $clr-gray-400;
+    display: grid;
+    place-items: center;
+    cursor: not-allowed; 
 }
