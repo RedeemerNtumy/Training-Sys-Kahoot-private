@@ -211,9 +211,9 @@
                     border: 0.1rem solid $clr-gray-100;
                     padding: 1.6rem;
                     font-family: $font-lato;
-                    color: $clr-gray-500;
+                    color: $clr-gray-500; 
                 }
-                & textarea:focus {
+                & textarea:focus {  
                     outline: none;    
                     border: 0.1rem solid $clr-primary-500;
                 } 

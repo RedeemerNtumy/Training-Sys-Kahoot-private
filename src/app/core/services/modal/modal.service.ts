@@ -13,11 +13,13 @@ export class ModalService {
   ) { }
 
   closeModal() {
+    this.toggleSuccessModal();
     this.router.navigateByUrl('/cohorts-list');
   }
 
   toggleSuccessModal() {
     this.isModalOpen = !this.isModalOpen;
-    console.log(this.isModalOpen,'Modal is working')
   }
+
+  
 }
