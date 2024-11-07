@@ -6,7 +6,7 @@
 
 <div class="container">
         <div class="wrapper">
-            <div class="back-button">
+            <div class="back-button" (click)="goBack()">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.921 7.5L7.714 13.292L7 14L0 7L7 0L7.714 0.708L1.92 6.5H14V7.5H1.921Z" fill="#676767"/>
                 </svg>
@@ -37,7 +37,7 @@
                     <div formArrayName="specialization">
                         <div class="specialization-lists" *ngFor="let specCtrl of specialization.controls; let i = index">
                             <div class="select-options">
-                                <select id="specialization-select-list">
+                                <select [formControlName]="i" name="specialization" id="specialization-select-list">
                                     <option *ngFor="let option of getFilteredSpecializations(i)" [value]="option.value">
                                         {{ option.label }}
                                     </option>
@@ -71,7 +71,7 @@
                     <p>A brief overview or notes about the cohort's objectives, schedule, or any specific focus areas</p>
                     <textarea formControlName="description" name="description-text-area" id="description-text-area"></textarea>
                 </div>
-                <button type="submit" class="plus-btn-checker btn">Add</button>
+                <button type="submit" class="btn">Add</button>
             </form>
         </div>
 
