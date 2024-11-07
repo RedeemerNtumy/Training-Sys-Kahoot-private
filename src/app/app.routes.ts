@@ -1,19 +1,25 @@
 import { Routes } from '@angular/router';
-import { adminRoutes } from './views/admin/admin.route';
-import { trainerRoutes } from './views/trainer/trainer.route';
+// import { DashboardComponent } from './views/admin/dashboard/dashboard.component';
+// import { TraineeManagementComponent } from './views/admin/trainees/trainee-management.component';
+import { adminRoutes } from './views/admin/admin.routes';
+import { trainerRoutes } from './core/routes/trainer.routes';
 
 export const routes: Routes = [
-  ...adminRoutes,
-  ...trainerRoutes,
-  //general
   {
-    path:'settings',
-    loadComponent: () => import('./views/settings/settings.component')
-    .then(m => m.SettingsComponent)
-  },
-  {
-    path:'help',
-    loadComponent: () => import('./views/help/help.component')
-    .then(m => m.HelpComponent)
+    path:'home',
+    loadComponent: () => import('./views/dashboard/dashboard.component')
+    .then(m => m.DashboardComponent),
+    children: [
+      {
+        path: 'admin',
+        children: adminRoutes
+      },
+      {
+        path:'trainer',
+        loadComponent:() => import('./views/trainer/trainer.component')
+        .then(m => m.TrainerComponent),
+        children: trainerRoutes
+      },
+    ],
   }
 ];
