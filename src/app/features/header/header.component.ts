@@ -9,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   canUseBtn: boolean = true;
+  dropDownClicked: boolean = true;
+
+  constructor() {}
+
+  toggleDropDownBtn() {
+    this.dropDownClicked = !this.dropDownClicked;
+  }
 }
