@@ -10,3 +10,17 @@
   align-items: $align;
   flex-wrap: $wrap;
 }
+
+@mixin formInputError(
+  $width: 100%,
+  $color,
+  $background,
+  $radius: 0.8rem,
+  $padding: 1.2rem
+) {
+  width: $width;
+  color: $color;
+  background-color: $background;
+  border-radius: $radius;
+  padding: $padding;
+}
