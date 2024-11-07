@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { UserRoleService } from '../../core/services/user-role/user-role.service';
+import { TitleCasePipe, UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [TitleCasePipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -13,10 +15,12 @@ export class HeaderComponent implements AfterViewInit, OnInit {
   canUseBtn!: boolean;
   dropDownClicked: boolean = false;
   routeName!: string;
+  userRole!: string;
 
   constructor(
     private el: ElementRef,
     private router: Router, 
+    private userRoleService: UserRoleService,
   ) {}
 
   toggleDropDownBtn() {
@@ -36,6 +40,9 @@ export class HeaderComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
+    // Get user role
+    this.userRole = this.userRoleService.getUserRole()
+
     // Set routeName immediately on component load, in case the NavigationEnd hasn't fired yet
     this.updateRouteName();
 

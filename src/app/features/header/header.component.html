@@ -23,7 +23,7 @@
             <img src="" alt="user-image" class="profile-image">
             <div class="user-name-role">
                 <span id="user-name">Alex</span>
-                <span id="user-role">Administrator</span>
+                <span id="user-role">{{ userRole | titlecase }}</span>
             </div>
             <div class="more-option-icon" (click)="toggleDropDownBtn()">
                 <svg width="17" height="9" viewBox="0 0 17 9" fill="none" xmlns="http://www.w3.org/2000/svg">
