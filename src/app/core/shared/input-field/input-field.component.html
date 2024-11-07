@@ -1,0 +1,30 @@
+<div class="input-container">
+  <label [attr.for]="uniqueId">{{ label }}</label>
+  <div class="input-wrapper">
+    <input
+      [type]="type === 'password' && isPasswordVisible ? 'text' : type"
+      [placeholder]="placeholder"
+      [(ngModel)]="value"
+      [attr.aria.label]="label"
+      [id]="uniqueId"
+    />
+
+    @if (type === 'password') {
+    <button
+      type="button"
+      (click)="togglePasswordVisibility()"
+      class="toggle-icon"
+    >
+      <!-- Show Password Icon -->
+      <div *ngIf="!isPasswordVisible">
+        <img src="assets/Images/svg/show-password.svg" alt="" />
+      </div>
+
+      <!-- Hide Password Icon -->
+      <div *ngIf="isPasswordVisible">
+        <img src="assets/Images/svg/hide-password.svg" alt="" />
+      </div>
+    </button>
+    }
+  </div>
+</div>
