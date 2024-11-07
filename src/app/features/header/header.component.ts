@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { UserRoleService } from '../../core/services/user-role/user-role.service';
+import { TitleCasePipe, UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [TitleCasePipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -13,10 +15,12 @@ export class HeaderComponent implements AfterViewInit, OnInit {
   canUseBtn!: boolean;
   dropDownClicked: boolean = false;
   routeName!: string;
+  userRole!: string;
 
   constructor(
     private el: ElementRef,
     private router: Router, 
+    private userRoleService: UserRoleService,
   ) {}
 
   toggleDropDownBtn() {
@@ -35,21 +39,29 @@ export class HeaderComponent implements AfterViewInit, OnInit {
     }
   }
 
-  // Get current route name from current route
   ngOnInit(): void {
-    // Get the current route
+    // Get user role
+    this.userRole = this.userRoleService.getUserRole()
+
+    // Set routeName immediately on component load, in case the NavigationEnd hasn't fired yet
+    this.updateRouteName();
+
+    // Subscribe to NavigationEnd events to capture route changes
     this.router.events
-    .pipe(filter(event => event instanceof NavigationEnd))
-    .subscribe(() => {
-      const urlSegments = this.router.url.split('/');
-      const currentPath = urlSegments[urlSegments.length - 1];
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.updateRouteName(); // Update route name when navigation ends
+      });
+  }
 
-      this.routeName = currentPath
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+  // Helper method to update route name
+  private updateRouteName(): void {
+    const urlSegments = this.router.url.split('/');
+    const currentPath = urlSegments[urlSegments.length - 1];
 
-      console.log('Formatted route name:', this.routeName);
-    }); 
+    this.routeName = currentPath
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
   }
 }
