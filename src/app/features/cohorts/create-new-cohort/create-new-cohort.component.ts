@@ -46,6 +46,13 @@ export class CreateNewCohortComponent {
     this.specialization.push(this.fb.control('', Validators.required));
   }
 
+  // Remove specialization with specified index
+  removeSpecialization(index: number) {
+    if(this.specialization.length > 1) {
+      this.specialization.removeAt(index);
+    }
+  }
+
   // Get filtered options for each select based on other selections
   getFilteredSpecializations(currentIndex: number): { label: string; value: string }[] {
     const selectedValues = this.specialization.controls.map(
