@@ -1,0 +1,87 @@
+<div class="user-creation__container">
+  <div class="user-creation__wrapper">
+    <div class="user-creation__text">
+      <h3>Reset Your Password</h3>
+      <p>
+        Enter new password to gain full control of your account. Enter required
+        details to proceed
+      </p>
+    </div>
+    <form
+      class="user-creation__form"
+      [formGroup]="userCreationForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="inputs">
+        <app-input-field
+          label="New Password"
+          type="password"
+          placeholder="Enter new password"
+          formControlName="password"
+        />
+        <div *ngIf="showPasswordError" class="message warinig">
+          <div class="top">
+            <div style="width: 1.467rem">
+              <img src="assets/Images/png/warning.png" alt="" />
+            </div>
+            <p>Password requirements</p>
+          </div>
+          <ul class="list">
+            <li>Your password must be at least 8 characters long.</li>
+            <li>And include a mix of letters, numbers, and symbols</li>
+          </ul>
+        </div>
+
+        <app-input-field
+          label="Confirm Password"
+          type="password"
+          placeholder="Confirm new password"
+          formControlName="confirmPassword"
+        />
+        <div
+          class="message error"
+          *ngIf="userCreationForm.errors?.['mismatch'] && (userCreationForm.get('confirmPassword')?.touched || userCreationForm.get('confirmPassword')?.dirty)"
+        >
+          <div class="top">
+            <div style="width: 1.467rem">
+              <img src="assets/Images/png/error.png" alt="" />
+            </div>
+            <p>Error</p>
+          </div>
+          <p class="list">This password entered doesn't match</p>
+        </div>
+
+        @if (successMessage) {
+        <div class="message success">
+          <div class="top">
+            <div style="width: 1.467rem">
+              <img src="assets/Images/png/success.png" alt="" />
+            </div>
+            <p>Success</p>
+          </div>
+          <p class="list">
+            The details you provided match our records. You can now proceed to
+            log in or reset your password
+          </p>
+        </div>
+        }
+      </div>
+
+      <div class="button-div">
+        <button
+          class="btn"
+          [class]="isLoading ? 'load' : ''"
+          type="submit"
+          [disabled]="userCreationForm.invalid"
+        >
+          <ng-container *ngIf="!isLoading"> Submit </ng-container>
+          <ng-container *ngIf="isLoading">
+            <span class="spinner"></span>
+            <span> Submitting </span>
+          </ng-container>
+        </button>
+        <p>Need help? <span>Please contact support</span></p>
+      </div>
+    </form>
+  </div>
+</div>
