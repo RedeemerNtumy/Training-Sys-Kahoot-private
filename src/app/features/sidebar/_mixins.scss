@@ -1,0 +1,33 @@
+@mixin list-item{
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+
+
+  a{
+    padding-left: 1rem;
+    padding-block: .4rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+}
+
+@mixin active-nav {
+  background-color: #F98416;
+  transition: background-color 0.3s ease;
+
+  a {
+    color: #fff;
+    transition: color 0.3s ease;
+
+    svg {
+      path {
+        fill: #fff;
+        transition: fill 0.3s ease;
+      }
+    }
+  }
+}
