@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { NoSpecializationAddedComponent } from "../../../features/specializations/no-specialization-added/no-specialization-added.component";
 
 @Component({
   selector: 'app-specialization-management',
   standalone: true,
-  imports: [],
+  imports: [NoSpecializationAddedComponent],
   templateUrl: './specialization-management.component.html',
   styleUrl: './specialization-management.component.scss'
 })
