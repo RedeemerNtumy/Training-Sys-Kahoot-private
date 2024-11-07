@@ -20,13 +20,13 @@ export const trainerRoutes: Routes = [
     data: { role: 'trainerer' }
   },
   {
-    path: 'grades',
+    path: 'grade-management',
     loadComponent : ()=> import('../../views/trainer/grade-management/grade-management.component')
     .then(m => m.GradeManagementComponent),
     data: { role: 'trainerer' }
   },
   {
-    path: 'trainees',
+    path: 'trainee-management',
     loadComponent: () => import('../../views/trainer/trainee-management/trainee-management.component')
     .then(m => m.TraineeManagementComponent),
     data: { role: 'trainer' }
