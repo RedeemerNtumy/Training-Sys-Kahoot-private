@@ -41,7 +41,8 @@ export class HeaderComponent implements AfterViewInit, OnInit {
     this.router.events
     .pipe(filter(event => event instanceof NavigationEnd))
     .subscribe(() => {
-      const currentPath = this.router.url.slice(1);
+      const urlSegments = this.router.url.split('/');
+      const currentPath = urlSegments[urlSegments.length - 1];
 
       this.routeName = currentPath
         .split('-')
