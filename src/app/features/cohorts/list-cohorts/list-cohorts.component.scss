@@ -10,7 +10,7 @@
  
     .no-cohorts { 
         width: 611px;
-        height: 445px;
+        height: fit-content;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -44,7 +44,7 @@
             }
         }
 
-        & button.btn {
+        & .create-btn {
             font-size: $font-size-subtitle-2;
             height: 5.5rem;
         }
