@@ -1,3 +1,5 @@
+@import '../../../../styleSheet/variables';
+@import '../../../../styleSheet/button';
 
 .container {
     width: 100%;
@@ -5,8 +7,8 @@
     justify-content: center;
     overflow-y: scroll;
     padding-top: 5rem;
-
-    .no-cohorts {
+ 
+    .no-cohorts { 
         width: 611px;
         height: 445px;
         display: flex;
@@ -29,15 +31,26 @@
 
             & span {
                 text-align: center;
+                font-size: $font-size-title;
+                font-weight: 600;
+                color: $clr-gray-800;
             }
 
             & p {
                 text-align: center;
+                font-size: $font-size-body;
+                font-weight: 400;
+                color: $clr-gray-500;
             }
+        }
+
+        & button.btn {
+            font-size: $font-size-subtitle-2;
+            height: 5.5rem;
         }
     } // No cohorts div ends here
 
-    .container-with-list {
+    .container-with-list { 
         & app-search {
             margin-bottom: 16.5px;
         }
@@ -46,7 +59,7 @@
             margin-bottom: 36px;
             width: 100%;
             height: 1px;
-            background: $grey100;
+            background: $clr-gray-100;
         }
 
         & .list-wrapper {
@@ -55,6 +68,9 @@
             & .headers {
                 display: flex;
                 margin-bottom: 44px;
+                font-size: $font-size-subtitle-2;
+                font-weight: 600;
+                color: $clr-gray-700;
 
                 & div:nth-child(1) {
                     width: 230px;
@@ -76,7 +92,10 @@
             & .list {
                 height: 50px;
                 display: flex;
-                background: $white;
+                background: $clr-white;
+                font-size: $font-size-xbody;
+                font-weight: 400;
+                color: $clr-gray-500;
 
                 & .cohort-name {
                     width: 230px;
@@ -104,6 +123,7 @@
 
 
                     & .image-wrapper {
+                        display: flex;
 
                         & > img {
                             border-radius: 50%;
@@ -134,6 +154,13 @@
                     display: flex;
                     align-items: center;
                 }
+            }
+
+            & .cohort-list-dividers {
+                width: 100%;
+                height: 1px;
+                background: $clr-gray-50;
+                margin: 24px 0;
             }
         }
 
