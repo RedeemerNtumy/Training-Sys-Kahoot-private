@@ -1,0 +1,143 @@
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow-y: scroll;
+    padding-top: 5rem;
+
+    .no-cohorts {
+        width: 611px;
+        height: 445px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        & .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 44px;
+            
+            margin-top: 75px;
+
+            & img {
+                width: 191px;
+                height: 191px;
+            }
+
+            & span {
+                text-align: center;
+            }
+
+            & p {
+                text-align: center;
+            }
+        }
+    } // No cohorts div ends here
+
+    .container-with-list {
+        & app-search {
+            margin-bottom: 16.5px;
+        }
+        
+        & .divider {
+            margin-bottom: 36px;
+            width: 100%;
+            height: 1px;
+            background: $grey100;
+        }
+
+        & .list-wrapper {
+            width: 100%;
+
+            & .headers {
+                display: flex;
+                margin-bottom: 44px;
+
+                & div:nth-child(1) {
+                    width: 230px;
+                }
+
+                & div:nth-child(2) {
+                    width: 150px;
+                }
+
+                & div:nth-child(3) {
+                    width: 150px;
+                }
+
+                & div:nth-child(4) {
+                    width: 200px;
+                }
+            }
+
+            & .list {
+                height: 50px;
+                display: flex;
+                background: $white;
+
+                & .cohort-name {
+                    width: 230px;
+                    display: flex;
+                    align-items: center;
+                }
+
+                & .start-date {
+                    width: 150px;
+                    display:flex;
+                    align-items: center;
+                }
+
+                & .end-date {
+                    width: 150px;
+                    display: flex;
+                    align-items: center;
+                }
+
+                & .images {
+                    width: 390px;
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+
+
+                    & .image-wrapper {
+
+                        & > img {
+                            border-radius: 50%;
+                            width: 32px;
+                            position: relative;
+                        }
+
+                        & img:nth-child(1) {
+                            border-radius: 50%;
+                        }
+                        & img:nth-child(2) {
+                            border-radius: 50%;
+                            left: -10px;
+                        }
+                        & img:nth-child(3) {
+                            border-radius: 50%;
+                            left: -20px;
+                        }
+                        & img:nth-child(4) {
+                            border-radius: 50%;
+                            left: -30px;
+                        }
+
+                    }
+                }
+
+                & .ellipsis {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+
+    }
+
+
+}
