@@ -16,7 +16,6 @@ export class CohortDataService {
   getAllCohorts(): Observable<CohortList[]>{
     // return this.http.get<Cohort[]>(this.apiUrl);
     return this.http.get<CohortList[]>(this.mockjson);
-    
   }
 
   addCohort(formData: Cohort) {

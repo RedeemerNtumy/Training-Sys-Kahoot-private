@@ -10,5 +10,5 @@ export interface CohortList {
     cohort: string,
     startDate: Date,
     endDate: Date,
-    description: string,
+    traineesEnrolled: string,
 }
