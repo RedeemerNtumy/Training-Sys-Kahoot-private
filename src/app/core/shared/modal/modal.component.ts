@@ -10,9 +10,9 @@ import { ModalService } from '../../services/modal/modal.service';
 })
 export class ModalComponent {
 
-  @Input() icon: string = '../../../../../assets/images/Approval 5.png';
-  @Input() title: string = 'something';
-  @Input() description: string = 'something working here?';
+  @Input() icon!: string;
+  @Input() title!: string;
+  @Input() description!: string;
 
   constructor(
     public modalService: ModalService,
