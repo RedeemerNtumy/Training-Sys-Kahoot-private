@@ -1,27 +1,122 @@
 [
-    {
-      "cohort": "Cohort 1",
-      "startDate": "2023-01-15",
-      "endDate": "2023-06-15",
-      "traineesEnrolled": "300 people enroled"
-    },
-    {
-      "cohort": "Cohort 2",
-      "startDate": "2023-07-01",
-      "endDate": "2023-12-01",
-      "traineesEnrolled": 25
-    },
-    {
-      "cohort": "Cohort 3",
-      "startDate": "2024-01-10",
-      "endDate": "2024-06-10",
-      "traineesEnrolled": 28
-    },
-    {
-      "cohort": "Cohort 4",
-      "startDate": "2024-07-05",
-      "endDate": "2024-12-05",
-      "traineesEnrolled": 32
-    }
-  ]
-  
+  {
+    "cohort": "Cohort 1",
+    "startDate": "2023-01-15",
+    "endDate": "2023-06-15",
+    "traineesEnrolled": "300 people enrolled"
+  },
+  {
+    "cohort": "Cohort 2",
+    "startDate": "2023-02-01",
+    "endDate": "2023-07-01",
+    "traineesEnrolled": "250 people enrolled"
+  },
+  {
+    "cohort": "Cohort 3",
+    "startDate": "2023-03-01",
+    "endDate": "2023-08-01",
+    "traineesEnrolled": "275 people enrolled"
+  },
+  {
+    "cohort": "Cohort 4",
+    "startDate": "2023-04-10",
+    "endDate": "2023-09-10",
+    "traineesEnrolled": "220 people enrolled"
+  },
+  {
+    "cohort": "Cohort 5",
+    "startDate": "2023-05-01",
+    "endDate": "2023-10-01",
+    "traineesEnrolled": "300 people enrolled"
+  },
+  {
+    "cohort": "Cohort 6",
+    "startDate": "2023-06-01",
+    "endDate": "2023-11-01",
+    "traineesEnrolled": "310 people enrolled"
+  },
+  {
+    "cohort": "Cohort 7",
+    "startDate": "2023-07-01",
+    "endDate": "2023-12-01",
+    "traineesEnrolled": "280 people enrolled"
+  },
+  {
+    "cohort": "Cohort 8",
+    "startDate": "2023-08-15",
+    "endDate": "2024-01-15",
+    "traineesEnrolled": "350 people enrolled"
+  },
+  {
+    "cohort": "Cohort 9",
+    "startDate": "2023-09-01",
+    "endDate": "2024-02-01",
+    "traineesEnrolled": "270 people enrolled"
+  },
+  {
+    "cohort": "Cohort 10",
+    "startDate": "2023-10-01",
+    "endDate": "2024-03-01",
+    "traineesEnrolled": "320 people enrolled"
+  },
+  {
+    "cohort": "Cohort 11",
+    "startDate": "2023-11-10",
+    "endDate": "2024-04-10",
+    "traineesEnrolled": "300 people enrolled"
+  },
+  {
+    "cohort": "Cohort 12",
+    "startDate": "2023-12-01",
+    "endDate": "2024-05-01",
+    "traineesEnrolled": "340 people enrolled"
+  },
+  {
+    "cohort": "Cohort 13",
+    "startDate": "2024-01-10",
+    "endDate": "2024-06-10",
+    "traineesEnrolled": "250 people enrolled"
+  },
+  {
+    "cohort": "Cohort 14",
+    "startDate": "2024-02-15",
+    "endDate": "2024-07-15",
+    "traineesEnrolled": "300 people enrolled"
+  },
+  {
+    "cohort": "Cohort 15",
+    "startDate": "2024-03-01",
+    "endDate": "2024-08-01",
+    "traineesEnrolled": "310 people enrolled"
+  },
+  {
+    "cohort": "Cohort 16",
+    "startDate": "2024-04-05",
+    "endDate": "2024-09-05",
+    "traineesEnrolled": "280 people enrolled"
+  },
+  {
+    "cohort": "Cohort 17",
+    "startDate": "2024-05-10",
+    "endDate": "2024-10-10",
+    "traineesEnrolled": "330 people enrolled"
+  },
+  {
+    "cohort": "Cohort 18",
+    "startDate": "2024-06-01",
+    "endDate": "2024-11-01",
+    "traineesEnrolled": "250 people enrolled"
+  },
+  {
+    "cohort": "Cohort 19",
+    "startDate": "2024-07-01",
+    "endDate": "2024-12-01",
+    "traineesEnrolled": "300 people enrolled"
+  },
+  {
+    "cohort": "Cohort 20",
+    "startDate": "2024-08-01",
+    "endDate": "2025-01-01",
+    "traineesEnrolled": "320 people enrolled"
+  }
+]

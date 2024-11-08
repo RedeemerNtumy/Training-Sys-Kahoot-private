@@ -77,11 +77,11 @@
                 }
 
                 & div:nth-child(2) {
-                    width: 150px;
+                    width: 170px;
                 }
 
                 & div:nth-child(3) {
-                    width: 150px;
+                    width: 170px; 
                 }
 
                 & div:nth-child(4) {
@@ -104,15 +104,17 @@
                 }
 
                 & .start-date {
-                    width: 150px;
+                    width: 170px;
                     display:flex;
                     align-items: center;
+                    gap: 1rem;
                 }
 
                 & .end-date {
-                    width: 150px;
+                    width: 170px;
                     display: flex;
                     align-items: center;
+                    gap: 1rem;
                 }
 
                 & .images {
