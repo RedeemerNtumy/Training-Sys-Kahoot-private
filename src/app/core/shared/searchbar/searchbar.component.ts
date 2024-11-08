@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-searchbar',
@@ -8,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './searchbar.component.scss'
 })
 export class SearchbarComponent {
+  
+  @Input() title: string = 'Cohort';
+  @Input() placeholder: string = 'Name';
+  @Input() buttonContent: string = 'Add Cohort';
+
+  constructor() {}
 
 }
