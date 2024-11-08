@@ -1,1 +1,69 @@
-<p>create-specialization works!</p>
+<section class="create" [formGroup]="specializationForm">
+  <div class="nav">
+    <img src="../../../../assets/Images/svg/backicon.svg" alt="">
+    <p class="back-link">Back</p>
+  </div>
+
+  <div class="create-info-head">
+    <h3>Specialization Information</h3>
+    <p>
+      Provide the specialization name and a brief description to define the focus area for trainees.
+      This will help organize and assign trainees to the appropriate specialization.
+    </p>
+  </div>
+
+  <div class="spec-type-field">
+    <h4>Type of specialization</h4>
+    <span>*</span>
+    <p>A clear and concise name for the specialization</p>
+    <input
+      type="text"
+      placeholder="Enter specialization name"
+      formControlName="name">
+  </div>
+
+  <div class="spec-type-field">
+    <h4>Description</h4>
+    <span>*</span>
+    <p>
+      A brief description of the specialization outlining its focus areas, objectives,
+      or the skills/competencies that trainees will gain
+    </p>
+    <textarea
+      placeholder="Enter specialization description"
+      rows="8"
+      formControlName="description">
+    </textarea>
+
+  </div>
+
+  <div class="spec-type-field prerequisite">
+    <h4>Prerequisite</h4>
+    <span>*</span>
+    <p>
+      Any prerequisite knowledge or skills required
+      before a trainee can be assigned to the specialization
+    </p>
+
+    <div formArrayName="prerequisites">
+      <div class=" skill-input-container" *ngFor="let skill of skills.controls; let i = index">
+        <div [formGroupName]="i">
+          <input
+            type="text"
+            placeholder="Add Skill; UI/UX, QA..."
+            formControlName="skill">
+
+        </div>
+      </div>
+    </div>
+
+    <button type="button" (click)="addSkills()" class="add-skill-btn">Add Skill</button>
+  </div>
+
+  <button
+    type="button"
+    class="add-spec-btn"
+    (click)="createSpecialization()">
+    Create Specialization
+  </button>
+</section>

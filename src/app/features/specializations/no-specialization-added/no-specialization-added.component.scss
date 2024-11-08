@@ -2,12 +2,13 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
   .empty-hint{
     border-radius: .8rem;
     background-color: #fff;
+    margin-top: 7.5rem;
+    // margin-left: 19.8rem;
     padding: 1.6rem;
-    width: 100%;
+    width: 57.9rem;
     display: flex;
     flex-direction: column;
     gap: 4.4rem;
@@ -38,6 +39,9 @@
       background-color: #F98416;
       padding-block: 1.6rem;
       border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      cursor: pointer;
     }
   }
 }
