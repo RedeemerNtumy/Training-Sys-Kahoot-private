@@ -14,7 +14,7 @@ export class ModalService {
 
   closeModal() {
     this.toggleSuccessModal();
-    this.router.navigateByUrl('/cohorts-list');
+    this.router.navigate(['/home/admin/cohorts']);
   }
 
   toggleSuccessModal() {

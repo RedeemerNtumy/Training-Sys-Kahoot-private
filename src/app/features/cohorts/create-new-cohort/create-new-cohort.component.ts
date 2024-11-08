@@ -91,7 +91,7 @@ export class CreateNewCohortComponent {
 
   // Navigate to list of cohorts
   goBack() {
-    this.router.navigateByUrl('/cohorts-list')
+    this.router.navigate(['/home/admin/cohorts'])
   }
 
 }

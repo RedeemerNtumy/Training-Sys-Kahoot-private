@@ -10,11 +10,13 @@ export class CohortDataService {
 
   apiUrl: string = '';
   private mockjson = 'assets/mockjson.json' ;
+  private mockjsonempty = 'assets/mockjsonempty.json' ;
 
   constructor(private http: HttpClient) { }
 
   getAllCohorts(): Observable<CohortList[]>{
     // return this.http.get<Cohort[]>(this.apiUrl);
+    // return this.http.get<CohortList[]>(this.mockjsonempty);
     return this.http.get<CohortList[]>(this.mockjson);
   }
 

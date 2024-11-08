@@ -4,12 +4,12 @@ import { Cohort, CohortList } from '../../../core/models/cohort.interface';
 import { Observable } from 'rxjs';
 import { AsyncPipe, NgFor, NgIf, } from '@angular/common';
 import { SearchbarComponent } from '../../../core/shared/searchbar/searchbar.component';
-import { Router } from '@angular/router';
+import { Router, } from '@angular/router';
 
 @Component({
   selector: 'app-list-cohorts',
   standalone: true,
-  imports: [AsyncPipe, NgFor, NgIf, SearchbarComponent],
+  imports: [AsyncPipe, NgFor, NgIf, SearchbarComponent,],
   templateUrl: './list-cohorts.component.html',
   styleUrl: './list-cohorts.component.scss'
 })
@@ -27,7 +27,7 @@ export class ListCohortsComponent {
   }
 
   goToCreateCohort() {
-    this.router.navigateByUrl('/create-cohort');
+    this.router.navigate(['home/admin/cohorts/create-cohort'])
   }
 
 

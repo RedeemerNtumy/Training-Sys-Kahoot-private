@@ -31,14 +31,18 @@ export const adminRoutes: Routes = [
   {
     path: 'cohorts',
     loadComponent: () => import('./cohorts/cohorts-management.component')
-    .then(m => m.CohortsManagementComponent),
+      .then(m => m.CohortsManagementComponent),
     data: { role: 'admin' },
     children: [
       {
+        path: '',
+        loadComponent: () => import('../../features/cohorts/list-cohorts/list-cohorts.component')
+          .then(m => m.ListCohortsComponent),
+      },
+      {
         path: 'create-cohort',
-        loadChildren: () => import('../../features/cohorts/create-new-cohort/create-new-cohort.component')
-        .then(m => m.CreateNewCohortComponent),
-        // data: { role: 'admin' }
+        loadComponent: () => import('../../features/cohorts/create-new-cohort/create-new-cohort.component')
+          .then(m => m.CreateNewCohortComponent),
       },
     ]
   },

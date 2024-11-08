@@ -11,7 +11,12 @@
         <!-- no-cohorts ends here -->
 
         <div class="container-with-list" *ngIf="(cohortsList$ | async)?.length !== 0">
-            <app-searchbar [title]="'Cohort'" [placeholder]="'Name'" [hide]="true" />
+            <app-searchbar 
+                [title]="'Cohort'" 
+                [placeholder]="'Name'" 
+                [hide]="true"
+                (addCohortClicked)="goToCreateCohort()"
+            />
             <div class="divider"></div>
             <div class="list-wrapper">
                 <div class="headers">
