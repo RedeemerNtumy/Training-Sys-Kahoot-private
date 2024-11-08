@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { UserRoleService } from '../../core/services/user-role/user-role.service';
@@ -11,16 +11,16 @@ import { TitleCasePipe, UpperCasePipe } from '@angular/common';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements AfterViewInit, OnInit {
+export class HeaderComponent implements OnInit {
   canUseBtn!: boolean;
   dropDownClicked: boolean = false;
   routeName!: string;
   userRole!: string;
 
   constructor(
-    private el: ElementRef,
     private router: Router, 
     private userRoleService: UserRoleService,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   toggleDropDownBtn() {
@@ -28,16 +28,6 @@ export class HeaderComponent implements AfterViewInit, OnInit {
   }
 
   // After View is initialized, check for the existence of class '.plus-btn-checker'
-  ngAfterViewInit(): void {
-    const targetElement = this.el.nativeElement.querySelector('.plus-btn-checker');
-
-    if(targetElement && targetElement.classList.contains('plus-btn-checker')) {
-      this.canUseBtn = true;
-    }
-    else {
-      this.canUseBtn = false;
-    }
-  }
 
   ngOnInit(): void {
     // Get user role
@@ -50,8 +40,23 @@ export class HeaderComponent implements AfterViewInit, OnInit {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.updateRouteName(); // Update route name when navigation ends
+        this.updateRouteName();
+        this.runAfterViewInitLogic();
       });
+
+  }
+
+  private runAfterViewInitLogic(): void {
+    const targetElement = document.querySelector('.plus-btn-checker');
+
+    if (targetElement && targetElement.classList.contains('plus-btn-checker')) {
+      this.canUseBtn = true;
+    } else {
+      this.canUseBtn = false;
+    }
+
+    // Manually trigger change detection after making the change
+    this.cdRef.detectChanges();
   }
 
   // Helper method to update route name
