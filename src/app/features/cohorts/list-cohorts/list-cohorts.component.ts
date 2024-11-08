@@ -15,11 +15,12 @@ import { Router, } from '@angular/router';
 })
 export class ListCohortsComponent {
   
-  cohortsList$!: Observable<CohortList[]> | null;
+  cohortsList$!: Observable<CohortList[]>;  
 
   constructor(
     private cohortDataService: CohortDataService, 
     private router: Router,
+    
   ) {}
 
   ngOnInit() {
