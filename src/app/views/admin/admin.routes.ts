@@ -32,14 +32,16 @@ export const adminRoutes: Routes = [
     path: 'cohorts',
     loadComponent: () => import('./cohorts/cohorts-management.component')
     .then(m => m.CohortsManagementComponent),
-    data: { role: 'admin' }
+    data: { role: 'admin' },
+    children: [
+      {
+        path: 'create-cohort',
+        loadChildren: () => import('../../features/cohorts/create-new-cohort/create-new-cohort.component')
+        .then(m => m.CreateNewCohortComponent),
+        // data: { role: 'admin' }
+      },
+    ]
   },
-  // {
-  //   path: 'create-cohort',
-  //   loadComponent: () => import('./cohorts/cohorts-management.component')
-  //   .then(m => m.CohortsManagementComponent),
-  //   data: { role: 'admin' }
-  // },
   {
     path: 'progress-tracking',
     loadComponent: () => import('./progress-tracking/progress-tracking.component')

@@ -25,12 +25,12 @@ export const adminRoutes: Routes = [
       .then(m => m.SpecializationManagementComponent),
     data: { role: 'admin' }
   },
-  {
-    path: 'cohorts',
-    loadComponent: () => import('../../views/admin/cohorts/cohorts-management.component')
-    .then(m => m.CohortsManagementComponent),
-    data: { role: 'admin' },
-  },
+  // {
+  //   path: 'cohorts',
+  //   loadComponent: () => import('../../views/admin/cohorts/cohorts-management.component')
+  //   .then(m => m.CohortsManagementComponent),
+  //   data: { role: 'admin' },
+  // },
   {
     path: 'progress-tracking',
     loadComponent: () => import('../../views/admin/progress-tracking/progress-tracking.component')
