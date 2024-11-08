@@ -1,9 +1,4 @@
-<section class="create" [formGroup]="specializationForm">
-  <div class="nav">
-    <img src="../../../../assets/Images/svg/backicon.svg" alt="">
-    <p class="back-link">Back</p>
-  </div>
-
+<form [formGroup]="specializationForm">
   <div class="create-info-head">
     <h3>Specialization Information</h3>
     <p>
@@ -34,10 +29,9 @@
       rows="8"
       formControlName="description">
     </textarea>
-
   </div>
 
-  <div class="spec-type-field prerequisite">
+  <div class="spec-type-field">
     <h4>Prerequisite</h4>
     <span>*</span>
     <p>
@@ -46,24 +40,25 @@
     </p>
 
     <div formArrayName="prerequisites">
-      <div class=" skill-input-container" *ngFor="let skill of skills.controls; let i = index">
+      <div class="skill-input-container" *ngFor="let skill of skills.controls; let i = index">
         <div [formGroupName]="i">
           <input
             type="text"
-            placeholder="Add Skill; UI/UX, QA..."
+            placeholder="Add Skill: UI/UX, QA,DS..."
             formControlName="skill">
-
+            <img class="close" src="../../../../../assets/Images/svg/close.svg" alt="" (click)="removeSkill(i)">
         </div>
       </div>
     </div>
 
-    <button type="button" (click)="addSkills()" class="add-skill-btn">Add Skill</button>
+    <button  mat-button type="button" (click)="addSkills()" class="add-skill-btn">
+      <!-- <img src="../../../../../assets/Images/svg/add.svg" alt=""> -->
+      Add Skill
+    </button>
   </div>
 
-  <button
-    type="button"
-    class="add-spec-btn"
-    (click)="createSpecialization()">
+  <button mat-button type="button"   class="add-spec-btn"  (click)="createSpecialization()">
     Create Specialization
   </button>
-</section>
+
+</form>
