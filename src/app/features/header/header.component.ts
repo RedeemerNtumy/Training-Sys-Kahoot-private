@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { UserRoleService } from '../../core/services/user-role/user-role.service';
@@ -16,6 +16,8 @@ export class HeaderComponent implements OnInit {
   dropDownClicked: boolean = false;
   routeName!: string;
   userRole!: string;
+
+  @Output() activatePlusBtn = new EventEmitter<void>();
 
   constructor(
     private router: Router, 
@@ -44,6 +46,11 @@ export class HeaderComponent implements OnInit {
         this.runAfterViewInitLogic();
       });
 
+  }
+
+  // trigger emitter 
+  triggerPlusBtn() {
+    this.activatePlusBtn.emit();
   }
 
   private runAfterViewInitLogic(): void {

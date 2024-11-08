@@ -2,7 +2,7 @@
     <span class="tab">{{ routeName }}</span>
     <div class="right-section">
         <div class="icons">
-            <div [class]="canUseBtn? 'btnEnabled': 'btnDisabled'">
+            <div [class]="canUseBtn? 'btnEnabled': 'btnDisabled'" (click)="triggerPlusBtn()">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8.19481 1.15361C8.19481 0.593304 7.74214 0.140625 7.18183 0.140625C6.62152 0.140625 6.16884 0.593304 6.16884 1.15361V5.71205H1.6104C1.05009 5.71205 0.597412 6.16473 0.597412 6.72504C0.597412 7.28535 1.05009 7.73803 1.6104 7.73803H6.16884V12.2965C6.16884 12.8568 6.62152 13.3095 7.18183 13.3095C7.74214 13.3095 8.19481 12.8568 8.19481 12.2965V7.73803H12.7533C13.3136 7.73803 13.7662 7.28535 13.7662 6.72504C13.7662 6.16473 13.3136 5.71205 12.7533 5.71205H8.19481V1.15361Z" fill="white"/>
                 </svg>
