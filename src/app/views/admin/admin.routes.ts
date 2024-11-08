@@ -29,17 +29,17 @@ export const adminRoutes: Routes = [
     data: { role: 'admin' }
   },
   {
-    path: 'list-cohorts',
+    path: 'cohorts',
     loadComponent: () => import('./cohorts/cohorts-management.component')
     .then(m => m.CohortsManagementComponent),
     data: { role: 'admin' }
   },
-  {
-    path: 'new-cohorts',
-    loadComponent: () => import('./cohorts/cohorts-management.component')
-    .then(m => m.CohortsManagementComponent),
-    data: { role: 'admin' }
-  },
+  // {
+  //   path: 'create-cohort',
+  //   loadComponent: () => import('./cohorts/cohorts-management.component')
+  //   .then(m => m.CohortsManagementComponent),
+  //   data: { role: 'admin' }
+  // },
   {
     path: 'progress-tracking',
     loadComponent: () => import('./progress-tracking/progress-tracking.component')

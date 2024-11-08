@@ -4,6 +4,7 @@ import { Cohort, CohortList } from '../../../core/models/cohort.interface';
 import { Observable } from 'rxjs';
 import { AsyncPipe, NgFor, NgIf, } from '@angular/common';
 import { SearchbarComponent } from '../../../core/shared/searchbar/searchbar.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-cohorts',
@@ -18,11 +19,17 @@ export class ListCohortsComponent {
 
   constructor(
     private cohortDataService: CohortDataService, 
+    private router: Router,
   ) {}
 
   ngOnInit() {
     this.cohortsList$ = this.cohortDataService.getAllCohorts()
   }
+
+  goToCreateCohort() {
+    this.router.navigateByUrl('/create-cohort');
+  }
+
 
 
 }
