@@ -19,18 +19,16 @@
           placeholder="Enter new password"
           formControlName="password"
         />
-        <div *ngIf="showPasswordError" class="message warning">
-          <div class="top">
-            <div style="width: 1.467rem">
-              <img src="assets/Images/png/warning.png" alt="" />
-            </div>
-            <p>Password requirements</p>
-          </div>
-          <ul class="list">
-            <li>Your password must be at least 8 characters long.</li>
-            <li>And include a mix of letters, numbers, and symbols</li>
-          </ul>
-        </div>
+
+        <app-message
+          *ngIf="showPasswordError"
+          type="warning"
+          title="Password requirement"
+          [message]="[
+            'Your password must be at least 8 characters long.',
+            'And include a mix of letters, numbers, and symbols'
+          ]"
+        />
 
         <app-input-field
           label="Confirm Password"
@@ -38,42 +36,25 @@
           placeholder="Confirm new password"
           formControlName="confirmPassword"
         />
-        <div
-          class="message error"
-          *ngIf="userCreationForm.errors?.['mismatch'] && (userCreationForm.get('confirmPassword')?.touched || userCreationForm.get('confirmPassword')?.dirty)"
-        >
-          <div class="top">
-            <div style="width: 1.467rem">
-              <img src="assets/Images/png/error.png" alt="" />
-            </div>
-            <p>Error</p>
-          </div>
-          <p class="list">The password entered doesn't match</p>
-        </div>
 
-        <div *ngIf="successMessage" class="message success">
-          <div class="top">
-            <div style="width: 1.467rem">
-              <img src="assets/Images/png/success.png" alt="" />
-            </div>
-            <p>Success</p>
-          </div>
-          <p class="list">
-            {{ successMessage }}
-          </p>
-        </div>
+        @if (userCreationForm.errors?.['mismatch'] &&
+        (userCreationForm.get('confirmPassword')?.touched ||
+        userCreationForm.get('confirmPassword')?.dirty)) {
 
-        <div *ngIf="errorMessage" class="message error">
-          <div class="top">
-            <div style="width: 1.467rem">
-              <img src="assets/Images/png/error.png" alt="" />
-            </div>
-            <p>Error</p>
-          </div>
-          <p class="list">
-            {{ errorMessage }}
-          </p>
-        </div>
+        <app-message
+          type="error"
+          title="Error"
+          message="The password entered doesn't match"
+        />
+        } @if (successMessage) {
+        <app-message
+          type="success"
+          title="Success"
+          [message]="successMessage"
+        />
+        } @if (errorMessage) {
+        <app-message title="Error" type="error" [message]="errorMessage" />
+        }
       </div>
 
       <div class="button-div">
