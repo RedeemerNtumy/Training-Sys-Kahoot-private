@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { ModalService } from '../../../core/services/modal/modal.service';
 import { ModalComponent } from '../../../core/shared/modal/modal.component';
+import { CohortDataService } from '../../../core/services/cohort-data/cohort-data.service';
 
 @Component({
   selector: 'app-create-new-cohort',
@@ -28,6 +29,7 @@ export class CreateNewCohortComponent {
     private fb: FormBuilder,
     private router: Router,
     public modalService: ModalService,
+    public cohortDataService: CohortDataService,
   ) {}
 
   ngOnInit() {
@@ -71,7 +73,7 @@ export class CreateNewCohortComponent {
   onSubmit() {
     if(this.newCohortForm.valid) {
       console.log(this.newCohortForm.value)
-      // this.dataService.addCohort(this.newCohortForm.value).subscribe({
+      // this.cohortDataService.addCohort(this.newCohortForm.value).subscribe({
       //   next: (response) => {
       //     console.log('Data submitted successfully', response);
       //   },
