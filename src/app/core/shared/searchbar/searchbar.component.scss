@@ -1,0 +1,61 @@
+@import '../../../../styleSheet/variables';
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 94.6rem;
+    height: 7.6rem;
+
+    & p {
+        width: 11.6rem;
+    }
+
+    & .search-section {
+        width: 40.4rem;
+        height: 4.3rem;
+        border-radius: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 1.709rem;
+        border: 1px solid $clr-gray-100;
+        padding: 0 2.309rem;
+        margin-right: 4.25rem;
+       
+        & input {
+            width: 100%;
+            border: none;
+        }
+
+        & input:focus {
+            outline: none;
+            border: none;
+        }
+    }
+
+    & .sort-filter-add {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+
+        & .filter {
+            display: flex;
+            gap: 1.4rem;
+        }
+
+        & .sort {
+            display: flex;
+            gap: 1.4rem;
+        }
+
+        & button {
+            width: 16.7rem;
+            height: 4.3rem;
+            border-radius: 0.8rem;
+            color: $clr-white;
+            background: $clr-primary-500;
+            border: none;
+        }
+    }
+}

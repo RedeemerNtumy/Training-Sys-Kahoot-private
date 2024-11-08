@@ -3,11 +3,12 @@ import { CohortDataService } from '../../../core/services/cohort-data/cohort-dat
 import { Cohort, CohortList } from '../../../core/models/cohort.interface';
 import { Observable } from 'rxjs';
 import { AsyncPipe, NgFor, } from '@angular/common';
+import { SearchbarComponent } from '../../../core/shared/searchbar/searchbar.component';
 
 @Component({
   selector: 'app-list-cohorts',
   standalone: true,
-  imports: [AsyncPipe, NgFor],
+  imports: [AsyncPipe, NgFor, SearchbarComponent],
   templateUrl: './list-cohorts.component.html',
   styleUrl: './list-cohorts.component.scss'
 })
