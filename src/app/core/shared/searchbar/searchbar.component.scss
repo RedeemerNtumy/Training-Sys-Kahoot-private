@@ -6,9 +6,13 @@
     justify-content: space-between;
     width: 94.6rem;
     height: 7.6rem;
+    
 
     & p {
         width: 11.6rem;
+        font-size: $font-size-subtitle;
+        font-weight: 600;
+        color: $clr-gray-700;
     }
 
     & .search-section {
@@ -21,41 +25,53 @@
         border: 1px solid $clr-gray-100;
         padding: 0 2.309rem;
         margin-right: 4.25rem;
+        background: $clr-white;
        
         & input {
             width: 100%;
             border: none;
+            background: transparent;
+            color: $clr-gray-500;
+            font-size: $font-size-body;
         }
 
         & input:focus {
             outline: none;
-            border: none;
+            border: $clr-primary-500;
+            background: transparent;
         }
     }
 
     & .sort-filter-add {
         display: flex;
-        gap: 1rem;
+        gap: 2.2rem;
         justify-content: center;
         align-items: center;
 
         & .filter {
             display: flex;
             gap: 1.4rem;
+            color: $clr-gray-400;
+            font-size: $font-size-body;
         }
 
         & .sort {
             display: flex;
             gap: 1.4rem;
+            color: $clr-gray-400;
+            font-size: $font-size-body;
         }
 
         & button {
+            font-family: $font-lato;
             width: 16.7rem;
             height: 4.3rem;
             border-radius: 0.8rem;
             color: $clr-white;
             background: $clr-primary-500;
             border: none;
+            font-weight: 500;
+            font-size: $font-size-body;
         }
     }
 }
