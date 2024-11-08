@@ -8,6 +8,7 @@ import { NoSpecializationAddedComponent } from "../../../features/specialization
   templateUrl: './specialization-management.component.html',
   styleUrl: './specialization-management.component.scss'
 })
+
 export class SpecializationManagementComponent {
 
 }
