@@ -80,6 +80,7 @@ export class CreateNewCohortComponent {
       //   }
       // }) 
       this.modalService.toggleSuccessModal()
+      this.newCohortForm.reset();
     }
     else {
       this.newCohortForm.markAllAsTouched();

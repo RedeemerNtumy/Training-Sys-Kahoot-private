@@ -29,7 +29,13 @@ export const adminRoutes: Routes = [
     data: { role: 'admin' }
   },
   {
-    path: 'cohorts',
+    path: 'list-cohorts',
+    loadComponent: () => import('./cohorts/cohorts-management.component')
+    .then(m => m.CohortsManagementComponent),
+    data: { role: 'admin' }
+  },
+  {
+    path: 'new-cohorts',
     loadComponent: () => import('./cohorts/cohorts-management.component')
     .then(m => m.CohortsManagementComponent),
     data: { role: 'admin' }
