@@ -5,3 +5,10 @@ export interface Cohort {
     endDate: Date,
     description: string,
 }
+
+export interface CohortList {
+    cohort: string,
+    startDate: Date,
+    endDate: Date,
+    description: string,
+}

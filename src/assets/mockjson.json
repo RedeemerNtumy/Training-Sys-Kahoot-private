@@ -1,0 +1,27 @@
+[
+    {
+      "cohort": "Cohort 1",
+      "startDate": "2023-01-15",
+      "endDate": "2023-06-15",
+      "traineesEnrolled": 30
+    },
+    {
+      "cohort": "Cohort 2",
+      "startDate": "2023-07-01",
+      "endDate": "2023-12-01",
+      "traineesEnrolled": 25
+    },
+    {
+      "cohort": "Cohort 3",
+      "startDate": "2024-01-10",
+      "endDate": "2024-06-10",
+      "traineesEnrolled": 28
+    },
+    {
+      "cohort": "Cohort 4",
+      "startDate": "2024-07-05",
+      "endDate": "2024-12-05",
+      "traineesEnrolled": 32
+    }
+  ]
+  

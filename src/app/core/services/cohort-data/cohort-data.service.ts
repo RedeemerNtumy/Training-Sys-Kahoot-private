@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Cohort } from '../../models/cohort.interface';
+import { Cohort, CohortList } from '../../models/cohort.interface';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,14 @@ import { HttpClient } from '@angular/common/http';
 export class CohortDataService {
 
   apiUrl: string = '';
+  private mockjson = 'assets/mockjson.json' ;
 
   constructor(private http: HttpClient) { }
 
-  getAllCohorts() {
-    return this.http.get<Cohort[]>(this.apiUrl);
+  getAllCohorts(): Observable<CohortList[]>{
+    // return this.http.get<Cohort[]>(this.apiUrl);
+    return this.http.get<CohortList[]>(this.mockjson);
+    
   }
 
   addCohort(formData: Cohort) {
