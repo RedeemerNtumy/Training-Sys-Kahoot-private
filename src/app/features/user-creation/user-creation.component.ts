@@ -5,17 +5,23 @@ import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserCreationService } from '../../core/services/user-creation/user-creation.service';
 import { debounceTime, distinctUntilChanged, takeUntil, Subject } from 'rxjs';
+import { MessageComponent } from '../../core/shared/message/message.component';
+import { PasswordValidator } from '../../core/services/passwordValidator/password-validator.service';
 
 @Component({
   selector: 'app-user-creation',
   standalone: true,
-  imports: [InputFieldComponent, ReactiveFormsModule, CommonModule],
+  imports: [
+    InputFieldComponent,
+    ReactiveFormsModule,
+    CommonModule,
+    MessageComponent,
+  ],
   templateUrl: './user-creation.component.html',
   styleUrls: ['./user-creation.component.scss'],
 })
@@ -25,7 +31,7 @@ export class UserCreationComponent implements OnInit, OnDestroy {
   successMessage = '';
   errorMessage = '';
   isLoading = false;
-  private unsubscribe$ = new Subject<void>();
+  private readonly unsubscribe$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +40,7 @@ export class UserCreationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
-    this.setupPasswordValidation();
+    this.setupFormValidation();
   }
 
   private initForm() {
@@ -52,37 +58,39 @@ export class UserCreationComponent implements OnInit, OnDestroy {
         ],
         confirmPassword: ['', [Validators.required]],
       },
-      { validators: this.matchPassword }
+      { validators: PasswordValidator.matchPassword }
     );
-
-    this.userCreationForm
-      .get('password')
-      ?.valueChanges.pipe(debounceTime(500), takeUntil(this.unsubscribe$))
-      .subscribe(() =>
-        this.userCreationForm.get('confirmPassword')?.updateValueAndValidity()
-      );
   }
 
-  private matchPassword(control: AbstractControl): ValidationErrors | null {
-    const password = control.get('password')?.value;
-    const confirmPassword = control.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { mismatch: true };
-  }
-
-  private setupPasswordValidation() {
+  private setupFormValidation() {
     const passwordControl = this.userCreationForm.get('password');
-    if (passwordControl) {
+    const confirmPasswordControl = this.userCreationForm.get('confirmPassword');
+
+    if (passwordControl && confirmPasswordControl) {
       passwordControl.valueChanges
         .pipe(
-          debounceTime(2000),
+          debounceTime(1000),
           distinctUntilChanged(),
           takeUntil(this.unsubscribe$)
         )
         .subscribe(() => {
-          this.showPasswordError =
-            passwordControl.invalid &&
-            (passwordControl.touched || passwordControl.dirty);
+          confirmPasswordControl.updateValueAndValidity();
+          this.updatePasswordErrorState(passwordControl);
         });
+
+      passwordControl.statusChanges
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe(() => {
+          this.updatePasswordErrorState(passwordControl);
+        });
+    }
+  }
+
+  private updatePasswordErrorState(passwordControl: AbstractControl | null) {
+    if (passwordControl) {
+      this.showPasswordError =
+        passwordControl.invalid &&
+        (passwordControl.touched || passwordControl.dirty);
     }
   }
 
