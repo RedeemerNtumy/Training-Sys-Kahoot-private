@@ -9,9 +9,10 @@ import { Component, Input } from '@angular/core';
 })
 export class SearchbarComponent {
   
-  @Input() title: string = 'Cohort';
-  @Input() placeholder: string = 'Name';
+  @Input() title!: string; // eg. Cohort
+  @Input() placeholder!: string; //eg name
   @Input() buttonContent: string = 'Add Cohort';
+  @Input() hide!: boolean;
 
   constructor() {}
 
