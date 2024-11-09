@@ -53,10 +53,12 @@ export class ListCohortsComponent {
 
   setSelectedCohort(selectedCohort: CohortList) {
     this.cohortDataService.selectedCohortFromList$ = of(selectedCohort)
+    console.log(selectedCohort);
   }
 
 
-  toggleEllipsis(selectedCohort: string) {
+  toggleEllipsis(selectedCohort: string, event:Event) {
+    event.stopPropagation();
     this.selectedCohortName = this.selectedCohortName === selectedCohort ? null : selectedCohort;
     if(this.selectedCohortName === null) {
       this.ellipsisClicked = false;
