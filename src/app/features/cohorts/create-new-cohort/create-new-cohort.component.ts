@@ -28,7 +28,7 @@ export class CreateNewCohortComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    public modalService: ModalService,
+    // public modalService: ModalService,
     public cohortDataService: CohortDataService,
   ) {}
 
@@ -72,19 +72,8 @@ export class CreateNewCohortComponent {
   // Submit form
   onSubmit() {
     if(this.newCohortForm.valid) {
-      // console.log(this.newCohortForm.value)
       this.cohortDataService.createCohortFormData = this.newCohortForm.value;
-      this.router.navigate(['/home/admin/cohorts/edit-cohort'])
-      // this.cohortDataService.addCohort(this.newCohortForm.value).subscribe({
-      //   next: (response) => {
-      //     console.log('Data submitted successfully', response);
-      //   },
-      //   error: (error) => {
-      //     console.error('Error submitting data', error);
-      //   }
-      // }) 
-      this.modalService.toggleSuccessModal()
-      this.newCohortForm.reset();
+      this.router.navigate(['/home/admin/cohorts/edit-cohort']);
     }
     else {
       this.newCohortForm.markAllAsTouched();
