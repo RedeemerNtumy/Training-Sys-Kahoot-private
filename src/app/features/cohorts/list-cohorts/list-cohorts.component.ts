@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CohortDataService } from '../../../core/services/cohort-data/cohort-data.service';
 import { Cohort, CohortList } from '../../../core/models/cohort.interface';
-import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, map, of } from 'rxjs';
 import { AsyncPipe, NgFor, NgIf, } from '@angular/common';
 import { SearchbarComponent } from '../../../core/shared/searchbar/searchbar.component';
 import { Router, } from '@angular/router';
@@ -47,6 +47,11 @@ export class ListCohortsComponent {
       map((cohorts: CohortList[]) => cohorts.sort((a, b) => -1 - 1))
     )
   }
+
+  setSelectedCohort(selectedCohort: CohortList) {
+    this.cohortDataService.selectedCohortFromList$ = of(selectedCohort)
+  }
+
 
   goToCreateCohort() {
     this.router.navigate(['home/admin/cohorts/create-cohort'])

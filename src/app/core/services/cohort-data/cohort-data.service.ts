@@ -15,6 +15,8 @@ export class CohortDataService {
   private cohortFormDataSubject = new BehaviorSubject<Cohort | null>(null);
   createCohortFormData$ : Observable<Cohort | null> = this.cohortFormDataSubject.asObservable();
 
+  selectedCohortFromList$!: Observable<CohortList>;
+
   constructor(private http: HttpClient) { }
 
   // Retriev a list of cohorts from backend 
@@ -33,6 +35,12 @@ export class CohortDataService {
   setCohortFormData(data: Cohort) {
     this.cohortFormDataSubject.next(data);
   }
+
+  getSeletedCohortFromList() {
+    return this.selectedCohortFromList$;
+  }
+
+  
 
 
 
