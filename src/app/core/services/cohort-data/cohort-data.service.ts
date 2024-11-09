@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Cohort, CohortList } from '../../models/cohort.interface';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,8 @@ export class CohortDataService {
   private mockjson = 'assets/mockjson.json' ;
   private mockjsonempty = 'assets/mockjsonempty.json' ;
 
-  createCohortFormData!: Observable<Cohort>;
+  private cohortFormDataSubject = new BehaviorSubject<Cohort | null>(null);
+  createCohortFormData$ : Observable<Cohort | null> = this.cohortFormDataSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -26,9 +27,11 @@ export class CohortDataService {
     return this.http.post<Cohort>(this.apiUrl, formData);
   }
 
-  getCohortDetailsFromForm() {
-    return this.createCohortFormData;
+  // Set data for cohortFormData Behavoir subject
+  setCohortFormData(data: Cohort) {
+    this.cohortFormDataSubject.next(data);
   }
+
 
 
 

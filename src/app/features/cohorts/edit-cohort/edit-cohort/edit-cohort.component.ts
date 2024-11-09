@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 import { CohortDataService } from '../../../../core/services/cohort-data/cohort-data.service';
 import { ModalService } from '../../../../core/services/modal/modal.service';
 import { ModalComponent } from '../../../../core/shared/modal/modal.component';
-import { NgIf, NgFor } from '@angular/common';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { InputFieldComponent } from '../../../../core/shared/input-field/input-field.component';
+import { Observable } from 'rxjs';
+import { Cohort } from '../../../../core/models/cohort.interface';
 
 @Component({
   selector: 'app-edit-cohort',
   standalone: true,
-  imports: [InputFieldComponent, ModalComponent, ReactiveFormsModule, NgIf, NgFor],
+  imports: [InputFieldComponent, ModalComponent, ReactiveFormsModule, NgIf, NgFor, AsyncPipe],
   templateUrl: './edit-cohort.component.html',
   styleUrl: './edit-cohort.component.scss'
 })
@@ -40,7 +42,27 @@ export class EditCohortComponent {
       endDate: ['', Validators.required],
       description: ['']
     })
+
+    this.cohortDataService.createCohortFormData$.subscribe((cohortData) => {
+      if (cohortData) {
+        // Populate the form with cohort data
+        this.newCohortForm.patchValue({
+          name: cohortData.name,
+          startDate: cohortData.startDate,
+          endDate: cohortData.endDate,
+          description: cohortData.description
+        });
+
+        // Populate specialization array
+        const specializationArray = this.newCohortForm.get('specialization') as FormArray;
+        specializationArray.clear(); // Clear existing controls
+        cohortData.specialization.forEach((spec: string) => {
+          specializationArray.push(this.fb.control(spec, Validators.required));
+        });
+      }
+    });
   }
+
 
   // Get specializations for from form
   get specialization(): FormArray {
@@ -81,13 +103,16 @@ export class EditCohortComponent {
       //     console.error('Error submitting data', error);
       //   }
       // }) 
-      this.modalService.toggleSuccessModal()
-      this.newCohortForm.reset();
+      // this.modalService.toggleSuccessModal()
+      // this.newCohortForm.reset();
     }
     else {
       this.newCohortForm.markAllAsTouched();
     }
   }
+
+
+
 
   // Navigate to list of cohorts
   goBack() {

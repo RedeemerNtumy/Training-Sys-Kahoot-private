@@ -3,14 +3,12 @@ import { InputFieldComponent } from "../../../core/shared/input-field/input-fiel
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
-import { ModalService } from '../../../core/services/modal/modal.service';
-import { ModalComponent } from '../../../core/shared/modal/modal.component';
 import { CohortDataService } from '../../../core/services/cohort-data/cohort-data.service';
 
 @Component({
   selector: 'app-create-new-cohort',
   standalone: true,
-  imports: [InputFieldComponent, ReactiveFormsModule, NgIf, NgFor, ModalComponent],
+  imports: [InputFieldComponent, ReactiveFormsModule, NgIf, NgFor],
   templateUrl: './create-new-cohort.component.html',
   styleUrl: './create-new-cohort.component.scss'
 })
@@ -72,7 +70,7 @@ export class CreateNewCohortComponent {
   // Submit form
   onSubmit() {
     if(this.newCohortForm.valid) {
-      this.cohortDataService.createCohortFormData = this.newCohortForm.value;
+      this.cohortDataService.setCohortFormData(this.newCohortForm.value)
       this.router.navigate(['/home/admin/cohorts/edit-cohort']);
     }
     else {
