@@ -44,6 +44,11 @@ export const adminRoutes: Routes = [
         loadComponent: () => import('../../features/cohorts/create-new-cohort/create-new-cohort.component')
           .then(m => m.CreateNewCohortComponent),
       },
+      {
+        path: 'edit-cohort',
+        loadComponent: () => import('../../features/cohorts/edit-cohort/edit-cohort/edit-cohort.component')
+          .then(m => m.EditCohortComponent),
+      },
     ]
   },
   {
