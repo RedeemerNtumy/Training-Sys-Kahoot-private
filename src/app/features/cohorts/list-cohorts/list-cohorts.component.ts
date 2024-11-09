@@ -19,6 +19,9 @@ export class ListCohortsComponent {
   filteredCohorts$!: Observable<CohortList[]>;
   private searchTerm$ = new BehaviorSubject<string>(''); 
 
+  ellipsisClicked: boolean = false;
+  selectedCohortName: string | null = '';
+
   constructor(
     private cohortDataService: CohortDataService, 
     private router: Router,
@@ -50,6 +53,17 @@ export class ListCohortsComponent {
 
   setSelectedCohort(selectedCohort: CohortList) {
     this.cohortDataService.selectedCohortFromList$ = of(selectedCohort)
+  }
+
+
+  toggleEllipsis(selectedCohort: string) {
+    this.selectedCohortName = this.selectedCohortName === selectedCohort ? null : selectedCohort;
+    if(this.selectedCohortName === null) {
+      this.ellipsisClicked = false;
+    }
+    else if(this.selectedCohortName === selectedCohort) {
+      this.ellipsisClicked = true;
+    }
   }
 
 

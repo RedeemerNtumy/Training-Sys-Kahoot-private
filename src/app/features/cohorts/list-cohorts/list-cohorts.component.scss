@@ -1,5 +1,7 @@
 @import '../../../../styleSheet/variables';
 @import '../../../../styleSheet/button';
+@import '../../../../styleSheet/mixins';
+
 
 .container {
     width: 100%;
@@ -169,6 +171,7 @@
                 & .ellipsis {
                     display: flex;
                     align-items: center;
+                    position: relative;
                 }
             }
 
@@ -187,4 +190,13 @@
     }
 
 
+}
+
+
+.ellipsisClicked {
+    @include dropDownVisible;
+}
+
+.ellipsisNotClicked {
+    @include dropDownNotVisible;
 }
