@@ -6,8 +6,6 @@ import { ModalService } from '../../../../core/services/modal/modal.service';
 import { ModalComponent } from '../../../../core/shared/modal/modal.component';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { InputFieldComponent } from '../../../../core/shared/input-field/input-field.component';
-import { Observable } from 'rxjs';
-import { Cohort } from '../../../../core/models/cohort.interface';
 
 @Component({
   selector: 'app-edit-cohort',
