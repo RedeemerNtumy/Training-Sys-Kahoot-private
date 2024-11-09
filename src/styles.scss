@@ -2,3 +2,10 @@
 @use "./styleSheet/typography" as *;
 @use "./styleSheet/variables" as *;
 @use "./styleSheet/mixins" as *;
+
+
+
+
+body {
+    overflow-y: hidden;
+}
