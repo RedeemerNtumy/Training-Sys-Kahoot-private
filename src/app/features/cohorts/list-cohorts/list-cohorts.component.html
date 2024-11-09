@@ -17,13 +17,14 @@
                 [hide]="true"
                 (addCohortClicked)="goToCreateCohort()"
                 (searchChanged)="onSearchChange($event)"
+                (sortClicked)="onSortList()" 
             />
             <div class="divider"></div>
 
             <div class="no-search-results" *ngIf="(filteredCohorts$ | async)?.length === 0">
                 No results for query
             </div>
-            
+
             <div *ngIf="(filteredCohorts$ | async)?.length !== 0">
                 <div class="list-wrapper">
                     <div class="headers">

@@ -42,6 +42,12 @@ export class ListCohortsComponent {
     this.searchTerm$.next(searchTerm);
   }
 
+  onSortList() {
+    this.filteredCohorts$ = this.filteredCohorts$.pipe(
+      map((cohorts: CohortList[]) => cohorts.sort((a, b) => -1 - 1))
+    )
+  }
+
   goToCreateCohort() {
     this.router.navigate(['home/admin/cohorts/create-cohort'])
   }

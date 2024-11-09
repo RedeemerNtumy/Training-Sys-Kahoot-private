@@ -14,6 +14,7 @@ export class SearchbarComponent implements OnInit {
   // Emmitter to be used for triggering button element
   @Output() addCohortClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
+  @Output() sortClicked: EventEmitter<void> = new EventEmitter<void>();
   
   @Input() title!: string; // eg. Cohort
   @Input() placeholder!: string; //eg name
@@ -36,6 +37,10 @@ export class SearchbarComponent implements OnInit {
 
   onSearchInput(): void {
     this.searchChanged.emit(this.searchValue);
+  }
+
+  onSortClicked(): void {
+    this.sortClicked.emit()
   }
 
 
