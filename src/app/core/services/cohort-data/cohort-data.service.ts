@@ -17,12 +17,14 @@ export class CohortDataService {
 
   constructor(private http: HttpClient) { }
 
+  // Retriev a list of cohorts from backend 
   getAllCohorts(): Observable<CohortList[]>{
     // return this.http.get<Cohort[]>(this.apiUrl);
     // return this.http.get<CohortList[]>(this.mockjsonempty); 
     return this.http.get<CohortList[]>(this.mockjson);
   }
 
+  // Make a post request to backend to add cohort
   addCohort(formData: Cohort) {
     return this.http.post<Cohort>(this.apiUrl, formData);
   }

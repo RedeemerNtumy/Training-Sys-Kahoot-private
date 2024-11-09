@@ -108,6 +108,8 @@
                 font-size: $font-size-xbody;
                 font-weight: 400;
                 color: $clr-gray-500;
+                cursor: pointer;
+                transition: $btn-transition;
 
                 & .cohort-name {
                     width: 230px;
@@ -168,6 +170,10 @@
                     display: flex;
                     align-items: center;
                 }
+            }
+
+            & .list:hover {
+                background: $clr-gray-50;
             }
 
             & .cohort-list-dividers {
