@@ -20,6 +20,7 @@ export class EditCohortComponent {
 
   newCohortForm!: FormGroup;
   isModalOpen: boolean = false;
+  editBtnClicked: boolean = true;
   
   allSpecializations = [
     { label: 'UI/UX', value: 'UI/UX' },
@@ -61,6 +62,12 @@ export class EditCohortComponent {
         });
       }
     });
+
+    // Disable input fields on initialization
+    if (this.editBtnClicked === true) {
+      this.disableFields();
+    }
+
   }
 
 
@@ -68,6 +75,7 @@ export class EditCohortComponent {
   get specialization(): FormArray {
     return this.newCohortForm.get('specialization') as FormArray;
   }
+
 
   // Add new specialization element to dom
   addSpecialization(): void {
@@ -111,7 +119,31 @@ export class EditCohortComponent {
     }
   }
 
+  // Disable specializiation fields
+  disableFields() {
+    this.specialization.controls.forEach(control => {
+      control.disable();
+    });
+    this.newCohortForm.get('description')?.disable();
+  }
+  // Enable specialization fields
+  enableFields() {
+    this.specialization.controls.forEach(control => {
+      control.enable();
+    });
+    this.newCohortForm.get('description')?.enable();
+  }
 
+  toggleEditBtn() {
+    this.editBtnClicked = !this.editBtnClicked;
+
+    if (this.editBtnClicked === true) {
+      this.disableFields();
+    }
+    else if(this.editBtnClicked === false) {
+      this.enableFields();
+    }
+  }
 
 
   // Navigate to list of cohorts

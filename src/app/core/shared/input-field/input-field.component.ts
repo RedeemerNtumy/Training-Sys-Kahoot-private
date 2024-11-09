@@ -23,6 +23,7 @@ export class InputFieldComponent implements ControlValueAccessor {
   @Input() uniqueId: string = `input-${Math.random()
     .toString(36)
     .substr(2, 9)}`;
+  @Input() disabled!: boolean;
 
   isPasswordVisible: boolean = false;
   isDisabled: boolean = false;
