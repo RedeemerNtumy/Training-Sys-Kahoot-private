@@ -10,7 +10,7 @@
         </div>
         <!-- no-cohorts ends here -->
 
-        <div class="container-with-list">
+        <div class="container-with-list" *ngIf="(cohortsList$ | async)?.length !== 0">
             <app-searchbar 
                 [title]="'Cohort'" 
                 [placeholder]="'Name'" 
