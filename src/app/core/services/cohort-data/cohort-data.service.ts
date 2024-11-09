@@ -12,6 +12,8 @@ export class CohortDataService {
   private mockjson = 'assets/mockjson.json' ;
   private mockjsonempty = 'assets/mockjsonempty.json' ;
 
+  createCohortFormData!: Observable<Cohort>;
+
   constructor(private http: HttpClient) { }
 
   getAllCohorts(): Observable<CohortList[]>{
@@ -23,4 +25,12 @@ export class CohortDataService {
   addCohort(formData: Cohort) {
     return this.http.post<Cohort>(this.apiUrl, formData);
   }
+
+  getCohortDetailsFromForm() {
+    return this.createCohortFormData;
+  }
+
+
+
+
 }
