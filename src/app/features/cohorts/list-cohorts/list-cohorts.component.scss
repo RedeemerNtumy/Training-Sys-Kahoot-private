@@ -62,6 +62,15 @@
             background: $clr-gray-100;
         }
 
+        & .no-search-results {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            font-size: $font-size-subtitle-2;
+            font-weight: 500;
+            color: $clr-gray-400;
+        }
+
         & .list-wrapper {
             width: 100%;
 
