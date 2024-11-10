@@ -1,0 +1,160 @@
+@use "../../../styleSheet/variables" as *;
+@use "../../../styleSheet/mixins" as *;
+@use "../../../styleSheet/button" as *;
+
+.user-creation__container {
+  width: 100%;
+  height: 100vh;
+  background-color: $clr-body;
+  @include flexbox(column, center, center);
+  z-index: 10;
+
+  .user-creation__wrapper {
+    @include flexbox(column);
+    width: 57.9rem;
+    background-color: $clr-white;
+    padding: 5.6rem;
+    gap: 3.6rem;
+    border: 1px solid #f0f0f0;
+    border-radius: 0.4rem;
+
+    .user-creation__text {
+      width: 100%;
+
+      .logo {
+        width: 100%;
+        @include flexbox(row, center, center);
+        gap: 1rem;
+        color: $clr-gray-800;
+        margin-bottom: 1.6rem;
+
+        p {
+          font-size: $font-size-h3;
+          color: $clr-gray-800;
+          font-size: 1.8rem;
+          font-weight: 600;
+
+          span {
+            color: $clr-primary-500;
+          }
+        }
+      }
+
+      .description {
+        width: 100%;
+
+        h3 {
+          font-size: $font-size-h3;
+          font-weight: 700;
+          color: $clr-gray-800;
+        }
+
+        p {
+          color: $clr-gray-500;
+          font-size: $font-size-body;
+        }
+      }
+    }
+
+    .user-creation__form {
+      width: 100%;
+      @include flexbox(column);
+      gap: 4rem;
+
+      .inputs {
+        @include flexbox(column);
+        gap: 1.6rem;
+
+        .message {
+          @include flexbox(column);
+          @include formInputError(100%, #856f00, #fffae0);
+          gap: 0.8rem;
+          position: relative;
+          padding-left: 1rem;
+
+          .top {
+            @include flexbox(row, flex-start, center);
+            gap: 0.7rem;
+
+            p {
+              font-size: $font-size-label;
+              font-weight: 700;
+            }
+          }
+          .list {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.4;
+            font-size: $font-size-label;
+            font-weight: 400;
+          }
+
+          &.error {
+            background-color: #fde9e8;
+            color: #e42514;
+          }
+
+          &.success {
+            background-color: #e1ffe6;
+            color: #01e02a;
+          }
+        }
+      }
+
+      .button-div {
+        width: 100%;
+        @include flexbox(column, center, center);
+        gap: 1.6rem;
+
+        .forgot-password {
+          align-self: flex-end;
+          color: $clr-primary-500;
+          font-size: $font-size-xbody;
+          font-weight: 700
+        }
+
+        // p {
+        //   color: $clr-gray-600;
+        //   font-size: $font-size-body;
+        //   font-weight: 400;
+
+        //   span {
+        //     color: $clr-primary-500;
+        //     text-decoration: underline;
+        //     cursor: pointer;
+        //   }
+        // }
+
+        .btn {
+          @include flexbox(row, center, center);
+          gap: 1rem;
+
+          & .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+          }
+
+          @keyframes spin {
+            to {
+              transform: rotate(360deg);
+            }
+          }
+
+          &:disabled {
+            background-color: #80808018;
+            cursor: not-allowed;
+          }
+
+          &.load {
+            background-color: $clr-primary-500;
+          }
+        }
+      }
+    }
+  }
+}
