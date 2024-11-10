@@ -70,6 +70,11 @@ export class ListCohortsComponent {
     }
   }
 
+  // Set data into form and route to edit cohort component
+  updateCohort() {
+    this.cohortDataService.setCohortFormDataFromUpate();
+    this.goToEditCohort();
+  }
 
   goToCreateCohort() {
     this.router.navigate(['home/admin/cohorts/create-cohort'])

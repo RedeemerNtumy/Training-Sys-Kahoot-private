@@ -1,4 +1,5 @@
 export interface Cohort {
+    id: number,
     name: string,
     specialization: string[],
     startDate: Date,

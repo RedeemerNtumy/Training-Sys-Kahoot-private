@@ -12,6 +12,7 @@ export class CohortDataService {
   private mockjson = 'assets/mockjson.json' ;
   private mockjsonempty = 'assets/mockjsonempty.json' ;
   private mocktraineelist = 'assets/mocktraineelist.json';
+  private mockupdateCohortData = 'assets/mockupdatecohort.json'
 
   private cohortFormDataSubject = new BehaviorSubject<Cohort | null>(null);
   createCohortFormData$ : Observable<Cohort | null> = this.cohortFormDataSubject.asObservable();
@@ -38,17 +39,22 @@ export class CohortDataService {
     // return this.http.get<CohortList>(`${this.apiUrl}/${id}`)
   }
 
+  private selectedCohortFormFromUpdateSubject = new BehaviorSubject<Cohort | null>(null);
+  selectedCohortFormFromUpdate$ : Observable<Cohort | null> = this.selectedCohortFormFromUpdateSubject.asObservable();
 
+  setCohortFormDataFromUpate() {
+    this.selectedCohortFormFromUpdate$ = this.http.get<Cohort>(this.mockupdateCohortData)
+    this.selectedCohortFormFromUpdate$.subscribe(data => {
+      this.setCohortFormData(data || null);
+    })
+  }
 
 
   // Set data for cohortFormData Behavoir subject
-  setCohortFormData(data: Cohort) {
+  setCohortFormData(data: Cohort | null) {
     this.cohortFormDataSubject.next(data);
   }
 
-  // getSeletedCohortFromList() {
-  //   return this.selectedCohortFromList$;
-  // }
 
   
 
