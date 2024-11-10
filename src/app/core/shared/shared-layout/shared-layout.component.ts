@@ -1,6 +1,5 @@
-
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -11,8 +10,11 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class SharedLayoutComponent {
   @Input() formGroup: FormGroup | undefined;
+  @Output() formSubmit = new EventEmitter<void>();
 
   onSubmit() {
-    // Placeholder for form submission logic
+    if (this.formGroup?.valid) {
+      this.formSubmit.emit();
+    }
   }
 }
