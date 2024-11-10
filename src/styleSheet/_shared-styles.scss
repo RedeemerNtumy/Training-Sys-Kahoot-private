@@ -1,7 +1,7 @@
 
-@use "../../../styleSheet/variables" as *;
-@use "../../../styleSheet/mixins" as *;
-@use "../../../styleSheet/button" as *;
+@use "./variables" as *;
+@use "./mixins" as *;
+@use "./button" as *;
 
 .common-container {
   width: 100%;
