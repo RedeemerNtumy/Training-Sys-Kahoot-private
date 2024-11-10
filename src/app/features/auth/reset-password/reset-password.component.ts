@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -27,7 +28,7 @@ export class ResetPasswordComponent {
     email: ['', [Validators.required, Validators.email]],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private route: Router) {}
 
   onSubmit() {
     if (this.resetPasswordForm.valid) {
@@ -35,6 +36,7 @@ export class ResetPasswordComponent {
       const { email } = this.resetPasswordForm.value;
       console.log(email);
 
+      this.route.navigate(['auth/reset-code-sent']);
     }
   }
 }
