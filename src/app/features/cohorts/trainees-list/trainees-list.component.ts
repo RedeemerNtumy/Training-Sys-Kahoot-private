@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
-import { CohortList } from '../../../core/models/cohort.interface';
+import { CohortList, TraineeList } from '../../../core/models/cohort.interface';
 import { Router } from '@angular/router';
 import { CohortDataService } from '../../../core/services/cohort-data/cohort-data.service';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
@@ -15,12 +15,12 @@ import { SearchbarComponent } from '../../../core/shared/searchbar/searchbar.com
 })
 export class TraineesListComponent {
 
-  cohortsList$!: Observable<CohortList[]>; 
-  filteredCohorts$!: Observable<CohortList[]>;
+  traineeList$!: Observable<TraineeList[]>; 
+  filteredTrainees$!: Observable<TraineeList[]>;
   private searchTerm$ = new BehaviorSubject<string>(''); 
 
   ellipsisClicked: boolean = false;
-  selectedCohortName: string | null = '';
+  selectedTraineeName: string | null = '';
 
   constructor(
     private cohortDataService: CohortDataService, 
@@ -28,12 +28,12 @@ export class TraineesListComponent {
   ) {}
 
   ngOnInit() {
-    this.cohortsList$ = this.cohortDataService.getAllCohorts()
+    this.traineeList$ = this.cohortDataService.getSelectedChortTraineeList(0)
 
-    this.filteredCohorts$ = combineLatest([this.cohortsList$, this.searchTerm$]).pipe(
-      map(([cohorts, searchTerm]) =>
-        cohorts.filter(cohort =>
-          cohort.cohort.toLowerCase().includes(searchTerm.toLowerCase())
+    this.filteredTrainees$ = combineLatest([this.traineeList$, this.searchTerm$]).pipe(
+      map(([trainees, searchTerm]) =>
+        trainees.filter(trainee =>
+          trainee.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
       )
     );
@@ -45,18 +45,18 @@ export class TraineesListComponent {
   }
 
   onSortList() {
-    this.filteredCohorts$ = this.filteredCohorts$.pipe(
-      map((cohorts: CohortList[]) => cohorts.sort((a, b) => -1 - 1))
+    this.filteredTrainees$ = this.filteredTrainees$.pipe(
+      map((cohorts: TraineeList[]) => cohorts.sort((a, b) => -1 - 1))
     )
   }
 
-  toggleEllipsis(selectedCohort: string, event:Event) {
+  toggleEllipsis(selectedTrainee: string, event:Event) {
     event.stopPropagation();
-    this.selectedCohortName = this.selectedCohortName === selectedCohort ? null : selectedCohort;
-    if(this.selectedCohortName === null) {
+    this.selectedTraineeName = this.selectedTraineeName === selectedTrainee ? null : selectedTrainee;
+    if(this.selectedTraineeName === null) {
       this.ellipsisClicked = false;
     }
-    else if(this.selectedCohortName === selectedCohort) {
+    else if(this.selectedTraineeName === selectedTrainee) {
       this.ellipsisClicked = true;
     }
   }

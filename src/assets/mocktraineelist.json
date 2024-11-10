@@ -1,6 +1,8 @@
 [
     {
         "id": 1,
+        "cohort": "Cohort 24",
+        "enrolled": 265,
         "name": "Alex Agyeman",
         "status": "active",
         "endDate": {
@@ -12,35 +14,67 @@
     },
     {
         "id": 2,
-        "name": "Mariam lumo",
+        "cohort": "Cohort 34",
+        "enrolled": 265,
+        "name": "Boadi Solomon",
         "status": "active",
         "endDate": {
             "email": "alexagyemang@gmail.com",
             "telephone": "+233 553673610"
         },
-        "Specialization": "Front-End",
+        "Specialization": "UI/UX Design",
         "dateAdded": "October 12, 2024"
     },
     {
-        "id": 3,
-        "name": "Adjei stephen",
+        "id": 2,
+        "cohort": "Cohort 70",
+        "enrolled": 265,
+        "name": "Sammy Tugga",
         "status": "active",
         "endDate": {
             "email": "alexagyemang@gmail.com",
             "telephone": "+233 553673610"
         },
-        "Specialization": "Back-End",
+        "Specialization": "UI/UX Design",
         "dateAdded": "October 12, 2024"
     },
     {
-        "id": 4,
-        "name": "Amoah Kevin",
+        "id": 1,
+        "cohort": "Cohort 24",
+        "enrolled": 265,
+        "name": "Alex Agyeman",
         "status": "active",
         "endDate": {
             "email": "alexagyemang@gmail.com",
             "telephone": "+233 553673610"
         },
-        "Specialization": "Quality Assurance",
+        "Specialization": "UI/UX Design",
+        "dateAdded": "October 12, 2024"
+    },
+    {
+        "id": 2,
+        "cohort": "Cohort 34",
+        "enrolled": 265,
+        "name": "Boadi Solomon",
+        "status": "active",
+        "endDate": {
+            "email": "alexagyemang@gmail.com",
+            "telephone": "+233 553673610"
+        },
+        "Specialization": "UI/UX Design",
+        "dateAdded": "October 12, 2024"
+    },
+    {
+        "id": 2,
+        "cohort": "Cohort 70",
+        "enrolled": 265,
+        "name": "Sammy Tugga",
+        "status": "active",
+        "endDate": {
+            "email": "alexagyemang@gmail.com",
+            "telephone": "+233 553673610"
+        },
+        "Specialization": "UI/UX Design",
         "dateAdded": "October 12, 2024"
     }
 ]
