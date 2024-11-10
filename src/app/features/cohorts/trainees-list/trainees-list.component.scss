@@ -75,6 +75,15 @@
             color: $clr-gray-400;
         }
 
+        & .title-enrolled {
+            display: flex;
+            justify-content: space-between;
+            font-size: $font-size-subtitle;
+            font-weight: 600;
+            color: $clr-gray-700;
+            margin-bottom: 5.6rem;
+        }
+
         & .list-wrapper {
             width: 100%;
             height: 90vh;
@@ -87,19 +96,23 @@
                 color: $clr-gray-700;
 
                 & div:nth-child(1) {
-                    width: 230px;
+                    width: 20rem;
                 }
 
                 & div:nth-child(2) {
-                    width: 170px;
+                    width: 14rem;
                 }
 
                 & div:nth-child(3) {
-                    width: 170px; 
+                    width: 24rem; 
                 }
 
                 & div:nth-child(4) {
-                    width: 200px;
+                    width: 17rem;
+                }
+
+                & div:nth-child(5) {
+                    width: 16rem;
                 }
             }
 
@@ -113,59 +126,56 @@
                 cursor: pointer;
                 transition: $btn-transition;
 
-                & .cohort-name {
-                    width: 230px;
+                & .trainee-name {
+                    width: 20rem;
                     display: flex;
                     align-items: center;
+                    overflow-x: hidden;
                 }
 
-                & .start-date {
-                    width: 170px;
+                & .status {
+                    width: 14rem;
                     display:flex;
                     align-items: center;
                     gap: 1rem;
                 }
 
-                & .end-date {
-                    width: 170px;
+                & .contact {
+                    width: 24rem;
                     display: flex;
-                    align-items: center;
+                    flex-direction: column;
                     gap: 1rem;
+
+                    & .email {
+                        display: flex;
+                        gap: 1.089rem;
+                    }
+
+                    & .telephone {
+                        display: flex;
+                        gap: 1.089rem;
+                    }
                 }
 
-                & .images {
-                    width: 390px;
+                & .specialization {
+                    width: 17rem;
                     display: flex;
                     align-items: center;
                     position: relative;
+                    padding-left: 2rem;
 
-
-                    & .image-wrapper {
-                        display: flex;
-
-                        & > img {
-                            border-radius: 50%;
-                            width: 32px;
-                            position: relative;
-                        }
-
-                        & img:nth-child(1) {
-                            border-radius: 50%;
-                        }
-                        & img:nth-child(2) {
-                            border-radius: 50%;
-                            left: -10px;
-                        }
-                        & img:nth-child(3) {
-                            border-radius: 50%;
-                            left: -20px;
-                        }
-                        & img:nth-child(4) {
-                            border-radius: 50%;
-                            left: -30px;
-                        }
-
+                    & span {
+                        color: $clr-gray-500;
+                        font-size: $font-size-xbody;
+                        font-weight: 400;
                     }
+                    
+                }
+
+                & .date-added {
+                    width: 16rem;
+                    display: flex;
+                    align-items: center;
                 }
 
                 & .ellipsis {
@@ -196,11 +206,32 @@
 .ellipsisClicked {
     @include dropDownVisible;
 
-    & span {
+    // & span {
         
-    }
+    // }
 }
 
 .ellipsisNotClicked {
     @include dropDownNotVisible;
+}
+
+
+// styles for active or inactive trainee
+.traineeActive {
+    width: 10rem;
+    height: 3.3rem;
+    display: grid;
+    place-items: center;
+    border-radius: 9.9rem;
+    gap: 1rem;
+    background: $clr-green-50;
+    color: $clr-green-500;
+    font-weight: 600;
+}
+
+.traineeInactive {
+    width: 14rem;
+    display:flex;
+    align-items: center;
+    gap: 1rem;
 }

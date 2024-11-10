@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "name": "Alex Agyeman",
+        "status": "active",
+        "endDate": {
+            "email": "alexagyemang@gmail.com",
+            "telephone": "+233 553673610"
+        },
+        "Specialization": "UI/UX Design",
+        "dateAdded": "October 12, 2024"
+    },
+    {
+        "id": 2,
+        "name": "Mariam lumo",
+        "status": "active",
+        "endDate": {
+            "email": "alexagyemang@gmail.com",
+            "telephone": "+233 553673610"
+        },
+        "Specialization": "Front-End",
+        "dateAdded": "October 12, 2024"
+    },
+    {
+        "id": 3,
+        "name": "Adjei stephen",
+        "status": "active",
+        "endDate": {
+            "email": "alexagyemang@gmail.com",
+            "telephone": "+233 553673610"
+        },
+        "Specialization": "Back-End",
+        "dateAdded": "October 12, 2024"
+    },
+    {
+        "id": 4,
+        "name": "Amoah Kevin",
+        "status": "active",
+        "endDate": {
+            "email": "alexagyemang@gmail.com",
+            "telephone": "+233 553673610"
+        },
+        "Specialization": "Quality Assurance",
+        "dateAdded": "October 12, 2024"
+    }
+]
