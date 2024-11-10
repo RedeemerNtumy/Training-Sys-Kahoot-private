@@ -6,8 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MessageComponent } from '../../core/shared/message/message.component';
-import { InputFieldComponent } from '../../core/shared/input-field/input-field.component';
+import { MessageComponent } from '../../../core/shared/message/message.component';
+import { InputFieldComponent } from '../../../core/shared/input-field/input-field.component';
 import { RouterModule } from '@angular/router';
 
 @Component({
