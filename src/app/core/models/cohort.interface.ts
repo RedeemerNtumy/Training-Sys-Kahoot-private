@@ -7,6 +7,7 @@ export interface Cohort {
 }
 
 export interface CohortList {
+    id: number,
     cohort: string,
     startDate: Date,
     endDate: Date,

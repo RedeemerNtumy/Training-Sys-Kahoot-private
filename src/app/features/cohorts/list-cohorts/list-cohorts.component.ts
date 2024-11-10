@@ -51,9 +51,10 @@ export class ListCohortsComponent {
     )
   }
 
-  setSelectedCohort(selectedCohort: CohortList) {
-    this.cohortDataService.selectedCohortFromList$ = of(selectedCohort)
-    console.log(selectedCohort);
+  //Get the Id of selected Cohort from list and make http request to get all details for cohort
+  setSelectedCohort(selectedCohortId: number) { 
+    this.cohortDataService.getSelectedChortTraineeList(selectedCohortId)
+    console.log("id:", selectedCohortId);
   }
 
 

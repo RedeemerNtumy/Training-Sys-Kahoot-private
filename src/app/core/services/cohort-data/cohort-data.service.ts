@@ -11,6 +11,7 @@ export class CohortDataService {
   apiUrl: string = '';
   private mockjson = 'assets/mockjson.json' ;
   private mockjsonempty = 'assets/mockjsonempty.json' ;
+  private singleTraineeDetails = 'assets/trainee.json';
 
   private cohortFormDataSubject = new BehaviorSubject<Cohort | null>(null);
   createCohortFormData$ : Observable<Cohort | null> = this.cohortFormDataSubject.asObservable();
@@ -32,8 +33,9 @@ export class CohortDataService {
   }
 
   //getSelectedCohortDetails from backend
-  getSelectedChortDetails(id: number) {
-    return this.http.get<any>(`${this.apiUrl}/${id}`)
+  getSelectedChortTraineeList(id: number) {
+    return this.http.get<CohortList>(this.singleTraineeDetails)
+    // return this.http.get<CohortList>(`${this.apiUrl}/${id}`)
   }
 
   // Set data for cohortFormData Behavoir subject
@@ -41,9 +43,9 @@ export class CohortDataService {
     this.cohortFormDataSubject.next(data);
   }
 
-  getSeletedCohortFromList() {
-    return this.selectedCohortFromList$;
-  }
+  // getSeletedCohortFromList() {
+  //   return this.selectedCohortFromList$;
+  // }
 
   
 
