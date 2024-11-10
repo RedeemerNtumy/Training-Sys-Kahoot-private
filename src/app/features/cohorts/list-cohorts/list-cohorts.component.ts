@@ -55,6 +55,7 @@ export class ListCohortsComponent {
   setSelectedCohort(selectedCohortId: number) { 
     this.cohortDataService.getSelectedChortTraineeList(selectedCohortId)
     console.log("id:", selectedCohortId);
+    this.goToTraineesList()
   }
 
 
@@ -76,6 +77,10 @@ export class ListCohortsComponent {
 
   goToEditCohort() {
     this.router.navigate(['/home/admin/cohorts/edit-cohort'])
+  }
+
+  goToTraineesList() {
+    this.router.navigate(['/home/admin/cohorts/trainees-list'])
   }
 
 

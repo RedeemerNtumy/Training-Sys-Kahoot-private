@@ -49,6 +49,11 @@ export const adminRoutes: Routes = [
         loadComponent: () => import('../../features/cohorts/edit-cohort/edit-cohort/edit-cohort.component')
           .then(m => m.EditCohortComponent),
       },
+      {
+        path: 'trainees-list',
+        loadComponent: () => import('../../features/cohorts/trainees-list/trainees-list.component')
+          .then(m => m.TraineesListComponent),
+      },
     ]
   },
   {
