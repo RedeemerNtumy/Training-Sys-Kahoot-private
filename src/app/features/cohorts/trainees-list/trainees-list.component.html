@@ -25,10 +25,12 @@
             No results for query
         </div>
 
-        <div class="title-enrolled">
-            <span>Graduate Training 2024</span>
-            <span>100 Enrolled</span>
-        </div>
+        <!-- @if(filteredTrainees$ | async; as filteredTrainees) {
+            <div class="title-enrolled">
+                <span>{{}}</span>
+                <span>100 Enrolled</span>
+            </div>
+        } -->
 
         <div *ngIf="(filteredTrainees$ | async)?.length !== 0">
             <div class="list-wrapper">
@@ -43,11 +45,11 @@
                 @if(filteredTrainees$ | async; as filteredTrainees) {
                     @for(trainee of filteredTrainees; track trainee) { 
                         <div class="list">  
-                            <div class="trainee-name">Alex Agyemang</div>
+                            <div class="trainee-name">{{trainee.name}}</div>
                             <div class="status">
-                                <span class="traineeActive">Active</span>
-                                <span *ngIf="">Active</span>
-                                <span *ngIf="">Inactive</span>
+                                <span class="traineeActive">{{trainee.status}}</span>
+                                <span *ngIf="">{{trainee.status}}</span>
+                                <span *ngIf="">{{trainee.status}}</span>
                             </div>
                             <div class="contact">
                                 <div class="email">
@@ -62,7 +64,7 @@
                                         </clipPath>
                                         </defs>
                                     </svg>
-                                    <span>alexagyemang&#64;gmail.com</span>
+                                    <span>email</span>
                                 </div>
                                 <div class="telephone">
                                     <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,10 +74,10 @@
                                 </div>
                             </div>
                             <div class="specialization">
-                                <span>Front-End</span>
+                                <span>{{trainee.specialization}}</span>
                             </div>
                             <div class="date-added">
-                                October 12,2024
+                                {{trainee.dateAdded}}
                             </div>
                             <div class="ellipsis" (click)="toggleEllipsis(trainee.name, $event)">
                                 <svg width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">

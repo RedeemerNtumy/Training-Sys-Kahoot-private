@@ -21,7 +21,7 @@ export interface TraineeList {
     enrolled: number,
     name: string,
     status: string,
-    endDate: contact[],
+    contact: contact[],
     specialization: string,
     dateAdded: Date
 }

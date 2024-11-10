@@ -11,7 +11,7 @@ export class CohortDataService {
   apiUrl: string = '';
   private mockjson = 'assets/mockjson.json' ;
   private mockjsonempty = 'assets/mockjsonempty.json' ;
-  private mocktraineelist = 'assets/trainee.json';
+  private mocktraineelist = 'assets/mocktraineelist.json';
 
   private cohortFormDataSubject = new BehaviorSubject<Cohort | null>(null);
   createCohortFormData$ : Observable<Cohort | null> = this.cohortFormDataSubject.asObservable();
