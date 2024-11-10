@@ -31,6 +31,11 @@ export class CohortDataService {
     return this.http.post<Cohort>(this.apiUrl, formData);
   }
 
+  //getSelectedCohortDetails from backend
+  getSelectedChortDetails(id: number) {
+    return this.http.get<any>(`${this.apiUrl}/${id}`)
+  }
+
   // Set data for cohortFormData Behavoir subject
   setCohortFormData(data: Cohort) {
     this.cohortFormDataSubject.next(data);

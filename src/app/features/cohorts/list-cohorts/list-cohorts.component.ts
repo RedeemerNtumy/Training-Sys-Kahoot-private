@@ -73,6 +73,9 @@ export class ListCohortsComponent {
     this.router.navigate(['home/admin/cohorts/create-cohort'])
   }
 
+  goToEditCohort() {
+    this.router.navigate(['/home/admin/cohorts/edit-cohort'])
+  }
 
 
 }
