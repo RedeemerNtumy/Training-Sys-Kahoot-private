@@ -1,0 +1,206 @@
+@import '../../../../styleSheet/variables';
+@import '../../../../styleSheet/button';
+@import '../../../../styleSheet/mixins';
+
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow-y: scroll;
+    padding-top: 1.8rem; 
+ 
+    .no-cohorts { 
+        width: 611px;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        & .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 44px;
+            
+            margin-top: 75px;
+
+            & img {
+                width: 191px;
+                height: 191px;
+            }
+
+            & span {
+                text-align: center;
+                font-size: $font-size-title;
+                font-weight: 600;
+                color: $clr-gray-800;
+            }
+
+            & p {
+                text-align: center;
+                font-size: $font-size-body;
+                font-weight: 400;
+                color: $clr-gray-500;
+            }
+        }
+
+        & .create-btn {
+            font-size: $font-size-subtitle-2;
+            height: 5.5rem;
+        }
+    } // No cohorts div ends here
+
+    .container-with-list { 
+        width: 976px;
+
+        & app-search {
+            margin-bottom: 16.5px;
+        }
+        
+        & .divider {
+            margin-bottom: 36px;
+            width: 100%;
+            height: 1px;
+            background: $clr-gray-100;
+        }
+
+        & .no-search-results {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            font-size: $font-size-subtitle-2;
+            font-weight: 500;
+            color: $clr-gray-400;
+        }
+
+        & .list-wrapper {
+            width: 100%;
+            height: 90vh;
+
+            & .headers {
+                display: flex;
+                margin-bottom: 44px;
+                font-size: $font-size-subtitle-2;
+                font-weight: 600;
+                color: $clr-gray-700;
+
+                & div:nth-child(1) {
+                    width: 230px;
+                }
+
+                & div:nth-child(2) {
+                    width: 170px;
+                }
+
+                & div:nth-child(3) {
+                    width: 170px; 
+                }
+
+                & div:nth-child(4) {
+                    width: 200px;
+                }
+            }
+
+            & .list {
+                height: 50px;
+                display: flex;
+                background: $clr-white;
+                font-size: $font-size-xbody;
+                font-weight: 400;
+                color: $clr-gray-500;
+                cursor: pointer;
+                transition: $btn-transition;
+
+                & .cohort-name {
+                    width: 230px;
+                    display: flex;
+                    align-items: center;
+                }
+
+                & .start-date {
+                    width: 170px;
+                    display:flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                & .end-date {
+                    width: 170px;
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                & .images {
+                    width: 390px;
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+
+
+                    & .image-wrapper {
+                        display: flex;
+
+                        & > img {
+                            border-radius: 50%;
+                            width: 32px;
+                            position: relative;
+                        }
+
+                        & img:nth-child(1) {
+                            border-radius: 50%;
+                        }
+                        & img:nth-child(2) {
+                            border-radius: 50%;
+                            left: -10px;
+                        }
+                        & img:nth-child(3) {
+                            border-radius: 50%;
+                            left: -20px;
+                        }
+                        & img:nth-child(4) {
+                            border-radius: 50%;
+                            left: -30px;
+                        }
+
+                    }
+                }
+
+                & .ellipsis {
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                }
+            }
+
+            & .list:hover {
+                background: $clr-gray-50;
+            }
+
+            & .cohort-list-dividers {
+                width: 100%;
+                height: 1px;
+                background: $clr-gray-50;
+                margin: 24px 0;        
+            }
+        }
+
+    }
+
+
+}  
+
+
+.ellipsisClicked {
+    @include dropDownVisible;
+
+    & span {
+        
+    }
+}
+
+.ellipsisNotClicked {
+    @include dropDownNotVisible;
+}
