@@ -1,0 +1,20 @@
+<div class="common-container">
+  <div class="common-wrapper">
+    <div class="common-text">
+      <ng-content select="[header]"></ng-content>
+    </div>
+    <form
+      *ngIf="formGroup"
+      class="common-form"
+      [formGroup]="formGroup"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="common-inputs">
+        <ng-content select="[inputs]"></ng-content>
+      </div>
+      <div class="common-button-div">
+        <ng-content select="[buttons]"></ng-content>
+      </div>
+    </form>
+  </div>
+</div>
