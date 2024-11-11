@@ -72,15 +72,15 @@ export class ListCohortsComponent {
   // Set data into form and route to edit cohort component
   updateCohort(id: string) {
     this.cohortDataService.setCohortFormDataFromUpate();
-    this.goToEditCohort();
+    this.goToUpdateCohort();
   }
 
   goToCreateCohort() {
     this.router.navigate(['home/admin/cohorts/create-cohort'])
   }
 
-  goToEditCohort() {
-    this.router.navigate(['/home/admin/cohorts/edit-cohort'])
+  goToUpdateCohort() {
+    this.router.navigate(['/home/admin/cohorts/update-cohort'])
   }
 
   goToTraineesList() {

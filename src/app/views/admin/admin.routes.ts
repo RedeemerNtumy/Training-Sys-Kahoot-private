@@ -54,6 +54,11 @@ export const adminRoutes: Routes = [
         loadComponent: () => import('../../features/cohorts/trainees-list/trainees-list.component')
           .then(m => m.TraineesListComponent),
       },
+      {
+        path: 'update-cohort',
+        loadComponent: () => import('../../features/cohorts/update-cohort/update-cohort.component')
+          .then(m => m.UpdateCohortComponent),
+      }
     ]
   },
   {
