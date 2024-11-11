@@ -42,6 +42,27 @@ export class EditCohortComponent {
       description: ['']
     })
 
+    // Set data into form from get request
+    this.cohortDataService.getCohortFormData().subscribe(data => {
+      if(data) {
+        // Populate the form with cohort data
+        this.newCohortForm.patchValue({
+          name: data.name,
+          startDate: data.startDate,
+          endDate: data.endDate,
+          description: data.description
+        });
+
+        // Populate specialization array
+        const specializationArray = this.newCohortForm.get('specialization') as FormArray;
+        specializationArray.clear(); // Clear existing controls
+        data.specialization.forEach((spec: string) => {
+          specializationArray.push(this.fb.control(spec, Validators.required));
+        });
+      }
+    })
+
+    // Set data into form from create cohort form
     this.cohortDataService.createCohortFormData$.subscribe((cohortData) => {
       if (cohortData) {
         // Populate the form with cohort data
@@ -57,6 +78,7 @@ export class EditCohortComponent {
         specializationArray.clear(); // Clear existing controls
         cohortData.specialization.forEach((spec: string) => {
           specializationArray.push(this.fb.control(spec, Validators.required));
+          console.log(spec);
         });
       }
     });

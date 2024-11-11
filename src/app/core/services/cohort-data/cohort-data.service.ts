@@ -12,7 +12,9 @@ export class CohortDataService {
   private mockupdateCohortData = 'assets/mockupdatecohort.json'
 
   private cohortsListUrl: string = 'http://localhost:9000/cohortsList';
+  private cohortFormsDataUrl: string = 'http://localhost:9000/cohortsFormData';
   private cohortsDetailsUrl: string = 'http://localhost:8000/cohortDetails';
+
   selectedCohortId: string = "1";
 
   private cohortFormDataSubject = new BehaviorSubject<Cohort | null>(null);
@@ -36,6 +38,11 @@ export class CohortDataService {
   //(HTTP Request) Make a post request to backend for Cohort Details including trainee list
   getSelectedCohortDetails() {
     return this.http.get<CohortDetails>(this.cohortsDetailsUrl)
+  }
+
+  //(HTTP Request) Get cohort list form data from backend
+  getCohortFormData() {
+    return this.http.get<Cohort>(`${this.cohortFormsDataUrl}/26`);
   }
 
 
