@@ -9,9 +9,17 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserCreationService } from '../../core/services/user-creation/user-creation.service';
-import { debounceTime, distinctUntilChanged, takeUntil, Subject } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  takeUntil,
+  Subject,
+  timer,
+} from 'rxjs';
 import { MessageComponent } from '../../core/shared/message/message.component';
 import { PasswordValidator } from '../../core/services/passwordValidator/password-validator.service';
+import { Router } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-creation',
@@ -35,7 +43,8 @@ export class UserCreationComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private userCreationService: UserCreationService
+    private userCreationService: UserCreationService,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -108,21 +117,28 @@ export class UserCreationComponent implements OnInit, OnDestroy {
     const { password, confirmPassword } = this.userCreationForm.value;
     const user = { password, confirmPassword };
 
-    this.userCreationService.createUser(user).subscribe({
-      next: (res) => {
-        this.isLoading = false;
-        this.successMessage =
-          'The details you provided match our records. You can now proceed to log in or reset your password';
-        this.userCreationForm.reset();
-        this.showPasswordError = false;
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.errorMessage =
-          'An error occured while processing your request. Please try again!';
-        console.error('Error creating user:', err);
-      },
-    });
+    this.userCreationService
+      .createUser(user)
+      .pipe(
+        switchMap(() => timer(2000)),
+        switchMap(() => {
+          this.isLoading = false;
+          this.successMessage =
+            'The details you provided match our records. You can now proceed to log in or reset your password';
+          return timer(1000);
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.route.navigate(['auth/login']);
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.errorMessage =
+            'An error occured while processing your request. Please try again!';
+          console.error('Error creating user:', err);
+        },
+      });
   }
 
   ngOnDestroy(): void {
