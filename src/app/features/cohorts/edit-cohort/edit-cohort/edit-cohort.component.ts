@@ -42,26 +42,6 @@ export class EditCohortComponent {
       description: ['']
     })
 
-    // Set data into form from get request
-    this.cohortDataService.getCohortFormData().subscribe(data => {
-      if(data) {
-        // Populate the form with cohort data
-        this.newCohortForm.patchValue({
-          name: data.name,
-          startDate: data.startDate,
-          endDate: data.endDate,
-          description: data.description
-        });
-
-        // Populate specialization array
-        const specializationArray = this.newCohortForm.get('specialization') as FormArray;
-        specializationArray.clear(); // Clear existing controls
-        data.specialization.forEach((spec: string) => {
-          specializationArray.push(this.fb.control(spec, Validators.required));
-        });
-      }
-    })
-
     // Set data into form from create cohort form
     this.cohortDataService.createCohortFormData$.subscribe((cohortData) => {
       if (cohortData) {
@@ -122,7 +102,7 @@ export class EditCohortComponent {
   // Submit form
   onSubmit() {
     if(this.newCohortForm.valid) {
-      // console.log(this.newCohortForm.value)
+      console.log(this.newCohortForm.value)
       this.cohortDataService.addCohort(this.newCohortForm.value).subscribe({
         next: (response) => {
           console.log('Data submitted successfully', response);

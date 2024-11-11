@@ -33,7 +33,7 @@ export class CohortDataService {
 
   //(HTTP Request) Make a post request to backend to add cohort
   addCohort(formData: Cohort) {
-    return this.http.post<Cohort>(this.apiUrl, formData);
+    return this.http.post<Cohort>(this.cohortsListUrl, formData);
   }
 
   //(HTTP Request) Make a post request to backend for Cohort Details including trainee list
@@ -48,15 +48,16 @@ export class CohortDataService {
   }
 
 
-  private selectedCohortFormFromUpdateSubject = new BehaviorSubject<Cohort | null>(null);
-  selectedCohortFormFromUpdate$ : Observable<Cohort | null> = this.selectedCohortFormFromUpdateSubject.asObservable();
+  // private selectedCohortFormFromUpdateSubject = new BehaviorSubject<Cohort | null>(null);
+  // selectedCohortFormFromUpdate$ : Observable<Cohort | null> = this.selectedCohortFormFromUpdateSubject.asObservable();
 
-  setCohortFormDataFromUpate() {
-    this.selectedCohortFormFromUpdate$ = this.http.get<Cohort>(this.mockupdateCohortData)
-    this.selectedCohortFormFromUpdate$.subscribe(data => {
-      this.setCohortFormData(data || null);
-    })
-  }
+
+  // setCohortFormDataFromUpate() {
+  //   this.selectedCohortFormFromUpdate$ = this.http.get<Cohort>(this.mockupdateCohortData)
+  //   this.selectedCohortFormFromUpdate$.subscribe(data => {
+  //     this.setCohortFormData(data || null);
+  //   })
+  // }
 
 
   // Set data for cohortFormData Behavoir subject

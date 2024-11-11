@@ -70,6 +70,7 @@ export class CreateNewCohortComponent {
   // Submit form
   onSubmit() {
     if(this.newCohortForm.valid) {
+      console.log("create cohort data: ", this.newCohortForm.value)
       this.cohortDataService.setCohortFormData(this.newCohortForm.value)
       this.router.navigate(['/home/admin/cohorts/edit-cohort']);
     }

@@ -34,7 +34,7 @@ export class ListCohortsComponent {
     this.filteredCohorts$ = combineLatest([this.cohortsList$, this.searchTerm$]).pipe(
       map(([cohorts, searchTerm]) =>
         cohorts.filter(cohort =>
-          cohort.cohort.toLowerCase().includes(searchTerm.toLowerCase())
+          cohort.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
       )
     );

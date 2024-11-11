@@ -9,10 +9,11 @@ export interface Cohort {
 
 export interface CohortList {
     id: string,
-    cohort: string,
+    name: string,
     startDate: Date,
     endDate: Date,
     traineesEnrolled: number,
+    description: string,
 }
 
 export interface CohortDetails {
