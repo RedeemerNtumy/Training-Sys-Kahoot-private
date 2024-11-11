@@ -113,17 +113,6 @@
           font-weight: 700
         }
 
-        // p {
-        //   color: $clr-gray-600;
-        //   font-size: $font-size-body;
-        //   font-weight: 400;
-
-        //   span {
-        //     color: $clr-primary-500;
-        //     text-decoration: underline;
-        //     cursor: pointer;
-        //   }
-        // }
 
         .btn {
           @include flexbox(row, center, center);
