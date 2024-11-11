@@ -30,11 +30,23 @@ export class TraineesListComponent {
   ngOnInit() {
     this.traineeList$ = this.cohortDataService.getSelectedChortTraineeList(0)
 
+    // this.filteredTrainees$ = combineLatest([this.traineeList$, this.searchTerm$]).pipe(
+    //   map(([trainees, searchTerm]) =>
+    //     trainees.filter(trainee =>
+    //       trainee.name.toLowerCase().includes(searchTerm.toLowerCase())
+    //     )
+    //   )
+    // );
+
     this.filteredTrainees$ = combineLatest([this.traineeList$, this.searchTerm$]).pipe(
-      map(([trainees, searchTerm]) =>
-        trainees.filter(trainee =>
-          trainee.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+      map(([trainees, searchTerm]) => 
+        trainees.filter(trainee => {
+          const lowerSearchTerm = searchTerm.toLowerCase();
+          return (
+            trainee.name.toLowerCase().includes(lowerSearchTerm) ||
+            trainee.contact.email.toLowerCase().includes(lowerSearchTerm)
+          );
+        })
       )
     );
   }

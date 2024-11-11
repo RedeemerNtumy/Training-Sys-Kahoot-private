@@ -16,15 +16,14 @@ export interface CohortList {
 }
 
 export interface TraineeList {
-    filter(arg0: (trainee: any) => any): any
-    id: number,
-    cohort: string,
-    enrolled: number,
-    name: string,
-    status: string,
-    contact: contact[],
-    specialization: string,
-    dateAdded: Date
+    id: number;
+    cohort: string;
+    enrolled: number;
+    name: string;
+    status: string;
+    contact: contact;
+    specialization: string;
+    dateAdded: Date;
 }
 
 export interface contact {
