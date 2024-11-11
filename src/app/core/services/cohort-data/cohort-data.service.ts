@@ -16,6 +16,7 @@ export class CohortDataService {
   private cohortsDetailsUrl: string = 'http://localhost:8000/cohortDetails';
 
   selectedCohortId: string = "1";
+  selectedCohortForUpdate: string = "";
 
   private cohortFormDataSubject = new BehaviorSubject<Cohort | null>(null);
   createCohortFormData$ : Observable<Cohort | null> = this.cohortFormDataSubject.asObservable();
@@ -40,8 +41,9 @@ export class CohortDataService {
     return this.http.get<CohortDetails>(this.cohortsDetailsUrl)
   }
 
-  //(HTTP Request) Get cohort list form data from backend
+  //(HTTP Request) Get cohort for update
   getCohortFormData() {
+    // return this.http.get<Cohort>(`${this.cohortFormsDataUrl}/${selectedCohortForUpdate}`);
     return this.http.get<Cohort>(`${this.cohortFormsDataUrl}/26`);
   }
 
