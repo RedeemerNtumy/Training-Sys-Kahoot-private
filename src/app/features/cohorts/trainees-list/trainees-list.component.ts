@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
-import { CohortList, TraineeList } from '../../../core/models/cohort.interface';
+import { CohortDetails, CohortList, Trainees } from '../../../core/models/cohort.interface';
 import { Router } from '@angular/router';
 import { CohortDataService } from '../../../core/services/cohort-data/cohort-data.service';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CommonModule, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { SearchbarComponent } from '../../../core/shared/searchbar/searchbar.component';
 
 @Component({
   selector: 'app-trainees-list',
   standalone: true,
-  imports: [AsyncPipe, NgFor, NgIf, SearchbarComponent,],
+  imports: [AsyncPipe, NgFor, NgIf, SearchbarComponent, JsonPipe],
   templateUrl: './trainees-list.component.html',
   styleUrl: './trainees-list.component.scss'
 })
 export class TraineesListComponent {
 
-  traineeList$!: Observable<TraineeList[]>; 
-  filteredTrainees$!: Observable<TraineeList[]>;
+  cohort$!: Observable<CohortDetails>; 
+  filteredTrainees$!: Observable<Trainees[]>;
   private searchTerm$ = new BehaviorSubject<string>(''); 
 
   ellipsisClicked: boolean = false;
@@ -28,26 +28,19 @@ export class TraineesListComponent {
   ) {}
 
   ngOnInit() {
-    this.traineeList$ = this.cohortDataService.getSelectedChortTraineeList(0)
+    // Get cohort details with trainees list from service
+    this.cohort$ = this.cohortDataService.getSelectedCohortDetails();
 
-    // this.filteredTrainees$ = combineLatest([this.traineeList$, this.searchTerm$]).pipe(
-    //   map(([trainees, searchTerm]) =>
-    //     trainees.filter(trainee =>
-    //       trainee.name.toLowerCase().includes(searchTerm.toLowerCase())
-    //     )
-    //   )
-    // );
-
-    this.filteredTrainees$ = combineLatest([this.traineeList$, this.searchTerm$]).pipe(
-      map(([trainees, searchTerm]) => 
-        trainees.filter(trainee => {
+    this.filteredTrainees$ = combineLatest([this.cohort$, this.searchTerm$]).pipe(
+      map(([cohort, searchTerm]) => {
+        return cohort.trainees.filter((trainee: any) => {
           const lowerSearchTerm = searchTerm.toLowerCase();
           return (
-            trainee.name.toLowerCase().includes(lowerSearchTerm) ||
-            trainee.contact.email.toLowerCase().includes(lowerSearchTerm)
+            trainee.fullName.toLowerCase().includes(lowerSearchTerm) ||
+            trainee.email.toLowerCase().includes(lowerSearchTerm)
           );
-        })
-      )
+        });
+      })
     );
   }
   
@@ -58,7 +51,7 @@ export class TraineesListComponent {
 
   onSortList() {
     this.filteredTrainees$ = this.filteredTrainees$.pipe(
-      map((cohorts: TraineeList[]) => cohorts.sort((a, b) => -1 - 1))
+      map((cohorts: Trainees[]) => cohorts.sort((a, b) => -1 - 1))
     )
   }
 
@@ -78,3 +71,5 @@ export class TraineesListComponent {
   }
 
 }
+
+

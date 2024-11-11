@@ -1,5 +1,5 @@
 {
-    "cohorts": [
+    "cohortsList": [
         {
           "id": 1,
           "cohort": "Cohort 1",
@@ -140,6 +140,6 @@
           "endDate": "2025-01-01",
           "traineesEnrolled": "320 people enrolled"
         }
-      ]
-      
+    ]
+    
 }

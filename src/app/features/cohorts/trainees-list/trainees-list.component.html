@@ -1,16 +1,6 @@
 <div class="container">
-    <!-- <div class="no-cohorts" *ngIf="(cohortsList$ | async)?.length === 0">
-        <div class="content">
-            <img src="../../../../assets/Images/png/Conference.png" alt="conference image">
-            <span>No Cohorts Created Yet</span>
-            <p>You haven't created any cohorts yet. Cohorts help organize trainees based on their training period and specialization. Click 'Create New Cohort' to get started and group your trainees efficiently</p>
-        </div>
-        
-        <button class="btn create-btn" (click)="goToCreateCohort()">Create New cohort</button>
-    </div>
-    no-cohorts ends here -->
 
-    <div class="container-with-list" *ngIf="(traineeList$ | async)?.length !== 0">
+    <div class="container-with-list">
         <app-searchbar 
             [title]="'Cohort'" 
             [placeholder]="'Name, email'" 
@@ -25,14 +15,14 @@
             No results for query
         </div>
 
-        <!-- @if(filteredTrainees$ | async; as filteredTrainees) {
+        @if(cohort$ | async; as cohort) {
             <div class="title-enrolled">
-                <span>{{}}</span>
-                <span>100 Enrolled</span>
+                <span>{{cohort.cohortName}}</span>
+                <span>{{ cohort.enrollmentCount }} Enrolled</span>
             </div>
-        } -->
+        }
 
-        <div *ngIf="(filteredTrainees$ | async)?.length !== 0">
+        <div>
             <div class="list-wrapper">
                 <div class="headers">
                     <div>Name</div>
@@ -45,7 +35,7 @@
                 @if(filteredTrainees$ | async; as filteredTrainees) {
                     @for(trainee of filteredTrainees; track trainee) { 
                         <div class="list">  
-                            <div class="trainee-name">{{trainee.name}}</div>
+                            <div class="trainee-name">{{trainee.fullName}}</div>
                             <div class="status">
                                 <span class="traineeActive">{{trainee.status}}</span>
                                 <span *ngIf="">{{trainee.status}}</span>
@@ -64,27 +54,27 @@
                                         </clipPath>
                                         </defs>
                                     </svg>
-                                    <span>{{ trainee.contact.email }}</span>
+                                    <span>{{ trainee.email }}</span>
                                 </div>
                                 <div class="telephone">
                                     <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1.97078 5.88745C1.68428 4.00045 3.01478 2.30545 5.04728 1.68445C5.40797 1.57492 5.79682 1.60666 6.13497 1.77323C6.47313 1.9398 6.73528 2.22874 6.86828 2.58145L7.52078 4.32145C7.62582 4.60137 7.64481 4.90629 7.57532 5.19708C7.50583 5.48787 7.35103 5.75127 7.13078 5.95345L5.18978 7.73095C5.09398 7.81866 5.02261 7.92975 4.98264 8.05333C4.94267 8.17691 4.93548 8.30875 4.96178 8.43595L4.97978 8.51395L5.02628 8.70895C5.26827 9.65622 5.63604 10.5668 6.11978 11.4165C6.64796 12.3186 7.30261 13.1404 8.06378 13.8569L8.12378 13.9109C8.22068 13.997 8.33821 14.0564 8.46492 14.0835C8.59163 14.1106 8.72319 14.1043 8.84678 14.0654L11.3563 13.2749C11.6415 13.1854 11.9469 13.1831 12.2334 13.2684C12.5199 13.3536 12.7744 13.5225 12.9643 13.7534L14.1523 15.195C14.6473 15.7949 14.5873 16.6769 14.0188 17.2064C12.4633 18.6569 10.3243 18.9539 8.83628 17.7584C7.01155 16.288 5.47381 14.4934 4.30028 12.4649C3.11526 10.4391 2.32585 8.20738 1.97078 5.88745ZM6.53378 8.53495L8.14178 7.05895C8.58253 6.65475 8.89243 6.12805 9.03168 5.54646C9.17093 4.96487 9.13318 4.35493 8.92328 3.79495L8.27228 2.05495C8.00521 1.34511 7.47795 0.763542 6.7976 0.428383C6.11725 0.0932242 5.33484 0.0296057 4.60928 0.25045C2.08478 1.02295 0.0582786 3.28645 0.487279 6.11395C0.787279 8.08795 1.47878 10.599 3.00428 13.221C4.27045 15.4081 5.9292 17.343 7.89728 18.9284C10.1293 20.7209 13.1083 20.1089 15.0433 18.3059C15.5969 17.7904 15.933 17.0831 15.9829 16.3282C16.0328 15.5733 15.7928 14.8279 15.3118 14.2439L14.1238 12.8009C13.7437 12.3397 13.2346 12.0024 12.6616 11.8324C12.0886 11.6625 11.4779 11.6675 10.9078 11.8469L8.82428 12.5024C8.28629 11.9478 7.81509 11.3321 7.42028 10.6679C7.0393 9.99628 6.74208 9.28044 6.53528 8.53645" fill="#676767"/>
                                     </svg>
-                                    <span>{{ trainee.contact.telephone }}</span>
+                                    <span>{{ trainee.contact }}</span>
                                 </div>
                             </div>
                             <div class="specialization">
                                 <span>UI/UX</span>
                             </div>
                             <div class="date-added">
-                                {{trainee.dateAdded}}
+                                {{trainee.date_added}}
                             </div>
-                            <div class="ellipsis" (click)="toggleEllipsis(trainee.name, $event)">
+                            <div class="ellipsis" (click)="toggleEllipsis(trainee.fullName, $event)">
                                 <svg width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.5 2C9.5 2.29667 9.41203 2.58668 9.2472 2.83336C9.08238 3.08003 8.84812 3.27229 8.57403 3.38582C8.29994 3.49935 7.99834 3.52906 7.70737 3.47118C7.41639 3.4133 7.14912 3.27044 6.93934 3.06066C6.72956 2.85088 6.5867 2.58361 6.52882 2.29264C6.47094 2.00166 6.50065 1.70006 6.61418 1.42598C6.72771 1.15189 6.91997 0.917618 7.16665 0.752796C7.41332 0.587974 7.70333 0.5 8 0.5C8.39783 0.5 8.77936 0.658036 9.06066 0.93934C9.34196 1.22064 9.5 1.60218 9.5 2ZM1.625 0.5C1.32833 0.5 1.03832 0.587974 0.791646 0.752796C0.544972 0.917618 0.352713 1.15189 0.239181 1.42598C0.12565 1.70006 0.0959449 2.00166 0.153823 2.29264C0.211701 2.58361 0.354562 2.85088 0.564341 3.06066C0.774119 3.27044 1.04139 3.4133 1.33237 3.47118C1.62334 3.52906 1.92494 3.49935 2.19903 3.38582C2.47311 3.27229 2.70738 3.08003 2.87221 2.83336C3.03703 2.58668 3.125 2.29667 3.125 2C3.125 1.60218 2.96697 1.22064 2.68566 0.93934C2.40436 0.658036 2.02283 0.5 1.625 0.5ZM14.375 0.5C14.0783 0.5 13.7883 0.587974 13.5416 0.752796C13.295 0.917618 13.1027 1.15189 12.9892 1.42598C12.8757 1.70006 12.8459 2.00166 12.9038 2.29264C12.9617 2.58361 13.1046 2.85088 13.3143 3.06066C13.5241 3.27044 13.7914 3.4133 14.0824 3.47118C14.3733 3.52906 14.6749 3.49935 14.949 3.38582C15.2231 3.27229 15.4574 3.08003 15.6222 2.83336C15.787 2.58668 15.875 2.29667 15.875 2C15.875 1.60218 15.717 1.22064 15.4357 0.93934C15.1544 0.658036 14.7728 0.5 14.375 0.5Z" fill="#676767"/>
                                 </svg>
                                 <div class="more-options"
-                                    *ngIf="selectedTraineeName === trainee.name"
+                                    *ngIf="selectedTraineeName === trainee.fullName"
                                     [class]="ellipsisClicked? 'ellipsisClicked' : 'ellipsisNotClicked'"
                                 >
                                     <span class="update" >

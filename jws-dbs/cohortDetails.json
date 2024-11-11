@@ -1,0 +1,64 @@
+{
+    "cohortDetails" : {
+        "id": 1,
+          "cohortName": "Cohort 1",
+          "enrollmentCount": 5,
+          "trainees": [
+            {
+              "id": 1,
+              "cohort": "Cohort 1",
+              "enrolled": 265,
+              "fullName": "Alex Agyeman",
+              "email": "alex.a@gmail.com",
+              "contact": "+233 553673610",
+              "status": "active",
+              "specialization": "UI/UX Design",
+              "date_added": "2024-10-12"
+            },
+            {
+              "id": 2,
+              "cohort": "Cohort 1",
+              "enrolled": 290,
+              "fullName": "Boadi Solomon",
+              "email": "boadi.solomon@example.com",
+              "contact": "+233 553842619",
+              "status": "active",
+              "specialization": "Frontend Development",
+              "date_added": "2024-09-18"
+            },
+            {
+              "id": 3,
+              "cohort": "Cohort 1",
+              "enrolled": 260,
+              "fullName": "Sammy Tugga",
+              "email": "sammy.tugga@example.com",
+              "contact": "+233 552344110",
+              "status": "active",
+              "specialization": "Backend Development",
+              "date_added": "2024-08-05"
+            },
+            {
+              "id": 4,
+              "cohort": "Cohort 1",
+              "enrolled": 275,
+              "fullName": "Linda Yeboah",
+              "email": "linda.y@example.com",
+              "contact": "+233 552987431",
+              "status": "active",
+              "specialization": "Data Science",
+              "date_added": "2024-07-20"
+            },
+            {
+              "id": 5,
+              "cohort": "Cohort 1",
+              "enrolled": 310,
+              "fullName": "Kwame Biney",
+              "email": "kwame.biney@example.com",
+              "contact": "+233 551234567",
+              "status": "active",
+              "specialization": "UI/UX Design",
+              "date_added": "2024-06-10"
+            }
+          ]
+    }
+}

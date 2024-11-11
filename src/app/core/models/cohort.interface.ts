@@ -12,21 +12,24 @@ export interface CohortList {
     cohort: string,
     startDate: Date,
     endDate: Date,
-    traineesEnrolled: string,
+    traineesEnrolled: number,
 }
 
-export interface TraineeList {
+export interface CohortDetails {
+    id: number;
+    cohortName: string;
+    enrollmentCount: number;
+    trainees: Trainees[];
+}
+
+export interface Trainees {
     id: number;
     cohort: string;
     enrolled: number;
-    name: string;
+    fullName: string;
+    email: string;
+    contact: string;
     status: string;
-    contact: contact;
     specialization: string;
-    dateAdded: Date;
-}
-
-export interface contact {
-    email: string,
-    telephone: string
+    date_added: string;
 }

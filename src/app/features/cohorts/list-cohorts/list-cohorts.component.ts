@@ -20,7 +20,7 @@ export class ListCohortsComponent {
   private searchTerm$ = new BehaviorSubject<string>(''); 
 
   ellipsisClicked: boolean = false;
-  selectedCohortName: string | null = '';
+  selectedCohortName: string | null = ''; 
 
   constructor(
     private cohortDataService: CohortDataService, 
@@ -52,9 +52,8 @@ export class ListCohortsComponent {
   }
 
   //Get the Id of selected Cohort from list and make http request to get all details for cohort
-  setSelectedCohort(selectedCohortId: number) { 
-    this.cohortDataService.getSelectedChortTraineeList(selectedCohortId)
-    console.log("id:", selectedCohortId);
+  getSelectedCohortDetails(selectedCohortId: number) { 
+    this.cohortDataService.selectedCohortId = selectedCohortId;
     this.goToTraineesList()
   }
 
@@ -72,7 +71,7 @@ export class ListCohortsComponent {
 
   // Set data into form and route to edit cohort component
   updateCohort() {
-    this.cohortDataService.setCohortFormDataFromUpate();
+    // this.cohortDataService.setCohortFormDataFromUpate();
     this.goToEditCohort();
   }
 

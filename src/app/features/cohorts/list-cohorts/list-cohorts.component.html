@@ -36,7 +36,7 @@
                     </div>
                     @if(filteredCohorts$ | async; as filteredcohorts) {
                         @for(cohort of filteredcohorts; track cohort) { 
-                            <div class="list" (click)="setSelectedCohort(cohort.id)">
+                            <div class="list" (click)="getSelectedCohortDetails(cohort.id)">
                                 <div class="cohort-name">{{ cohort.cohort }}</div>
                                 <div class="start-date">
                                     <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
