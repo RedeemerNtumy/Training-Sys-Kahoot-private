@@ -9,6 +9,7 @@ import {
 import { MessageComponent } from '../../../core/shared/message/message.component';
 import { InputFieldComponent } from '../../../core/shared/input-field/input-field.component';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   isLoading = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.initLoginForm();
@@ -50,6 +51,15 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       const user = { email, password };
+      this.authService.login(email, password).subscribe((response) => {
+        if (response.success) {
+          this.successMessage = 'Login successful';
+          this.errorMessage = '';
+        } else {
+          this.errorMessage = response.message;
+          this.successMessage = '';
+        }
+      });
     }
   }
 }
