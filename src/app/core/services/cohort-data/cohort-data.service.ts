@@ -9,14 +9,11 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 export class CohortDataService {
 
   private apiUrl: string = '';
-  // private mockjson = 'assets/mockjson.json' ;
-  // private mockjsonempty = 'assets/mockjsonempty.json' ;
-  // private mocktraineelist = 'assets/mocktraineelist.json';
-  // private mockupdateCohortData = 'assets/mockupdatecohort.json'
+  private mockupdateCohortData = 'assets/mockupdatecohort.json'
 
   private cohortsListUrl: string = 'http://localhost:9000/cohortsList';
   private cohortsDetailsUrl: string = 'http://localhost:8000/cohortDetails';
-  selectedCohortId: number = 1;
+  selectedCohortId: string = "1";
 
   private cohortFormDataSubject = new BehaviorSubject<Cohort | null>(null);
   createCohortFormData$ : Observable<Cohort | null> = this.cohortFormDataSubject.asObservable();
@@ -36,20 +33,21 @@ export class CohortDataService {
     return this.http.post<Cohort>(this.apiUrl, formData);
   }
 
+  //(HTTP Request) Make a post request to backend for Cohort Details including trainee list
   getSelectedCohortDetails() {
-    // console.log(this.selectedCohortId);
     return this.http.get<CohortDetails>(this.cohortsDetailsUrl)
   }
+
 
   private selectedCohortFormFromUpdateSubject = new BehaviorSubject<Cohort | null>(null);
   selectedCohortFormFromUpdate$ : Observable<Cohort | null> = this.selectedCohortFormFromUpdateSubject.asObservable();
 
-  // setCohortFormDataFromUpate() {
-  //   this.selectedCohortFormFromUpdate$ = this.http.get<Cohort>(this.mockupdateCohortData)
-  //   this.selectedCohortFormFromUpdate$.subscribe(data => {
-  //     this.setCohortFormData(data || null);
-  //   })
-  // }
+  setCohortFormDataFromUpate() {
+    this.selectedCohortFormFromUpdate$ = this.http.get<Cohort>(this.mockupdateCohortData)
+    this.selectedCohortFormFromUpdate$.subscribe(data => {
+      this.setCohortFormData(data || null);
+    })
+  }
 
 
   // Set data for cohortFormData Behavoir subject

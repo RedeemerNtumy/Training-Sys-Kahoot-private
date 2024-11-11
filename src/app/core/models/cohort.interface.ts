@@ -1,5 +1,5 @@
 export interface Cohort {
-    id: number,
+    id: string,
     name: string,
     specialization: string[],
     startDate: Date,
@@ -8,7 +8,7 @@ export interface Cohort {
 }
 
 export interface CohortList {
-    id: number,
+    id: string,
     cohort: string,
     startDate: Date,
     endDate: Date,
@@ -16,14 +16,14 @@ export interface CohortList {
 }
 
 export interface CohortDetails {
-    id: number;
+    id: string;
     cohortName: string;
     enrollmentCount: number;
     trainees: Trainees[];
 }
 
 export interface Trainees {
-    id: number;
+    id: string;
     cohort: string;
     enrolled: number;
     fullName: string;

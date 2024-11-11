@@ -100,17 +100,17 @@ export class EditCohortComponent {
   // Submit form
   onSubmit() {
     if(this.newCohortForm.valid) {
-      console.log(this.newCohortForm.value)
-      // this.cohortDataService.addCohort(this.newCohortForm.value).subscribe({
-      //   next: (response) => {
-      //     console.log('Data submitted successfully', response);
-      //   },
-      //   error: (error) => {
-      //     console.error('Error submitting data', error);
-      //   }
-      // }) 
-      // this.modalService.toggleSuccessModal()
-      // this.newCohortForm.reset();
+      // console.log(this.newCohortForm.value)
+      this.cohortDataService.addCohort(this.newCohortForm.value).subscribe({
+        next: (response) => {
+          console.log('Data submitted successfully', response);
+        },
+        error: (error) => { 
+          console.error('Error submitting data', error);
+        }
+      }) 
+      this.modalService.toggleSuccessModal()
+      this.newCohortForm.reset();
     }
     else {
       this.newCohortForm.markAllAsTouched();

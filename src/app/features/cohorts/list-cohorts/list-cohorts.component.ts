@@ -52,7 +52,7 @@ export class ListCohortsComponent {
   }
 
   //Get the Id of selected Cohort from list and make http request to get all details for cohort
-  getSelectedCohortDetails(selectedCohortId: number) { 
+  getSelectedCohortDetails(selectedCohortId: string) { 
     this.cohortDataService.selectedCohortId = selectedCohortId;
     this.goToTraineesList()
   }
@@ -70,8 +70,8 @@ export class ListCohortsComponent {
   }
 
   // Set data into form and route to edit cohort component
-  updateCohort() {
-    // this.cohortDataService.setCohortFormDataFromUpate();
+  updateCohort(data: CohortList) {
+    this.cohortDataService.setCohortFormDataFromUpate();
     this.goToEditCohort();
   }
 
