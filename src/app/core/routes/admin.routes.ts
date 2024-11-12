@@ -1,8 +1,8 @@
 
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../views/admin/dashboard/dashboard.component';
-import { NoSpecializationAddedComponent } from '../../features/specializations/no-specialization-added/no-specialization-added.component';
 import { SpecializationManagementComponent } from '../../views/admin/specializations/specialization-management.component';
+import { NoSpecializationAddedComponent } from '../../features/admin/specializations/no-specialization-added/no-specialization-added.component';
 
 export const adminRoutes: Routes = [
   {

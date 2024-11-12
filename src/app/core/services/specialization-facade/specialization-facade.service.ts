@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, throwError,tap, map } from 'rxjs';
 import { Ispecialization } from '../../models/specialization.interface';
+import { environment } from '../../../environments/specializations/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ export class SpecializationFacadeService {
 
   private sortSubject = new BehaviorSubject<'asc'|'desc'>('desc')
   sortDirection$ = this.sortSubject.asObservable();
+
+  private hostedServer = environment.apiUrl;
 
   private localServer: string = 'http://localhost:3000/specializations';
   private createEndpoint: string = 'http://localhost:8089/api/specializations';
