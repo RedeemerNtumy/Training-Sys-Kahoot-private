@@ -206,5 +206,11 @@
       "endDate": "2025-01-17",
       "id": "25"
     }
+  ],
+  "allSpecilizations": [
+    "UI/UX",
+    "Front-End",
+    "Back-End",
+    "Quality Assurance"
   ]
 }
