@@ -8,8 +8,9 @@ import {
 } from '@angular/forms';
 import { MessageComponent } from '../../../core/shared/message/message.component';
 import { InputFieldComponent } from '../../../core/shared/input-field/input-field.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth/auth.service';
+import { switchMap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -26,13 +27,17 @@ import { AuthService } from '../../../core/services/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  showPasswordError = true;
+  showPasswordError = false;
   showEmailError = false;
   successMessage = '';
   errorMessage = '';
   isLoading = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private route: Router
+  ) {}
 
   ngOnInit(): void {
     this.initLoginForm();
@@ -47,19 +52,32 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.isLoading = true;
+    this.showEmailError = false;
+    this.showPasswordError = false;
 
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       const user = { email, password };
-      this.authService.login(email, password).subscribe((response) => {
-        if (response.success) {
-          this.successMessage = 'Login successful';
-          this.errorMessage = '';
-        } else {
-          this.errorMessage = response.message;
-          this.successMessage = '';
-        }
-      });
+      this.authService
+        .login(email, password)
+        .pipe(
+          switchMap(() => timer(2000)),
+          switchMap(() => {
+            this.isLoading = false;
+            this.successMessage = 'Login successful';
+            return timer(1000);
+          })
+        )
+        .subscribe({
+          next: () => {
+            this.route.navigate(['home/admin']);
+          },
+          error: () => {
+            this.showEmailError = true;
+            this.showPasswordError = true;
+            this.isLoading = false;
+          },
+        });
     }
   }
 }
