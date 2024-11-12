@@ -30,8 +30,6 @@ export class PaginatorComponent implements OnInit {
     }
     return pageNumbers;
   }
-
-
   
   onPageChange(page: number): void {
     if (page >= 1 && page <= this.totalPages) {

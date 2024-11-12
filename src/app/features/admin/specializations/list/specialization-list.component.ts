@@ -7,9 +7,9 @@ import { DateformatPipe } from "../../../../core/pipes/dateFormat/dateformat.pip
 import { Router } from '@angular/router';
 import { DeleteModalComponent } from "../delete-modal/delete-modal.component";
 import { ListCardComponent } from "./list-card/list-card.component";
-import { PaginatorComponent } from "./paginator/paginator.component";
-import { Observable, map, tap,of,combineLatest, BehaviorSubject } from 'rxjs';
+import { Observable, map,combineLatest, BehaviorSubject } from 'rxjs';
 import { SpecializationFacadeService } from '../../../../core/services/specialization-facade/specialization-facade.service';
+import { PaginatorComponent } from "../../../../core/shared/paginator/paginator.component";
 
 @Component({
   selector: 'app-specialization-list',
@@ -23,7 +23,7 @@ import { SpecializationFacadeService } from '../../../../core/services/specializ
     DeleteModalComponent,
     ListCardComponent,
     PaginatorComponent
-  ],
+],
   templateUrl: './specialization-list.component.html',
   styleUrls: ['./specialization-list.component.scss']
 })
