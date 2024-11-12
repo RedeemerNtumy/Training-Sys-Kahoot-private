@@ -26,13 +26,30 @@ export const adminRoutes: Routes = [
     path: 'specialization',
     loadComponent: () => import('./specializations/specialization-management.component')
       .then(m => m.SpecializationManagementComponent),
-    data: { role: 'admin' }
+    data: { role: 'admin' },
+    children: [
+      {
+        path:'',
+        redirectTo: 'list',
+        pathMatch: 'full'
+      },
+      {
+        path:'list',
+        loadComponent:()=> import('../../features/admin/specializations/list/specialization-list.component')
+        .then( m => m.SpecializationListComponent)
+      },
+      {
+        path: 'create',
+        loadComponent:()=> import('../../features/admin/specializations/create/create-specialization.component')
+       .then( m => m.CreateSpecializationComponent ),
+      },
+    ]
   },
   {
     path: 'cohorts',
     loadComponent: () => import('./cohorts/cohorts-management.component')
     .then(m => m.CohortsManagementComponent),
-    data: { role: 'admin' }
+    data: { role: 'admin' },
   },
   {
     path: 'progress-tracking',
