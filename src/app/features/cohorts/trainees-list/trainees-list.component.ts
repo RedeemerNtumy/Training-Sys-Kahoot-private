@@ -17,8 +17,9 @@ export class TraineesListComponent {
 
   cohort$!: Observable<CohortDetails>; 
   filteredTrainees$!: Observable<Trainees[]>;
+  
   private searchTerm$ = new BehaviorSubject<string>(''); 
-  private activeFilter$!: Observable<Trainees[]>;
+  private statusFilter$ = new BehaviorSubject<string | null>(null);
 
   ellipsisClicked: boolean = false;
   selectedTraineeName: string | null = '';
@@ -32,14 +33,14 @@ export class TraineesListComponent {
     // Get cohort details with trainees list from service
     this.cohort$ = this.cohortDataService.getSelectedCohortDetails();
 
-    this.filteredTrainees$ = combineLatest([this.cohort$, this.searchTerm$]).pipe(
-      map(([cohort, searchTerm]) => {
-        return cohort.trainees.filter((trainee: any) => {
+    this.filteredTrainees$ = combineLatest([this.cohort$, this.searchTerm$, this.statusFilter$]).pipe(
+      map(([cohort, searchTerm, statusFilter]) => {
+        return cohort.trainees.filter((trainee: Trainees) => {
           const lowerSearchTerm = searchTerm.toLowerCase();
-          return (
-            trainee.fullName.toLowerCase().includes(lowerSearchTerm) ||
-            trainee.email.toLowerCase().includes(lowerSearchTerm)
-          );
+          const matchesSearch = trainee.fullName.toLowerCase().includes(lowerSearchTerm) || 
+                                trainee.email.toLowerCase().includes(lowerSearchTerm);
+          const matchesStatus = statusFilter ? trainee.status === statusFilter : true;
+          return matchesSearch && matchesStatus;
         });
       })
     );
@@ -52,20 +53,25 @@ export class TraineesListComponent {
 
   onSortList() {
     this.filteredTrainees$ = this.filteredTrainees$.pipe(
-      map((cohorts: Trainees[]) => cohorts.sort((a, b) => -1 - 1))
-    )
+      map((trainees: Trainees[]) => trainees.sort((a, b) => a.fullName.localeCompare(b.fullName)))
+    );
   }
-
+  
+  // Set the filter for each status and trigger re-evaluation
   filterByActive() {
-    this.filteredTrainees$.pipe(
-      map((cohorts: Trainees[]) => cohorts.filter(cohort => cohort.status === 'active'))
-    )
+    this.statusFilter$.next('Active');
+  }
+  
+  filterByInactive() {
+    this.statusFilter$.next('Inactive');
+  }
+  
+  filterByDeactivated() {
+    this.statusFilter$.next('Deactivated');
   }
 
-  filterByInactive() {
-    this.filteredTrainees$.pipe(
-      map((cohorts: Trainees[]) => cohorts.filter(cohort => cohort.status === 'inactive'))
-    )
+  clearFilter() {
+    this.statusFilter$.next(null);
   }
 
   toggleEllipsis(selectedTrainee: string, event:Event) {

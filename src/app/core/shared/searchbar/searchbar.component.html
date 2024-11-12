@@ -22,7 +22,10 @@
                 [class]="filterVisible ? 'showFilterDropDown' : 'hideFilterDropDown'"
             >
                 <div class="filter-status" (click)="$event.stopPropagation()">
-                    <span>Status</span>
+                    <span>
+                        <p>Status</p>
+                        <p (click)="onResetClicked()">Reset</p>
+                    </span>
                     <p (click)="onActiveClicked()">Active</p>
                     <p (click)="onInactiveClicked()">Inactive</p>
                     <p (click)="onDeactivedClicked()">Deactivated</p>

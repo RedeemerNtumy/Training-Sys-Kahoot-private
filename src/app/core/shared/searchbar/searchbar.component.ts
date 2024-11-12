@@ -23,6 +23,7 @@ export class SearchbarComponent implements OnInit {
   @Output() activeStatus: EventEmitter<void> = new EventEmitter<void>();
   @Output() inactiveStatus: EventEmitter<void> = new EventEmitter<void>();
   @Output() deactivatedStatus: EventEmitter<void> = new EventEmitter<void>();
+  @Output() resetStatus: EventEmitter<void> = new EventEmitter<void>();
   
   @Input() title!: string; // eg. Cohort
   @Input() placeholder!: string; //eg name
@@ -65,6 +66,10 @@ export class SearchbarComponent implements OnInit {
 
   onDeactivedClicked(): void {
     this.deactivatedStatus.emit();
+  }
+  
+  onResetClicked(): void {
+    this.resetStatus.emit();
   }
 
 
