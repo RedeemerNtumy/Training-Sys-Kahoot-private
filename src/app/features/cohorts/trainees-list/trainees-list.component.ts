@@ -96,6 +96,7 @@ export class TraineesListComponent {
     }
   }
 
+
   goToCreateCohort() {
     this.router.navigate(['home/admin/cohorts/create-cohort'])
   }

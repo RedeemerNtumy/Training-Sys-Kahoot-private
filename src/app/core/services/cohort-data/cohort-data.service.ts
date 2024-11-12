@@ -67,10 +67,5 @@ export class CohortDataService {
   }
 
 
-  
-
-
-
-
 
 }
