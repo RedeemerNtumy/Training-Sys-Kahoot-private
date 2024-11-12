@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, filter, map } from 'rxjs';
 import { CohortDetails, CohortList, Trainees } from '../../../core/models/cohort.interface';
 import { Router } from '@angular/router';
 import { CohortDataService } from '../../../core/services/cohort-data/cohort-data.service';
@@ -18,6 +18,7 @@ export class TraineesListComponent {
   cohort$!: Observable<CohortDetails>; 
   filteredTrainees$!: Observable<Trainees[]>;
   private searchTerm$ = new BehaviorSubject<string>(''); 
+  private activeFilter$!: Observable<Trainees[]>;
 
   ellipsisClicked: boolean = false;
   selectedTraineeName: string | null = '';
@@ -52,6 +53,18 @@ export class TraineesListComponent {
   onSortList() {
     this.filteredTrainees$ = this.filteredTrainees$.pipe(
       map((cohorts: Trainees[]) => cohorts.sort((a, b) => -1 - 1))
+    )
+  }
+
+  filterByActive() {
+    this.filteredTrainees$.pipe(
+      map((cohorts: Trainees[]) => cohorts.filter(cohort => cohort.status === 'active'))
+    )
+  }
+
+  filterByInactive() {
+    this.filteredTrainees$.pipe(
+      map((cohorts: Trainees[]) => cohorts.filter(cohort => cohort.status === 'inactive'))
     )
   }
 

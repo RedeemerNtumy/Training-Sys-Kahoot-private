@@ -13,7 +13,7 @@ export class CohortDataService {
 
   private cohortsListUrl: string = 'http://localhost:9000/cohortsList';
   private cohortFormsDataUrl: string = 'http://localhost:9000/cohortsFormData/25';
-  private cohortsDetailsUrl: string = 'http://localhost:8000/cohortDetails';
+  private cohortsDetailsUrl: string = 'http://localhost:9000/cohortDetails';
 
   selectedCohortId: string = "1";
   selectedCohortForUpdate: string = "";

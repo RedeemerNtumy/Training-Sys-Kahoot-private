@@ -15,6 +15,9 @@ export class SearchbarComponent implements OnInit {
   @Output() addCohortClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
   @Output() sortClicked: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output() activeStatus: EventEmitter<void> = new EventEmitter<void>();
+  @Output() inactiveStatus: EventEmitter<void> = new EventEmitter<void>();
   
   @Input() title!: string; // eg. Cohort
   @Input() placeholder!: string; //eg name
@@ -22,6 +25,7 @@ export class SearchbarComponent implements OnInit {
   @Input() hide!: boolean;
 
   searchValue: string = '';
+  filterVisible: boolean = false;
 
   constructor(
     public searchbarService: SearchbarService,
@@ -42,6 +46,21 @@ export class SearchbarComponent implements OnInit {
   onSortClicked(): void {
     this.sortClicked.emit()
   }
+
+  onActiveClicked(): void {
+    this.activeStatus.emit();
+  }
+
+  onInactiveClicked(): void {
+    this.inactiveStatus.emit();
+  }
+
+
+  toggleFilter() {
+    this.filterVisible = !this.filterVisible;
+    console.log(this.filterVisible);
+  }
+
 
 
 
