@@ -9,7 +9,7 @@
   @include flexbox(column, center, center);
 
   .reset-code-wrapper {
-    @include flexbox(column);
+    @include flexbox(column, center, center);
     width: 57.9rem;
     background-color: $clr-white;
     padding: 5.6rem;
@@ -26,6 +26,44 @@
       width: 100%;
       @include flexbox(column);
       gap: 4rem;
+    }
+
+    .resend-info {
+      @include flexbox(column, center, center);
+
+      p {
+        color: $clr-gray-500;
+
+        a,
+        a:link,
+        a:visited {
+          color: $clr-primary-500;
+          cursor: pointer;
+          text-decoration: underline;
+        }
+
+        span {
+          color: $clr-primary-500;
+        }
+      }
+    }
+
+    .help-link {
+      p {
+        color: $clr-gray-500;
+
+        a,
+        a:link,
+        a:visited {
+          color: $clr-primary-500;
+          cursor: pointer;
+          text-decoration: underline;
+        }
+
+        span {
+          color: $clr-primary-500;
+        }
+      }
     }
   }
 }
