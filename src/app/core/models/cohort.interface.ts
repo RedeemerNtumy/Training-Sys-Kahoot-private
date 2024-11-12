@@ -34,3 +34,8 @@ export interface Trainees {
     specialization: string;
     date_added: string;
 }
+
+
+export interface Specializations {
+    specialization: string[];
+}

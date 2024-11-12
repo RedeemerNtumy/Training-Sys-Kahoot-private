@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Cohort, CohortDetails, CohortList } from '../../models/cohort.interface';
+import { Cohort, CohortDetails, CohortList, Specializations } from '../../models/cohort.interface';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
@@ -14,6 +14,7 @@ export class CohortDataService {
   private cohortsListUrl: string = 'http://localhost:9000/cohortsList';
   private cohortFormsDataUrl: string = 'http://localhost:9000/cohortsFormData/25';
   private cohortsDetailsUrl: string = 'http://localhost:9000/cohortDetails';
+  private specializationsUrl: string = 'http://localhost:9000/allSpecilizations';
 
   selectedCohortId: string = "1";
   selectedCohortForUpdate: string = "";
@@ -54,6 +55,10 @@ export class CohortDataService {
 
   deleteCohort(id: string) {
     return this.http.delete<CohortList>(`${this.cohortsListUrl}/${id}`)
+  }
+
+  getAllSpecializations() {
+    return this.http.get<Specializations[]>(this.specializationsUrl);
   }
 
   // Set data for cohortFormData Behavoir subject

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SearchbarService } from '../../services/searchbar/searchbar.service';
 import { FormsModule } from '@angular/forms';
+import { CohortDataService } from '../../services/cohort-data/cohort-data.service';
 
 @Component({
   selector: 'app-searchbar',
@@ -30,6 +31,7 @@ export class SearchbarComponent implements OnInit {
 
   constructor(
     public searchbarService: SearchbarService,
+    public cohortDataService: CohortDataService,
   ) {}
 
   onAddClick(): void {
