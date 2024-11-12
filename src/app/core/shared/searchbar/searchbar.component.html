@@ -21,7 +21,7 @@
             <div class="filter-drop-down"
                 [class]="filterVisible ? 'showFilterDropDown' : 'hideFilterDropDown'"
             >
-                <div class="filter-status">
+                <div class="filter-status" (click)="$event.stopPropagation()">
                     <span>Status</span>
                     <p (click)="onActiveClicked()">Active</p>
                     <p (click)="onInactiveClicked()">Inactive</p>
@@ -29,10 +29,9 @@
                 </div>
                 <div class="filter-specialization">
                     <span>Specialization</span>
-                    <p>UI/UX</p>
-                    <p>Front-End</p>
-                    <p>Back-End</p>
-                    <p>Tester</p>
+                    <p *ngFor="let specs of allSpecializations$ | async"
+                    (click)="$event.stopPropagation()"
+                    >{{specs}}</p>
                 </div>
             </div>
         </div>

@@ -2,11 +2,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SearchbarService } from '../../services/searchbar/searchbar.service';
 import { FormsModule } from '@angular/forms';
 import { CohortDataService } from '../../services/cohort-data/cohort-data.service';
+import { Specializations } from '../../models/cohort.interface';
+import { Observable } from 'rxjs';
+import { CommonModule, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-searchbar',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgFor, CommonModule],
   templateUrl: './searchbar.component.html',
   styleUrl: './searchbar.component.scss'
 })
@@ -29,6 +32,8 @@ export class SearchbarComponent implements OnInit {
   searchValue: string = '';
   filterVisible: boolean = false;
 
+  allSpecializations$!: Observable<Specializations[]>;
+
   constructor(
     public searchbarService: SearchbarService,
     public cohortDataService: CohortDataService,
@@ -39,7 +44,7 @@ export class SearchbarComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.allSpecializations$ = this.cohortDataService.getAllSpecializations();
   }
 
   onSearchInput(): void {
