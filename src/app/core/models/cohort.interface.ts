@@ -4,6 +4,7 @@ export interface Cohort {
     specialization: string[],
     startDate: Date,
     endDate: Date,
+    traineesEnrolled: number,
     description: string,
 }
 
@@ -13,7 +14,6 @@ export interface CohortList {
     startDate: Date,
     endDate: Date,
     traineesEnrolled: number,
-    description: string,
 }
 
 export interface CohortDetails {

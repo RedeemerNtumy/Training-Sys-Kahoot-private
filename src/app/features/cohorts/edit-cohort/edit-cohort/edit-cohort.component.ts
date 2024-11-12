@@ -44,6 +44,7 @@ export class EditCohortComponent {
 
     // Set data into form from create cohort form
     this.cohortDataService.createCohortFormData$.subscribe((cohortData) => {
+      console.log(cohortData)
       if (cohortData) {
         // Populate the form with cohort data
         this.newCohortForm.patchValue({
@@ -101,20 +102,20 @@ export class EditCohortComponent {
 
   // Submit form
   onSubmit() {
-    if(this.newCohortForm.valid) {
-      console.log(this.newCohortForm.value)
+    if(this.newCohortForm.valid) { 
       this.cohortDataService.addCohort(this.newCohortForm.value).subscribe({
-        next: (response) => {
+        next: (response) => {            
           console.log('Data submitted successfully', response);
         },
         error: (error) => { 
           console.error('Error submitting data', error);
         }
-      }) 
+      })
       this.modalService.toggleSuccessModal()
       this.newCohortForm.reset();
     }
     else {
+      console.log("Not valid")
       this.newCohortForm.markAllAsTouched();
     }
   }

@@ -33,7 +33,9 @@ export class CohortDataService {
 
   //(HTTP Request) Make a post request to backend to add cohort
   addCohort(formData: Cohort) {
-    return this.http.post<Cohort>(this.cohortsListUrl, formData);
+    const form = { ...formData }
+    form['traineesEnrolled'] = 0;
+    return this.http.post<CohortList>(this.cohortsListUrl, form);
   }
 
   //(HTTP Request) Make a post request to backend for Cohort Details including trainee list

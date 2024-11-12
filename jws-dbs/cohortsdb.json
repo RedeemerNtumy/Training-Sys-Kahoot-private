@@ -139,6 +139,44 @@
       "startDate": "2024-08-01",
       "endDate": "2025-01-01",
       "traineesEnrolled": 205
+    },
+    {
+      "id": "71e6",
+      "name": "asdfasdf",
+      "specialization": [
+        "UI/UX"
+      ],
+      "startDate": "2024-11-13",
+      "endDate": "2024-12-05",
+      "description": "asfasdf"
+    },
+    {
+      "id": "5f0c",
+      "name": "asdfasdf",
+      "startDate": "2024-11-14",
+      "endDate": "2024-12-06",
+      "traineesEnrolled": 0
+    },
+    {
+      "id": "74bd",
+      "name": "Cohort 1000",
+      "startDate": "2024-11-13",
+      "endDate": "2024-12-07",
+      "traineesEnrolled": 0
+    },
+    {
+      "id": "71d0",
+      "name": "Cohort 2000",
+      "startDate": "2024-11-13",
+      "endDate": "2024-11-29",
+      "traineesEnrolled": 0
+    },
+    {
+      "id": "f5ca",
+      "name": "Fianl",
+      "startDate": "2024-11-01",
+      "endDate": "2024-12-06",
+      "traineesEnrolled": 0
     }
   ],
   "cohortsFormData": [
