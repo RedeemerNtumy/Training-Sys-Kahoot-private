@@ -75,6 +75,18 @@ export class ListCohortsComponent {
     this.goToUpdateCohort();
   }
 
+  // Delete item from cohort list
+  deleteCohort(id : string) {
+    this.cohortDataService.deleteCohort(id).subscribe({
+      next: (response) => {
+        console.log("successfully deleted cohort", response)
+      },
+      error: (error) => {
+        console.log("error deleting cohort: ", error)
+      }
+    })
+  }
+
   goToCreateCohort() {
     this.router.navigate(['home/admin/cohorts/create-cohort'])
   }

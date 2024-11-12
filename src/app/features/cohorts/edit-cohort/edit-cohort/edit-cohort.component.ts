@@ -44,7 +44,6 @@ export class EditCohortComponent {
 
     // Set data into form from create cohort form
     this.cohortDataService.createCohortFormData$.subscribe((cohortData) => {
-      console.log(cohortData)
       if (cohortData) {
         // Populate the form with cohort data
         this.newCohortForm.patchValue({

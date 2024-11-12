@@ -67,24 +67,6 @@ export class UpdateCohortComponent {
         });
       }
     })
-    // this.cohortDataService.getCohortFormData().subscribe(data => {
-    //   if(data) {
-    //     // Populate the form with cohort data
-    //     this.newCohortForm.patchValue({
-    //       name: data.name,
-    //       startDate: data.startDate,
-    //       endDate: data.endDate,
-    //       description: data.description
-    //     });
-
-    //     // Populate specialization array
-    //     const specializationArray = this.newCohortForm.get('specialization') as FormArray;
-    //     specializationArray.clear(); // Clear existing controls
-    //     data.specialization.forEach((spec: string) => {
-    //       specializationArray.push(this.fb.control(spec, Validators.required));
-    //     });
-    //   }
-    // })
 
     // Disable input fields on initialization
     if (this.editBtnClicked === true) {

@@ -45,27 +45,16 @@ export class CohortDataService {
 
   //(HTTP Request) Get cohort for update
   getCohortFormData(): Observable<Cohort> {
-    // return this.http.get<Cohort>(`${this.cohortFormsDataUrl}/${selectedCohortForUpdate}`);
     return this.http.get<Cohort>(`${this.cohortFormsDataUrl}`);
   }
 
   updateCohort(formData: Cohort) {
-    console.log("form data: ", formData)
     return this.http.put<Cohort>(`${this.cohortFormsDataUrl}`, formData);
   }
 
-
-  // private selectedCohortFormFromUpdateSubject = new BehaviorSubject<Cohort | null>(null);
-  // selectedCohortFormFromUpdate$ : Observable<Cohort | null> = this.selectedCohortFormFromUpdateSubject.asObservable();
-
-
-  // setCohortFormDataFromUpate() {
-  //   this.selectedCohortFormFromUpdate$ = this.http.get<Cohort>(this.mockupdateCohortData)
-  //   this.selectedCohortFormFromUpdate$.subscribe(data => {
-  //     this.setCohortFormData(data || null);
-  //   })
-  // }
-
+  deleteCohort(id: string) {
+    return this.http.delete<CohortList>(`${this.cohortsListUrl}/${id}`)
+  }
 
   // Set data for cohortFormData Behavoir subject
   setCohortFormData(data: Cohort | null) {
