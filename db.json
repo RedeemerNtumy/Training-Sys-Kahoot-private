@@ -5,7 +5,7 @@
       "name": "UX/UI Design",
       "description": "Explore the principles of user experience and interface design. Learn tools like Figma and Adobe XD to create visually appealing and user-friendly applications.",
       "prerequisites": ["Basic design skills", "Interest in user-centered design"],
-      "dateCreated": "2024-01-15",
+      "dateCreated": "2024-04-20",
       "traineesCount": 120
     },
     {
@@ -21,7 +21,7 @@
       "name": "Back-End Development",
       "description": "Understand server-side development, databases, and API integration. This course covers Node.js, Express, and MongoDB to build robust and scalable backend systems.",
       "prerequisites": ["Basic programming knowledge", "Interest in server-side logic"],
-      "dateCreated": "2024-03-05",
+      "dateCreated": "2024-06-15",
       "traineesCount": 95
     },
     {
@@ -29,7 +29,7 @@
       "name": "Quality Assurance (QA)",
       "description": "An introduction to software testing principles, covering test planning, automation, and quality assurance best practices. Learn tools like Selenium and JIRA for effective QA.",
       "prerequisites": ["Attention to detail", "Interest in software quality"],
-      "dateCreated": "2024-04-20",
+      "dateCreated": "2024-01-15",
       "traineesCount": 80
     },
     {
@@ -45,7 +45,7 @@
       "name": "Cloud Computing",
       "description": "Learn the fundamentals of cloud computing, including virtual machines, containers, and deployment strategies. Covers platforms like AWS, Azure, and Google Cloud.",
       "prerequisites": ["Basic networking knowledge", "Interest in scalable infrastructure"],
-      "dateCreated": "2024-06-15",
+      "dateCreated": "2024-03-05",
       "traineesCount": 110
     }
   ]

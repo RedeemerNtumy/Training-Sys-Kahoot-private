@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-paginator',
@@ -8,11 +9,19 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './paginator.component.html',
   styleUrls: ['./paginator.component.scss']
 })
-export class PaginatorComponent {
-  @Input() currentPage = 1;
+export class PaginatorComponent implements OnInit {
+  @Input() currentPage$!: Observable<number>;
   @Input() totalPages = 1;
   @Input() pageSize = 10;
   @Output() pageChange = new EventEmitter<number>();
+  currentPage = 1
+
+  
+  ngOnInit(){
+    this.currentPage$.subscribe( page =>
+      this.currentPage = page
+    )
+  }
 
   getPageNumbers(): number[] {
     const pageNumbers = [];
@@ -22,10 +31,11 @@ export class PaginatorComponent {
     return pageNumbers;
   }
 
+
+  
   onPageChange(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.pageChange.emit(this.currentPage);
+      this.pageChange.emit(page);
     }
   }
 

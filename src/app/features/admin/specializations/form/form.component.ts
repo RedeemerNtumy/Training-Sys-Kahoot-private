@@ -12,7 +12,7 @@ import { Ispecialization } from '../../../../core/models/specialization.interfac
   styleUrl: './form.component.scss'
 })
 export class FormComponent implements OnInit {
-  @Input() initialData?: Ispecialization;
+  @Input() initialData!: Ispecialization;
   @Output() formSubmit = new EventEmitter<Ispecialization>();
 
   specializationForm!: FormGroup;
@@ -79,8 +79,8 @@ export class FormComponent implements OnInit {
         name: formValue.name,
         description: formValue.description,
         prerequisites: prerequisites,
-        dateCreated: this.isEditMode ? this.initialData?.dateCreated : new Date().toISOString().split('T')[0],
-        traineesCount: this.isEditMode ? this.initialData?.traineesCount : 0
+        dateCreated: this.isEditMode ? this.initialData.dateCreated : new Date().toISOString().split('T')[0],
+        traineesCount: this.isEditMode ? this.initialData.traineesCount : 0
       };
       console.log(specialization);
 

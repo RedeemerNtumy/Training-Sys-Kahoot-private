@@ -4,19 +4,17 @@ import { NoSpecializationAddedComponent } from "../no-specialization-added/no-sp
 import { CommonModule, NgFor } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { DateformatPipe } from "../../../../core/pipes/dateFormat/dateformat.pipe";
-import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { DeleteModalComponent } from "../delete-modal/delete-modal.component";
 import { ListCardComponent } from "./list-card/list-card.component";
 import { PaginatorComponent } from "./paginator/paginator.component";
-import { Observable, map, tap,of } from 'rxjs';
+import { Observable, map, tap,of,combineLatest, BehaviorSubject } from 'rxjs';
 import { SpecializationFacadeService } from '../../../../core/services/specialization-facade/specialization-facade.service';
 
 @Component({
   selector: 'app-specialization-list',
   standalone: true,
   imports: [
-    MatMenuModule,
     NoSpecializationAddedComponent,
     CommonModule,
     HeaderComponent,
@@ -35,8 +33,8 @@ export class SpecializationListComponent implements OnInit {
   selectedSpecializationId?: number;
   deleteFeedbackMap = new Map<number, boolean>();
   specializations$!: Observable<Ispecialization[]>;
-
-  currentPage = 1;
+  private pageSubject = new BehaviorSubject<number>(1);
+  currentPage$ = this.pageSubject.asObservable()
   pageSize = 2;
   totalPages = 1;
 
@@ -47,24 +45,20 @@ export class SpecializationListComponent implements OnInit {
   }
 
   fetchSpecializations() {
-    this.specializationFacade.getAllSpecializations().pipe(
-      tap((specializations) => {
+    this.specializations$ = combineLatest([
+      this.specializationFacade.specialization$,
+      this.currentPage$
+    ]).pipe(
+      map(([specializations, page]) =>{
         this.totalPages = Math.ceil(specializations.length / this.pageSize);
-      }),
-      map((specializations) =>
-        specializations.slice(
-          (this.currentPage - 1) * this.pageSize,
-          (this.currentPage - 1) * this.pageSize + this.pageSize
-        )
-      )
-    ).subscribe((pagedSpecializations) => {
-      this.specializations$ = of(pagedSpecializations);
-    });
+        const startIndex = (page-1) * this.pageSize;
+        return specializations.slice(startIndex, startIndex + this.pageSize);
+      })
+    )
   }
 
   onPageChange(page: number) {
-    this.currentPage = page;
-    this.fetchSpecializations();
+    this.pageSubject.next(page)
   }
 
   toggleDropdown(event: Event, index: number): void {
@@ -92,14 +86,11 @@ export class SpecializationListComponent implements OnInit {
   }
 
   onSpecializationDeleted(id: number) {
-    // Set feedback state for this specific specialization
     this.deleteFeedbackMap.set(id, true);
-
-    // Optional: Clear the feedback after some time
     setTimeout(() => {
       this.deleteFeedbackMap.delete(id);
       this.fetchSpecializations();
-    }, 2000); // Adjust timing as needed
+    }, 2000); 
   }
 
   delete(id:number){

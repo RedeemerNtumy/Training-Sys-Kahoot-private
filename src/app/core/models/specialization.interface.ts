@@ -3,6 +3,6 @@ export interface Ispecialization {
   name: string;
   description: string;
   prerequisites: string[];
-  dateCreated?: string;
-  traineesCount?: number;
+  dateCreated: string;
+  traineesCount: number;
 }
