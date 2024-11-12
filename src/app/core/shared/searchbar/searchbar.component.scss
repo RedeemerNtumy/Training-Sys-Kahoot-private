@@ -49,17 +49,44 @@
         align-items: center;
 
         & .filter {
-            display: flex;
+            padding: 0 1rem;
+            width: fit-content;
+            height: 4.4rem;
+            padding-top: 1.2rem;
+            border: 1px solid transparent;
             gap: 1.4rem;
             color: $clr-gray-400;
             font-size: $font-size-body;
+            cursor: pointer;
+            transition: $btn-transition;
+
+            & svg {
+                margin-right: 1.4rem;
+            }
+        }
+
+        & .filter:hover {
+            border: 1px solid $clr-gray-100;
+            border-radius: 8px;
         }
 
         & .sort {
+            height: 4.4rem;
+            padding: 0 1.2rem;
             display: flex;
+            justify-content: center;
+            align-items: Center;
+            border: 1px solid transparent;
             gap: 1.4rem;
             color: $clr-gray-400;
             font-size: $font-size-body;
+            cursor: pointer;
+            transition: $btn-transition;
+        }
+
+        & .sort:hover {
+            border: 1px solid $clr-gray-100;
+            border-radius: 8px;
         }
 
         & button {
@@ -72,6 +99,7 @@
             border: none;
             font-weight: 500;
             font-size: $font-size-body;
+            cursor: pointer;
         }
     }
 }
