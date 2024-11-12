@@ -1,0 +1,23 @@
+@use './typography' as *;
+*,
+*::before,
+*::after {
+  margin: unset;
+  padding: unset;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: $font-lato ;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

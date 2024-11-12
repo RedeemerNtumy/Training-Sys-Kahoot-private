@@ -1,0 +1,143 @@
+@import '../../../styleSheet/variables';
+@import '../../../styleSheet/mixins';
+
+nav {
+    width: 100%;
+    min-width: 100%;
+    height: 8.1rem;
+    border: none;
+    border-bottom: 0.1rem solid $clr-gray-50; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 2.4rem;
+    background: $clr-white;
+    margin-bottom: 2.6rem;
+
+    & .tab {
+        font-size: $font-size-title;
+        color: $clr-gray-800;
+        font-weight: 600;
+    }
+
+    & .right-section {
+        display: flex;
+        align-items: center;
+        gap: 3.995rem;
+
+        & .icons {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+    
+    
+            & .notification-container {
+                width: 2.836rem;
+                height: 2.836rem;
+                border-radius: 0.315rem;
+                border: 0.1rem solid $clr-gray-100;
+                display: grid;
+                place-items: center;
+                transition: $btn-transition;
+                cursor: pointer;
+            }
+            & .notification-container:hover {
+                background: $clr-gray-50;
+            }
+            
+    
+            & .search-container {
+                width: 2.836rem;
+                height: 2.836rem;
+                border-radius: 0.315rem;
+                border: 0.1rem solid $clr-gray-100;
+                display: grid;
+                place-items: center;
+                transition: $btn-transition;
+                cursor: pointer;
+            }
+            & .search-container:hover {
+                background: $clr-gray-50;
+            }
+    
+        } // End of Icons element
+
+        & .divider {
+            width: 0.1rem;
+            height: 3.6rem;
+            background: $clr-gray-200;
+        }
+
+        & .user-details {
+            display: flex;
+            align-items: center;
+
+            & img {
+                border-radius: 50%;
+                margin-right: 1.6rem;
+            }
+
+            & .user-name-role {
+                display: flex;
+                flex-direction: column;
+                margin-right: 2.2rem;
+                
+                & #user-name {
+                    color: $clr-gray-800;
+                    font-weight: 700;
+                    font-size: $font-size-subtitle;
+                }
+                & #user-role {
+                    color: $clr-gray-300;
+                    font-weight: 400;
+                    font-size: $font-size-xbody;
+                }
+            }
+
+            & .more-option-icon {
+                position: relative;  
+                cursor: pointer;
+                transition: $btn-transition;  
+
+                & svg {
+                    width: 1.331rem;
+                }
+
+            }
+        } 
+    }
+}
+  
+// Enabling/Disabling plus btn
+.btnEnabled {
+    width: 2.836rem;
+    height: 2.836rem;
+    border-radius: 0.315rem;
+    background: $clr-primary-500;
+    display: grid;
+    place-items: center;
+    cursor: pointer;  
+    transition: $btn-transition; 
+}
+.btnEnabled:hover {
+    background: $clr-primary-400;
+}
+
+.btnDisabled {
+    width: 2.836rem;
+    height: 2.836rem;
+    border-radius: 0.315rem;
+    background: $clr-gray-400;
+    display: grid;
+    place-items: center;
+    cursor: not-allowed; 
+}
+
+// dropDown visibility
+.dropDownVisible {
+    @include dropDownVisible;
+}
+
+.dropDownNotVisible {
+    @include dropDownNotVisible
+}

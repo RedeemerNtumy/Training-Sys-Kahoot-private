@@ -1,0 +1,13 @@
+@use '../mixins' as *;
+
+.navigations{
+  display: flex;
+  justify-content: end;
+  .nav-list{
+    margin-top: 4.1rem;
+    margin-bottom: 2.7rem;
+    margin-left: 1.6rem;
+    width: 100% !important;
+    
+  }
+}
