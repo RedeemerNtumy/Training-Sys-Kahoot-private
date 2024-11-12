@@ -1,55 +1,6 @@
 {
   "cohortsList": [
     {
-      "id": "5",
-      "name": "Cohort 5",
-      "startDate": "2023-05-01",
-      "endDate": "2023-10-01",
-      "traineesEnrolled": 205
-    },
-    {
-      "id": "6",
-      "name": "Cohort 6",
-      "startDate": "2023-06-01",
-      "endDate": "2023-11-01",
-      "traineesEnrolled": 205
-    },
-    {
-      "id": "7",
-      "name": "Cohort 7",
-      "startDate": "2023-07-01",
-      "endDate": "2023-12-01",
-      "traineesEnrolled": 205
-    },
-    {
-      "id": "8",
-      "name": "Cohort 8",
-      "startDate": "2023-08-15",
-      "endDate": "2024-01-15",
-      "traineesEnrolled": 205
-    },
-    {
-      "id": "9",
-      "name": "Cohort 9",
-      "startDate": "2023-09-01",
-      "endDate": "2024-02-01",
-      "traineesEnrolled": 205
-    },
-    {
-      "id": "10",
-      "name": "Cohort 10",
-      "startDate": "2023-10-01",
-      "endDate": "2024-03-01",
-      "traineesEnrolled": 205
-    },
-    {
-      "id": "11",
-      "name": "Cohort 11",
-      "startDate": "2023-11-10",
-      "endDate": "2024-04-10",
-      "traineesEnrolled": 205
-    },
-    {
       "id": "12",
       "name": "Cohort 12",
       "startDate": "2023-12-01",
@@ -111,6 +62,20 @@
       "startDate": "2024-08-01",
       "endDate": "2025-01-01",
       "traineesEnrolled": 205
+    },
+    {
+      "id": "ba1a",
+      "name": "Cohort 24",
+      "startDate": "2024-11-14",
+      "endDate": "2024-12-07",
+      "traineesEnrolled": 0
+    },
+    {
+      "id": "2f75",
+      "name": "Test",
+      "startDate": "2024-11-15",
+      "endDate": "2024-12-07",
+      "traineesEnrolled": 0
     }
   ],
   "cohortsFormData": [
