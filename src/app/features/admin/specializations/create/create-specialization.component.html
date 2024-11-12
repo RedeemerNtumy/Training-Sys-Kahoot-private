@@ -1,8 +1,8 @@
 <section class="create" >
-  <div class="nav">
+  <a class="nav" (click)="navigateToList()">
     <img src="../../../../assets/Images/svg/backicon.svg" alt="">
-    <p class="back-link">Back</p>
-  </div>
+    <p class="back-link" >Back</p>
+  </a>
 
-  <app-form/>
+  <app-form  (formSubmit)="handleFormSubmit($event)"/>
 </section>

@@ -1,3 +1,4 @@
+<!-- form.component.html -->
 <form [formGroup]="specializationForm">
   <div class="create-info-head">
     <h3>Specialization Information</h3>
@@ -32,7 +33,7 @@
   </div>
 
   <div class="spec-type-field">
-    <h4>Prerequisite</h4>
+    <h4>Prerequisites</h4>
     <span>*</span>
     <p>
       Any prerequisite knowledge or skills required
@@ -40,25 +41,30 @@
     </p>
 
     <div formArrayName="prerequisites">
-      <div class="skill-input-container" *ngFor="let skill of skills.controls; let i = index">
-        <div [formGroupName]="i">
-          <input
-            type="text"
-            placeholder="Add Skill: UI/UX, QA,DS..."
-            formControlName="skill">
-            <img class="close" src="../../../../../assets/Images/svg/close.svg" alt="" (click)="removeSkill(i)">
-        </div>
+      <div class="skill-input-container" *ngFor="let prerequisite of prerequisites.controls; let i = index">
+        <input
+          [formControlName]="i"
+          type="text"
+          placeholder="Add prerequisite: Basic design skills, Programming knowledge...">
+        <img
+          class="close"
+          src="../../../../../assets/Images/svg/delete.svg"
+          alt="Remove prerequisite"
+          (click)="removeSkill(i)">
       </div>
     </div>
 
-    <button  mat-button type="button" (click)="addSkills()" class="add-skill-btn">
-      <!-- <img src="../../../../../assets/Images/svg/add.svg" alt=""> -->
-      Add Skill
+    <button mat-button type="button" (click)="addSkill()" class="add-skill-btn">
+      + Add Prerequisite
     </button>
   </div>
 
-  <button mat-button type="button"   class="add-spec-btn"  (click)="createSpecialization()">
-    Create Specialization
+  <button
+    mat-button
+    type="button"
+    [disabled]="specializationForm.invalid"
+    class="add-spec-btn"
+    (click)="submitForm()">
+    {{ isEditMode ? 'Update' : 'Create' }} Specialization
   </button>
-
 </form>

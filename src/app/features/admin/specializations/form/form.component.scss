@@ -18,8 +18,6 @@ form{
     height: 5.5rem !important;
     cursor: pointer;
     color: #676767;
-
-
   }
 
   .spec-type-field {
@@ -37,38 +35,30 @@ form{
 
     input {
       height: 5.5rem;
-
-
     }
 
     .skill-input-container{
       margin-bottom: .8rem;
-
-      div{
-        display: flex;
-        gap: .5rem;
-        .close{
-          cursor: pointer !important;
-        }
+      display: flex;
+      gap: .5rem;
+      .close{
+        cursor: pointer !important;
       }
     }
 
     .add-skill-btn{
-
       span{
         display: flex !important;
         justify-content: center !important;
       }
-      // align-items: center;
       background-color: #f0f0f0;
     }
-
   }
 
   textarea, input {
-
     &:focus-within {
       outline: none;
+      border-color: darken(#E0E0E0, 30%);
     }
 
     &::placeholder{
@@ -89,5 +79,10 @@ form{
     background-color: #F98416 !important;
     color: #fff;
     font-weight: 700;
+  }
+
+  .add-spec-btn[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 }
