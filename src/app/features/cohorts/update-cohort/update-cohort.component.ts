@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CohortDataService } from '../../../core/services/cohort-data/cohort-data.service';
 import { ModalService } from '../../../core/services/modal/modal.service';
 import { Observable } from 'rxjs';
-import { CohortList } from '../../../core/models/cohort.interface';
+import { Cohort, CohortList } from '../../../core/models/cohort.interface';
 import { ModalComponent } from '../../../core/shared/modal/modal.component';
 import { InputFieldComponent } from '../../../core/shared/input-field/input-field.component';
 import { NgFor, NgIf } from '@angular/common';
@@ -20,6 +20,7 @@ export class UpdateCohortComponent {
   newCohortForm!: FormGroup;
   isModalOpen: boolean = false;
   editBtnClicked: boolean = true;
+  retrievedCohortForm$!: Observable<Cohort>;
 
   formData!: Observable<CohortList>; // holds form data received from backend
   
@@ -46,7 +47,9 @@ export class UpdateCohortComponent {
     })
 
     // Set data into form from get request
-    this.cohortDataService.getCohortFormData().subscribe(data => {
+
+    this.retrievedCohortForm$ = this.cohortDataService.getCohortFormData();
+    this.retrievedCohortForm$.subscribe(data => {
       if(data) {
         // Populate the form with cohort data
         this.newCohortForm.patchValue({
@@ -64,6 +67,24 @@ export class UpdateCohortComponent {
         });
       }
     })
+    // this.cohortDataService.getCohortFormData().subscribe(data => {
+    //   if(data) {
+    //     // Populate the form with cohort data
+    //     this.newCohortForm.patchValue({
+    //       name: data.name,
+    //       startDate: data.startDate,
+    //       endDate: data.endDate,
+    //       description: data.description
+    //     });
+
+    //     // Populate specialization array
+    //     const specializationArray = this.newCohortForm.get('specialization') as FormArray;
+    //     specializationArray.clear(); // Clear existing controls
+    //     data.specialization.forEach((spec: string) => {
+    //       specializationArray.push(this.fb.control(spec, Validators.required));
+    //     });
+    //   }
+    // })
 
     // Disable input fields on initialization
     if (this.editBtnClicked === true) {
@@ -104,8 +125,7 @@ export class UpdateCohortComponent {
   // Submit form
   onSubmit() {
     if(this.newCohortForm.valid) {
-      // console.log(this.newCohortForm.value)
-      this.cohortDataService.addCohort(this.newCohortForm.value).subscribe({
+      this.cohortDataService.updateCohort(this.newCohortForm.value).subscribe({
         next: (response) => {
           console.log('Data submitted successfully', response);
         },
@@ -114,7 +134,7 @@ export class UpdateCohortComponent {
         }
       }) 
       this.modalService.toggleSuccessModal()
-      this.newCohortForm.reset();
+      this.newCohortForm.reset();   
     }
     else {
       this.newCohortForm.markAllAsTouched();

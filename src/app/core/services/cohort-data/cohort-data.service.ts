@@ -12,7 +12,7 @@ export class CohortDataService {
   private mockupdateCohortData = 'assets/mockupdatecohort.json'
 
   private cohortsListUrl: string = 'http://localhost:9000/cohortsList';
-  private cohortFormsDataUrl: string = 'http://localhost:9000/cohortsFormData';
+  private cohortFormsDataUrl: string = 'http://localhost:9000/cohortsFormData/25';
   private cohortsDetailsUrl: string = 'http://localhost:8000/cohortDetails';
 
   selectedCohortId: string = "1";
@@ -44,9 +44,14 @@ export class CohortDataService {
   }
 
   //(HTTP Request) Get cohort for update
-  getCohortFormData() {
+  getCohortFormData(): Observable<Cohort> {
     // return this.http.get<Cohort>(`${this.cohortFormsDataUrl}/${selectedCohortForUpdate}`);
-    return this.http.get<Cohort>(`${this.cohortFormsDataUrl}/26`);
+    return this.http.get<Cohort>(`${this.cohortFormsDataUrl}`);
+  }
+
+  updateCohort(formData: Cohort) {
+    console.log("form data: ", formData)
+    return this.http.put<Cohort>(`${this.cohortFormsDataUrl}`, formData);
   }
 
 

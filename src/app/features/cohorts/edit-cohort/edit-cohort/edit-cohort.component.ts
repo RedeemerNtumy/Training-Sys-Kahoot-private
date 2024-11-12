@@ -111,8 +111,8 @@ export class EditCohortComponent {
           console.error('Error submitting data', error);
         }
       })
-      this.modalService.toggleSuccessModal()
       this.newCohortForm.reset();
+      this.modalService.toggleSuccessModal()
     }
     else {
       console.log("Not valid")

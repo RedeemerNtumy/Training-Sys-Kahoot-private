@@ -1,7 +1,7 @@
 <app-modal 
     [icon]="'../../../../../assets/Images/png/Approval 5.png'"
-    [title]="'Cohort Added Successfully'" 
-    [description]="'The new cohort has been created and is now available for managing trainees. You can view, update, or assign trainees to this cohort as needed'"
+    [title]="'Cohort Updated Successfully'" 
+    [description]="'The cohort details have been updated successfully. All changes have been saved, and the updated information is now available'"
     [style]="{ display: modalService.isModalOpen ? 'block' : 'none' }"
 />
 
@@ -90,7 +90,7 @@
                         <p>A brief overview or notes about the cohort's objectives, schedule, or any specific focus areas</p>
                         <textarea formControlName="description" name="description-text-area" id="description-text-area"></textarea>
                     </div>
-                    <button (click)="modalService.toggleSuccessModal()" type="submit" class="btn">Confirm</button>
+                    <button type="submit" class="btn">Confirm</button>
                 </form>
         </div>
 

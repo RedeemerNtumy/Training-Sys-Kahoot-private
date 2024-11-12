@@ -177,28 +177,37 @@
       "startDate": "2024-11-01",
       "endDate": "2024-12-06",
       "traineesEnrolled": 0
+    },
+    {
+      "id": "3ece",
+      "name": "a;lktje",
+      "startDate": "2024-11-14",
+      "endDate": "2024-12-05",
+      "traineesEnrolled": 0
+    },
+    {
+      "id": "e814",
+      "name": "Cohort 27",
+      "specialization": [
+        "UI/UX",
+        "Frontend"
+      ],
+      "startDate": "2024-12-17",
+      "endDate": "2025-01-17",
+      "description": "this cohort starts december ending and it geared towards UI/UX",
+      "traineesEnrolled": 0
     }
   ],
   "cohortsFormData": [
     {
-      "id": "25",
-      "name": "Cohort 25",
+      "name": "Cohort something",
       "specialization": [
-        "UI/UX, Tester"
+        "Frontend",
+        "Backend"
       ],
       "startDate": "2024-12-17",
       "endDate": "2025-01-17",
-      "description": "this cohort starts december ending and it geared towards UI/UX"
-    },
-    {
-      "id": "26",
-      "name": "Cohort 25",
-      "specialization": [
-        "UI/UX, Tester"
-      ],
-      "startDate": "2024-12-17",
-      "endDate": "2025-01-17",
-      "description": "this cohort starts december ending and it geared towards UI/UX"
+      "id": "25"
     }
   ]
 }
