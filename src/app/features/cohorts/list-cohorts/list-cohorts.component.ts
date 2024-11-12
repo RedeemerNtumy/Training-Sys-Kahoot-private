@@ -5,11 +5,13 @@ import { BehaviorSubject, Observable, combineLatest, map, of } from 'rxjs';
 import { AsyncPipe, NgFor, NgIf, } from '@angular/common';
 import { SearchbarComponent } from '../../../core/shared/searchbar/searchbar.component';
 import { Router, } from '@angular/router';
+import { ModalComponent } from "../../../core/shared/modal/modal.component";
+import { ModalService } from '../../../core/services/modal/modal.service';
 
 @Component({
   selector: 'app-list-cohorts',
   standalone: true,
-  imports: [AsyncPipe, NgFor, NgIf, SearchbarComponent,],
+  imports: [AsyncPipe, NgFor, NgIf, SearchbarComponent, ModalComponent],
   templateUrl: './list-cohorts.component.html',
   styleUrl: './list-cohorts.component.scss'
 })
@@ -27,6 +29,7 @@ export class ListCohortsComponent {
   constructor(
     private cohortDataService: CohortDataService, 
     private router: Router,
+    public modalService: ModalService
     
   ) {}
 
@@ -98,6 +101,7 @@ export class ListCohortsComponent {
       }
     })
     this.toggleHideDeleteModal();
+    this.modalService.toggleSuccessModal();
   }
 
   cancelDelete() {

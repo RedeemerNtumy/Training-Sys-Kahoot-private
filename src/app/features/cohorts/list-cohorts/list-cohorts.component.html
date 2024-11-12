@@ -15,6 +15,13 @@
     </div>
 </div>
 
+<app-modal 
+    [icon]="'../../../../assets/Images/png/delete-success.png'"
+    [title]="'Cohort Deleted Successfully'" 
+    [description]="'The cohort has been deleted successfully and all associated information has been permanently removed from the system. '"
+    [style]="{ display: modalService.isModalOpen ? 'block' : 'none' }"
+/>
+
 
 <div class="container">
         <div class="no-cohorts" *ngIf="(cohortsList$ | async)?.length === 0">
