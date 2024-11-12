@@ -1,0 +1,31 @@
+<li (click)="onToggleDropdown($event)">
+  <div class="specialization-info">
+    <div class="date-section">
+      <img src="../../../../../assets/Images/svg/date-icon.svg" alt="">
+      <p>
+        Created on
+        {{ specialization.dateCreated | dateformat }}
+      </p>
+      <button type="button" class="options" (click)="onToggleDropdown($event)">
+        <img src="../../../../../assets/Images/svg/options-icon.svg" alt="">
+      </button>
+      <div class="options-dropdown" *ngIf="isDropdownActive">
+        <button type="button" (click)="onActionClick($event, 'update')">
+          <img src="../../../../../assets/Images/svg/update.svg" alt="">
+          Update
+        </button>
+        <button type="button" (click)="onActionClick($event, 'delete')">
+          <img src="../../../../../assets/Images/svg/spec-delete.svg" alt="">
+          Delete
+        </button>
+      </div>
+    </div>
+    <div class="specialization-details">
+      <h3>{{ specialization.name }}</h3>
+      <p>{{ specialization.description }}</p>
+    </div>
+  </div>
+  <div class="applicants-info">
+    <p>{{ specialization.traineesCount }}+ Trainees enrolled</p>
+  </div>
+</li>
