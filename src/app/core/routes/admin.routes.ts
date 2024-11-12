@@ -2,6 +2,7 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../views/admin/dashboard/dashboard.component';
 
+
 export const adminRoutes: Routes = [
   {
     path: '',
