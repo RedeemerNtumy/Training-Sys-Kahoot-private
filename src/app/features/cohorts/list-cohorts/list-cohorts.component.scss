@@ -204,3 +204,84 @@
 .ellipsisNotClicked {
     @include dropDownNotVisible;
 }
+
+
+.delete-modal-wrapper {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .3);
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+
+    & .confirm-delete-modal {
+        width: 62.9rem;
+        height: 37.1rem;
+        background: $clr-white;
+        border-radius: 0.8rem;
+        position: relative;
+        padding: 1.6rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & svg {
+            position: absolute;
+            right: 1.6rem;
+            top: 1.6rem;
+            margin-bottom: 1.3rem;
+            cursor: pointer; 
+            background: $clr-white;
+        }
+
+        & span {
+            font-size: $font-size-subtitle-2;
+            font-weight: 600;
+            color: #000000;
+            display: block;
+            margin-bottom: 1.3rem;
+        }
+
+        & p {
+            font-size: $font-size-xbody;
+            font-weight: 400;
+            color: #676767;
+            text-align: center;
+            margin-bottom: 4.6rem;
+        }
+
+        & .confirm-btns {
+            display: flex;
+            gap: 2.7rem;
+
+            & #cancel-btn {
+                width: 20rem;
+                height: 5.4rem;
+                border-radius: 8px;
+                border: 0.15rem solid $clr-gray-200;
+                color: $clr-gray-300;
+                background: $clr-white;
+                transition: $btn-transition;
+                cursor: pointer;
+            }
+            & #delete-btn {
+                width: 20rem;
+                height: 5.4rem;
+                border-radius: 8px;
+                border: 0.15rem solid $clr-gray-200;
+                color: $clr-white;
+                background: $clr-primary-500;
+                transition: $btn-transition;
+                cursor: pointer;
+            }
+
+            & #cancel-btn:hover, #delete-btn:hover {
+                opacity: .8;
+            }
+        }
+
+    }
+}

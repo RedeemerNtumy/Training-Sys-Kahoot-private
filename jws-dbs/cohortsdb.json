@@ -1,13 +1,6 @@
 {
   "cohortsList": [
     {
-      "id": "3",
-      "name": "Cohort 3",
-      "startDate": "2023-03-01",
-      "endDate": "2023-08-01",
-      "traineesEnrolled": 205
-    },
-    {
       "id": "4",
       "name": "Cohort 4",
       "startDate": "2023-04-10",

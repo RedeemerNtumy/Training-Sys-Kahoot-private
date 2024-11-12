@@ -18,9 +18,11 @@ export class ListCohortsComponent {
   cohortsList$!: Observable<CohortList[]>; 
   filteredCohorts$!: Observable<CohortList[]>;
   private searchTerm$ = new BehaviorSubject<string>(''); 
+  deleteCohortById: string = '';
 
   ellipsisClicked: boolean = false;
   selectedCohortName: string | null = ''; 
+  hideDeleteModal: boolean = true;
 
   constructor(
     private cohortDataService: CohortDataService, 
@@ -76,8 +78,18 @@ export class ListCohortsComponent {
   }
 
   // Delete item from cohort list
-  deleteCohort(id : string) {
-    this.cohortDataService.deleteCohort(id).subscribe({
+  deleteCohort(id: string) {
+    this.toggleHideDeleteModal()
+    this.deleteCohortById = id;
+  }
+
+
+  toggleHideDeleteModal() {
+    this.hideDeleteModal = !this.hideDeleteModal;
+  }
+
+  confirmDelete() {
+    this.cohortDataService.deleteCohort(this.deleteCohortById).subscribe({
       next: (response) => {
         console.log("successfully deleted cohort", response)
       },
@@ -85,7 +97,14 @@ export class ListCohortsComponent {
         console.log("error deleting cohort: ", error)
       }
     })
+    this.toggleHideDeleteModal();
   }
+
+  cancelDelete() {
+    this. toggleHideDeleteModal();
+  }
+
+
 
   goToCreateCohort() {
     this.router.navigate(['home/admin/cohorts/create-cohort'])
