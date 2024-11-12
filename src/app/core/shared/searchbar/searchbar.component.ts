@@ -15,6 +15,8 @@ import { CommonModule, NgFor } from '@angular/common';
 })
 export class SearchbarComponent implements OnInit {
 
+
+
   // Emmitter to be used for triggering button element
   @Output() addCohortClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
@@ -24,6 +26,9 @@ export class SearchbarComponent implements OnInit {
   @Output() inactiveStatus: EventEmitter<void> = new EventEmitter<void>();
   @Output() deactivatedStatus: EventEmitter<void> = new EventEmitter<void>();
   @Output() resetStatus: EventEmitter<void> = new EventEmitter<void>();
+  @Output() specializationFilter: EventEmitter<string> = new EventEmitter<string>();
+  @Output() resetSpecialization: EventEmitter<void> = new EventEmitter<void>();
+
   
   @Input() title!: string; // eg. Cohort
   @Input() placeholder!: string; //eg name
@@ -68,17 +73,23 @@ export class SearchbarComponent implements OnInit {
     this.deactivatedStatus.emit();
   }
   
-  onResetClicked(): void {
+  onResetStatusClicked(): void {
     this.resetStatus.emit();
   }
+
+  onResetSpecializationClicked(): void {
+    // event.stopPropagation()
+    this.resetSpecialization.emit();
+  }
+
+  onSpecializationSelect(event: Event): void {
+    const selectedSpecialization = (event.target as HTMLSelectElement).value;
+    this.specializationFilter.emit(selectedSpecialization);
+}
 
 
   toggleFilter() {
     this.filterVisible = !this.filterVisible;
-    console.log(this.filterVisible);
   }
-
-
-
 
 }

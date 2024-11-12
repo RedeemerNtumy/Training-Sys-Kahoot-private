@@ -14,12 +14,13 @@ import { SearchbarComponent } from '../../../core/shared/searchbar/searchbar.com
   styleUrl: './trainees-list.component.scss'
 })
 export class TraineesListComponent {
-
+  
   cohort$!: Observable<CohortDetails>; 
   filteredTrainees$!: Observable<Trainees[]>;
   
   private searchTerm$ = new BehaviorSubject<string>(''); 
   private statusFilter$ = new BehaviorSubject<string | null>(null);
+  private specializationFilter$ = new BehaviorSubject<string | null>(null);
 
   ellipsisClicked: boolean = false;
   selectedTraineeName: string | null = '';
@@ -33,14 +34,16 @@ export class TraineesListComponent {
     // Get cohort details with trainees list from service
     this.cohort$ = this.cohortDataService.getSelectedCohortDetails();
 
-    this.filteredTrainees$ = combineLatest([this.cohort$, this.searchTerm$, this.statusFilter$]).pipe(
-      map(([cohort, searchTerm, statusFilter]) => {
+    this.filteredTrainees$ = combineLatest([this.cohort$, this.searchTerm$, this.statusFilter$, this.specializationFilter$]).pipe(
+      map(([cohort, searchTerm, statusFilter, specFilter]) => {
         return cohort.trainees.filter((trainee: Trainees) => {
           const lowerSearchTerm = searchTerm.toLowerCase();
           const matchesSearch = trainee.fullName.toLowerCase().includes(lowerSearchTerm) || 
                                 trainee.email.toLowerCase().includes(lowerSearchTerm);
           const matchesStatus = statusFilter ? trainee.status === statusFilter : true;
-          return matchesSearch && matchesStatus;
+          const matchesSpecialization = specFilter ? trainee.specialization === specFilter : true;
+          
+          return matchesSearch && matchesStatus && matchesSpecialization;
         });
       })
     );
@@ -70,8 +73,16 @@ export class TraineesListComponent {
     this.statusFilter$.next('Deactivated');
   }
 
-  clearFilter() {
+  clearStatusFilter() {
     this.statusFilter$.next(null);
+  }
+
+  filterBySpecialization(spec: string) {
+    this.specializationFilter$.next(spec)
+  }
+
+  clearSpecializationFilter() {
+    this.specializationFilter$.next(null);
   }
 
   toggleEllipsis(selectedTrainee: string, event:Event) {

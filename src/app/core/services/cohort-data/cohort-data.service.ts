@@ -57,7 +57,7 @@ export class CohortDataService {
     return this.http.delete<CohortList>(`${this.cohortsListUrl}/${id}`)
   }
 
-  getAllSpecializations() {
+  getAllSpecializations() {  
     return this.http.get<Specializations[]>(this.specializationsUrl);
   }
 

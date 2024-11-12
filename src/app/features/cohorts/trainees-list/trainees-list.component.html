@@ -11,13 +11,10 @@
             (activeStatus)="filterByActive()"
             (inactiveStatus)="filterByInactive()"
             (deactivatedStatus)="filterByDeactivated()"
-            (resetStatus)="clearFilter()"
+            (resetStatus)="clearStatusFilter()"
+            (specializationFilter)="filterBySpecialization($event)"
         />
         <div class="divider"></div>
-
-        <div class="no-search-results" *ngIf="(filteredTrainees$ | async)?.length === 0">
-            No results for query
-        </div>
 
         @if(cohort$ | async; as cohort) {
             <div class="title-enrolled">
@@ -72,7 +69,7 @@
                                     </div>
                                 </div>
                                 <div class="specialization">
-                                    <span>UI/UX</span>
+                                    <span>{{ trainee.specialization }}</span>
                                 </div>
                                 <div class="date-added">
                                     {{trainee.date_added}}

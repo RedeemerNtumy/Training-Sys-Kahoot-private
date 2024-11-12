@@ -19,22 +19,28 @@
             </svg>
             <span>Filter</span>
             <div class="filter-drop-down"
+                (click)="$event.stopPropagation()"
                 [class]="filterVisible ? 'showFilterDropDown' : 'hideFilterDropDown'"
             >
-                <div class="filter-status" (click)="$event.stopPropagation()">
+                <div class="filter-status">
                     <span>
                         <p>Status</p>
-                        <p (click)="onResetClicked()">Reset</p>
+                        <p (click)="onResetStatusClicked()">Reset</p>
                     </span>
                     <p (click)="onActiveClicked()">Active</p>
                     <p (click)="onInactiveClicked()">Inactive</p>
                     <p (click)="onDeactivedClicked()">Deactivated</p>
                 </div>
                 <div class="filter-specialization">
-                    <span>Specialization</span>
-                    <p *ngFor="let specs of allSpecializations$ | async"
-                    (click)="$event.stopPropagation()"
-                    >{{specs}}</p>
+                    <span>
+                        <p>Specialization</p>
+                        <p (click)="onResetSpecializationClicked()">Reset</p>
+                    </span>
+                    <select id="specialization-select" (change)="onSpecializationSelect($event)">
+                        <option *ngFor="let specs of allSpecializations$ | async" [value]="specs">
+                            {{ specs }}
+                        </option>
+                    </select>
                 </div>
             </div>
         </div>

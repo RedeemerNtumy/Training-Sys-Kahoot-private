@@ -199,9 +199,32 @@
             color: $clr-gray-400;
             font-weight: 400;
             bottom: 3rem;
-            display: block;
-            background: $clr-white;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
             padding: 0 .5rem;
+
+            & p:first-of-type {
+                width: fit-content;
+                font-size: 1.1rem;
+                color: $clr-gray-400;
+                background: $clr-white;
+                padding: 0 .5rem;
+            }
+
+            & p:last-of-type {
+                width: fit-content;
+                font-size: 1.1rem;
+                color: $clr-gray-400;
+                background: $clr-white;
+                padding: 0 .5rem;
+                transition: $btn-transition;
+            }
+
+            & p:last-of-type:hover {
+                font-weight: 600;
+                color: $clr-primary-500;
+            }
         }
 
         & > p {

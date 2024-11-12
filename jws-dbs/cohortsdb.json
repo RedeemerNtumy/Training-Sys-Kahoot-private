@@ -208,9 +208,9 @@
     }
   ],
   "allSpecilizations": [
-    "UI/UX",
-    "Front-End",
-    "Back-End",
-    "Quality Assurance"
+    "UI/UX Design",
+    "Frontend Development",
+    "Backend Development",
+    "Machine Learning"
   ]
 }
