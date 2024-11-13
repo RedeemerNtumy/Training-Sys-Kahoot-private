@@ -13,6 +13,7 @@
             (deactivatedStatus)="filterByDeactivated()"
             (resetStatus)="clearStatusFilter()"
             (specializationFilter)="filterBySpecialization($event)"
+            (resetSpecialization)="clearSpecializationFilter()"
         />
         <div class="divider"></div>
 
@@ -88,6 +89,7 @@
                                             </svg>
                                             <span *ngIf="trainee.status === 'Active'">Set Inactive</span>
                                             <span *ngIf="trainee.status === 'Inactive'">Set Active</span>
+                                            <span *ngIf="trainee.status === 'Deactivated'">Reactivate</span>
                                         </span>
 
                                     </div>
