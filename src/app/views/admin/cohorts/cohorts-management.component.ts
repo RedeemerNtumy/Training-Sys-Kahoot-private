@@ -12,4 +12,19 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 })
 export class CohortsManagementComponent {
 
+  @ViewChild('plusBtnChecker', { static: false }) plusBtnCheckerEl!: ElementRef<HTMLElement>;
+
+  constructor(
+    private buttonStateService: ButtonStateService
+  ) {}
+
+  ngAfterViewInit() {
+    const buttonExists = !!(this.plusBtnCheckerEl?.nativeElement?.classList.contains('plusBtnChecker'));
+    
+    // Update the service with the button's state
+    this.buttonStateService.setCanUseBtnState(buttonExists);
+  }
+
+
+
 }
