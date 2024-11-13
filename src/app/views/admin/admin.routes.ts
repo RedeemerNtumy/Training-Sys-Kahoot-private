@@ -72,11 +72,16 @@ export const adminRoutes: Routes = [
     .then(m => m.UserManagementComponent),
     data: { role: 'admin' },
     children: [
+      // {
+      //   path: '',
+      //   loadComponent: () => import('../../features/user-management/trainee/trainee-dashboard/trainee-dashboard.component')
+      //     .then(m => m.TraineeDashboardComponent),
+      // },
       {
         path: '',
-        loadComponent: () => import('../../features/user-management/trainee/trainee-dashboard/trainee-dashboard.component')
-          .then(m => m.TraineeDashboardComponent),
-      },
+        loadComponent: () => import('../../features/user-management/trainee/add-user/add-user.component')
+          .then(m => m.AddUserComponent),
+      }
     ]
   },
   {
