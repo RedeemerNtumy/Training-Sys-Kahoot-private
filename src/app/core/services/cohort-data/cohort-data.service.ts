@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Cohort, CohortDetails, CohortList, Specializations } from '../../models/cohort.interface';
+import { Cohort, CohortDetails, CohortList, Specialization } from '../../models/cohort.interface';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
+import { ErrorHandlerService } from './error-handling/error-handler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +26,16 @@ export class CohortDataService {
   private cohortDetailsSubject = new BehaviorSubject<CohortDetails[] | null>(null);
   cohortDetails$ : Observable<CohortDetails[] | null> = this.cohortDetailsSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    public errorhandlerService: ErrorHandlerService
+    ) { }
 
   //(HTTP Request) Retriev a list of cohorts from backend 
   getAllCohorts(): Observable<CohortList[]>{ 
-    return this.http.get<CohortList[]>(this.cohortsListUrl);
+    return this.http.get<CohortList[]>(this.cohortsListUrl).pipe(
+      catchError(error => this.errorhandlerService.handleError(error))
+    )
   }
 
   //(HTTP Request) Make a post request to backend to add cohort
@@ -41,28 +47,38 @@ export class CohortDataService {
 
   //(HTTP Request) Make a post request to backend for Cohort Details including trainee list
   getSelectedCohortDetails() {
-    return this.http.get<CohortDetails>(this.cohortsDetailsUrl)
+    return this.http.get<CohortDetails>(this.cohortsDetailsUrl).pipe(
+      catchError(error => this.errorhandlerService.handleError(error))
+    )
   }
 
   //(HTTP Request) Get cohort for update
   getCohortFormData(): Observable<Cohort> {
-    return this.http.get<Cohort>(`${this.cohortFormsDataUrl}`);
+    return this.http.get<Cohort>(`${this.cohortFormsDataUrl}`).pipe(
+      catchError(error => this.errorhandlerService.handleError(error))
+    )
   }
 
   updateCohort(formData: Cohort) {
-    return this.http.put<Cohort>(`${this.cohortFormsDataUrl}`, formData);
+    return this.http.put<Cohort>(`${this.cohortFormsDataUrl}`, formData).pipe(
+      catchError(error => this.errorhandlerService.handleError(error))
+    )
   }
 
   deleteCohort(id: string) {
-    return this.http.delete<CohortList>(`${this.cohortsListUrl}/${id}`)
+    return this.http.delete<CohortList>(`${this.cohortsListUrl}/${id}`).pipe(
+      catchError(error => this.errorhandlerService.handleError(error))
+    )
   }
 
   getAllSpecializations() {  
-    return this.http.get<Specializations[]>(this.specializationsUrl);
+    return this.http.get<Specialization[]>(this.specializationsUrl).pipe(
+      catchError(error => this.errorhandlerService.handleError(error))
+    )
   }
 
   // Set data for cohortFormData Behavoir subject
-  setCohortFormData(data: Cohort | null) {
+  setCohortFormData(data: Cohort | null) { 
     this.cohortFormDataSubject.next(data);
   }
 

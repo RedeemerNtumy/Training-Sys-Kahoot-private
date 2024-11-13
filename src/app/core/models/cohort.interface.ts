@@ -36,6 +36,7 @@ export interface Trainees {
 }
 
 
-export interface Specializations {
-    specialization: string[];
-}
+export interface Specialization {
+    id: number;
+    name: string;
+  }

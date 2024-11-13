@@ -37,9 +37,9 @@
                         <p (click)="onResetSpecializationClicked()">Reset</p>
                     </span>
                     <select id="specialization-select" (change)="onSpecializationSelect($event)">
-                        <option *ngFor="let specs of allSpecializations$ | async" [value]="specs">
-                            {{ specs }}
-                        </option>
+                        <option *ngFor="let specs of allSpecializations$ | async" [value]="specs.name">
+                            {{ specs.name }}
+                        </option>  
                     </select>
                 </div>
             </div>

@@ -32,7 +32,7 @@ export class TraineesListComponent {
 
   ngOnInit() {
     // Get cohort details with trainees list from service
-    this.cohort$ = this.cohortDataService.getSelectedCohortDetails();
+    this.cohort$ = this.cohortDataService.getSelectedCohortDetails(); 
 
     this.filteredTrainees$ = combineLatest([this.cohort$, this.searchTerm$, this.statusFilter$, this.specializationFilter$]).pipe(
       map(([cohort, searchTerm, statusFilter, specFilter]) => {

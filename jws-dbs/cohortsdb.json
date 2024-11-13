@@ -208,9 +208,10 @@
     }
   ],
   "allSpecilizations": [
-    "UI/UX Design",
-    "Frontend Development",
-    "Backend Development",
-    "Machine Learning"
+      { "id": 1, "name": "UI/UX Design" },
+      { "id": 2, "name": "Frontend Development" },
+      { "id": 3, "name": "Backend Development" },
+      { "id": 4, "name": "Data Science" },
+      { "id": 5, "name": "Machine Learning" }   
   ]
 }
