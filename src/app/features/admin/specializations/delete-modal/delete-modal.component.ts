@@ -29,7 +29,7 @@ export class DeleteModalComponent {
     this.visibleChange.emit(false);
   }
 
-  confirmDelete() {
+   confirmDelete() {
     if (this.specializationId) {
       this.specializationFacade.delete(this.specializationId).subscribe({
         next: () => {

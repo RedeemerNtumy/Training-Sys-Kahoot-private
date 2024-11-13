@@ -96,7 +96,4 @@ export class SpecializationFacadeService {
       tap(() => this.loadSpecializations())
     )
   }
-
-
-  // private
 }

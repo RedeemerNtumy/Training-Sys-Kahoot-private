@@ -22,17 +22,16 @@ export class CreateSpecializationComponent {
     private facadeService: SpecializationFacadeService,
   ){}
 
-  handleFormSubmit(formData: Ispecialization) {
+  handleFormSubmit(formData: Ispecialization, id: number) {
     if (this.specializationData) {
-      // this.facadeService.update(formData);
-
-    } else {
-      console.log('specialization created');
-      this.facadeService.create(formData);
-    }
-    this.navigateToList();
+      console.log('specialization updated');
+      this.facadeService.update(id, formData);
+      } else {
+        console.log('specialization created');
+        this.facadeService.create(formData);
+      }
+      this.navigateToList();
   }
-
   navigateToList(){
     this.router.navigate(['home','admin','specialization','list'])
   }

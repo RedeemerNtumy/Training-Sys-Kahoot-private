@@ -45,10 +45,9 @@ export class SpecializationListComponent implements OnInit {
 
   ngOnInit() {
     this.fetchSpecializations();
-    this.specializationFacade.getAllSpecializations()
   }
 
-  fetchSpecializations() {
+  private fetchSpecializations() {
     this.specializations$ = combineLatest([
       this.specializationFacade.specialization$,
       this.currentPage$
@@ -104,7 +103,7 @@ export class SpecializationListComponent implements OnInit {
     })
   }
 
-  navigateToCreate() {
+  private navigateToCreate() {
     this.router.navigate(['home', 'admin', 'specialization', 'create']);
   }
 }
