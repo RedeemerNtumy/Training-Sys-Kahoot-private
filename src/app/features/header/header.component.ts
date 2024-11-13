@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { UserRoleService } from '../../core/services/user-role/user-role.service';
 import { TitleCasePipe, UpperCasePipe } from '@angular/common';
+import { ButtonStateService } from '../../core/services/buttonState/buttonstate.service';
 
 @Component({
   selector: 'app-header',
@@ -22,6 +23,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router, 
     private userRoleService: UserRoleService,
+    private buttonStateService: ButtonStateService,
     private cdRef: ChangeDetectorRef
   ) {}
 
@@ -54,16 +56,19 @@ export class HeaderComponent implements OnInit {
   }
 
   private runAfterViewInitLogic(): void {
-    const targetElement = document.querySelector('.plus-btn-checker');
+    this.buttonStateService.canUseBtn$.subscribe(state => {
+      this.canUseBtn = state;
+    })
+    // const targetElement = document.querySelector('.plus-btn-checker');
 
-    if (targetElement && targetElement.classList.contains('plus-btn-checker')) {
-      this.canUseBtn = true;
-    } else {
-      this.canUseBtn = false;
-    }
+    // if (targetElement && targetElement.classList.contains('plus-btn-checker')) {
+    //   this.canUseBtn = true;
+    // } else {
+    //   this.canUseBtn = false;
+    // }
 
-    // Manually trigger change detection after making the change
-    this.cdRef.detectChanges();
+    // // Manually trigger change detection after making the change
+    // this.cdRef.detectChanges();
   }
 
   // Helper method to update route name
