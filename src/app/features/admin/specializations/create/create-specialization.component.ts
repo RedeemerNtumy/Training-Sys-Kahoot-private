@@ -17,21 +17,36 @@ import { Ispecialization } from '../../../../core/models/specialization.interfac
 
 export class CreateSpecializationComponent {
   specializationData!: Ispecialization;
+  specializationId?: number;
 
   constructor(private router: Router,
     private facadeService: SpecializationFacadeService,
   ){}
 
-  handleFormSubmit(formData: Ispecialization, id: number) {
-    if (this.specializationData) {
-      console.log('specialization updated');
-      this.facadeService.update(id, formData);
-      } else {
-        console.log('specialization created');
-        this.facadeService.create(formData);
-      }
-      this.navigateToList();
+  handleFormSubmit(formData: Ispecialization) {
+    if (this.specializationId) {
+      this.facadeService.update(this.specializationId, formData).subscribe({
+        next: () => {
+          console.log('Specialization updated successfully');
+          this.navigateToList();
+        },
+        error: (error) => {
+          console.error('Error updating specialization:', error);
+        }
+      });
+    } else {
+      this.facadeService.create(formData).subscribe({
+        next: () => {
+          console.log('Specialization created successfully');
+          this.navigateToList();
+        },
+        error: (error) => {
+          console.error('Error creating specialization:', error);
+        }
+      });
+    }
   }
+
   navigateToList(){
     this.router.navigate(['home','admin','specialization','list'])
   }

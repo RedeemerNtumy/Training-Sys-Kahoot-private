@@ -30,13 +30,13 @@ export class SpecializationFacadeService {
 
   private loadSpecializations(){
     this.getAllSpecializations()
-      .pipe(
-        map(specializations => this.sort(specializations))
-      )
-      .subscribe({
-        next: (specializations)=> this.specializationSubject.next(specializations),
-        error: (error) => console.error('Error occurred while fetching specializations:', error)
-      })
+    .pipe(
+      map(specializations => this.sort(specializations))
+    )
+    .subscribe({
+      next: (specializations)=> this.specializationSubject.next(specializations),
+      error: (error) => console.error('Error occurred while fetching specializations:', error)
+    })
   }
 
   getAllSpecializations():Observable<Ispecialization[]>{
@@ -73,7 +73,7 @@ export class SpecializationFacadeService {
 
   create(specialization: Ispecialization) {
     console.log('from service: creation done');
-    return this.http.post(`${this.localServer}/specializations`, specialization)
+    return this.http.post(`${this.localServer}`, specialization)
     .pipe(
       catchError(this.errorService.handleError),
       tap(() => this.loadSpecializations())
