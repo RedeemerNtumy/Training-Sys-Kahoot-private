@@ -26,9 +26,6 @@
         @include active-nav
       }
     }
-    margin-top: 10rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+    @include vertical-flex-spacing;
   }
 }

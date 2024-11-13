@@ -1,0 +1,77 @@
+<div class="user-creation__container">
+  <div class="user-creation__wrapper">
+    <div class="user-creation__text">
+      <h3>Reset Your Password</h3>
+      <p>
+        Enter new password to gain full control of your account. Enter required
+        details to proceed
+      </p>
+    </div>
+    <form
+      class="user-creation__form"
+      [formGroup]="userCreationForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="inputs">
+        <app-input-field
+          label="New Password"
+          type="password"
+          placeholder="Enter new password"
+          formControlName="password"
+        />
+
+        <app-message
+          *ngIf="showPasswordError"
+          type="warning"
+          title="Password requirement"
+          [message]="[
+            'Your password must be at least 8 characters long.',
+            'And include a mix of letters, numbers, and symbols'
+          ]"
+        />
+
+        <app-input-field
+          label="Confirm Password"
+          type="password"
+          placeholder="Confirm new password"
+          formControlName="confirmPassword"
+        />
+
+        @if (userCreationForm.errors?.['mismatch'] &&
+        (userCreationForm.get('confirmPassword')?.touched ||
+        userCreationForm.get('confirmPassword')?.dirty)) {
+
+        <app-message
+          type="error"
+          title="Error"
+          message="The password entered doesn't match"
+        />
+        } @if (successMessage) {
+        <app-message
+          type="success"
+          title="Success"
+          [message]="successMessage"
+        />
+        } @if (errorMessage) {
+        <app-message title="Error" type="error" [message]="errorMessage" />
+        }
+      </div>
+
+      <div class="button-div">
+        <button
+          class="btn"
+          [class]="isLoading ? 'load' : ''"
+          type="submit"
+          [disabled]="userCreationForm.invalid"
+        >
+          <ng-container *ngIf="!isLoading"> Submit </ng-container>
+          <ng-container *ngIf="isLoading">
+            <span class="spinner"></span>
+            <span> Submitting </span>
+          </ng-container>
+        </button>
+        <p>Need help? <span>Please contact support</span></p>
+      </div>
+    </form>
+  </div>
+</div>
