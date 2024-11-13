@@ -70,7 +70,14 @@ export const adminRoutes: Routes = [
     path: 'user-management',
     loadComponent: () => import('./users/user-management.component')
     .then(m => m.UserManagementComponent),
-    data: { role: 'admin' }
+    data: { role: 'admin' },
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('../../features/user-management/trainee/trainee-dashboard/trainee-dashboard.component')
+          .then(m => m.TraineeDashboardComponent),
+      },
+    ]
   },
   {
     path: 'curriculum',
