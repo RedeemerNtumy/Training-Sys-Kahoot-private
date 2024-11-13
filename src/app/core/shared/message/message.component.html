@@ -1,0 +1,16 @@
+<div class="message" [ngClass]="type">
+  <div class="top">
+    <div style="width: 1.467rem">
+      <img [src]="iconPath" alt="" />
+    </div>
+    <p>{{ title }}</p>
+  </div>
+  <ng-container *ngIf="isArrayMessage; else singleMessage">
+    <ul class="list">
+      <li *ngFor="let msg of arrayMessage">{{ msg }}</li>
+    </ul>
+  </ng-container>
+  <ng-template #singleMessage>
+    <p class="list">{{ message }}</p>
+  </ng-template>
+</div>

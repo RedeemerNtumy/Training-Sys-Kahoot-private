@@ -11,6 +11,20 @@
   flex-wrap: $wrap;
 }
 
+@mixin formInputError(
+  $width: 100%,
+  $color,
+  $background,
+  $radius: 0.8rem,
+  $padding: 1.2rem
+) {
+  width: $width;
+  color: $color;
+  background-color: $background;
+  border-radius: $radius;
+  padding: $padding;
+}
+
 @mixin dropDownVisible {
   width: 12.5rem;
   padding: 1rem 0.4rem;
@@ -52,19 +66,4 @@
   & span {
       display: none;
   }
-}
-
-
-@mixin formInputError(
-  $width: 100%,
-  $color,
-  $background,
-  $radius: 0.8rem,
-  $padding: 1.2rem
-) {
-  width: $width;
-  color: $color;
-  background-color: $background;
-  border-radius: $radius;
-  padding: $padding;
 }
