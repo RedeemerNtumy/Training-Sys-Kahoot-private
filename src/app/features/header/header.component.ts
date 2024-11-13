@@ -1,8 +1,8 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { UserRoleService } from '../../core/services/user-role/user-role.service';
-import { TitleCasePipe, UpperCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { ButtonStateService } from '../../core/services/buttonState/buttonstate.service';
 
 @Component({
@@ -31,8 +31,6 @@ export class HeaderComponent implements OnInit {
     this.dropDownClicked = !this.dropDownClicked;
   }
 
-  // After View is initialized, check for the existence of class '.plus-btn-checker'
-
   ngOnInit(): void {
     // Get user role
     this.userRole = this.userRoleService.getUserRole()
@@ -59,16 +57,6 @@ export class HeaderComponent implements OnInit {
     this.buttonStateService.canUseBtn$.subscribe(state => {
       this.canUseBtn = state;
     })
-    // const targetElement = document.querySelector('.plus-btn-checker');
-
-    // if (targetElement && targetElement.classList.contains('plus-btn-checker')) {
-    //   this.canUseBtn = true;
-    // } else {
-    //   this.canUseBtn = false;
-    // }
-
-    // // Manually trigger change detection after making the change
-    // this.cdRef.detectChanges();
   }
 
   // Helper method to update route name
