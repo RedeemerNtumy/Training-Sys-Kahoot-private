@@ -1,50 +1,46 @@
 {
   "specializations": [
     {
-      "id": 1,
+      "id": "1",
       "name": "UX/UI Design",
       "description": "Explore the principles of user experience and interface design. Learn tools like Figma and Adobe XD to create visually appealing and user-friendly applications.",
-      "prerequisites": ["Basic design skills", "Interest in user-centered design"],
+      "prerequisites": [
+        "Basic design skills",
+        "Interest in user-centered design"
+      ],
       "dateCreated": "2024-04-20",
       "traineesCount": 120
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Front-End Development",
       "description": "Learn the fundamentals of building responsive and dynamic websites using HTML, CSS, and JavaScript. Gain hands-on experience with modern frameworks like React and Angular.",
-      "prerequisites": ["Basic computer skills", "Interest in programming"],
+      "prerequisites": [
+        "Basic computer skills",
+        "Interest in programming"
+      ],
       "dateCreated": "2024-02-10",
       "traineesCount": 150
     },
     {
-      "id": 3,
-      "name": "Back-End Development",
-      "description": "Understand server-side development, databases, and API integration. This course covers Node.js, Express, and MongoDB to build robust and scalable backend systems.",
-      "prerequisites": ["Basic programming knowledge", "Interest in server-side logic"],
-      "dateCreated": "2024-06-15",
-      "traineesCount": 95
-    },
-    {
-      "id": 4,
-      "name": "Quality Assurance (QA)",
-      "description": "An introduction to software testing principles, covering test planning, automation, and quality assurance best practices. Learn tools like Selenium and JIRA for effective QA.",
-      "prerequisites": ["Attention to detail", "Interest in software quality"],
-      "dateCreated": "2024-01-15",
-      "traineesCount": 80
-    },
-    {
-      "id": 5,
+      "id": "5",
       "name": "Data Science",
       "description": "An in-depth course on data analysis, visualization, and machine learning. Covers essential tools such as Python, Pandas, and TensorFlow for real-world data projects.",
-      "prerequisites": ["Basic math knowledge", "Some programming experience (Python recommended)"],
+      "prerequisites": [
+        "Basic math knowledge",
+        "Some programming experience (Python recommended)"
+      ],
       "dateCreated": "2024-05-10",
       "traineesCount": 130
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Cloud Computing",
       "description": "Learn the fundamentals of cloud computing, including virtual machines, containers, and deployment strategies. Covers platforms like AWS, Azure, and Google Cloud.",
-      "prerequisites": ["Basic networking knowledge", "Interest in scalable infrastructure"],
+      "prerequisites": [
+        "Basic networking knowledge",
+        "Interest in scalable infrastructure"
+      ],
       "dateCreated": "2024-03-05",
       "traineesCount": 110
     }

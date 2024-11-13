@@ -23,7 +23,7 @@ import { PaginatorComponent } from "../../../../core/shared/paginator/paginator.
     DeleteModalComponent,
     ListCardComponent,
     PaginatorComponent
-],
+  ],
   templateUrl: './specialization-list.component.html',
   styleUrls: ['./specialization-list.component.scss']
 })
@@ -31,17 +31,21 @@ export class SpecializationListComponent implements OnInit {
   activeDropdownIndex: number | null = null;
   deleteModalVisible = false;
   selectedSpecializationId?: number;
-  deleteFeedbackMap = new Map<number, boolean>();
+  deleteFeedbackMap = new Map<number | undefined, boolean>();
   specializations$!: Observable<Ispecialization[]>;
   private pageSubject = new BehaviorSubject<number>(1);
   currentPage$ = this.pageSubject.asObservable()
   pageSize = 2;
   totalPages = 1;
 
-  constructor(private router: Router, private specializationFacade: SpecializationFacadeService) {}
+  constructor(
+    private router: Router,
+    private specializationFacade: SpecializationFacadeService
+  ) {}
 
   ngOnInit() {
     this.fetchSpecializations();
+    this.specializationFacade.getAllSpecializations()
   }
 
   fetchSpecializations() {
@@ -79,7 +83,7 @@ export class SpecializationListComponent implements OnInit {
       case 'delete':
         this.selectedSpecializationId = spec.id;
         this.deleteModalVisible = true;
-        this.deleteFeedbackMap.set(spec.id, false);
+        this.deleteFeedbackMap.set(spec.id , false);
         break;
     }
     this.closeDropdown();
@@ -90,7 +94,7 @@ export class SpecializationListComponent implements OnInit {
     setTimeout(() => {
       this.deleteFeedbackMap.delete(id);
       this.fetchSpecializations();
-    }, 2000); 
+    }, 2000);
   }
 
   delete(id:number){

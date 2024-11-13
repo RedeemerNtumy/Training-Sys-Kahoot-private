@@ -1,8 +1,9 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient,  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, throwError,tap, map } from 'rxjs';
 import { Ispecialization } from '../../models/specialization.interface';
-import { environment } from '../../../environments/specializations/environment';
+import { environment } from '../../../../../environments/specializations/environment';
+import { ErrorHandleService } from '../error-handle/error-handle.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,10 @@ export class SpecializationFacadeService {
   private localServer: string = 'http://localhost:3000/specializations';
   private createEndpoint: string = 'http://localhost:8089/api/specializations';
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private errorService: ErrorHandleService
+  ) {
     this.loadSpecializations();
   }
 
@@ -36,10 +40,11 @@ export class SpecializationFacadeService {
   }
 
   getAllSpecializations():Observable<Ispecialization[]>{
-    return this.http.get<Ispecialization[]>(this.localServer)
+    return this.http.get<Ispecialization[]>(`${this.localServer}`)
     .pipe(
+      tap((data) => console.log(data)),
       map(specializations => this.sort(specializations)),
-      catchError(this.handleError)
+      catchError(this.errorService.handleError)
     );
   }
 
@@ -61,16 +66,16 @@ export class SpecializationFacadeService {
 
   getSpecializationById(id: number):Observable<Ispecialization>{
     return this.http.get<Ispecialization>(`${this.localServer}/${id}`).pipe(
-      catchError(this.handleError),
+      catchError(this.errorService.handleError),
       tap(() => this.loadSpecializations())
     );
   }
 
   create(specialization: Ispecialization) {
     console.log('from service: creation done');
-    return this.http.post(this.localServer, specialization)
+    return this.http.post(`${this.localServer}/specializations`, specialization)
     .pipe(
-      catchError(this.handleError),
+      catchError(this.errorService.handleError),
       tap(() => this.loadSpecializations())
     );
   }
@@ -78,7 +83,7 @@ export class SpecializationFacadeService {
   update(id: number,specialization: Partial<Ispecialization>){
     return this.http.patch<Ispecialization>(`${this.localServer}/${id}`,specialization)
     .pipe(
-      catchError(this.handleError),
+      catchError(this.errorService.handleError),
       tap(() => this.loadSpecializations())
     )
   }
@@ -87,18 +92,11 @@ export class SpecializationFacadeService {
     console.log('from service: delete done');
     return this.http.delete<void>(`${this.localServer}/${id}`)
     .pipe(
-      catchError(this.handleError),
+      catchError(this.errorService.handleError),
       tap(() => this.loadSpecializations())
     )
   }
 
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      console.error('An error occurred:', error.error);
-    } else {
-      console.error(`Backend returned code ${error.status}, body was: `, error.error);
-    }
-    return throwError(() => new Error('Something bad happened; please try again later.'));
-  }
+  // private
 }
