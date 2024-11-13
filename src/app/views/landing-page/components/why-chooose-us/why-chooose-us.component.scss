@@ -1,0 +1,49 @@
+@use "../../../../../styleSheet/mixins" as *;
+@use "../../../../../styleSheet/variables" as *;
+
+.content-container {
+  @include flexbox(column, flex-start, center);
+  gap: 7.2rem;
+  margin-top: 8rem;
+  padding-inline: 5.6rem;
+
+  .section-title {
+    font-weight: 700;
+    font-size: $font-size-h3;
+
+    .text-primary {
+      color: $clr-primary-500;
+    }
+  }
+
+  .card-list {
+    @include flexbox(row, space-between, center);
+    gap: 2.4rem;
+
+    .card {
+      @include flexbox(column, flex-start, flex-start);
+      gap: 3.2rem;
+      padding: 2.4rem;
+      border-radius: 0.5rem;
+      background-color: $clr-white;
+      box-shadow: 0px 4px 17.6px 0px #2020201a;
+      width: 45.1rem;
+
+      .icon {
+        img {
+          width: 7.7rem;
+          height: 7.7rem;
+        }
+      }
+
+      h3 {
+        @include font-style-title(600);
+      }
+
+      .text-secondary {
+        font-size: 1.6rem;
+        color: $clr-gray-500;
+      }
+    }
+  }
+}
