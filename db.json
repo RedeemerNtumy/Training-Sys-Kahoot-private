@@ -43,6 +43,32 @@
       ],
       "dateCreated": "2024-03-05",
       "traineesCount": 110
+    },
+    {
+      "id": 1731486149773,
+      "name": "Cybersecurity Fundamentals",
+      "description": "Learn the essentials of cybersecurity, including network security, cryptography, and ethical hacking techniques. This specialization equips learners with skills to protect systems and data from cyber threats.",
+      "prerequisites": [
+        "networking  ",
+        "security",
+        "ethical hacking",
+        "internet protocols"
+      ],
+      "dateCreated": "2024-11-13",
+      "traineesCount": 0
+    },
+    {
+      "id": 1731486617308,
+      "name": " Artificial Intelligence",
+      "description": "Delve into artificial intelligence by learning about neural networks, deep learning, and natural language processing. This specialization equips students with skills to develop AI models for image recognition, text processing, and more.",
+      "prerequisites": [
+        "Python",
+        "Basic linear algebra ",
+        "calculus",
+        "machine learning basics"
+      ],
+      "dateCreated": "2024-11-13",
+      "traineesCount": 0
     }
   ]
 }
