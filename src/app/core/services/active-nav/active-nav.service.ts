@@ -6,7 +6,7 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs';
 })
 
 export class ActiveNavService {
-  private currentNav = new BehaviorSubject<string>('');
+  private currentNav = new BehaviorSubject<string>('Dashboard');
   currentNavSubject$ = this.currentNav.asObservable();
 
   constructor() {}
