@@ -24,7 +24,6 @@ export class HeaderComponent implements OnInit {
     private router: Router, 
     private userRoleService: UserRoleService,
     private buttonStateService: ButtonStateService,
-    private cdRef: ChangeDetectorRef
   ) {}
 
   public toggleDropDownBtn() {
