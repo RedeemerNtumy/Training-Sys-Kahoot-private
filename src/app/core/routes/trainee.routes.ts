@@ -14,7 +14,7 @@ export const traineeRoutes: Routes = [
     data: { role: 'trainee' }
   },
   {
-    path: 'assessment',
+    path: 'assessments',
     loadComponent : ()=> import('../../views/trainee/assessment/assessment.component')
     .then(m => m.AssessmentComponent),
     data: { role: 'trainee' }
