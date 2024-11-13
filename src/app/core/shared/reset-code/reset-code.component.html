@@ -1,0 +1,46 @@
+<div class="reset-code-container">
+  <div class="reset-code-wrapper">
+    <div class="reset-code__text">
+      <h2 *ngIf="state === 'sent'">Reset Code Sent</h2>
+      <h2 *ngIf="state === 'enter'">Enter Reset Code</h2>
+
+      <p>
+        A 6-digit code has been sent to the email provided. Go to your email to
+        verify your identity as a user.
+      </p>
+    </div>
+    <form class="reset-code-form">
+      <div *ngIf="state === 'enter'" class="input-container">
+        <app-input-field
+          type="text"
+          placeholder="Enter 6 digit code"
+          formControlName="codeInput"
+        />
+      </div>
+
+      <button type="button" *ngIf="state === 'sent'" (click)="onEnterCode()" class="btn">
+        Enter Code
+      </button>
+
+      <button
+        type="submit"
+        *ngIf="state === 'enter'"
+        (click)="onVerifyCode()"
+        class="btn"
+      >
+        Verify Code
+      </button>
+    </form>
+
+    <div *ngIf="state === 'enter'" class="resend-info">
+      <p>Didn't receive the code? <a (click)="onResendCode()">Resend</a></p>
+      <p>
+        Code expires in <span>{{ codeExpiryTime }}</span>
+      </p>
+    </div>
+
+    <div *ngIf="state === 'sent'" class="help-link">
+      <p>Need help? <a href="/contact-support">Please contact support</a></p>
+    </div>
+  </div>
+</div>

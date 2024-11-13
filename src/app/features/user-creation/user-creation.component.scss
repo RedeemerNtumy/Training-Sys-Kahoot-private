@@ -27,22 +27,38 @@
         color: $clr-gray-800;
         margin-bottom: 1.6rem;
       }
+      h3 {
+        font-size: $font-size-h3;
+        color: $clr-gray-800;
+        margin-bottom: 1.6rem;
+      }
 
       p {
         color: $clr-gray-600;
         font-size: $font-size-body;
       }
     }
+    p {
+      color: $clr-gray-600;
+      font-size: $font-size-body;
+    }
+  }
 
-    .user-creation__form {
-      width: 100%;
+  .user-creation__form {
+    width: 100%;
+    @include flexbox(column);
+    gap: 4rem;
+
+    .inputs {
       @include flexbox(column);
-      gap: 4rem;
+      gap: 1.6rem;
 
-      .inputs {
+      .message {
         @include flexbox(column);
-        gap: 1.6rem;
-
+        @include formInputError(100%, #856f00, #fffae0);
+        gap: 0.8rem;
+        position: relative;
+        padding-left: 1rem;
         .message {
           @include flexbox(column);
           @include formInputError(100%, #856f00, #fffae0);
@@ -53,7 +69,22 @@
           .top {
             @include flexbox(row, flex-start, center);
             gap: 0.7rem;
+            .top {
+              @include flexbox(row, flex-start, center);
+              gap: 0.7rem;
 
+              p {
+                font-size: $font-size-label;
+                font-weight: 700;
+              }
+            }
+            .list {
+              margin: 0;
+              padding-left: 20px;
+              line-height: 1.4;
+              font-size: $font-size-label;
+              font-weight: 400;
+            }
             p {
               font-size: $font-size-label;
               font-weight: 700;
@@ -71,6 +102,10 @@
             background-color: #fde9e8;
             color: #e42514;
           }
+          &.error {
+            background-color: #fde9e8;
+            color: #e42514;
+          }
 
           &.success {
             background-color: #e1ffe6;
@@ -78,53 +113,85 @@
           }
         }
       }
+      &.success {
+        background-color: #e1ffe6;
+        color: #01e02a;
+      }
+    }
+  }
 
-      .button-div {
-        width: 100%;
-        @include flexbox(column, center, center);
-        gap: 1.6rem;
+  .button-div {
+    width: 100%;
+    @include flexbox(column, center, center);
+    gap: 1.6rem;
 
-        p {
-          color: $clr-gray-600;
-          font-size: $font-size-body;
-          font-weight: 400;
+    p {
+      color: $clr-gray-600;
+      font-size: $font-size-body;
+      font-weight: 400;
+      p {
+        color: $clr-gray-600;
+        font-size: $font-size-body;
+        font-weight: 400;
 
-          span {
-            color: $clr-primary-500;
-            text-decoration: underline;
-            cursor: pointer;
-          }
+        span {
+          color: $clr-primary-500;
+          text-decoration: underline;
+          cursor: pointer;
         }
+      }
+      span {
+        color: $clr-primary-500;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
 
-        .btn {
-          @include flexbox(row, center, center);
-          gap: 1rem;
+    .btn {
+      @include flexbox(row, center, center);
+      gap: 1rem;
 
-          & .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-          }
+      & .spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+      }
+      & .spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+      }
 
-          @keyframes spin {
-            to {
-              transform: rotate(360deg);
-            }
-          }
-
-          &:disabled {
-            background-color: #80808018;
-            cursor: not-allowed;
-          }
-
-          &.load {
-            background-color: $clr-primary-500;
-          }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      &:disabled {
+        background-color: #80808018;
+        cursor: not-allowed;
+      }
+      &:disabled {
+        background-color: #80808018;
+        cursor: not-allowed;
+      }
+
+      &.load {
+        background-color: $clr-primary-500;
       }
     }
   }
