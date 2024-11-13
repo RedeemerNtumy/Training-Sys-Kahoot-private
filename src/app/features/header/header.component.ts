@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
     private cdRef: ChangeDetectorRef
   ) {}
 
-  toggleDropDownBtn() {
+  public toggleDropDownBtn() {
     this.dropDownClicked = !this.dropDownClicked;
   }
 
@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
   }
 
   // trigger emitter 
-  triggerPlusBtn() {
+  public triggerPlusBtn() {
     this.activatePlusBtn.emit();
   }
 
