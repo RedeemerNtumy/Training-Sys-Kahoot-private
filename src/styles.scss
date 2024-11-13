@@ -2,3 +2,10 @@
 @use "./styleSheet/typography" as *;
 @use "./styleSheet/variables" as *;
 @use "./styleSheet/mixins" as *;
+
+body{
+  background: #fdfdfc;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+}
