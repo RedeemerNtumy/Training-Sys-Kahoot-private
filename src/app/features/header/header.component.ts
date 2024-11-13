@@ -1,8 +1,9 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { UserRoleService } from '../../core/services/user-role/user-role.service';
-import { TitleCasePipe, UpperCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
+import { ButtonStateService } from '../../core/services/buttonState/buttonstate.service';
 
 @Component({
   selector: 'app-header',
@@ -22,14 +23,13 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router, 
     private userRoleService: UserRoleService,
+    private buttonStateService: ButtonStateService,
     private cdRef: ChangeDetectorRef
   ) {}
 
   toggleDropDownBtn() {
     this.dropDownClicked = !this.dropDownClicked;
   }
-
-  // After View is initialized, check for the existence of class '.plus-btn-checker'
 
   ngOnInit(): void {
     // Get user role
@@ -54,16 +54,9 @@ export class HeaderComponent implements OnInit {
   }
 
   private runAfterViewInitLogic(): void {
-    const targetElement = document.querySelector('.plus-btn-checker');
-
-    if (targetElement && targetElement.classList.contains('plus-btn-checker')) {
-      this.canUseBtn = true;
-    } else {
-      this.canUseBtn = false;
-    }
-
-    // Manually trigger change detection after making the change
-    this.cdRef.detectChanges();
+    this.buttonStateService.canUseBtn$.subscribe(state => {
+      this.canUseBtn = state;
+    })
   }
 
   // Helper method to update route name
