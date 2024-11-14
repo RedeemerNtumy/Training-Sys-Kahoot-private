@@ -1,47 +1,42 @@
-import { NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Cohort, Specialization } from '../../../../core/models/cohort.interface';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { UserManagementTraineeService } from '../../../../core/services/user-management/trainee/user-management-trainee.service';
 
 @Component({
   selector: 'app-add-user-form-section-2',
   standalone: true,
-  imports: [ReactiveFormsModule, NgFor, FormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgFor, FormsModule, NgIf, AsyncPipe, JsonPipe],
   templateUrl: './add-user-form-section-2.component.html',
   styleUrl: './add-user-form-section-2.component.scss'
 })
 export class AddUserFormSection2Component {
 
   newUserFormSecTwo!: FormGroup;
-
-  allSpecializations = [
-    { label: 'UI/UX', value: 'UI/UX' },
-    { label: 'Frontend Engineering', value: 'Frontend' },
-    { label: 'Backend Engineering', value: 'Backend' }
-  ];
-
-  allCohorts = [
-    { value: 'Cohort 2.0' },
-    { value: 'Cohort 3.0' },
-    { value: 'Cohort 4.0' },
-    { value: 'Cohort 5.0' },
-    { value: 'Cohort 6.0' },
-    { value: 'Cohort 7.0' },
-    { value: 'Cohort 8.0' },
-  ];
+  allSpecializations$!: Observable<Specialization[]>;
+  allCohorts$!: Observable<Cohort[]>;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    public userManagementTraineeService: UserManagementTraineeService,
   ) {}
 
   ngOnInit() {
     this.newUserFormSecTwo = this.fb.group({
       specialization: ['', Validators.required],
-      cohort: this.fb.array([this.fb.control('', Validators.required)]),
+      cohort: ['', Validators.required],
       enrollmentDate: ['', Validators.required],
-      trainingID: ['', Validators.required]
+      trainingId: ['', Validators.required]
     })
+
+    this.allSpecializations$ = this.userManagementTraineeService.getAllspecializations();
+    this.allCohorts$ = this.userManagementTraineeService.getAllCohorts();
+    
+
   }
 
 

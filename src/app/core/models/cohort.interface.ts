@@ -39,6 +39,7 @@ export interface Trainees {
 export interface Specialization {
     id: number;
     name: string;
+    value: string;
   }
 
 
