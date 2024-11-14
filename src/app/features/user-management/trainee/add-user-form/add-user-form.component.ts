@@ -33,6 +33,15 @@ export class AddUserFormComponent {
     })
   }
 
+  onSubmit() {
+    this.goToSecondSection();
+  }
+
+
+  goToSecondSection() {
+    this.router.navigate(['/home/admin/user-management/add-user-two'])
+  }
+
 
   goBack() {
     this.router.navigate(['/home/admin/user-management'])

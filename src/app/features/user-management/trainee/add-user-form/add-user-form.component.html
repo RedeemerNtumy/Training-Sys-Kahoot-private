@@ -10,7 +10,7 @@
             <span>Cohort Information</span>
             <p>Fill in the required details to create a new trainee profile. Ensure that all necessary information, such as the trainee's full name, contact information, and enrollment details, are accurate.</p>
         </div>
-        <form [formGroup]="newUserForm">
+        <form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
             <div class="form-field email">
                 <div class="label-wrapper">
                     <label for="email">Email</label>
