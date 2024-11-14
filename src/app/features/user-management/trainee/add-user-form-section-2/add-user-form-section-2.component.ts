@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Cohort, Specialization } from '../../../../core/models/cohort.interface';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserManagementTraineeService } from '../../../../core/services/user-management/trainee/user-management-trainee.service';
 
 @Component({
@@ -49,6 +49,6 @@ export class AddUserFormSection2Component {
   }
   
   goBack() {
-    this.router.navigate(['/home/admin/user-managment/add-user'])
+    this.router.navigate(['/home/admin/user-management/add-user-form'])
   }
 }

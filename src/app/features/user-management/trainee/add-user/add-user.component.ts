@@ -15,7 +15,7 @@ export class AddUserComponent {
   ) {}
 
   goToAddUserForm() {
-    this.router.navigate(['/home/admin/user-management/add-user'])
+    this.router.navigate(['/home/admin/user-management/add-user-form'])
   }
 
 }
