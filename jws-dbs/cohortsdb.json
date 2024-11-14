@@ -227,8 +227,8 @@
     {"name": "cohort 10"},
     {"name": "cohort 11"}
   ],
-  "users": [
-    {
+  "users": {
+    "john.doe@example.com": {
       "email": "john.doe@example.com",
       "firstName": "John",
       "lastName": "Doe",
@@ -237,9 +237,14 @@
       "country": "United States",
       "address": "123 Maple Street, Springfield, IL",
       "universityCompleted": "University of Illinois",
-      "userProfilePhoto": "https://example.com/photos/john_doe.jpg"
+      "userProfilePhoto": "https://example.com/photos/john_doe.jpg",
+      "specialization": "Frontend Engineering",
+      "cohort": "Cohort 3.0",
+      "enrollmentDate": "2023-01-10",
+      "trainingId": "user1",
+      "status": "active"
     },
-    {
+    "jane.smith@example.com": {
       "email": "jane.smith@example.com",
       "firstName": "Jane",
       "lastName": "Smith",
@@ -248,9 +253,14 @@
       "country": "Canada",
       "address": "456 Oak Avenue, Toronto, ON",
       "universityCompleted": "University of Toronto",
-      "userProfilePhoto": "https://example.com/photos/jane_smith.jpg"
+      "userProfilePhoto": "https://example.com/photos/jane_smith.jpg",
+      "specialization": "UI/UX",
+      "cohort": "Cohort 4.0",
+      "enrollmentDate": "2022-08-15",
+      "trainingId": "user2",
+      "status": "inactive"
     },
-    {
+    "sam.lee@example.com": {
       "email": "sam.lee@example.com",
       "firstName": "Sam",
       "lastName": "Lee",
@@ -259,9 +269,14 @@
       "country": "Australia",
       "address": "789 Pine Road, Sydney, NSW",
       "universityCompleted": "University of Sydney",
-      "userProfilePhoto": ""
+      "userProfilePhoto": "",
+      "specialization": "Backend Engineering",
+      "cohort": "Cohort 5.0",
+      "enrollmentDate": "2021-11-05",
+      "trainingId": "user3",
+      "status": "active"
     },
-    {
+    "lisa.tan@example.com": {
       "email": "lisa.tan@example.com",
       "firstName": "Lisa",
       "lastName": "Tan",
@@ -270,9 +285,14 @@
       "country": "Singapore",
       "address": "101 Cedar Boulevard, Singapore",
       "universityCompleted": "National University of Singapore",
-      "userProfilePhoto": "https://example.com/photos/lisa_tan.jpg"
+      "userProfilePhoto": "https://example.com/photos/lisa_tan.jpg",
+      "specialization": "Frontend Engineering",
+      "cohort": "Cohort 6.0",
+      "enrollmentDate": "2023-05-10",
+      "trainingId": "user4",
+      "status": "inactive"
     },
-    {
+    "michael.brown@example.com": {
       "email": "michael.brown@example.com",
       "firstName": "Michael",
       "lastName": "Brown",
@@ -281,8 +301,62 @@
       "country": "United Kingdom",
       "address": "102 Elm Street, London",
       "universityCompleted": "University of Oxford",
-      "userProfilePhoto": ""
+      "userProfilePhoto": "",
+      "specialization": "UI/UX",
+      "cohort": "Cohort 7.0",
+      "enrollmentDate": "2022-12-15",
+      "trainingId": "user5",
+      "status": "active"
+    },
+    "anna.garcia@example.com": {
+      "email": "anna.garcia@example.com",
+      "firstName": "Anna",
+      "lastName": "Garcia",
+      "dateOfBirth": "1992-07-08",
+      "gender": "Female",
+      "country": "Spain",
+      "address": "200 Seville Lane, Madrid",
+      "universityCompleted": "University of Madrid",
+      "userProfilePhoto": "https://example.com/photos/anna_garcia.jpg",
+      "specialization": "Backend Engineering",
+      "cohort": "Cohort 3.0",
+      "enrollmentDate": "2021-09-20",
+      "trainingId": "user6",
+      "status": "inactive"
+    },
+    "david.wong@example.com": {
+      "email": "david.wong@example.com",
+      "firstName": "David",
+      "lastName": "Wong",
+      "dateOfBirth": "1989-04-18",
+      "gender": "Male",
+      "country": "Hong Kong",
+      "address": "300 Ocean View, Hong Kong",
+      "universityCompleted": "University of Hong Kong",
+      "userProfilePhoto": "https://example.com/photos/david_wong.jpg",
+      "specialization": "Frontend Engineering",
+      "cohort": "Cohort 8.0",
+      "enrollmentDate": "2022-03-25",
+      "trainingId": "user7",
+      "status": "active"
+    },
+    "sara.lee@example.com": {
+      "email": "sara.lee@example.com",
+      "firstName": "Sara",
+      "lastName": "Lee",
+      "dateOfBirth": "1991-01-30",
+      "gender": "Female",
+      "country": "South Korea",
+      "address": "400 Cherry Blossom Lane, Seoul",
+      "universityCompleted": "Seoul National University",
+      "userProfilePhoto": "https://example.com/photos/sara_lee.jpg",
+      "specialization": "UI/UX",
+      "cohort": "Cohort 6.0",
+      "enrollmentDate": "2023-06-05",
+      "trainingId": "user8",
+      "status": "inactive"
     }
-  ]
+  }
+
   
 }

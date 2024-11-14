@@ -40,10 +40,10 @@ export interface Specialization {
     id: number;
     name: string;
     value: string;
-  }
+}
 
 
-  export interface User {
+export interface User {
     email: string;
     firstName: string;
     lastName: string;
@@ -52,5 +52,10 @@ export interface Specialization {
     country: string;
     address: string;
     universityCompleted: string;
-    userProfilePhoto?: string;
-  }
+    userProfilePhoto: string;
+    specialization: string;
+    cohort: string;
+    enrollmentDate: string;
+    trainingId: string;
+    status: 'active' | 'inactive';
+}
