@@ -214,7 +214,62 @@
       { "id": 4, "name": "Data Science" },
       { "id": 5, "name": "Machine Learning" }   
   ],
-  "": [
-    
+  "users": [
+    {
+      "email": "john.doe@example.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "dateOfBirth": "1990-06-15",
+      "gender": "Male",
+      "country": "United States",
+      "address": "123 Maple Street, Springfield, IL",
+      "universityCompleted": "University of Illinois",
+      "userProfilePhoto": "https://example.com/photos/john_doe.jpg"
+    },
+    {
+      "email": "jane.smith@example.com",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "dateOfBirth": "1993-02-20",
+      "gender": "Female",
+      "country": "Canada",
+      "address": "456 Oak Avenue, Toronto, ON",
+      "universityCompleted": "University of Toronto",
+      "userProfilePhoto": "https://example.com/photos/jane_smith.jpg"
+    },
+    {
+      "email": "sam.lee@example.com",
+      "firstName": "Sam",
+      "lastName": "Lee",
+      "dateOfBirth": "1988-09-12",
+      "gender": "Non-binary",
+      "country": "Australia",
+      "address": "789 Pine Road, Sydney, NSW",
+      "universityCompleted": "University of Sydney",
+      "userProfilePhoto": ""
+    },
+    {
+      "email": "lisa.tan@example.com",
+      "firstName": "Lisa",
+      "lastName": "Tan",
+      "dateOfBirth": "1995-11-03",
+      "gender": "Female",
+      "country": "Singapore",
+      "address": "101 Cedar Boulevard, Singapore",
+      "universityCompleted": "National University of Singapore",
+      "userProfilePhoto": "https://example.com/photos/lisa_tan.jpg"
+    },
+    {
+      "email": "michael.brown@example.com",
+      "firstName": "Michael",
+      "lastName": "Brown",
+      "dateOfBirth": "1985-03-27",
+      "gender": "Male",
+      "country": "United Kingdom",
+      "address": "102 Elm Street, London",
+      "universityCompleted": "University of Oxford",
+      "userProfilePhoto": ""
+    }
   ]
+  
 }

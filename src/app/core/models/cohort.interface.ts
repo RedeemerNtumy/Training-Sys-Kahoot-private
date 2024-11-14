@@ -40,3 +40,16 @@ export interface Specialization {
     id: number;
     name: string;
   }
+
+
+  export interface User {
+    email: string;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+    gender: string;
+    country: string;
+    address: string;
+    universityCompleted: string;
+    userProfilePhoto?: string;
+  }
