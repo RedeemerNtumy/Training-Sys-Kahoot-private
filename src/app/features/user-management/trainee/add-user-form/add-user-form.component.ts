@@ -32,6 +32,11 @@ export class AddUserFormComponent {
       userProfilePhoto: ['']
     })
   }
+
+
+  goBack() {
+    this.router.navigate(['/home/admin/user-management'])
+  }
   
 
 }
