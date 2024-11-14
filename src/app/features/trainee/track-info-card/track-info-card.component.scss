@@ -1,0 +1,25 @@
+@use'../../../../styleSheet/mixins' as *;
+
+.info-card{
+  padding: 2.4rem;
+  height: 14.25rem;
+  border-radius: 1.6rem;
+  width: 32.5rem;
+  color: #fff;
+  z-index: 0;
+  position: relative;
+  overflow: hidden;
+
+  h3{
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1.7rem;
+  }
+
+  img{
+    position: absolute;
+    bottom: 0;
+    right: 0rem;
+    max-width: 15rem;
+  }
+}
