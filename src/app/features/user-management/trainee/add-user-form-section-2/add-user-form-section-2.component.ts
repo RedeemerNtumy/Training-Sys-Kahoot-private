@@ -16,20 +16,12 @@ export class AddUserFormSection2Component {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private location: Location,
   ) {}
 
   ngOnInit() {
     this.newUserFormSecTwo = this.fb.group({
-      email: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      dateOfBirth: ['', Validators.required],
-      gender: ['', Validators.required],
-      country: ['', Validators.required],
-      address: ['', Validators.required],
-      universityCompleted: ['', Validators.required],
-      userProfilePhoto: ['']
+      enrollmentDate: ['', Validators.required],
+      trainingID: ['', Validators.required]
     })
   }
 

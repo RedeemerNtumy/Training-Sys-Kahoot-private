@@ -21,7 +21,7 @@ export class AddUserFormComponent {
 
   ngOnInit() {
     this.newUserForm = this.fb.group({
-      email: ['', Validators.required],
+      email: ['', Validators.required, Validators.email],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
@@ -39,7 +39,7 @@ export class AddUserFormComponent {
 
 
   goToSecondSection() {
-    this.router.navigate(['/home/admin/user-management/add-user-two'])
+    this.router.navigate(['/home/admin/user-management/add-user/section-two'])
   }
 
 
