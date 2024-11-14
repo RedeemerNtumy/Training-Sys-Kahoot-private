@@ -86,14 +86,12 @@ export const adminRoutes: Routes = [
         path: 'add-user',
         loadComponent: () => import('../../features/user-management/trainee/add-user-form/add-user-form.component')
           .then(m => m.AddUserFormComponent),
-        children: [
-          {
-            path: 'section-two',
-            loadComponent: () => import('../../features/user-management/trainee/add-user-form-section-2/add-user-form-section-2.component')
-              .then(m => m.AddUserFormSection2Component),
-          }
-        ]
       },
+      {
+        path: 'section-two',
+        loadComponent: () => import('../../features/user-management/trainee/add-user-form-section-2/add-user-form-section-2.component')
+          .then(m => m.AddUserFormSection2Component),
+      }
       
     ]
   },

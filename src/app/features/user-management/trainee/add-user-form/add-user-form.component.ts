@@ -39,7 +39,7 @@ export class AddUserFormComponent {
 
 
   goToSecondSection() {
-    this.router.navigate(['/home/admin/user-management/add-user/section-two'])
+    this.router.navigate(['/home/admin/user-management/section-two'])
   }
 
 
