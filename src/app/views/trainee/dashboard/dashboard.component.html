@@ -2,14 +2,14 @@
   <section class="track-card-section">
     <app-track-info-card/>
     <app-track-info-card
-    [assignmentCount]="0"
+    [count]="5"
     [subtitle]="'Assigned Assesment'"
     [imageUrl]="'../../../../assets/Images/svg/assessment-icon.svg'"
     [imageAlt]="'assessment-icon'"
     [colors]="{startColor: '#37a5f5', endColor: '#2d82c0'}"
     />
     <app-track-info-card
-      [assignmentCount]="0"
+      [count]="0"
       [subtitle]="'Courses Completed'"
       [imageUrl]="'../../../../assets/Images/svg/completed.svg'"
       [imageAlt]="'completed'"
@@ -34,6 +34,5 @@
       [icon]="'../../../../assets/Images/svg/calender-trainee.svg'"
     />
   </section>
-
-
+  <app-learning-materials/>
 </main>

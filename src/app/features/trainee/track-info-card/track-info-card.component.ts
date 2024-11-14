@@ -10,8 +10,7 @@ import { Component, Input } from '@angular/core';
 })
 
 export class TrackInfoCardComponent {
-  @Input() lessonCount: number = 13;
-  @Input() assignmentCount: number = 0;
+  @Input() count: number = 13;
   @Input() lessonsCompleted: number = 0;
   @Input() subtitle: string = "Total Learning Material";
   @Input() imageUrl: string = "../../../../assets/Images/svg/books-icon.svg";
