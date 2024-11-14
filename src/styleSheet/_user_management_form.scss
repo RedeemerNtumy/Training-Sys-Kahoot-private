@@ -56,3 +56,15 @@
     outline: none;
     border: 1px solid $clr-primary-500;
 }
+
+@mixin DropDownField {
+    margin-bottom: 2.4rem;
+
+    & label {
+        display: block;
+        font-size: $font-size-subtitle-2;
+        font-weight: 600;
+        margin-bottom: 1.6rem;
+        color: $clr-gray-700;
+    }
+}

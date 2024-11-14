@@ -93,6 +93,17 @@ select:focus {
     font-weight: 400;
 }
 
+div.specialization {
+    @include DropDownField;
+}
+
+div.cohort {
+    @include DropDownField;
+}
+
+
+
+
 .error {
     text-align: right; 
     color: $clr-red-500;

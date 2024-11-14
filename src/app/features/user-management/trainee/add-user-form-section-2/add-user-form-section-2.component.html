@@ -11,6 +11,26 @@
             <p>Fill in the required details to create a new trainee profile. Ensure that all necessary information, such as the trainee's full name, contact information, and enrollment details, are accurate.</p>
         </div>
         <form [formGroup]="newUserFormSecTwo">
+
+            <div class="specialization">
+                <label for="specialization">Specialization</label>
+                <select formControlName="specialization" id="specialization-select-list">
+                  <option *ngFor="let option of allSpecializations" [value]="option.value">
+                    {{ option.label }}
+                  </option>
+                </select>
+            </div>
+
+            <div class="cohort">
+                <label for="specialization">Cohort</label>
+                <select formControlName="cohort" id="cohort-select-list">
+                  <option *ngFor="let option of allCohorts" [value]="option.value">
+                    {{ option.value }}
+                  </option>
+                </select>
+            </div>
+
+
             <div class="form-field enrollment-date">
                 <div class="label-wrapper">
                     <label for="email">Enrollement Date</label>
@@ -18,6 +38,7 @@
                 </div>
                 <input type="date" formControlName="enrollmentDate">
             </div>
+
             <div class="form-field training-id">
                 <div class="label-wrapper">
                     <label for="email">Training ID</label>
