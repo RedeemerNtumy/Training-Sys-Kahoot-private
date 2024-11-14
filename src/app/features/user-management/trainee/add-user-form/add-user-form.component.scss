@@ -1,0 +1,66 @@
+@import '../../../../../styleSheet/variables';
+@import '../../../../../styleSheet/button';
+
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow-x: scroll;
+    // padding-top: 5rem;
+
+    & .wrapper {
+        width: 67.5rem;
+        height: 90vh;
+        overflow-y: scroll;
+        margin-top: 2.6rem;
+        padding-bottom: 8rem;
+
+        & .back-button {
+            width: fit-content;
+            display: flex;         
+            // align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 2.1rem;
+            cursor: pointer;
+
+            & span {
+                padding-bottom: 0.2rem;
+                border: none;
+                border-bottom: 0.1rem solid $clr-gray-500;
+                color: $clr-gray-500;
+                font-size: $font-size-body;
+                font-weight: 400;
+            }
+        }
+
+        & .cohort-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
+            margin-bottom: 5rem;
+
+            & span {
+                font-size: $font-size-subtitle;
+                font-weight: 600;
+                color: $clr-gray-800;
+            }
+
+            & p {
+                font-size: $font-size-body;
+                font-weight: 400;
+                color: $clr-gray-500;
+            }
+        }
+
+        & form {
+           
+        }
+     }
+}
+
+.error {
+    text-align: right; 
+    color: $clr-red-500;
+}
+  

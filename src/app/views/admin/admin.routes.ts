@@ -81,6 +81,11 @@ export const adminRoutes: Routes = [
         path: '',
         loadComponent: () => import('../../features/user-management/trainee/add-user/add-user.component')
           .then(m => m.AddUserComponent),
+      },
+      {
+        path: 'add-user',
+        loadComponent: () => import('../../features/user-management/trainee/add-user-form/add-user-form.component')
+          .then(m => m.AddUserFormComponent),
       }
     ]
   },

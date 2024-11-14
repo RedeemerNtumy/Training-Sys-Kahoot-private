@@ -14,7 +14,11 @@ export class AddUserComponent {
     private router: Router
   ) {}
 
+  goToAddTrainerForm() {
+    this.router.navigate(['/home/admin/user-management/add-user'])
+  }
+
   goToAddTraineeForm() {
-    this.router.navigate(['/home/admin/user-management/trainee-management'])
+    this.router.navigate(['/home/admin/user-management/add-user'])
   }
 }
