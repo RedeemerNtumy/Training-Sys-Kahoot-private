@@ -8,15 +8,15 @@
         </div>
         <div class="cohort-info">
             <span>Cohort Information</span>
-            <p>Enter the necessary details to create a new cohort, including its name, specialization, and training dates. This will help you organize trainees effectively based on their training period</p>
+            <p>Fill in the required details to create a new trainee profile. Ensure that all necessary information, such as the trainee's full name, contact information, and enrollment details, are accurate.</p>
         </div>
-        <form >
+        <form [formGroup]="newUserForm">
             <div class="form-field email">
                 <div class="label-wrapper">
                     <label for="email">Email</label>
                     <span>*</span>
                 </div>
-                <input type="email">
+                <input type="email" formControlName="email">
             </div>
 
             <div class="first-last-name">
@@ -25,14 +25,14 @@
                         <label for="first-name">First name</label>
                         <span>*</span>
                     </div>
-                    <input type="text">
+                    <input type="text" formControlName="firstName">
                 </div>
                 <div class="form-field last-name">
                     <div class="label-wrapper">
                         <label for="last-name">Last name</label>
                         <span>*</span>
                     </div>
-                    <input type="text">
+                    <input type="text" formControlName="lastName">
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
                     <label for="dob">Date of birth</label>
                     <span>*</span>
                 </div>
-                <input type="date">
+                <input type="date" formControlName="dateOfBirth">
             </div>
 
             <div class="gender-country">
@@ -50,7 +50,7 @@
                         <label for="first-name">Gender</label>
                         <span>*</span>
                     </div>
-                    <select name="gender" id="gender">
+                    <select name="gender" id="gender" formControlName="gender">
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
@@ -60,7 +60,7 @@
                         <label for="last-name">Country</label>
                         <span>*</span>
                     </div>
-                    <select name="country" id="country">
+                    <select name="country" id="country" formControlName="country">
                         <option value="country-name">Country</option>
                     </select>
                 </div>
@@ -71,7 +71,7 @@
                     <label for="address">Address</label>
                     <span>*</span>
                 </div>
-                <input type="text">
+                <input type="text" formControlName="address">
             </div>
 
             <div class="form-field university-completed">
@@ -79,7 +79,7 @@
                     <label for="university-completed">University Completed</label>
                     <span>*</span>
                 </div>
-                <input type="text">
+                <input type="text" formControlName="universityCompleted">
             </div>
 
             <div class="form-field upload-photo">

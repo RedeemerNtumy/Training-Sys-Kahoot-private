@@ -117,6 +117,7 @@ select:focus {
     align-items: center;
     justify-content: center;
     position: relative;
+    cursor: pointer;
 
     & svg {
         margin-bottom: 1.4rem;
