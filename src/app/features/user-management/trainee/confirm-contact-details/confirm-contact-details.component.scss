@@ -118,6 +118,7 @@ select:focus {
     justify-content: center;
     position: relative;
     cursor: pointer;
+    margin-bottom: 8.2rem;
 
     & svg {
         margin-bottom: 1.4rem;
@@ -135,6 +136,18 @@ select:focus {
         font-family: 'Poppins, Arial';
         color: $clr-gray-500;
         font-weight: 400;
+    }
+}
+
+.btn-wrapper {
+    display: flex;
+    gap: 3.8rem;
+    margin-bottom: 3rem;
+
+    & button:first-of-type {
+        background: $clr-white;
+        border: 0.1rem solid $clr-primary-500;
+        color: $clr-primary-500;
     }
 }
 

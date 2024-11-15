@@ -53,13 +53,16 @@ export class AddUserFormSection2Component {
   }
 
   onSubmit() {
-    this.traineeInSystemService.changedFormState$.subscribe(data => {
-      const newData = {...data, ...this.newUserFormSecTwo.value, status: "Active"}
-    })
+    if(this.newUserFormSecTwo.valid) {
+      this.traineeInSystemService.changedFormState$.subscribe(data => {
+        const newData = {...data, ...this.newUserFormSecTwo.value, status: "Active"}
+      })
+    }
+    this.goToConfirmPage();
   }
 
   goToConfirmPage() {
-    
+    this.router.navigate(['home/admin/user-management/confirm-contacts'])
   }
   
   goBack() {

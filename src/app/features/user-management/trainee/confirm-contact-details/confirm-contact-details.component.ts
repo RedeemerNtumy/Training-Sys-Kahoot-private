@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { Observable, debounceTime, distinctUntilChanged, switchMap, catchError, first } from 'rxjs';
 import { Gender, Countries, User } from '../../../../core/models/cohort.interface';
 import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
+import { AsyncPipe, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-confirm-contact-details',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AsyncPipe, NgFor],
   templateUrl: './confirm-contact-details.component.html',
   styleUrl: './confirm-contact-details.component.scss'
 })
@@ -27,25 +28,29 @@ export class ConfirmContactDetailsComponent {
 
   ngOnInit() {
 
+    this.genders$ = this.traineeInsystemService.getGenders();
+    this.countries$ = this.traineeInsystemService.getCountries();
+
     this.newUserFormConfirm = this.fb.group({
-      email: ['',Validators.required, Validators.email],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      dateOfBirth: ['', Validators.required],
-      gender: ['', Validators.required],
-      country: ['', Validators.required],
-      address: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      universityCompleted: ['', Validators.required],
+      email: [{value: '', disabled: true},Validators.required, Validators.email],
+      firstName: [{value: '', disabled: true}, Validators.required],
+      lastName: [{value: '', disabled: true}, Validators.required],
+      dateOfBirth: [{value: '', disabled: true}, Validators.required],
+      gender: [{value: '', disabled: true}, Validators.required],
+      country: [{value: '', disabled: true}, Validators.required],
+      address: [{value: '', disabled: true}, Validators.required],
+      phoneNumber: [{value: '', disabled: true}, Validators.required],
+      universityCompleted: [{value: '', disabled: true}, Validators.required],
       userProfilePhoto: ['']
     })
 
-    this.traineeInsystemService.retreivedUserData$.subscribe(data => {
+    this.traineeInsystemService.changedFormState$.subscribe(data => {
       const userdata = data;
       
       if(data) {
         console.log(userdata?.country)
         this.newUserFormConfirm.patchValue({
+          email: data.email,
           firstName: data.firstName,
           lastName: data.lastName,
           dateOfBirth: data.dateOfBirth,
