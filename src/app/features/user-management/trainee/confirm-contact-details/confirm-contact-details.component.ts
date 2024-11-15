@@ -96,6 +96,6 @@ export class ConfirmContactDetailsComponent {
 
 
   goBack() {
-    this.router.navigate(['/home/admin/user-management'])
+    this.router.navigate(['/home/admin/user-management/section-two'])
   }
 }

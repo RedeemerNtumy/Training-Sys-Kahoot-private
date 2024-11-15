@@ -31,6 +31,7 @@ export class ConfirmTrainingDetailsComponent {
       specialization: [{value: '', disabled: true}, Validators.required],
       cohort: [{value: '', disabled: true}, Validators.required],
       enrollementDate: [{value: '', disabled: true}, Validators.required],
+      status: [{value: '', disabled: true}, Validators.required],
       trainingId: [{value: '', disabled: true}, Validators.required]
     })
 
@@ -39,10 +40,12 @@ export class ConfirmTrainingDetailsComponent {
      
     this.traineeInSystemService.secondFormState$.subscribe(data => {
       if(data) {
+        const capitalizedStatus = this.capitalizeFirstLetter(data.status);
         this.newUserFormSecTwo.patchValue({
           specialization: data.specialization,
           cohort: data.cohort,
           enrollementDate: data.enrollmentDate,
+          status: capitalizedStatus,
           trainingId: data.trainingId,
         })
       }
@@ -69,5 +72,9 @@ export class ConfirmTrainingDetailsComponent {
   
   goBack() {
     this.router.navigate(['/home/admin/user-management/confirm-contacts'])
+  }
+
+  capitalizeFirstLetter(value: string): string {
+    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
   }
 }

@@ -32,6 +32,7 @@ export class AddUserFormSection2Component {
       specialization: ['', Validators.required],
       cohort: ['', Validators.required],
       enrollementDate: ['', Validators.required],
+      status: ['', Validators.required],
       trainingId: ['', Validators.required]
     })
 
@@ -40,10 +41,12 @@ export class AddUserFormSection2Component {
      
     this.traineeInSystemService.retreivedUserData$.subscribe(data => {
       if(data) {
+        const capitalizedStatus = this.capitalizeFirstLetter(data.status);
         this.newUserFormSecTwo.patchValue({
           specialization: data.specialization,
           cohort: data.cohort,
           enrollementDate: data.enrollmentDate,
+          status: capitalizedStatus,
           trainingId: data.trainingId,
         })
       }
@@ -74,5 +77,10 @@ export class AddUserFormSection2Component {
   
   goBack() {
     this.router.navigate(['/home/admin/user-management/add-user-form'])
+  }
+
+
+  capitalizeFirstLetter(value: string): string {
+    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
   }
 }
