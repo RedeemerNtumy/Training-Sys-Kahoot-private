@@ -81,18 +81,16 @@ export class SpecializationFacadeService {
   update(id: number, specialization: Partial<Ispecialization>): Observable<Ispecialization> {
     return this.specializationCrud.updateSpecialization(id, specialization)
     .pipe(
-      tap(() => console.log('Update service triggered')),
-      tap(response => console.log('Update response:', response)),
-      catchError(this.errorService.handleError),
-      tap(() => this.loadSpecializations())
+      tap(() => this.loadSpecializations()),
+      catchError(this.errorService.handleError)
     );
   }
 
   delete(id: number): Observable<void> {
     return this.specializationCrud.deleteSpecialization(id)
     .pipe(
-      catchError(this.errorService.handleError),
-      tap(() => this.loadSpecializations())
+      tap(() => this.loadSpecializations()),
+      catchError(this.errorService.handleError)
     );
   }
 }

@@ -4,11 +4,12 @@ import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule } fr
 import { MatButtonModule } from '@angular/material/button';
 import { Ispecialization } from '../../../../core/models/specialization.interface';
 import { SpecializationFacadeService } from '../../../../core/services/specialization-facade/specialization-facade.service';
+import { AddFeedbackComponent } from "../add-feedback/add-feedback.component";
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatButtonModule],
+  imports: [ReactiveFormsModule, CommonModule, MatButtonModule, AddFeedbackComponent],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
