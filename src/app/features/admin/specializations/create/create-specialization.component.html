@@ -4,5 +4,12 @@
     <p class="back-link" >Back</p>
   </a>
 
-  <app-form  (formSubmit)="handleFormSubmit($event)"/>
+  @if(isLoading) {
+    <div class="loading">Loading...</div>
+  } @else {
+    <app-form
+      [initialData]="specializationData"
+      (formSubmit)="handleFormSubmit($event)"
+    />
+  }
 </section>

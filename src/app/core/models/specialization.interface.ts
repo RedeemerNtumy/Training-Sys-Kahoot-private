@@ -3,17 +3,18 @@ export interface Ispecialization {
   name: string;
   description: string;
   prerequisites: string[];
-  dateCreated: string;
+  createdAt: string;
   traineesCount?: number;
 }
 
 
-interface ContentItem {
+export interface ContentItem {
   id: number;
   name: string;
   description: string;
   prerequisites: string[];
   createdAt: string;
+  traineesCount?: number;
   // Add additional fields if necessary
 }
 
@@ -32,8 +33,8 @@ interface Sort {
   empty: boolean;
 }
 
-export interface IContentResponse {
-  content: ContentItem[];
+export interface IContentResponse <T>{
+  content: T;
   empty: boolean;
   first: boolean;
   last: boolean;

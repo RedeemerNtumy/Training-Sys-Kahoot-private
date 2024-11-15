@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from "../form/form.component";
-import { IsActiveMatchOptions, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SpecializationFacadeService } from '../../../../core/services/specialization-facade/specialization-facade.service';
 import { Ispecialization } from '../../../../core/models/specialization.interface';
-
+import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-create-specialization',
@@ -16,16 +17,40 @@ import { Ispecialization } from '../../../../core/models/specialization.interfac
 })
 
 export class CreateSpecializationComponent {
-  specializationData!: Ispecialization;
+  specializationData?: Ispecialization;
   specializationId?: number;
+  isLoading: boolean = false;
 
   constructor(private router: Router,
     private facadeService: SpecializationFacadeService,
+    private route: ActivatedRoute
   ){}
 
+  ngOnInit(){
+    this.route.queryParams.pipe(
+      switchMap(params => {
+        const id = params['id'];
+        if (id) {
+          this.isLoading = true;
+          return this.facadeService.getSpecializationById(id);
+        }
+        return of(undefined);
+      })
+    ).subscribe({
+      next: (specialization) => {
+        this.specializationData = specialization;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching specialization:', error);
+        this.isLoading = false;
+      }
+    });
+  }
+
   handleFormSubmit(formData: Ispecialization) {
-    if (this.specializationId) {
-      this.facadeService.update(this.specializationId, formData).subscribe({
+    if (this.specializationData?.id) {
+      this.facadeService.update(this.specializationData.id, formData).subscribe({
         next: () => {
           console.log('Specialization updated successfully');
           this.navigateToList();
