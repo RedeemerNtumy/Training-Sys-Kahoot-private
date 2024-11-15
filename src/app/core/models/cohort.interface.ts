@@ -59,3 +59,12 @@ export interface User {
     trainingId: string;
     status: 'active' | 'inactive';
 }
+
+export interface Gender {
+    sex: string;
+}
+
+export interface Countries {
+    name: string;
+    code: string;
+}

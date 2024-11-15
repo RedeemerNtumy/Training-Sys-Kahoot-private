@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Cohort, Specialization, User } from '../../../models/cohort.interface';
+import { Cohort, Specialization } from '../../../models/cohort.interface';
 import { ErrorHandlerService } from '../../cohort-data/error-handling/error-handler.service';
-import { Observable, catchError } from 'rxjs';
+import { catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

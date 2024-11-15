@@ -16,7 +16,11 @@
                     <label for="email">Email</label>
                     <span>*</span>
                 </div>
-                <input type="email" formControlName="email">
+                <input 
+                    type="email" 
+                    formControlName="email" 
+                    placeholder="Enter email here..." 
+                />
             </div>
 
             <div class="first-last-name">
@@ -51,8 +55,9 @@
                         <span>*</span>
                     </div>
                     <select name="gender" id="gender" formControlName="gender">
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
+                        <option *ngFor="let gender of genders$ | async" [value]="gender.sex">
+                            {{ gender.sex }}
+                        </option>
                     </select>
                 </div>
                 <div class="form-field last-name">
@@ -61,7 +66,9 @@
                         <span>*</span>
                     </div>
                     <select name="country" id="country" formControlName="country">
-                        <option value="country-name">Country</option>
+                        <option *ngFor="let country of countries$ | async" [value]="country.name">
+                            {{ country.name }}
+                        </option>
                     </select>
                 </div>
             </div>
