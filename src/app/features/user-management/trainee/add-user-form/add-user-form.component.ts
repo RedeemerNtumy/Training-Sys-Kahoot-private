@@ -19,7 +19,7 @@ export class AddUserFormComponent {
   newUserForm!: FormGroup;
   genders$!: Observable<Gender[]>;
   countries$!: Observable<Countries[]>;
-  changedFormState!: User;
+  // changedFormState!: User;
 
   constructor(
     private fb: FormBuilder,
@@ -69,8 +69,12 @@ export class AddUserFormComponent {
   }
 
   onSubmit() {
-    this.changedFormState = this.newUserForm.value;
+    this.setChangedFormData();
     this.goToSecondSection();
+  }
+
+  setChangedFormData() {
+    this.traineeInsystemService.setChangedFormState(this.newUserForm.value)
   }
 
 

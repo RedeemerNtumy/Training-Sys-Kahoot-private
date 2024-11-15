@@ -12,9 +12,12 @@ export class TraineeInsystemService {
   private checkUserUrl: string = "http://localhost:9000/users";
   private gendersUrl: string = "http://localhost:9000/gender";
   private countriesUrl: string = "http://localhost:9000/countries";
-  public changedFormState!: User;
+
+  private changedFormStateSubject = new BehaviorSubject<User | null>(null);
+  public changedFormState$: Observable<User | null> = this.changedFormStateSubject.asObservable();
+
   
-  private retreivedUserDataSubject = new BehaviorSubject<User | null>(null);
+  public retreivedUserDataSubject = new BehaviorSubject<User | null>(null);
   public retreivedUserData$: Observable<User | null> = this.retreivedUserDataSubject.asObservable();
 
   constructor(
@@ -47,6 +50,10 @@ export class TraineeInsystemService {
     return this.http.get<Countries[]>(this.countriesUrl).pipe(
       catchError(error => this.errorHandlerService.handleError(error))
     )
+  }
+
+  setChangedFormState(data: User) {
+    this.changedFormStateSubject.next(data);
   }
 
   

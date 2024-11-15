@@ -2,9 +2,10 @@ import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Cohort, Specialization } from '../../../../core/models/cohort.interface';
-import { Observable } from 'rxjs';
+import { Cohort, Specialization, User } from '../../../../core/models/cohort.interface';
+import { Observable, of } from 'rxjs';
 import { UserManagementTraineeService } from '../../../../core/services/user-management/trainee/user-management-trainee.service';
+import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
 
 @Component({
   selector: 'app-add-user-form-section-2',
@@ -23,6 +24,7 @@ export class AddUserFormSection2Component {
     private fb: FormBuilder,
     private router: Router,
     public userManagementTraineeService: UserManagementTraineeService,
+    public traineeInSystemService: TraineeInsystemService,
   ) {}
 
   ngOnInit() {
@@ -35,6 +37,18 @@ export class AddUserFormSection2Component {
 
     this.allSpecializations$ = this.userManagementTraineeService.getAllspecializations();
     this.allCohorts$ = this.userManagementTraineeService.getAllCohorts();
+     
+    this.traineeInSystemService.retreivedUserData$.subscribe(data => {
+      if(data) {
+        console.log("data: ", data)
+        this.newUserFormSecTwo.patchValue({
+          specialization: data.specialization,
+          cohort: data.cohort,
+          enrollementDate: data.enrollmentDate,
+          trainingId: data.trainingId,
+        })
+      }
+    })
     
 
   }

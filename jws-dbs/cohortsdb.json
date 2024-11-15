@@ -209,23 +209,23 @@
   ],
   "allSpecilizations": [
     { "id": 1, "value": "UI/UX Design" },
-    { "id": 2, "value": "Frontend Development" },
-    { "id": 3, "value": "Backend Development" },
+    { "id": 2, "value": "Frontend Engineering" },
+    { "id": 3, "value": "Backend Engineering" },
     { "id": 4, "value": "Data Science" },
     { "id": 5, "value": "Machine Learning" }   
   ],
   "allCohorts": [
-    {"name": "cohort 1"},
-    {"name": "cohort 2"},
-    {"name": "cohort 3"},
-    {"name": "cohort 4"},
-    {"name": "cohort 5"},
-    {"name": "cohort 6"},
-    {"name": "cohort 7"},
-    {"name": "cohort 8"},
-    {"name": "cohort 9"},
-    {"name": "cohort 10"},
-    {"name": "cohort 11"}
+    {"name": "Cohort 1.0"},
+    {"name": "Cohort 2.0"},
+    {"name": "Cohort 3.0"},
+    {"name": "Cohort 4.0"},
+    {"name": "Cohort 5.0"},
+    {"name": "Cohort 6.0"},
+    {"name": "Cohort 7.0"},
+    {"name": "Cohort 8.0"},
+    {"name": "Cohort 9.0"},
+    {"name": "Cohort 10.0"},
+    {"name": "Cohort 11.0"}
   ],
   "users": [
     {

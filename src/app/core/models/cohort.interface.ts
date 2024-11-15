@@ -55,7 +55,7 @@ export interface User {
     userProfilePhoto: string;
     specialization: string;
     cohort: string;
-    enrollmentDate: string;
+    enrollmentDate: Date;
     trainingId: string;
     status: 'active' | 'inactive';
     phoneNumber: number;
