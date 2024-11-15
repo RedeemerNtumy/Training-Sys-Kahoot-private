@@ -31,7 +31,7 @@ export class AddUserFormSection2Component {
     this.newUserFormSecTwo = this.fb.group({
       specialization: ['', Validators.required],
       cohort: ['', Validators.required],
-      enrollmentDate: ['', Validators.required],
+      enrollementDate: ['', Validators.required],
       trainingId: ['', Validators.required]
     })
 
@@ -49,10 +49,16 @@ export class AddUserFormSection2Component {
         })
       }
     })
-    
 
   }
 
+  onSubmit() {
+    this.traineeInSystemService.changedFormState$.subscribe(data => {
+      const addData = data;
+      const newData = {...data, ...this.newUserFormSecTwo.value, status: "Active"}
+      console.log(newData)
+    })
+  }
 
   // Get specializations and cohort for from form
   get specialization(): FormArray {
