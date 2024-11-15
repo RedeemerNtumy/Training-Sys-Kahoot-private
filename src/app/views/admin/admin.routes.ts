@@ -91,6 +91,11 @@ export const adminRoutes: Routes = [
         path: 'confirm-contacts',
         loadComponent: () => import('../../features/user-management/trainee/confirm-contact-details/confirm-contact-details.component')
           .then(m => m.ConfirmContactDetailsComponent),
+      },
+      {
+        path: 'confirm-training',
+        loadComponent: () => import('../../features/user-management/trainee/confirm-training-details/confirm-training-details.component')
+          .then(m => m.ConfirmTrainingDetailsComponent),
       }
       
     ]
