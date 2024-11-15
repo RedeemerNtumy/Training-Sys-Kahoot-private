@@ -11,7 +11,7 @@
             <span>Cohort Information</span>
             <p>Fill in the required details to create a new trainee profile. Ensure that all necessary information, such as the trainee's full name, contact information, and enrollment details, are accurate.</p>
         </div>
-        <form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="newUserFormConfirm">
             <div class="form-field email">
                 <div class="label-wrapper">
                     <label for="email">Email</label>
@@ -21,6 +21,7 @@
                     type="email" 
                     formControlName="email" 
                     placeholder="Enter email here..." 
+                    [disabled]="disabled"
                 />
             </div>
 
@@ -30,14 +31,14 @@
                         <label for="first-name">First name</label>
                         <span>*</span>
                     </div>
-                    <input type="text" formControlName="firstName">
+                    <input type="text" formControlName="firstName" [disabled]="disabled">
                 </div>
                 <div class="form-field last-name">
                     <div class="label-wrapper">
                         <label for="last-name">Last name</label>
                         <span>*</span>
                     </div>
-                    <input type="text" formControlName="lastName">
+                    <input type="text" formControlName="lastName" [disabled]="disabled">
                 </div>
             </div>
 
@@ -46,7 +47,7 @@
                     <label for="dob">Date of birth</label>
                     <span>*</span>
                 </div>
-                <input type="date" formControlName="dateOfBirth">
+                <input type="date" formControlName="dateOfBirth" [disabled]="disabled">
             </div>
 
             <div class="gender-country">
@@ -55,7 +56,7 @@
                         <label for="first-name">Gender</label>
                         <span>*</span>
                     </div>
-                    <select name="gender" id="gender" formControlName="gender">
+                    <select name="gender" id="gender" formControlName="gender" [disabled]="disabled">
                         <option *ngFor="let gender of genders$ | async" [value]="gender.sex">
                             {{ gender.sex }}
                         </option>
@@ -66,7 +67,7 @@
                         <label for="last-name">Country</label>
                         <span>*</span>
                     </div>
-                    <select name="country" id="country" formControlName="country">
+                    <select name="country" id="country" formControlName="country" [disabled]="disabled">
                         <option *ngFor="let country of countries$ | async" [value]="country.name">
                             {{ country.name }}
                         </option>
@@ -79,7 +80,7 @@
                     <label for="address">Address</label>
                     <span>*</span>
                 </div>
-                <input type="text" formControlName="address">
+                <input type="text" formControlName="address" [disabled]="disabled">
             </div>
 
             <div class="form-field phone-number">
@@ -87,7 +88,7 @@
                     <label for="address">Phone Number</label>
                     <span>*</span>
                 </div>
-                <input type="tel" formControlName="phoneNumber">
+                <input type="tel" formControlName="phoneNumber" [disabled]="disabled">
             </div>
 
             <div class="form-field university-completed">
@@ -95,7 +96,7 @@
                     <label for="university-completed">University Completed</label>
                     <span>*</span>
                 </div>
-                <input type="text" formControlName="universityCompleted">
+                <input type="text" formControlName="universityCompleted" [disabled]="disabled">
             </div>
 
             <div class="form-field upload-photo">
@@ -119,7 +120,10 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn">Continue</button>
+            <div class="btn-wrapper">
+                <button class="btn" (click)="cancel()">Cancel</button>
+                <button class="btn" (click)="next()">Next</button>
+            </div>
 
         </form>
     </div>

@@ -86,6 +86,11 @@ export const adminRoutes: Routes = [
         path: 'section-two',
         loadComponent: () => import('../../features/user-management/trainee/add-user-form-section-2/add-user-form-section-2.component')
           .then(m => m.AddUserFormSection2Component),
+      },
+      {
+        path: 'confirm-contact',
+        loadComponent: () => import('../../features/user-management/trainee/confirm-contact-details/confirm-contact-details.component')
+          .then(m => m.ConfirmContactDetailsComponent),
       }
       
     ]
