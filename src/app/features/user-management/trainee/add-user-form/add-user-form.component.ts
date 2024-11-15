@@ -48,7 +48,7 @@ export class AddUserFormComponent {
 
     this.traineeInsystemService.retreivedUserData$.subscribe(data => {
       const userdata = data;
-      
+
       if(data) {
         console.log(userdata?.country)
         this.newUserForm.patchValue({
