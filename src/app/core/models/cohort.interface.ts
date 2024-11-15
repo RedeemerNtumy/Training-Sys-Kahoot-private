@@ -58,6 +58,7 @@ export interface User {
     enrollmentDate: string;
     trainingId: string;
     status: 'active' | 'inactive';
+    phoneNumber: number;
 }
 
 export interface Gender {

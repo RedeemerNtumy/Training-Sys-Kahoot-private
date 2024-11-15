@@ -12,6 +12,7 @@ export class TraineeInsystemService {
   private checkUserUrl: string = "http://localhost:9000/users";
   private gendersUrl: string = "http://localhost:9000/gender";
   private countriesUrl: string = "http://localhost:9000/countries";
+  public changedFormState!: User;
   
   private retreivedUserDataSubject = new BehaviorSubject<User | null>(null);
   public retreivedUserData$: Observable<User | null> = this.retreivedUserDataSubject.asObservable();

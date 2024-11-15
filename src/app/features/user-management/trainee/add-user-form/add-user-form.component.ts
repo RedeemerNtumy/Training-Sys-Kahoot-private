@@ -19,6 +19,7 @@ export class AddUserFormComponent {
   newUserForm!: FormGroup;
   genders$!: Observable<Gender[]>;
   countries$!: Observable<Countries[]>;
+  changedFormState!: User;
 
   constructor(
     private fb: FormBuilder,
@@ -42,6 +43,7 @@ export class AddUserFormComponent {
       gender: ['', Validators.required],
       country: ['', Validators.required],
       address: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
       universityCompleted: ['', Validators.required],
       userProfilePhoto: ['']
     })
@@ -58,6 +60,7 @@ export class AddUserFormComponent {
           gender: data.gender,
           country: data.country,
           address: data.address,
+          phoneNumber: data.phoneNumber,
           universityCompleted: data.universityCompleted,
           userProfilePhoto: data.userProfilePhoto,
         });
@@ -66,30 +69,29 @@ export class AddUserFormComponent {
   }
 
   onSubmit() {
-    // this.goToSecondSection();
-    console.log("form data: ", this.newUserForm.value)
+    this.changedFormState = this.newUserForm.value;
+    this.goToSecondSection();
   }
 
 
   emailAsyncValidator(control: AbstractControl): Observable<User[] | null> {
     return control.valueChanges.pipe(
-      debounceTime(500), // Waits for user to stop typing
-      distinctUntilChanged(), // Prevents multiple requests for the same value
+      debounceTime(500), 
+      distinctUntilChanged(),
       switchMap(value => {
-        // Call the checkEmail method
         return this.traineeInsystemService.checkEmail(value).pipe(
           catchError(() => {
-            return []; // Handle error gracefully
+            return []; 
           })
         );
       }),
-      first() // Completes the observable after the first emission
+      first()
     );
   }
 
 
   goToSecondSection() {
-    // this.router.navigate(['/home/admin/user-management/section-two'])
+    this.router.navigate(['/home/admin/user-management/section-two'])
   }
 
 

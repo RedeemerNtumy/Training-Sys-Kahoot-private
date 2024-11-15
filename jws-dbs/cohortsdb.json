@@ -242,7 +242,8 @@
       "cohort": "Cohort 3.0",
       "enrollmentDate": "2023-01-10",
       "trainingId": "user1",
-      "status": "active"
+      "status": "active",
+      "phoneNumber": "+1-555-123-4567"
     },
     {
       "email": "jane.smith@example.com",
@@ -258,7 +259,8 @@
       "cohort": "Cohort 4.0",
       "enrollmentDate": "2022-08-15",
       "trainingId": "user2",
-      "status": "inactive"
+      "status": "inactive",
+      "phoneNumber": "+1-416-555-7890"
     },
     {
       "email": "sam.lee@example.com",
@@ -274,7 +276,8 @@
       "cohort": "Cohort 5.0",
       "enrollmentDate": "2021-11-05",
       "trainingId": "user3",
-      "status": "active"
+      "status": "active",
+      "phoneNumber": "+61-2-5555-1234"
     },
     {
       "email": "lisa.tan@example.com",
@@ -290,7 +293,8 @@
       "cohort": "Cohort 6.0",
       "enrollmentDate": "2023-05-10",
       "trainingId": "user4",
-      "status": "inactive"
+      "status": "inactive",
+      "phoneNumber": "+65-9123-4567"
     },
     {
       "email": "michael.brown@example.com",
@@ -306,7 +310,8 @@
       "cohort": "Cohort 7.0",
       "enrollmentDate": "2022-12-15",
       "trainingId": "user5",
-      "status": "active"
+      "status": "active",
+      "phoneNumber": "+44-20-7946-0958"
     },
     {
       "email": "anna.garcia@example.com",
@@ -322,7 +327,8 @@
       "cohort": "Cohort 3.0",
       "enrollmentDate": "2021-09-20",
       "trainingId": "user6",
-      "status": "inactive"
+      "status": "inactive",
+      "phoneNumber": "+34-91-555-6789"
     },
     {
       "email": "david.wong@example.com",
@@ -338,7 +344,8 @@
       "cohort": "Cohort 8.0",
       "enrollmentDate": "2022-03-25",
       "trainingId": "user7",
-      "status": "active"
+      "status": "active",
+      "phoneNumber": "+852-5550-1234"
     },
     {
       "email": "sara.lee@example.com",
@@ -354,7 +361,8 @@
       "cohort": "Cohort 6.0",
       "enrollmentDate": "2023-06-05",
       "trainingId": "user8",
-      "status": "inactive"
+      "status": "inactive",
+      "phoneNumber": "+82-10-5555-9876"
     }
   ],
   "gender": [
