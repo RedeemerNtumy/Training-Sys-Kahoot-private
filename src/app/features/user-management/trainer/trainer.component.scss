@@ -1,6 +1,6 @@
-@import "../../../../../styleSheet/variables";
-@import "../../../../../styleSheet/button";
-@import "../../../../../styleSheet/user_management_form";
+@import "../../../../styleSheet/variables";
+@import "../../../../styleSheet/button";
+@import "../../../../styleSheet/user_management_form";
 
 .container {
   width: 100%;
@@ -10,12 +10,12 @@
   // padding-top: 5rem;
 
   & .wrapper {
-    // width: 67.5rem;
     height: 90vh;
     overflow-y: scroll;
     margin-top: 2.6rem;
     padding-bottom: 8rem;
     scrollbar-width: none;
+    scroll-behavior: smooth;
 
     & .back-button {
       width: fit-content;

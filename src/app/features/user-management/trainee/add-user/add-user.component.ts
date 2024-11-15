@@ -6,16 +6,16 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [],
   templateUrl: './add-user.component.html',
-  styleUrl: './add-user.component.scss'
+  styleUrl: './add-user.component.scss',
 })
 export class AddUserComponent {
-
-  constructor(
-    private router: Router
-  ) {}
+  constructor(private router: Router) {}
 
   goToAddUserForm() {
-    this.router.navigate(['/home/admin/user-management/add-user-form'])
+    this.router.navigate(['/home/admin/user-management/add-user-form']);
   }
 
+  goToAddTrainerForm() {
+    this.router.navigate(['/home/admin/user-management/add-trianer']);
+  }
 }
