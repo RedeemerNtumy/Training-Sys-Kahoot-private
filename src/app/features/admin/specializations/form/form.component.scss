@@ -58,7 +58,7 @@ form{
   textarea, input {
     &:focus-within {
       outline: none;
-      border-color: darken(#E0E0E0, 30%);
+      border-color: darken(#F98416, 5%);
     }
 
     &::placeholder{
