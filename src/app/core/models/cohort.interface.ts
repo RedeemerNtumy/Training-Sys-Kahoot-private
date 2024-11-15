@@ -47,7 +47,7 @@ export interface User {
     email: string;
     firstName: string;
     lastName: string;
-    dateOfBirth: string;
+    dateOfBirth: Date;
     gender: string;
     country: string;
     address: string;
@@ -58,7 +58,7 @@ export interface User {
     enrollmentDate: Date;
     trainingId: string;
     status: 'active' | 'inactive';
-    phoneNumber: number;
+    phoneNumber: string;
 }
 
 export interface Gender {

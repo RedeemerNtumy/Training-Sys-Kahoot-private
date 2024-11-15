@@ -1,1 +1,58 @@
-<p>confirm-training-details works!</p>
+<div class="container">
+    <div class="wrapper">
+        <div class="back-button" (click)="goBack()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.921 7.5L7.714 13.292L7 14L0 7L7 0L7.714 0.708L1.92 6.5H14V7.5H1.921Z" fill="#676767"/>
+            </svg>
+            <span>Back</span>
+        </div>
+        <div class="cohort-info">
+            <span>Training Information</span>
+            <p>Provide key details about the trainee's training program, including the specific course or program they are enrolled in, their start date, and expected completion date.</p>
+        </div>
+        <form [formGroup]="newUserFormSecTwo">
+
+            <div class="specialization">
+                <label for="specialization">Specialization</label>
+                <select formControlName="specialization" id="specialization-select-list">
+                  <option *ngFor="let option of allSpecializations$ | async" [value]="option.value">
+                    {{ option.value }}
+                  </option>
+                </select>
+            </div>
+
+            <div class="cohort">
+                <label for="specialization">Cohort</label>
+                <select formControlName="cohort" id="cohort-select-list">
+                  <option *ngFor="let option of allCohorts$ | async" [value]="option.name">
+                    {{ option.name }}
+                  </option>
+                </select>
+            </div>
+
+
+            <div class="form-field enrollment-date">
+                <div class="label-wrapper">
+                    <label for="enrollment-date">Enrollement Date</label>
+                    <span>*</span>
+                </div>
+                <input type="date" formControlName="enrollementDate">
+            </div>
+
+            <div class="form-field training-id">
+                <div class="label-wrapper">
+                    <label for="training-id">Training ID</label>
+                    <span>*</span>
+                </div>
+                <input type="text" formControlName="trainingId">
+            </div>
+
+            
+            <div class="btn-wrapper">
+                <button class="btn" (click)="cancel()">Cancel</button>
+                <button class="btn" type="button">Submit</button>
+            </div>
+        </form> 
+    </div>
+
+</div>

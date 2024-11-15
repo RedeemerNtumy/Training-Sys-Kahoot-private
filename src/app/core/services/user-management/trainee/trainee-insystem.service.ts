@@ -13,12 +13,19 @@ export class TraineeInsystemService {
   private gendersUrl: string = "http://localhost:9000/gender";
   private countriesUrl: string = "http://localhost:9000/countries";
 
-  private changedFormStateSubject = new BehaviorSubject<User | null>(null);
-  public changedFormState$: Observable<User | null> = this.changedFormStateSubject.asObservable();
-
-  
   public retreivedUserDataSubject = new BehaviorSubject<User | null>(null);
   public retreivedUserData$: Observable<User | null> = this.retreivedUserDataSubject.asObservable();
+
+  private finalFormStateSubject = new BehaviorSubject<User | null>(null);
+  public finalFormState$: Observable<User | null> = this.finalFormStateSubject.asObservable();
+
+  private firstFormStateSubject = new BehaviorSubject<User | null>(null);
+  public firstFormState$: Observable<User | null> = this.firstFormStateSubject.asObservable();
+
+  private secondFormStateSubject = new BehaviorSubject<User | null>(null);
+  public secondFormState$: Observable<User | null> = this.secondFormStateSubject.asObservable();
+
+  
 
   constructor(
     private http: HttpClient,
@@ -51,8 +58,16 @@ export class TraineeInsystemService {
     )
   }
 
-  setChangedFormState(data: User) {
-    this.changedFormStateSubject.next(data);
+  setFinalFormState(data: User) {
+    this.finalFormStateSubject.next(data);
+  }
+
+  setFirstFormState(data: User) {
+    this.firstFormStateSubject.next(data);
+  }
+
+  setSecondFormState(data: User) {
+    this.secondFormStateSubject.next(data);
   }
 
   

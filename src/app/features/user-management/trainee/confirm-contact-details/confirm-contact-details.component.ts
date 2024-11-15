@@ -17,7 +17,6 @@ export class ConfirmContactDetailsComponent {
   newUserFormConfirm!: FormGroup;
   genders$!: Observable<Gender[]>;
   countries$!: Observable<Countries[]>;
-  // changedFormState!: User;
   disabled: boolean = true;
 
   constructor(
@@ -44,11 +43,8 @@ export class ConfirmContactDetailsComponent {
       userProfilePhoto: ['']
     })
 
-    this.traineeInsystemService.changedFormState$.subscribe(data => {
-      const userdata = data;
-      
+    this.traineeInsystemService.firstFormState$.subscribe(data => {     
       if(data) {
-        console.log(userdata?.country)
         this.newUserFormConfirm.patchValue({
           email: data.email,
           firstName: data.firstName,
@@ -65,8 +61,8 @@ export class ConfirmContactDetailsComponent {
     })
   }
 
-  setChangedFormData() {
-    this.traineeInsystemService.setChangedFormState(this.newUserFormConfirm.value)
+  setFirstFormData() {
+    this.traineeInsystemService.setFirstFormState(this.newUserFormConfirm.value)
   }
 
 
@@ -91,11 +87,11 @@ export class ConfirmContactDetailsComponent {
   }
 
   next() {
-    this.router.navigate(['home/admin/user-management/confirm-contact'])
+    this.router.navigate(['home/admin/user-management/confirm-training'])
   }
 
   cancel() {
-
+    this.router.navigate(['/home/admin/user-management'])
   }
 
 

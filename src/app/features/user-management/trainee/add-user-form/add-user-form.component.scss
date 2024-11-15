@@ -138,8 +138,13 @@ select:focus {
     }
 }
 
+.error-wrapper {
+    width: 100%;
+}
+
 .error {
     text-align: right; 
     color: $clr-red-500;
 }
   
+

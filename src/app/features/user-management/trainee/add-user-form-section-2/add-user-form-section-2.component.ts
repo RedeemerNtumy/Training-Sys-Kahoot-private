@@ -40,7 +40,6 @@ export class AddUserFormSection2Component {
      
     this.traineeInSystemService.retreivedUserData$.subscribe(data => {
       if(data) {
-        console.log("data: ", data)
         this.newUserFormSecTwo.patchValue({
           specialization: data.specialization,
           cohort: data.cohort,
@@ -53,12 +52,20 @@ export class AddUserFormSection2Component {
   }
 
   onSubmit() {
-    if(this.newUserFormSecTwo.valid) {
-      this.traineeInSystemService.changedFormState$.subscribe(data => {
-        const newData = {...data, ...this.newUserFormSecTwo.value, status: "Active"}
-      })
+    const formData = this.newUserFormSecTwo;
+
+    if(!formData.invalid) {
+      this.setSecondFormState()
+      this.goToConfirmPage();
+      this.traineeInSystemService.secondFormState$.subscribe(data => console.log("Second Form: ", data))
     }
-    this.goToConfirmPage();
+    else {
+      formData.markAllAsTouched();
+    }
+  }
+
+  setSecondFormState() {
+    this.traineeInSystemService.setSecondFormState(this.newUserFormSecTwo.value)
   }
 
   goToConfirmPage() {
