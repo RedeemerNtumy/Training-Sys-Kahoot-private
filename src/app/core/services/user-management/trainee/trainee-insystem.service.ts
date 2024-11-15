@@ -30,7 +30,6 @@ export class TraineeInsystemService {
     return this.http.get<User[]>(`${this.checkUserUrl}?email=${encodeURIComponent(email)}`).pipe(
       tap(response => {
         const [data] = response;
-        console.log("service: ", data)
         this.retreivedUserDataSubject.next(data);
       }),
       catchError(error => {

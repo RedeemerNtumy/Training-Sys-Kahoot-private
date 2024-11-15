@@ -54,18 +54,12 @@ export class AddUserFormSection2Component {
 
   onSubmit() {
     this.traineeInSystemService.changedFormState$.subscribe(data => {
-      const addData = data;
       const newData = {...data, ...this.newUserFormSecTwo.value, status: "Active"}
-      console.log(newData)
     })
   }
 
-  // Get specializations and cohort for from form
-  get specialization(): FormArray {
-    return this.newUserFormSecTwo.get('specialization') as FormArray;
-  }
-  get cohort(): FormArray {
-    return this.newUserFormSecTwo.get('cohort') as FormArray;
+  goToConfirmPage() {
+    
   }
   
   goBack() {
