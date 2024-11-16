@@ -44,10 +44,10 @@ export class ConfirmTrainingDetailsComponent {
         this.newUserFormSecTwo.patchValue({
           specialization: data.specialization,
           cohort: data.cohort,
-          enrollementDate: data.enrollmentDate,
+          enrollementDate: data.enrollementDate,
           status: capitalizedStatus,
           trainingId: data.trainingId,
-        })
+        }) 
       }
     })
 

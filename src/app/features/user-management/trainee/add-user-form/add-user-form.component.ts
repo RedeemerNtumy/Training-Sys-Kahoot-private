@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { InputFieldComponent } from '../../../../core/shared/input-field/input-field.component';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,9 +16,15 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 })
 export class AddUserFormComponent implements OnInit, OnDestroy {
 
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  
   newUserForm!: FormGroup;
   genders$!: Observable<Gender[]>;
   countries$!: Observable<Countries[]>;
+
+  //Image upload
+  previewUrl: string | ArrayBuffer | null = null;
+  selectedFile!: File;
   
   private unsubscribe$ = new Subject<void>();
 
@@ -102,8 +108,33 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
 
 
   goBack() {
+    this.newUserForm.reset()
     this.router.navigate(['/home/admin/user-management'])
   }
+
+
+  //Image upload
+  onFileSelected(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    if(fileInput.files && fileInput.files.length > 0) {
+      this.selectedFile = fileInput.files[0];
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
+  triggerFileSelect() {
+    this.fileInput.nativeElement.click();
+  }
+
+  changeImage() {
+    this.triggerFileSelect();
+  }
+
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();

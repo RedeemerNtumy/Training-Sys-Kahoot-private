@@ -45,7 +45,7 @@ export class AddUserFormSection2Component {
         this.newUserFormSecTwo.patchValue({
           specialization: data.specialization,
           cohort: data.cohort,
-          enrollementDate: data.enrollmentDate,
+          enrollementDate: data.enrollementDate,
           status: capitalizedStatus,
           trainingId: data.trainingId,
         })
@@ -60,7 +60,6 @@ export class AddUserFormSection2Component {
     if(!formData.invalid) {
       this.setSecondFormState()
       this.goToConfirmPage();
-      this.traineeInSystemService.secondFormState$.subscribe(data => console.log("Second Form: ", data))
     }
     else {
       formData.markAllAsTouched();

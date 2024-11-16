@@ -240,7 +240,7 @@
       "userProfilePhoto": "https://example.com/photos/john_doe.jpg",
       "specialization": "Frontend Engineering",
       "cohort": "Cohort 3.0",
-      "enrollmentDate": "2023-01-10",
+      "enrollementDate": "2023-01-10",
       "trainingId": "user1",
       "status": "active",
       "phoneNumber": "+1-555-123-4567"
@@ -257,7 +257,7 @@
       "userProfilePhoto": "https://example.com/photos/jane_smith.jpg",
       "specialization": "UI/UX Design",
       "cohort": "Cohort 4.0",
-      "enrollmentDate": "2022-08-15",
+      "enrollementDate": "2022-08-15",
       "trainingId": "user2",
       "status": "inactive",
       "phoneNumber": "+1-416-555-7890"
@@ -274,7 +274,7 @@
       "userProfilePhoto": "",
       "specialization": "Backend Engineering",
       "cohort": "Cohort 5.0",
-      "enrollmentDate": "2021-11-05",
+      "enrollementDate": "2021-11-05",
       "trainingId": "user3",
       "status": "active",
       "phoneNumber": "+61-2-5555-1234"
@@ -291,7 +291,7 @@
       "userProfilePhoto": "https://example.com/photos/lisa_tan.jpg",
       "specialization": "Frontend Engineering",
       "cohort": "Cohort 6.0",
-      "enrollmentDate": "2023-05-10",
+      "enrollementDate": "2023-05-10",
       "trainingId": "user4",
       "status": "inactive",
       "phoneNumber": "+65-9123-4567"
@@ -308,7 +308,7 @@
       "userProfilePhoto": "",
       "specialization": "UI/UX",
       "cohort": "Cohort 7.0",
-      "enrollmentDate": "2022-12-15",
+      "enrollementDate": "2022-12-15",
       "trainingId": "user5",
       "status": "active",
       "phoneNumber": "+44-20-7946-0958"
@@ -325,7 +325,7 @@
       "userProfilePhoto": "https://example.com/photos/anna_garcia.jpg",
       "specialization": "Backend Engineering",
       "cohort": "Cohort 3.0",
-      "enrollmentDate": "2021-09-20",
+      "enrollementDate": "2021-09-20",
       "trainingId": "user6",
       "status": "inactive",
       "phoneNumber": "+34-91-555-6789"
@@ -342,7 +342,7 @@
       "userProfilePhoto": "https://example.com/photos/david_wong.jpg",
       "specialization": "Frontend Engineering",
       "cohort": "Cohort 8.0",
-      "enrollmentDate": "2022-03-25",
+      "enrollementDate": "2022-03-25",
       "trainingId": "user7",
       "status": "active",
       "phoneNumber": "+852-5550-1234"
@@ -359,7 +359,7 @@
       "userProfilePhoto": "https://example.com/photos/sara_lee.jpg",
       "specialization": "UI/UX",
       "cohort": "Cohort 6.0",
-      "enrollmentDate": "2023-06-05",
+      "enrollementDate": "2023-06-05",
       "trainingId": "user8",
       "status": "inactive",
       "phoneNumber": "+82-10-5555-9876"
