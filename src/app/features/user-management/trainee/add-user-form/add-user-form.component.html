@@ -131,7 +131,7 @@
                     <span id="optional">(Optional)</span>
                 </div>
                 <div class="image-wrapper">
-                    <img [src]="previewUrl" alt="image preview" *ngIf="previewUrl">
+                    <img [src]="previewUrl || newUserForm.get('userProfilePhoto')?.value" alt="Profile Photo" *ngIf="previewUrl || newUserForm.get('userProfilePhoto')?.value">
                     <input 
                         #fileInput
                         type="file" 

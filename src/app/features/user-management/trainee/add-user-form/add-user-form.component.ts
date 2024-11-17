@@ -69,8 +69,9 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
             address: data.address,
             phoneNumber: data.phoneNumber,
             universityCompleted: data.universityCompleted,
-            userProfilePhoto: data.userProfilePhoto,
+            userProfilePhoto: `src/assets/Images/profile-images/${data.userProfilePhoto}`
           });
+          console.log('Patched userProfilePhoto:', this.newUserForm.get('userProfilePhoto')?.value);
         }
       });
   }
