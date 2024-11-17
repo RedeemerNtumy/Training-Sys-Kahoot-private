@@ -16,10 +16,10 @@
                     <label for="email">Email</label>
                     <span>*</span>
                 </div>
-                <input 
+                <input
                     type="email" 
-                    formControlName="email" 
-                    placeholder="Enter email here..." 
+                    formControlName="email"
+                    placeholder="Enter email here..."
                 />
             </div>
             <div class="error" *ngIf="newUserForm.controls['email'].invalid && (newUserForm.controls['email'].touched || newUserForm.controls['email'].dirty)">

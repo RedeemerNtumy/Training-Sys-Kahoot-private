@@ -1,4 +1,3 @@
-
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TraineeManagementComponent } from '../trainer/trainee-management/trainee-management.component';
@@ -9,78 +8,102 @@ export const adminRoutes: Routes = [
   {
     path: '',
     redirectTo: 'dashboard',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'dashboard',
     component: DashboardComponent,
-    data: { role: 'admin' }
+    data: { role: 'admin' },
   },
   {
     path: 'trainees',
-    loadComponent : ()=> import('./trainees/trainee-management.component')
-    .then(m => m.TraineeManagementComponent),
-    data: { role: 'admin' }
+    loadComponent: () =>
+      import('./trainees/trainee-management.component').then(
+        (m) => m.TraineeManagementComponent
+      ),
+    data: { role: 'admin' },
   },
   {
     path: 'specialization',
-    loadComponent: () => import('./specializations/specialization-management.component')
-      .then(m => m.SpecializationManagementComponent),
-    data: { role: 'admin' }
+    loadComponent: () =>
+      import('./specializations/specialization-management.component').then(
+        (m) => m.SpecializationManagementComponent
+      ),
+    data: { role: 'admin' },
   },
   {
     path: 'cohorts',
-    loadComponent: () => import('./cohorts/cohorts-management.component')
-      .then(m => m.CohortsManagementComponent),
+    loadComponent: () =>
+      import('./cohorts/cohorts-management.component').then(
+        (m) => m.CohortsManagementComponent
+      ),
     data: { role: 'admin' },
     children: [
       {
         path: '',
-        loadComponent: () => import('../../features/cohorts/list-cohorts/list-cohorts.component')
-          .then(m => m.ListCohortsComponent),
+        loadComponent: () =>
+          import(
+            '../../features/cohorts/list-cohorts/list-cohorts.component'
+          ).then((m) => m.ListCohortsComponent),
       },
       {
         path: 'create-cohort',
-        loadComponent: () => import('../../features/cohorts/create-new-cohort/create-new-cohort.component')
-          .then(m => m.CreateNewCohortComponent),
+        loadComponent: () =>
+          import(
+            '../../features/cohorts/create-new-cohort/create-new-cohort.component'
+          ).then((m) => m.CreateNewCohortComponent),
       },
       {
         path: 'edit-cohort',
-        loadComponent: () => import('../../features/cohorts/edit-cohort/edit-cohort/edit-cohort.component')
-          .then(m => m.EditCohortComponent),
+        loadComponent: () =>
+          import(
+            '../../features/cohorts/edit-cohort/edit-cohort/edit-cohort.component'
+          ).then((m) => m.EditCohortComponent),
       },
       {
         path: 'trainees-list',
-        loadComponent: () => import('../../features/cohorts/trainees-list/trainees-list.component')
-          .then(m => m.TraineesListComponent),
+        loadComponent: () =>
+          import(
+            '../../features/cohorts/trainees-list/trainees-list.component'
+          ).then((m) => m.TraineesListComponent),
       },
       {
         path: 'update-cohort',
-        loadComponent: () => import('../../features/cohorts/update-cohort/update-cohort.component')
-          .then(m => m.UpdateCohortComponent),
-      }
-    ]
+        loadComponent: () =>
+          import(
+            '../../features/cohorts/update-cohort/update-cohort.component'
+          ).then((m) => m.UpdateCohortComponent),
+      },
+    ],
   },
   {
     path: 'progress-tracking',
-    loadComponent: () => import('./progress-tracking/progress-tracking.component')
-    .then(m => m.ProgressTrackingComponent)
+    loadComponent: () =>
+      import('./progress-tracking/progress-tracking.component').then(
+        (m) => m.ProgressTrackingComponent
+      ),
   },
   {
     path: 'user-management',
-    loadComponent: () => import('./users/user-management.component')
-    .then(m => m.UserManagementComponent),
+    loadComponent: () =>
+      import('./users/user-management.component').then(
+        (m) => m.UserManagementComponent
+      ),
     data: { role: 'admin' },
     children: [
       {
         path: '',
-        loadComponent: () => import('../../features/user-management/trainee/add-user/add-user.component')
-          .then(m => m.AddUserComponent),
+        loadComponent: () =>
+          import(
+            '../../features/user-management/trainee/add-user/add-user.component'
+          ).then((m) => m.AddUserComponent),
       },
       {
         path: 'add-user-form',
-        loadComponent: () => import('../../features/user-management/trainee/add-user-form/add-user-form.component')
-          .then(m => m.AddUserFormComponent),
+        loadComponent: () =>
+          import(
+            '../../features/user-management/trainee/add-user-form/add-user-form.component'
+          ).then((m) => m.AddUserFormComponent),
       },
       {
         path: 'section-two',
@@ -96,31 +119,38 @@ export const adminRoutes: Routes = [
         path: 'confirm-training',
         loadComponent: () => import('../../features/user-management/trainee/confirm-training-details/confirm-training-details.component')
           .then(m => m.ConfirmTrainingDetailsComponent),
-      }
-      
-    ]
+      },
+      {
+        path: 'add-trianer',
+        loadComponent: () =>
+          import(
+            '../../features/user-management/trainer/trainer.component'
+          ).then((t) => t.TrainerComponent),
+      },
+    ],
   },
   {
     path: 'curriculum',
-    loadComponent: () => import('./curriculum/curriculum.component')
-    .then(m => m.CurriculumComponent),
-    data: { role: 'admin' }
+    loadComponent: () =>
+      import('./curriculum/curriculum.component').then(
+        (m) => m.CurriculumComponent
+      ),
+    data: { role: 'admin' },
   },
   {
     path: 'report',
-    loadComponent: () => import('./report/report.component')
-    .then(m => m.ReportComponent),
-    data: { role: 'admin' }
+    loadComponent: () =>
+      import('./report/report.component').then((m) => m.ReportComponent),
+    data: { role: 'admin' },
   },
   {
-    path:'settings',
-    loadComponent: () => import('../settings/settings.component')
-    .then(m => m.SettingsComponent)
+    path: 'settings',
+    loadComponent: () =>
+      import('../settings/settings.component').then((m) => m.SettingsComponent),
   },
   {
-    path:'help',
-    loadComponent: () => import('../help/help.component')
-    .then(m => m.HelpComponent)
-  }
-
+    path: 'help',
+    loadComponent: () =>
+      import('../help/help.component').then((m) => m.HelpComponent),
+  },
 ];
