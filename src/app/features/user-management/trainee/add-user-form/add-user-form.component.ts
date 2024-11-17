@@ -2,10 +2,10 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { InputFieldComponent } from '../../../../core/shared/input-field/input-field.component';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
-import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, first, map, of, switchMap, takeUntil } from 'rxjs';
+import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, first, of, switchMap, } from 'rxjs';
 import { Countries, Gender, User } from '../../../../core/models/cohort.interface';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
 
 @Component({
   selector: 'app-add-user-form',
@@ -56,20 +56,19 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     })
 
     this.traineeInsystemService.retreivedUserData$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(data => {
+      .subscribe(data=> {
         if (data) {
           this.newUserForm.patchValue({
-            email: data.email?? '',
-            firstName: data.firstName?? '',
-            lastName: data.lastName?? '',
-            dateOfBirth: data.dateOfBirth?? '',
-            gender: data.gender?? '',
-            country: data.country?? '',
-            address: data.address?? '',
-            phoneNumber: data.phoneNumber?? '',
-            universityCompleted: data.universityCompleted?? '',
-            userProfilePhoto: data.userProfilePhoto?? ''
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            dateOfBirth: data.dateOfBirth,
+            gender: data.gender,
+            country: data.country,
+            address: data.address,
+            phoneNumber: data.phoneNumber,
+            universityCompleted: data.universityCompleted,
+            userProfilePhoto: data.userProfilePhoto
           });
         }
       });
@@ -85,6 +84,7 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     else {
       formData.markAllAsTouched()
     }
+
   }
 
   setFirstFormState() {
@@ -92,12 +92,18 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   }
 
   emailAsyncValidator(control: AbstractControl): Observable<ValidationErrors | null> {
-    if (!control.value) return of(null);
-    return this.traineeInsystemService.checkEmail(control.value).pipe(
-      debounceTime(500),
+    const trimmedValue = (control.value || '').trim(); // Normalize input
+    if (!trimmedValue) {
+      return of(null);
+    }
+  
+    return this.traineeInsystemService.checkEmail(trimmedValue).pipe(
+      debounceTime(1000),
       distinctUntilChanged(),
-      switchMap(response => (response?.length ? of({ emailExists: true }) : of(null))),
-      catchError(() => of(null)), 
+      switchMap(response => 
+        response?.length ? of({ emailExists: true }) : of(null)
+      ),
+      catchError(() => of(null)),
       first()
     );
   }

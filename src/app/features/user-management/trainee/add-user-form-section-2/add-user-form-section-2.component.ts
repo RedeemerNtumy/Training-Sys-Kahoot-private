@@ -1,9 +1,9 @@
 import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Cohort, Specialization, User } from '../../../../core/models/cohort.interface';
-import { Observable, of } from 'rxjs';
+import { Cohort, Specialization } from '../../../../core/models/cohort.interface';
+import { Observable } from 'rxjs';
 import { UserManagementTraineeService } from '../../../../core/services/user-management/trainee/user-management-trainee.service';
 import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
 

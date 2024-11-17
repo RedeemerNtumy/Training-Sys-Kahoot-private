@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorHandlerService } from '../../cohort-data/error-handling/error-handler.service';
-import { BehaviorSubject, Observable, catchError, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
 import { Countries, Gender, User } from '../../../models/cohort.interface';
 
 @Injectable({
@@ -49,6 +49,8 @@ export class TraineeInsystemService {
     )
   }
 
+
+
   getGenders() {
     return this.http.get<Gender[]>(this.gendersUrl).pipe(
       catchError(error => this.errorHandlerService.handleError(error))
@@ -78,12 +80,20 @@ export class TraineeInsystemService {
   //Put request to backend
   updateUserData(updateFormData: {}, email: string | undefined) {
     return this.http.put<User>(`${this.checkUserUrl}?email=${encodeURIComponent(email || '')}`, updateFormData).pipe(
+      tap(() => {
+        this.firstFormStateSubject.next(null)
+        this.secondFormStateSubject.next(null)
+      }),
       catchError(error => this.errorHandlerService.handleError(error))
     )
   }
 
   createNewUser(newFormData: {}, email: string | undefined) {
-    return this.http.put<User>(`${this.checkUserUrl}?email=${encodeURIComponent(email || '')}`, newFormData).pipe(
+    return this.http.post<User>(`${this.checkUserUrl}?email=${encodeURIComponent(email || '')}`, newFormData).pipe(
+      tap(() => {
+        this.firstFormStateSubject.next(null)
+        this.secondFormStateSubject.next(null)
+      }),
       catchError(error => this.errorHandlerService.handleError(error))
     )
   }
