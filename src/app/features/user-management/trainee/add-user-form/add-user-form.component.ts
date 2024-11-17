@@ -60,18 +60,17 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         if (data) {
           this.newUserForm.patchValue({
-            email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            dateOfBirth: data.dateOfBirth,
-            gender: data.gender,
-            country: data.country,
-            address: data.address,
-            phoneNumber: data.phoneNumber,
-            universityCompleted: data.universityCompleted,
-            userProfilePhoto: `src/assets/Images/profile-images/${data.userProfilePhoto}`
+            email: data.email?? '',
+            firstName: data.firstName?? '',
+            lastName: data.lastName?? '',
+            dateOfBirth: data.dateOfBirth?? '',
+            gender: data.gender?? '',
+            country: data.country?? '',
+            address: data.address?? '',
+            phoneNumber: data.phoneNumber?? '',
+            universityCompleted: data.universityCompleted?? '',
+            userProfilePhoto: data.userProfilePhoto?? ''
           });
-          console.log('Patched userProfilePhoto:', this.newUserForm.get('userProfilePhoto')?.value);
         }
       });
   }

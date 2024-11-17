@@ -19,6 +19,8 @@ export class ConfirmTrainingDetailsComponent {
   allSpecializations$!: Observable<Specialization[]>;
   allCohorts$!: Observable<Cohort[]>;
 
+  isModalOpen: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -49,12 +51,16 @@ export class ConfirmTrainingDetailsComponent {
           trainingId: data.trainingId,
         }) 
       }
+
     })
 
   }
 
   onSubmit() {
-    if(this.newUserFormSecTwo.valid) {
+    if(this.traineeInSystemService.userDataRetrieved) {
+
+      // this.toggleModal();
+
       combineLatest([
         this.traineeInSystemService.firstFormState$,
         this.traineeInSystemService.secondFormState$
@@ -62,7 +68,27 @@ export class ConfirmTrainingDetailsComponent {
       
         // Combine or process the states as needed
         const combinedState = { ...firstFormState, ...secondFormState };
+        this.traineeInSystemService.updateUserData(combinedState, combinedState.email)
       });
+    }
+    else if(this.newUserFormSecTwo.valid && !this.traineeInSystemService.userDataRetrieved) {
+      // this.toggleModal();
+
+      combineLatest([
+        this.traineeInSystemService.firstFormState$,
+        this.traineeInSystemService.secondFormState$
+      ]).subscribe(([firstFormState, secondFormState]) => {
+      
+        // Combine or process the states as needed
+        const combinedState = { ...firstFormState, ...secondFormState };
+        this.traineeInSystemService.createNewUser(combinedState, combinedState.email);
+        console.log(combinedState);
+      });
+
+      
+    }
+    else {
+
     }
   }
 
@@ -74,7 +100,20 @@ export class ConfirmTrainingDetailsComponent {
     this.router.navigate(['/home/admin/user-management/confirm-contacts'])
   }
 
-  capitalizeFirstLetter(value: string): string {
+  private capitalizeFirstLetter(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+  }
+
+  toggleModal() {
+    this.isModalOpen = !this.isModalOpen;
+  }
+
+  closeModal() {
+    this.toggleModal()
+    this.routeToUserList();
+  }
+
+  routeToUserList() {
+    this.router.navigate(['/home/admin/user-management']);
   }
 }

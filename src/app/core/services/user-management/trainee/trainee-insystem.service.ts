@@ -15,9 +15,11 @@ export class TraineeInsystemService {
 
   public retreivedUserDataSubject = new BehaviorSubject<User | null>(null);
   public retreivedUserData$: Observable<User | null> = this.retreivedUserDataSubject.asObservable();
+  public userDataRetrieved!: boolean;
 
-  private finalFormStateSubject = new BehaviorSubject<User | null>(null);
+  public finalFormStateSubject = new BehaviorSubject<User | null>(null);
   public finalFormState$: Observable<User | null> = this.finalFormStateSubject.asObservable();
+  // public finalFormData!: User | null;
 
   private firstFormStateSubject = new BehaviorSubject<User | null>(null);
   public firstFormState$: Observable<User | null> = this.firstFormStateSubject.asObservable();
@@ -38,6 +40,7 @@ export class TraineeInsystemService {
       tap(response => {
         const [data] = response;
         this.retreivedUserDataSubject.next(data);
+        this.userDataRetrieved = true;
       }),
       catchError(error => {
         this.errorHandlerService.handleError(error);
@@ -68,6 +71,21 @@ export class TraineeInsystemService {
 
   setSecondFormState(data: User) {
     this.secondFormStateSubject.next(data);
+  }
+
+
+  //Usermanagment add user requests
+  //Put request to backend
+  updateUserData(updateFormData: {}, email: string | undefined) {
+    return this.http.put<User>(`${this.checkUserUrl}?email=${encodeURIComponent(email || '')}`, updateFormData).pipe(
+      catchError(error => this.errorHandlerService.handleError(error))
+    )
+  }
+
+  createNewUser(newFormData: {}, email: string | undefined) {
+    return this.http.put<User>(`${this.checkUserUrl}?email=${encodeURIComponent(email || '')}`, newFormData).pipe(
+      catchError(error => this.errorHandlerService.handleError(error))
+    )
   }
 
   

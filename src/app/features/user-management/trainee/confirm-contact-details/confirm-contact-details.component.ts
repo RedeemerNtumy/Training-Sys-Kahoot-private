@@ -82,10 +82,6 @@ export class ConfirmContactDetailsComponent {
   }
 
 
-  goToSecondSection() {
-    this.router.navigate(['/home/admin/user-management/section-two'])
-  }
-
   next() {
     this.router.navigate(['home/admin/user-management/confirm-training'])
   }

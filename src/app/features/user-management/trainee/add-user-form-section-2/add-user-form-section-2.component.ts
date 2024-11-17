@@ -43,11 +43,11 @@ export class AddUserFormSection2Component {
       if(data) {
         const capitalizedStatus = this.capitalizeFirstLetter(data.status);
         this.newUserFormSecTwo.patchValue({
-          specialization: data.specialization,
-          cohort: data.cohort,
-          enrollementDate: data.enrollementDate,
-          status: capitalizedStatus,
-          trainingId: data.trainingId,
+          specialization: data.specialization?? '',
+          cohort: data.cohort?? '',
+          enrollementDate: data.enrollementDate?? '',
+          status: capitalizedStatus?? '',
+          trainingId: data.trainingId?? '',
         })
       }
     })
