@@ -13,8 +13,8 @@ import { interval, Subject, takeUntil } from 'rxjs';
 })
 export class ResetCodeComponent {
   state: 'sent' | 'enter' = 'sent';
-  codeExpiryTime = '03:00';
-  private readonly EXPIRY_TIME_IN_SECONDS = 180; // 3 minutes in seconds
+  codeExpiryTime = '10:00';
+  private readonly EXPIRY_TIME_IN_SECONDS = 600;
   private timeRemaining = this.EXPIRY_TIME_IN_SECONDS;
   isExpired = false;
   private destroy$ = new Subject<void>();
@@ -24,12 +24,14 @@ export class ResetCodeComponent {
     this.route.data.subscribe((data) => {
       this.state = data['state'];
     });
+    this.codeExpiryTime = '10:00';
     this.startCountdown();
   }
 
   private startCountdown() {
     this.timeRemaining = this.EXPIRY_TIME_IN_SECONDS;
     this.isExpired = false;
+    this.codeExpiryTime = '10:00';
 
     interval(1000)
       .pipe(takeUntil(this.destroy$))
@@ -59,7 +61,5 @@ export class ResetCodeComponent {
 
   onVerifyCode() {}
 
-  onResendCode() {
-    
-  }
+  onResendCode() {}
 }
