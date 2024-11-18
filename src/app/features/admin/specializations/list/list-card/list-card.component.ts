@@ -11,6 +11,7 @@ import { specialization } from '@core/models/specialization.interface';
   templateUrl: './list-card.component.html',
   styleUrls: ['./list-card.component.scss']
 })
+
 export class ListCardComponent {
   @Input() specialization!: specialization;
   @Input() isDropdownActive = false;
