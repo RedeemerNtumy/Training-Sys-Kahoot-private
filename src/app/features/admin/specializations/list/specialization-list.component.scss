@@ -1,0 +1,16 @@
+@use '../../../../../styleSheet/typography' as *;
+@use '../../../../../styleSheet/mixins' as *;
+
+@include pop-in-animation;
+
+.list-container {
+  margin-right: 6.9rem;
+  padding-bottom: 6.9rem;
+
+  .list-section{
+    margin-top: 2.7rem;
+  }
+}
+
+
+

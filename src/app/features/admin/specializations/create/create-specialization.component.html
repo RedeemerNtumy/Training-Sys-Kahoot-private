@@ -1,0 +1,19 @@
+<section class="create">
+  <a class="nav" (click)="navigateToList()">
+    <img src="../../../../assets/Images/svg/backicon.svg" alt="">
+    <p class="back-link">Back</p>
+  </a>
+
+  @if(isLoading) {
+    <div class="loading">Loading...</div>
+  } @else {
+    <app-form
+      [initialData]="specializationData"
+      (formSubmit)="handleFormSubmit($event)"
+    />
+    <app-add-feedback
+      [visible]="showFeedback"
+      [isUpdate]="!!specializationData?.id"
+    />
+  }
+</section>
