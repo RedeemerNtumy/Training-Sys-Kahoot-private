@@ -1,30 +1,40 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { specialization } from '@core/models/specialization.interface';
+import { SpecializationFacadeService } from '@core/services/specialization-facade/specialization-facade.service';
+import { AddFeedbackComponent } from "../add-feedback/add-feedback.component";
+
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatButtonModule],
+  imports: [ReactiveFormsModule, CommonModule, MatButtonModule, AddFeedbackComponent],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
+
 export class FormComponent implements OnInit {
-  @Input() initialData!: specialization;
+
+  @Input() initialData?: specialization ;
   @Output() formSubmit = new EventEmitter<specialization>();
+
 
   specializationForm!: FormGroup;
   isEditMode = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,
+    private  specializationFacade: SpecializationFacadeService
+  ) {}
 
   ngOnInit() {
     this.initializeForm();
     if (this.initialData) {
       this.patchFormWithData();
     }
+    this.specializationFacade.selectedSpecialization$
+    .subscribe( data =>  this.initialData = data )
   }
 
   private initializeForm() {
@@ -40,20 +50,20 @@ export class FormComponent implements OnInit {
   private patchFormWithData() {
     if (!this.initialData) return;
     this.isEditMode = true;
-    while (this.prerequisites.length) {
+    while (this.prerequisites?.length) {
       this.prerequisites.removeAt(0);
     }
     this.initialData.prerequisites.forEach(prereq => {
-      this.prerequisites.push(this.fb.control(prereq, Validators.required));
+      this.prerequisites?.push(this.fb.control(prereq, Validators.required));
     });
-    this.specializationForm.patchValue({
+    this.specializationForm?.patchValue({
       name: this.initialData.name,
       description: this.initialData.description
     });
   }
 
   get prerequisites(): FormArray {
-    return this.specializationForm.get('prerequisites') as FormArray;
+    return this.specializationForm?.get('prerequisites') as FormArray;
   }
 
   addSkill(): void {
@@ -66,29 +76,28 @@ export class FormComponent implements OnInit {
     }
   }
 
-  private generateTemporaryId(): number {
-    return Date.now();
-  }
-
-  submitForm(): void {
-    if (this.specializationForm.valid) {
-      const formValue = this.specializationForm.value;
+  private prepareFormData(){
+    const formValue = this.specializationForm.value;
       const prerequisites = formValue.prerequisites.filter((prereq: string) => prereq.trim() !== '');
-      const specialization: specialization = {
-        id: this.isEditMode ? this.initialData!.id : this.generateTemporaryId(),
+      const specialization: Ispecialization = {
+        ...(this.initialData?.id && { id: this.initialData.id }),
         name: formValue.name,
         description: formValue.description,
         prerequisites: prerequisites,
-        dateCreated: this.isEditMode ? this.initialData.dateCreated : new Date().toISOString().split('T')[0],
-        traineesCount: this.isEditMode ? this.initialData.traineesCount : 0
+        createdAt: this.isEditMode && this.initialData
+        ? this.initialData.createdAt
+        : new Date().toISOString().split('T')[0],
       };
-      console.log(specialization);
-
       this.formSubmit.emit(specialization);
       if (!this.isEditMode) {
         this.specializationForm.reset();
         this.initializeForm();
       }
+  }
+
+  submitForm(): void {
+    if (this.specializationForm.valid) {
+      this.prepareFormData()
     }
   }
 }

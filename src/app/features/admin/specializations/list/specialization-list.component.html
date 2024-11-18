@@ -13,7 +13,7 @@
             [specialization]="spec"
             [isDropdownActive]="activeDropdownIndex === i"
             (dropdownToggled)="toggleDropdown($event, i)"
-            (actionTriggered)="handleAction($event.event, $event.action, $event.spec)"
+            (actionTriggered)="handleAction($event)"
           ></app-list-card>
         </ul>
 

@@ -2,7 +2,6 @@ import { CommonModule ,} from '@angular/common';
 import { Component,EventEmitter, Input, Output } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 
-
 @Component({
   selector: 'app-delete-feedback',
   standalone: true,

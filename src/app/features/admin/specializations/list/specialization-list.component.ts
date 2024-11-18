@@ -10,6 +10,13 @@ import { Observable, map,combineLatest, BehaviorSubject } from 'rxjs';
 import { SpecializationFacadeService } from '@core/services/specialization-facade/specialization-facade.service';
 import { PaginatorComponent } from "@core/shared/paginator/paginator.component";
 
+
+interface ActionEvent {
+  event: Event;
+  action: string;
+  spec: Ispecialization;
+}
+
 @Component({
   selector: 'app-specialization-list',
   standalone: true,
@@ -71,16 +78,16 @@ export class SpecializationListComponent implements OnInit {
     this.activeDropdownIndex = null;
   }
 
-  handleAction(event: Event, action: string, spec: specialization): void {
-    event.stopPropagation();
-    switch (action) {
+  handleAction(actionEvent: ActionEvent): void {
+    actionEvent.event.stopPropagation();
+    switch (actionEvent.action) {
       case 'update':
-        this.navigateToCreate();
+        this.navigateToCreate(actionEvent.spec.id);
         break;
       case 'delete':
-        this.selectedSpecializationId = spec.id;
+        this.selectedSpecializationId = actionEvent.spec.id;
         this.deleteModalVisible = true;
-        this.deleteFeedbackMap.set(spec.id , false);
+        this.deleteFeedbackMap.set(actionEvent.spec.id, false);
         break;
     }
     this.closeDropdown();
@@ -101,7 +108,9 @@ export class SpecializationListComponent implements OnInit {
     })
   }
 
-  private navigateToCreate() {
-    this.router.navigate(['home', 'admin', 'specialization', 'create']);
+  private navigateToCreate(id: number | undefined): void {
+    this.router.navigate(['home', 'admin', 'specialization', 'create'], {
+      queryParams: { id }
+    });
   }
 }
