@@ -72,7 +72,6 @@ export class SpecializationFacadeService {
   }
 
   create(specialization: specialization) {
-    console.log('from service: creation done');
     return this.http.post(`${this.localServer}`, specialization)
     .pipe(
       catchError(this.errorService.handleError),
@@ -89,7 +88,6 @@ export class SpecializationFacadeService {
   }
 
   delete(id:number):Observable<void>{
-    console.log('from service: delete done');
     return this.http.delete<void>(`${this.localServer}/${id}`)
     .pipe(
       catchError(this.errorService.handleError),
