@@ -58,18 +58,7 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     this.traineeInsystemService.retreivedUserData$
       .subscribe(data=> {
         if (data) {
-          this.newUserForm.patchValue({
-            email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            dateOfBirth: data.dateOfBirth,
-            gender: data.gender,
-            country: data.country,
-            address: data.address,
-            phoneNumber: data.phoneNumber,
-            universityCompleted: data.universityCompleted,
-            userProfilePhoto: data.userProfilePhoto
-          });
+          this.newUserForm.patchValue(data);
         }
       });
   }

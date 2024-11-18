@@ -31,7 +31,9 @@
   </div>
 
 
-        <div class="container-with-list">
+        <div class="container-with-list"
+            *ngIf="(traineeUsers$ | async)?.length !== 0"
+        >
             <div class="wrapper">
                 <app-searchbar 
                     [title]="'Registered Users'" 
@@ -144,7 +146,9 @@
 
 
 
-<!-- <div class="container">
+<div class="container" 
+    *ngIf="(traineeUsers$ | async)?.length === 0"
+>
   <div class="add-trainer" (click)="goToAddTrainerForm()">
     <img
       src="../../../../../assets/Images/png/add trainer image.png"
@@ -168,4 +172,4 @@
       to manage trainees
     </p>
   </div>
-</div> -->
+</div>
