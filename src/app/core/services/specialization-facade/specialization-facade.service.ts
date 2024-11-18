@@ -18,8 +18,7 @@ export class SpecializationFacadeService {
 
   private hostedServer = environment.apiUrl;
 
-  private localServer: string = 'http://localhost:3000/specializations';
-  private createEndpoint: string = 'http://localhost:8089/api/specializations';
+
 
   constructor(
     private http: HttpClient,
@@ -40,7 +39,7 @@ export class SpecializationFacadeService {
   }
 
   getAllSpecializations():Observable<specialization[]>{
-    return this.http.get<specialization[]>(`${this.localServer}`)
+    return this.http.get<specialization[]>(`${this.hostedServer}`)
     .pipe(
       tap((data) => console.log(data)),
       map(specializations => this.sort(specializations)),
@@ -65,14 +64,14 @@ export class SpecializationFacadeService {
   }
 
   getSpecializationById(id: number):Observable<specialization>{
-    return this.http.get<specialization>(`${this.localServer}/${id}`).pipe(
+    return this.http.get<specialization>(`${this.hostedServer}/${id}`).pipe(
       catchError(this.errorService.handleError),
       tap(() => this.loadSpecializations())
     );
   }
 
   create(specialization: specialization) {
-    return this.http.post(`${this.localServer}`, specialization)
+    return this.http.post(`${this.hostedServer}`, specialization)
     .pipe(
       catchError(this.errorService.handleError),
       tap(() => this.loadSpecializations())
@@ -80,7 +79,7 @@ export class SpecializationFacadeService {
   }
 
   update(id: number,specialization: Partial<specialization>){
-    return this.http.patch<specialization>(`${this.localServer}/${id}`,specialization)
+    return this.http.patch<specialization>(`${this.hostedServer}/${id}`,specialization)
     .pipe(
       catchError(this.errorService.handleError),
       tap(() => this.loadSpecializations())
@@ -88,7 +87,7 @@ export class SpecializationFacadeService {
   }
 
   delete(id:number):Observable<void>{
-    return this.http.delete<void>(`${this.localServer}/${id}`)
+    return this.http.delete<void>(`${this.hostedServer}/${id}`)
     .pipe(
       catchError(this.errorService.handleError),
       tap(() => this.loadSpecializations())
