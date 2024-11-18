@@ -19,7 +19,7 @@ import { AddFeedbackComponent } from "../add-feedback/add-feedback.component";
 })
 
 export class CreateSpecializationComponent {
-  specializationData?: Ispecialization;
+  specializationData?: specialization;
   specializationId?: number;
   isLoading: boolean = false;
   showFeedback: boolean = false;
@@ -51,7 +51,7 @@ export class CreateSpecializationComponent {
     });
   }
 
-  handleFormSubmit(formData: Ispecialization) {
+  handleFormSubmit(formData: specialization) {
     const formOperation = this.specializationData?.id ?
       this.facadeService.update(this.specializationData.id, formData)
       : this.facadeService.create(formData);

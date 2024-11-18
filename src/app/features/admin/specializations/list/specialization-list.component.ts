@@ -14,7 +14,7 @@ import { PaginatorComponent } from "@core/shared/paginator/paginator.component";
 interface ActionEvent {
   event: Event;
   action: string;
-  spec: Ispecialization;
+  spec: specialization;
 }
 
 @Component({
