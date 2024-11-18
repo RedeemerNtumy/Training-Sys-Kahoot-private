@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit {
 
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      const user = { email, password };
       this.authService
         .login(email, password)
         .pipe(
@@ -70,7 +69,6 @@ export class LoginComponent implements OnInit {
         )
         .subscribe({
           next: () => {
-            this.route.navigate(['home/admin']);
           },
           error: () => {
             this.showEmailError = true;
