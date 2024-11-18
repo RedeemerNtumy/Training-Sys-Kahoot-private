@@ -1,7 +1,7 @@
 import { HttpClient,  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, throwError,tap, map } from 'rxjs';
-import { Ispecialization } from '../../models/specialization.interface';
+import { specialization } from '../../models/specialization.interface';
 import { environment } from '../../../../../environments/specializations/environment';
 import { ErrorHandleService } from '../error-handle/error-handle.service';
 
@@ -10,7 +10,7 @@ import { ErrorHandleService } from '../error-handle/error-handle.service';
 })
 
 export class SpecializationFacadeService {
-  private specializationSubject = new BehaviorSubject<Ispecialization[]>([]);
+  private specializationSubject = new BehaviorSubject<specialization[]>([]);
   specialization$ = this.specializationSubject.asObservable();
 
   private sortSubject = new BehaviorSubject<'asc'|'desc'>('desc')
@@ -39,8 +39,8 @@ export class SpecializationFacadeService {
     })
   }
 
-  getAllSpecializations():Observable<Ispecialization[]>{
-    return this.http.get<Ispecialization[]>(`${this.localServer}`)
+  getAllSpecializations():Observable<specialization[]>{
+    return this.http.get<specialization[]>(`${this.localServer}`)
     .pipe(
       tap((data) => console.log(data)),
       map(specializations => this.sort(specializations)),
@@ -49,7 +49,7 @@ export class SpecializationFacadeService {
   }
 
 
-  private sort(specializations: Ispecialization[]): Ispecialization[] {
+  private sort(specializations: specialization[]): specialization[] {
     const direction = this.sortSubject.value;
       return [...specializations].sort((a, b) => {
       const dateA = new Date(a.dateCreated).getTime();
@@ -64,14 +64,14 @@ export class SpecializationFacadeService {
     this.loadSpecializations()
   }
 
-  getSpecializationById(id: number):Observable<Ispecialization>{
-    return this.http.get<Ispecialization>(`${this.localServer}/${id}`).pipe(
+  getSpecializationById(id: number):Observable<specialization>{
+    return this.http.get<specialization>(`${this.localServer}/${id}`).pipe(
       catchError(this.errorService.handleError),
       tap(() => this.loadSpecializations())
     );
   }
 
-  create(specialization: Ispecialization) {
+  create(specialization: specialization) {
     console.log('from service: creation done');
     return this.http.post(`${this.localServer}`, specialization)
     .pipe(
@@ -80,8 +80,8 @@ export class SpecializationFacadeService {
     );
   }
 
-  update(id: number,specialization: Partial<Ispecialization>){
-    return this.http.patch<Ispecialization>(`${this.localServer}/${id}`,specialization)
+  update(id: number,specialization: Partial<specialization>){
+    return this.http.patch<specialization>(`${this.localServer}/${id}`,specialization)
     .pipe(
       catchError(this.errorService.handleError),
       tap(() => this.loadSpecializations())

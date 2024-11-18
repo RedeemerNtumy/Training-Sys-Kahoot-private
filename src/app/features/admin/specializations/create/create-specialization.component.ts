@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from "../form/form.component";
 import { IsActiveMatchOptions, Router, RouterLink } from '@angular/router';
 import { SpecializationFacadeService } from '@core/services/specialization-facade/specialization-facade.service';
-import { Ispecialization } from '@core/models/specialization.interface';
+import { specialization } from '@core/models/specialization.interface';
 
 
 @Component({
@@ -16,14 +16,14 @@ import { Ispecialization } from '@core/models/specialization.interface';
 })
 
 export class CreateSpecializationComponent {
-  specializationData!: Ispecialization;
+  specializationData!: specialization;
   specializationId?: number;
 
   constructor(private router: Router,
     private facadeService: SpecializationFacadeService,
   ){}
 
-  handleFormSubmit(formData: Ispecialization) {
+  handleFormSubmit(formData: specialization) {
     if (this.specializationId) {
       this.facadeService.update(this.specializationId, formData).subscribe({
         next: () => {

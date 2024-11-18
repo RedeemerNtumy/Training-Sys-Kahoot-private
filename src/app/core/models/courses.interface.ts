@@ -1,4 +1,4 @@
-export interface ILearningMaterial{
+export interface learningMaterial{
   image: string;
   content: number
   completion: number;

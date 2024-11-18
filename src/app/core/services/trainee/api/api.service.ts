@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorHandleService } from '../../error-handle/error-handle.service';
 import { catchError, } from 'rxjs';
-import { ILearningMaterial } from '../../../models/courses.interface';
+import { learningMaterial } from '../../../models/courses.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class ApiService {
   ) {}
 
   getLearningMaterials() {
-    return this.http.get<ILearningMaterial[]>(this.localServer)
+    return this.http.get<learningMaterial[]>(this.localServer)
     .pipe(
       catchError(this.errorHandle.handleError)
     )

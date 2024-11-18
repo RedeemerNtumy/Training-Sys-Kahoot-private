@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { Ispecialization } from '@core/models/specialization.interface';
+import { specialization } from '@core/models/specialization.interface';
 
 @Component({
   selector: 'app-form',
@@ -12,8 +12,8 @@ import { Ispecialization } from '@core/models/specialization.interface';
   styleUrl: './form.component.scss'
 })
 export class FormComponent implements OnInit {
-  @Input() initialData!: Ispecialization;
-  @Output() formSubmit = new EventEmitter<Ispecialization>();
+  @Input() initialData!: specialization;
+  @Output() formSubmit = new EventEmitter<specialization>();
 
   specializationForm!: FormGroup;
   isEditMode = false;
@@ -74,7 +74,7 @@ export class FormComponent implements OnInit {
     if (this.specializationForm.valid) {
       const formValue = this.specializationForm.value;
       const prerequisites = formValue.prerequisites.filter((prereq: string) => prereq.trim() !== '');
-      const specialization: Ispecialization = {
+      const specialization: specialization = {
         id: this.isEditMode ? this.initialData!.id : this.generateTemporaryId(),
         name: formValue.name,
         description: formValue.description,

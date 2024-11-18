@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Ispecialization } from '@core/models/specialization.interface';
+import { specialization } from '@core/models/specialization.interface';
 import { DateformatPipe } from '@core/pipes/dateFormat/dateformat.pipe';
 
 
@@ -12,10 +12,10 @@ import { DateformatPipe } from '@core/pipes/dateFormat/dateformat.pipe';
   styleUrls: ['./list-card.component.scss']
 })
 export class ListCardComponent {
-  @Input() specialization!: Ispecialization;
+  @Input() specialization!: specialization;
   @Input() isDropdownActive = false;
   @Output() dropdownToggled = new EventEmitter<Event>();
-  @Output() actionTriggered = new EventEmitter<{event: Event, action: string, spec: Ispecialization}>();
+  @Output() actionTriggered = new EventEmitter<{event: Event, action: string, spec: specialization}>();
 
   onToggleDropdown(event: Event): void {
     this.dropdownToggled.emit(event);
