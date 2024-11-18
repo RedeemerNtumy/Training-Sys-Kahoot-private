@@ -1,18 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
+import { CommonModule } from '@angular/common';
+import { User } from '../../../../core/models/cohort.interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-trainee-profile',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './trainee-profile.component.html',
   styleUrl: './trainee-profile.component.scss'
 })
 export class TraineeProfileComponent implements OnInit {
-
   traineeProfileForm!: FormGroup;
-  isdisabled: boolean = true;
+
+  public isdisabled = true;
+  private userData!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -20,10 +24,13 @@ export class TraineeProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.initForm();
+    this.loadTraineeData();
+  }
 
-
+  private initForm() {
     this.traineeProfileForm = this.fb.group({
-      email: ['', Validators.required, Validators.email],
+      email: ['', [Validators.required, Validators.email]],
       trainingId: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -37,38 +44,34 @@ export class TraineeProfileComponent implements OnInit {
       enrollementDate: ['', Validators.required],
       status: ['', Validators.required],
       userProfilePhoto: ['']
-    })
-    
-    this.traineeInSystemService.selectedTrainee$
-    .subscribe((data)=> {
-      console.log(data)
-      if (data) {
-        this.traineeProfileForm.patchValue({
-          email: data.email,
-          trainingId: data.trainingId,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          dateOfBirth: data.dateOfBirth,
-          gender: data.gender,
-          country: data.country,
-          address: data.address,
-          phoneNumber: data.phoneNumber,
-          universityCompleted: data.universityCompleted,
-          specialization: data.specialization,
-          enrollementDate: data.enrollementDate,
-          status: data.status,
-          userProfilePhoto: data.userProfilePhoto
-        });
-      }
     });
 
+    if (this.isdisabled) {
+      this.traineeProfileForm.disable();
+    }
+  }
+
+  private loadTraineeData() {
+    this.traineeInSystemService.selectedTrainee$.subscribe((data) => {
+      if (data) {
+        this.traineeProfileForm.patchValue(data);
+        this.userData = data.email;
+      }
+    });
+  }
+
+  //For updating changes to profile
+  updateForm() {
+    this.toggleEditForm()
+    this.traineeInSystemService.updateUserData(this.traineeProfileForm, this.userData)
   }
 
   toggleEditForm() {
     this.isdisabled = !this.isdisabled;
-    this.isdisabled ? this.traineeProfileForm.disable() : this.traineeProfileForm.enable();
+    if (this.isdisabled) {
+      this.traineeProfileForm.disable();
+    } else {
+      this.traineeProfileForm.enable();
+    }
   }
-    
 }
-
-
