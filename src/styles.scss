@@ -1,11 +1,10 @@
-@use "@angular/material" as mat;
 @use "./styleSheet/base" as *;
 @use "./styleSheet/typography" as *;
 @use "./styleSheet/variables" as *;
 @use "./styleSheet/mixins" as *;
-@import "primeicons/primeicons.css";
-
+@use "@angular/material" as mat;
 @include mat.core();
+@import "primeicons/primeicons.css";
 
 // Define palettes
 $primary: mat.define-palette(mat.$indigo-palette);
@@ -53,6 +52,7 @@ $theme: mat.define-light-theme(
 
       .topic {
         color: #636d79;
+        font-size: 1.4rem;
       }
     }
 
@@ -60,6 +60,8 @@ $theme: mat.define-light-theme(
       width: 100%;
       flex-direction: row-reverse;
       justify-content: space-between;
+      background: none;
+      border: none;
     }
   }
 }
