@@ -14,13 +14,12 @@
       expandIcon="pi pi-plus"
       collapseIcon="pi pi-minus"
     >
-      @for (faq of faqs; track faq) {
       <p-accordionTab
+        *ngFor="let faq of faqs"
         [header]="faq.question"
       >
         <p class="topic">{{ faq.answer }}</p>
       </p-accordionTab>
-      }
     </p-accordion>
   </div>
 </section>

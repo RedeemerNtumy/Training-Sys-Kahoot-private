@@ -25,38 +25,4 @@ section {
     max-width: 70%;
     margin-inline: auto;
   }
-
-  ::ng-deep .p-accordion {
-    width: 100%;
-    @include flexbox(column, flex-start, center);
-    gap: 2rem;
-  }
-
-  ::ng-deep .p-accordion .p-accordion-header {
-    color: #636d79;
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-
-  ::ng-deep p-accordionTab {
-    width: 100%;
-    border: 0.5px solid #c2c2c2;
-    padding: 2.6rem;
-  }
-
-  ::ng-deep .p-accordion .p-accordion-header .p-accordion-toggle-icon {
-    font-size: 1.5rem;
-    color: $clr-primary-500;
-  }
-
-  ::ng-deep p-accordionTab .topic {
-    color: #636d79;
-  }
-
-  ::ng-deep .p-accordion-header-link {
-    width: 100%;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-  }
 }
