@@ -48,8 +48,35 @@ export const adminRoutes: Routes = [
   {
     path: 'cohorts',
     loadComponent: () => import('./cohorts/cohorts-management.component')
-    .then(m => m.CohortsManagementComponent),
+      .then(m => m.CohortsManagementComponent),
     data: { role: 'admin' },
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('../../features/cohorts/list-cohorts/list-cohorts.component')
+          .then(m => m.ListCohortsComponent),
+      },
+      {
+        path: 'create-cohort',
+        loadComponent: () => import('../../features/cohorts/create-new-cohort/create-new-cohort.component')
+          .then(m => m.CreateNewCohortComponent),
+      },
+      {
+        path: 'edit-cohort',
+        loadComponent: () => import('../../features/cohorts/edit-cohort/edit-cohort/edit-cohort.component')
+          .then(m => m.EditCohortComponent),
+      },
+      {
+        path: 'trainees-list',
+        loadComponent: () => import('../../features/cohorts/trainees-list/trainees-list.component')
+          .then(m => m.TraineesListComponent),
+      },
+      {
+        path: 'update-cohort',
+        loadComponent: () => import('../../features/cohorts/update-cohort/update-cohort.component')
+          .then(m => m.UpdateCohortComponent),
+      }
+    ]
   },
   {
     path: 'progress-tracking',

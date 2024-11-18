@@ -26,6 +26,11 @@
     </div>
   </div>
   <div class="applicants-info">
-    <p>{{ specialization.traineesCount }}+ Trainees enrolled</p>
+    @if(specialization.traineesCount){
+      <p>{{ specialization.traineesCount }}+ Trainees enrolled</p>
+    } @else {
+      <p class="none-enrolled">No Trainees enrolled yet</p>
+
+    }
   </div>
 </li>
