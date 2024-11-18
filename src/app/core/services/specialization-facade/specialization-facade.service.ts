@@ -1,8 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, throwError,tap, map } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, map } from 'rxjs';
 import { specialization } from '../../models/specialization.interface';
-import { environment } from '../../../../../environments/specializations/environment';
 import { ErrorHandleService } from '../error-handle/error-handle.service';
 import { SpecializationCrudService } from '../specialization-crud/specialization-crud.service';
 
