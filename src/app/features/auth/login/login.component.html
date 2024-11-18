@@ -33,7 +33,7 @@
         />
 
         <app-message
-          *ngIf="showEmailError"
+          *ngIf="showError"
           type="error"
           title="Error"
           message="Please check, you entered a wrong email."
@@ -47,7 +47,7 @@
         />
 
         <app-message
-          *ngIf="showPasswordError"
+          *ngIf="showError"
           type="error"
           title="Error"
           message="Please check, you entered a wrong password"

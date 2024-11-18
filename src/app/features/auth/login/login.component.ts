@@ -27,8 +27,8 @@ import { switchMap, timer } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  showPasswordError = false;
-  showEmailError = false;
+
+  showError = false;
   successMessage = '';
   errorMessage = '';
   isLoading = false;
@@ -52,8 +52,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.isLoading = true;
-    this.showEmailError = false;
-    this.showPasswordError = false;
+    this.showError = false;
+    this.errorMessage = '';
 
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
@@ -68,11 +68,14 @@ export class LoginComponent implements OnInit {
           })
         )
         .subscribe({
-          next: () => {
-          },
-          error: () => {
-            this.showEmailError = true;
-            this.showPasswordError = true;
+          next: () => {},
+          error: (err) => {
+            if (err.status === 400) {
+              this.showError = true;
+            } else {
+              this.errorMessage =
+                'An error occured while processing your request. Please try again!';
+            }
             this.isLoading = false;
           },
         });
