@@ -51,7 +51,7 @@ export class SpecializationFacadeService {
 
   private sort(specializations: Ispecialization[]): Ispecialization[] {
     const direction = this.sortSubject.value;
-    return [...specializations].sort((a, b) => {
+      return [...specializations].sort((a, b) => {
       const dateA = new Date(a.dateCreated).getTime();
       const dateB = new Date(b.dateCreated).getTime();
       return direction === 'asc' ? dateA - dateB : dateB - dateA;

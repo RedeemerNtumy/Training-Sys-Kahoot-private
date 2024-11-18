@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorHandleService } from '../../error-handle/error-handle.service';
-import { catchError,tap } from 'rxjs';
+import { catchError, } from 'rxjs';
 import { ILearningMaterial } from '../../../models/courses.interface';
 
 @Injectable({

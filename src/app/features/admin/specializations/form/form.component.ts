@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { Ispecialization } from '../../../../core/models/specialization.interface';
+import { Ispecialization } from '@core/models/specialization.interface';
 
 @Component({
   selector: 'app-form',

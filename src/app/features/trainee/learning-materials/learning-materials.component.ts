@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TraineeFacadeService } from '../../../core/services/trainee/trainee-facade/trainee-facade.service';
+import { TraineeFacadeService } from '@core/services/trainee/trainee-facade/trainee-facade.service';
 
 
 @Component({
@@ -14,7 +14,7 @@ export class LearningMaterialsComponent {
   constructor(private traineeFacade: TraineeFacadeService ) { }
 
   ngOnInit(){
-    
+
 
   }
 }

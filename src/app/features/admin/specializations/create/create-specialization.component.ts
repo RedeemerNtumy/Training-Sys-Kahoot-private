@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from "../form/form.component";
 import { IsActiveMatchOptions, Router, RouterLink } from '@angular/router';
-import { SpecializationFacadeService } from '../../../../core/services/specialization-facade/specialization-facade.service';
-import { Ispecialization } from '../../../../core/models/specialization.interface';
+import { SpecializationFacadeService } from '@core/services/specialization-facade/specialization-facade.service';
+import { Ispecialization } from '@core/models/specialization.interface';
 
 
 @Component({

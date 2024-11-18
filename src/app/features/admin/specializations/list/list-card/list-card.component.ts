@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Ispecialization } from '../../../../../core/models/specialization.interface';
-import { DateformatPipe } from '../../../../../core/pipes/dateFormat/dateformat.pipe';
+import { Ispecialization } from '@core/models/specialization.interface';
+import { DateformatPipe } from '@core/pipes/dateFormat/dateformat.pipe';
 
 
 @Component({

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Ispecialization } from '../../../../core/models/specialization.interface';
+import { Ispecialization } from '@core/models/specialization.interface';
 import { NoSpecializationAddedComponent } from "../no-specialization-added/no-specialization-added.component";
 import { CommonModule, NgFor } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
-import { DateformatPipe } from "../../../../core/pipes/dateFormat/dateformat.pipe";
+import { DateformatPipe } from "@core/pipes/dateFormat/dateformat.pipe";
 import { Router } from '@angular/router';
 import { DeleteModalComponent } from "../delete-modal/delete-modal.component";
 import { ListCardComponent } from "./list-card/list-card.component";
 import { Observable, map,combineLatest, BehaviorSubject } from 'rxjs';
-import { SpecializationFacadeService } from '../../../../core/services/specialization-facade/specialization-facade.service';
-import { PaginatorComponent } from "../../../../core/shared/paginator/paginator.component";
+import { SpecializationFacadeService } from '@core/services/specialization-facade/specialization-facade.service';
+import { PaginatorComponent } from "@core/shared/paginator/paginator.component";
 
 @Component({
   selector: 'app-specialization-list',
