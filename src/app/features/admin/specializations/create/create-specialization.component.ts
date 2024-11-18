@@ -24,27 +24,22 @@ export class CreateSpecializationComponent {
   ){}
 
   handleFormSubmit(formData: specialization) {
-    if (this.specializationId) {
-      this.facadeService.update(this.specializationId, formData).subscribe({
-        next: () => {
-          console.log('Specialization updated successfully');
-          this.navigateToList();
-        },
-        error: (error) => {
-          console.error('Error updating specialization:', error);
-        }
-      });
-    } else {
-      this.facadeService.create(formData).subscribe({
-        next: () => {
-          console.log('Specialization created successfully');
-          this.navigateToList();
-        },
-        error: (error) => {
-          console.error('Error creating specialization:', error);
-        }
-      });
-    }
+    const operation$ = this.specializationId
+      ? this.facadeService.update(this.specializationId, formData)
+      : this.facadeService.create(formData);
+    operation$.subscribe({
+      next: () => {
+        this.navigateToList();
+      },
+      error: (error) => {
+        this.handleError(error);
+      }
+    });
+  }
+
+  private handleError(error: any): void {
+    const operation = this.specializationId ? 'updating' : 'creating';
+    throw new Error(`Error ${operation} specialization: ${error}`);
   }
 
   navigateToList(){
