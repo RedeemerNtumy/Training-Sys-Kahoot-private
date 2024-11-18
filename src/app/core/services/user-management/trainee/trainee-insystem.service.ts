@@ -27,6 +27,12 @@ export class TraineeInsystemService {
   private secondFormStateSubject = new BehaviorSubject<User | null>(null);
   public secondFormState$: Observable<User | null> = this.secondFormStateSubject.asObservable();
 
+  private allTraineesSubject = new BehaviorSubject<User[] | null>(null);
+  public allTrainees$: Observable<User[] | null> = this.allTraineesSubject.asObservable();
+
+  private selectedTraineesSubject = new BehaviorSubject<User | null>(null);
+  public selectedTrainee$: Observable<User | null> = this.selectedTraineesSubject.asObservable();
+
   
 
   constructor(
@@ -101,8 +107,15 @@ export class TraineeInsystemService {
 
   getAllTrainees() {
     return this.http.get<User[]>(this.checkUserUrl).pipe(
+      tap((response) => {
+        this.allTraineesSubject.next(response)
+      }),
       catchError(error => this.errorHandlerService.handleError(error))
     )
+  }
+
+  getSelectedTrainee(trainee: User) {
+    this.selectedTraineesSubject.next(trainee)
   }
 
   

@@ -119,7 +119,14 @@ export class AddUserComponent {
     }
   }
 
+  getSelectedUser(traineeId: string, trainee: User) {
+    this.traineesInsystemService.getSelectedTrainee(trainee);
+    this.goToProfile(traineeId);
+  }
 
+  goToProfile(id: string) {
+    this.router.navigate(['/home/admin/user-management/user-profile/'])
+  }
 
 
 

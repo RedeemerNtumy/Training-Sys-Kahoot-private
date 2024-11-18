@@ -121,6 +121,11 @@ export const adminRoutes: Routes = [
           .then(m => m.ConfirmTrainingDetailsComponent),
       },
       {
+        path: 'user-profile',
+        loadComponent: () => import('../../features/user-management/trainee/trainee-profile/trainee-profile.component')
+          .then(m => m.TraineeProfileComponent),
+      },
+      {
         path: 'add-trianer',
         loadComponent: () =>
           import(
