@@ -58,6 +58,7 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     this.traineeInsystemService.retreivedUserData$
       .subscribe(data=> {
         if (data) {
+          console.log(data)
           this.newUserForm.patchValue(data);
         }
       });

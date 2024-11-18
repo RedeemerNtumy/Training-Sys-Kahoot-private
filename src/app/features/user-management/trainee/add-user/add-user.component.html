@@ -31,7 +31,7 @@
   </div>
 
 
-        <div class="container-with-list"
+        <!-- <div class="container-with-list"
             *ngIf="(traineeUsers$ | async)?.length !== 0"
         >
             <div class="wrapper">
@@ -142,12 +142,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 
-
+<!-- *ngIf="(traineeUsers$ | async)?.length === 0" -->
 <div class="container" 
-    *ngIf="(traineeUsers$ | async)?.length === 0"
+    
 >
   <div class="add-trainer" (click)="goToAddTrainerForm()">
     <img

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorHandlerService } from '../../cohort-data/error-handling/error-handler.service';
-import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap } from 'rxjs';
 import { Countries, Gender, User } from '../../../models/cohort.interface';
 
 @Injectable({
@@ -132,3 +132,7 @@ export class TraineeInsystemService {
   
 
 }
+function untildistinct(): import("rxjs").OperatorFunction<User[], unknown> {
+  throw new Error('Function not implemented.');
+}
+
