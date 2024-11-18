@@ -33,6 +33,8 @@ export class TraineeInsystemService {
   private selectedTraineesSubject = new BehaviorSubject<User | null>(null);
   public selectedTrainee$: Observable<User | null> = this.selectedTraineesSubject.asObservable();
 
+  deleteModalSuccessful!: boolean;
+
   
 
   constructor(
@@ -118,6 +120,15 @@ export class TraineeInsystemService {
     this.selectedTraineesSubject.next(trainee)
   }
 
+  deleteSelectedTrainee(email: string) {
+    return this.http.delete<User>(`${this.checkUserUrl}?email=${encodeURIComponent(email)}`).pipe(
+      tap((response) => {
+        console.log(response);
+        this.deleteModalSuccessful = true;
+      }),
+      catchError(error => this.errorHandlerService.handleError(error))
+    )
+  }
   
 
 }

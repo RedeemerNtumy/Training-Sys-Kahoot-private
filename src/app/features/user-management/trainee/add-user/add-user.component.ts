@@ -3,7 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { SearchbarComponent } from '../../../../core/shared/searchbar/searchbar.component';
 import { AsyncPipe, NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
-import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, combineLatest, map } from 'rxjs';
 import { User } from '../../../../core/models/cohort.interface';
 
 @Component({
@@ -18,6 +18,7 @@ export class AddUserComponent {
   traineeUsers$!: Observable<User[]>;
   filteredTrainees$!: Observable<User[]>;
   trainerTabClicked: boolean = true;
+  deleteTraineeEmail: string = '';
 
   private searchTerm$ = new BehaviorSubject<string>(''); 
   private statusFilter$ = new BehaviorSubject<string | null>(null);
@@ -25,6 +26,9 @@ export class AddUserComponent {
 
   ellipsisClicked: boolean = false;
   selectedTraineeName: string | null = '';
+  isConfirmDeleteModalOpen = false;
+
+  deleteModalSuccess = false;
   
   constructor(
     private router: Router,
@@ -85,15 +89,15 @@ export class AddUserComponent {
   
   // Set the filter for each status and trigger re-evaluation
   filterByActive() {
-    this.statusFilter$.next('Active');
+    this.statusFilter$.next('active');
   }
   
   filterByInactive() {
-    this.statusFilter$.next('Inactive');
+    this.statusFilter$.next('inactive');
   }
   
   filterByDeactivated() {
-    this.statusFilter$.next('Deactivated');
+    this.statusFilter$.next('deactivated');
   }
 
   clearStatusFilter() {
@@ -128,7 +132,30 @@ export class AddUserComponent {
     this.router.navigate(['/home/admin/user-management/user-profile/'])
   }
 
+  deleteUser(email: string) {
+    this.deleteTraineeEmail = email;
+    this.toggleConfirmDeleteModal();
+  }
 
+  confirmDelete() {
+    this.traineesInsystemService.deleteSelectedTrainee(this.deleteTraineeEmail)
+    this.toggleConfirmDeleteModal();
+    if(this.traineesInsystemService.deleteModalSuccessful) {
+      this.toggleDeleteModalSuccess();
+    }
+  }
+
+  toggleConfirmDeleteModal() {
+    this.isConfirmDeleteModalOpen = !this.isConfirmDeleteModalOpen;
+  }
+
+  closeConfirmDeleteModal() {
+    this.toggleConfirmDeleteModal();
+  }
+
+  toggleDeleteModalSuccess() {
+    this.deleteModalSuccess = !this.deleteModalSuccess;
+  }
 
 
 
