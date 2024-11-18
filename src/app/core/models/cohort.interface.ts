@@ -59,6 +59,7 @@ export interface User {
     trainingId: string;
     status: 'active' | 'inactive';
     phoneNumber: string;
+    date_added: Date;
 }
 
 export interface Gender {

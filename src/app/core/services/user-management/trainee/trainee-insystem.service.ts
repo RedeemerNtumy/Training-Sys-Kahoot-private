@@ -98,6 +98,13 @@ export class TraineeInsystemService {
     )
   }
 
+
+  getAllTrainees() {
+    return this.http.get<User[]>(this.checkUserUrl).pipe(
+      catchError(error => this.errorHandlerService.handleError(error))
+    )
+  }
+
   
 
 }

@@ -1,5 +1,276 @@
 @import '../../../../../styleSheet/variables';
+@import '../../../../../styleSheet/mixins';
 
+.container-with-list { 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    & .wrapper {
+        width: max-content;
+        background: $clr-white;
+        padding: 1.6rem;
+        border-radius: .8rem;
+
+        & app-search {
+            margin-bottom: 16.5px;
+        }
+        
+        & .divider {
+            margin-bottom: 36px;
+            width: 100%;
+            height: 1px;
+            background: $clr-gray-100;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1.6rem;
+            height: 4.2rem;
+            width: max-content;
+        }
+
+        .tabs a {
+            text-decoration: none;
+            color: $clr-gray-500;
+            font-size: $font-size-subtitle-2;
+            font-weight: 500;
+            border-bottom: .1rem solid transparent;
+        }
+
+        .tabActive {
+            text-decoration: none;
+            color: $clr-gray-500;
+            font-size: $font-size-subtitle-2;
+            font-weight: 500;
+            border-bottom: .1rem solid $clr-primary-500;
+        }
+    
+        & .no-search-results {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            font-size: $font-size-subtitle-2;
+            font-weight: 500;
+            color: $clr-gray-400;
+        }
+    
+        & .title-enrolled {
+            display: flex;
+            justify-content: space-between;
+            font-size: $font-size-subtitle;
+            font-weight: 600;
+            color: $clr-gray-700;
+            margin-bottom: 2.5rem;
+        }
+    
+        & .divider-2 {
+            margin-bottom: 31px;
+            width: 100%;
+            height: 1px;
+            background: $clr-gray-100;
+        }
+    
+        & .list-wrapper {
+            width: 100%;
+            height: 90vh;
+    
+            & .headers {
+                display: flex;
+                margin-bottom: 44px;
+                font-size: $font-size-subtitle-2;
+                font-weight: 600;
+                color: $clr-gray-700;
+    
+                & div:nth-child(1) {
+                    width: 20rem;
+                }
+    
+                & div:nth-child(2) {
+                    width: 14rem;
+                }
+    
+                & div:nth-child(3) {
+                    width: 24rem; 
+                }
+    
+                & div:nth-child(4) {
+                    width: 20rem;
+                }
+    
+                & div:nth-child(5) {
+                    width: 17rem;
+                }
+
+                & div:nth-child(6) {
+                    width: 16rem;
+                }
+            }
+    
+            & .scroll-list-wrapper {
+                height: 100%;
+                overflow-y: scroll;
+    
+                & .list {
+                    height: 50px;
+                    display: flex;
+                    background: $clr-white;
+                    font-size: $font-size-xbody;
+                    font-weight: 400;
+                    color: $clr-gray-500;
+                    cursor: pointer;
+                    transition: $btn-transition;
+    
+                    & .trainee-name-profile {
+                        width: 20rem;
+                        display: flex;
+                        gap: 1.6rem;
+                        align-items: center;
+                        
+
+                        & .profile-image {
+                            width: 3.2rem;
+                            height: 3.2rem;
+                            border-radius: 50%;
+                            background: $clr-gray-500;
+                        }
+
+                        & .trainee-name {
+                            width: max-content;
+                            display: flex;
+                            align-items: center;
+                            overflow-x: hidden;
+                        }
+                    }
+    
+                    & .status {
+                        width: 14rem;
+                        display:flex;
+                        align-items: center;
+                        gap: 1rem;
+                    }
+    
+                    & .contact {
+                        width: 24rem;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1rem;
+    
+                        & .email {
+                            display: flex;
+                            gap: 1.089rem;
+                        }
+    
+                        & .telephone {
+                            display: flex;
+                            gap: 1.089rem;
+                        }
+                    }
+    
+                    & .specialization {
+                        width: 20rem;
+                        display: flex;
+                        align-items: center;
+                        position: relative;
+                        // padding-left: 2rem;
+    
+                        & span {
+                            color: $clr-gray-500;
+                            font-size: $font-size-xbody;
+                            font-weight: 400;
+                        }
+                        
+                    }
+
+                    & .cohort {
+                        width: 17rem;
+                        display: flex;
+                        align-items: Center;
+                        position: relative;
+                        // padding-left: 2rem;
+
+                        & span {
+                            color: $clr-gray-500;
+                            font-size: $font-size-xbody;
+                            font-weight: 400;
+                        }
+                    }
+    
+                    & .date-added {
+                        width: 20rem;
+                        display: flex;
+                        align-items: center;
+                    }
+    
+                    & .ellipsis {
+
+                        display: flex;
+                        align-items: center;
+                        position: relative;
+                    }
+                }
+            }
+    
+            & .list:hover {
+                background: $clr-gray-50;
+            }
+    
+            & .cohort-list-dividers {
+                width: 100%;
+                height: 1px;
+                background: $clr-gray-50;
+                margin: 24px 0;        
+            }
+        }
+    }
+
+}
+
+
+.traineeActive {
+    width: 8.26rem;
+    height: 2.722rem;
+    border-radius: 8.177rem;
+    display: grid;
+    place-items: center;
+    background: $clr-green-50;
+    color: $clr-green-500;
+    font-weight: 500;
+}
+
+.traineeInactive {
+    width: 8.26rem;
+    height: 2.722rem;
+    border-radius: 8.177rem;
+    display: grid;
+    place-items: center;
+    background: #fde9e8;
+    color: #e42514;
+    font-weight: 500;
+}
+
+.ellipsisClicked {
+    @include dropDownVisible;
+}
+
+.ellipsisNotClicked {
+    @include dropDownNotVisible;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// No data container styles
 .container {
     width: 100%;
     height: 100vh;
