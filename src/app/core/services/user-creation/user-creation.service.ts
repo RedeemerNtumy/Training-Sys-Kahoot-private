@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserCreationService {
-  private apiUrl = 'http://localhost:3000/user';
+  private apiUrl = `${environment.BaseUrl}/reset-password`;
 
   constructor(private http: HttpClient) {}
 
-  createUser(userData: any): Observable<any> {
-    return this.http.post(this.apiUrl, userData);
+  createUser(password: string): Observable<any> {
+    return this.http.put(this.apiUrl, password);
   }
 }
