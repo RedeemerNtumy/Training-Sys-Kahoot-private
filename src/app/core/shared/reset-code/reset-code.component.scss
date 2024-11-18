@@ -1,6 +1,6 @@
-@use "../../../../styleSheet/mixins" as *;
-@use "../../../../styleSheet/variables" as *;
-@use "../../../../styleSheet/button" as *;
+@import "../../../../styleSheet/mixins";
+@import "../../../../styleSheet/variables";
+@import "../../../../styleSheet/button";
 
 .reset-code-container {
   width: 100%;
