@@ -1,8 +1,7 @@
 import { Routes } from '@angular/router';
-// import { DashboardComponent } from './views/admin/dashboard/dashboard.component';
-// import { TraineeManagementComponent } from './views/admin/trainees/trainee-management.component';
 import { adminRoutes } from './views/admin/admin.routes';
 import { trainerRoutes } from './core/routes/trainer.routes';
+import { traineeRoutes } from './core/routes/trainee.routes';
 
 export const routes: Routes = [
   {
@@ -19,6 +18,12 @@ export const routes: Routes = [
         loadComponent:() => import('./views/trainer/trainer.component')
         .then(m => m.TrainerComponent),
         children: trainerRoutes
+      },
+      {
+        path:'trainee',
+        loadComponent:() => import('./views/trainee/dashboard/dashboard.component')
+        .then(m => m.DashboardComponent),
+        children: traineeRoutes
       },
     ],
   }
