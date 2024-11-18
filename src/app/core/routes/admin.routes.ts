@@ -1,6 +1,8 @@
 
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../views/admin/dashboard/dashboard.component';
+import { SpecializationManagementComponent } from '../../views/admin/specializations/specialization-management.component';
+import { NoSpecializationAddedComponent } from '../../features/admin/specializations/no-specialization-added/no-specialization-added.component';
 
 export const adminRoutes: Routes = [
   {
@@ -21,16 +23,26 @@ export const adminRoutes: Routes = [
   },
   {
     path: 'specialization',
-    loadComponent: () => import('../../views/admin/specializations/specialization-management.component')
-      .then(m => m.SpecializationManagementComponent),
-    data: { role: 'admin' }
+    component: SpecializationManagementComponent,
+    data: { role: 'admin' },
+    children: [
+      // {
+      //   path: '',
+      //   redirectTo: 'none-added',
+      //   pathMatch: 'full'
+      // },
+      {
+        path: 'none-added',
+        component: NoSpecializationAddedComponent
+      }
+    ]
   },
-  {
-    path: 'cohorts',
-    loadComponent: () => import('../../views/admin/cohorts/cohorts-management.component')
-    .then(m => m.CohortsManagementComponent),
-    data: { role: 'admin' }
-  },
+  // {
+  //   path: 'cohorts',
+  //   loadComponent: () => import('../../views/admin/cohorts/cohorts-management.component')
+  //   .then(m => m.CohortsManagementComponent),
+  //   data: { role: 'admin' },
+  // },
   {
     path: 'progress-tracking',
     loadComponent: () => import('../../views/admin/progress-tracking/progress-tracking.component')

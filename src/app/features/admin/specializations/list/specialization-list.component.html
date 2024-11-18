@@ -1,0 +1,32 @@
+<ng-container *ngIf="specializations$ | async as specializations">
+  <app-delete-modal
+    [(visible)]="deleteModalVisible"
+    [specializationId]="selectedSpecializationId"
+    (deleted)="onSpecializationDeleted($event)"/>
+
+    <ng-container *ngIf="specializations.length > 0">
+      <section class="list-container">
+        <app-header />
+        <ul class="list-section">
+          <app-list-card
+            *ngFor="let spec of specializations; let i = index"
+            [specialization]="spec"
+            [isDropdownActive]="activeDropdownIndex === i"
+            (dropdownToggled)="toggleDropdown($event, i)"
+            (actionTriggered)="handleAction($event)"
+          ></app-list-card>
+        </ul>
+
+        <app-paginator
+          [currentPage$]="currentPage$"
+          [totalPages]="totalPages"
+          [pageSize]="pageSize"
+          (pageChange)="onPageChange($event)"
+        ></app-paginator>
+      </section>
+    </ng-container>
+
+  <ng-container *ngIf="specializations.length === 0">
+    <app-no-specialization-added/>
+  </ng-container>
+</ng-container>
