@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { authRoutes } from './core/routes/auth.routes';
 import { adminRoutes } from './views/admin/admin.routes';
 import { trainerRoutes } from './core/routes/trainer.routes';
-import { authRoutes } from './core/routes/auth.routes';
 
 export const routes: Routes = [
   ...authRoutes,
