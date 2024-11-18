@@ -3,7 +3,7 @@ import { specialization } from '@core/models/specialization.interface';
 import { NoSpecializationAddedComponent } from "../no-specialization-added/no-specialization-added.component";
 import { CommonModule, NgFor } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
-import { DateformatPipe } from "@core/pipes/dateFormat/dateformat.pipe";
+
 import { Router } from '@angular/router';
 import { DeleteModalComponent } from "../delete-modal/delete-modal.component";
 import { ListCardComponent } from "./list-card/list-card.component";
@@ -19,7 +19,6 @@ import { PaginatorComponent } from "@core/shared/paginator/paginator.component";
     CommonModule,
     HeaderComponent,
     NgFor,
-    DateformatPipe,
     DeleteModalComponent,
     ListCardComponent,
     PaginatorComponent

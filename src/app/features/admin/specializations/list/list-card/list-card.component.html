@@ -4,7 +4,7 @@
       <img src="../../../../../assets/Images/svg/date-icon.svg" alt="">
       <p>
         Created on
-        {{ specialization.dateCreated | dateformat }}
+        {{ specialization.dateCreated | date: 'shortDate' }}
       </p>
       <button type="button" class="options" (click)="onToggleDropdown($event)">
         <img src="../../../../../assets/Images/svg/options-icon.svg" alt="">

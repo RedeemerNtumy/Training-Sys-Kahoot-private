@@ -1,13 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { specialization } from '@core/models/specialization.interface';
-import { DateformatPipe } from '@core/pipes/dateFormat/dateformat.pipe';
+
 
 
 @Component({
   selector: 'app-list-card',
   standalone: true,
-  imports: [CommonModule, DateformatPipe],
+  imports: [CommonModule, DatePipe],
   templateUrl: './list-card.component.html',
   styleUrls: ['./list-card.component.scss']
 })
