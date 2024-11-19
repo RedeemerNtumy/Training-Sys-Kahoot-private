@@ -1,0 +1,65 @@
+@use "../../../../../styleSheet/mixins" as *;
+@use "../../../../../styleSheet/variables" as *;
+
+.discover {
+  @include flexbox(column, flex-start, center);
+  gap: 7.2rem;
+  margin: 9.52rem;
+
+  .section-title {
+    font-weight: 700;
+    font-size: $font-size-h3;
+
+    .text-primary {
+      color: $clr-primary-500;
+    }
+  }
+
+  .discover-cards {
+    @include flexbox(row, center, center);
+    gap: 3rem;
+    margin-top: 3rem;
+
+    .discover-card {
+      @include flexbox(column, flex-start, center);
+      gap: 3rem;
+      text-align: center;
+      flex-basis: 400px;
+      width: 100%;
+      height: 220px;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      background-color: $clr-white;
+      box-shadow: 0px 4px 17.6px 0px #2020201a;
+
+      h3 {
+        font-size: $font-size-title;
+        font-weight: 600;
+        color: $clr-gray-700;
+      }
+
+      p {
+        font-size: $font-size-body;
+        color: $clr-gray-500;
+      }
+
+      .link-section {
+        @include flexbox(row, space-between, center);
+        gap: 3rem;
+
+        a,
+        a:link,
+        a:visited {
+          font-size: $font-size-body;
+          color: $clr-gray-500;
+        }
+
+        img {
+          width: 2.4rem;
+          margin-right: 0.5rem;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

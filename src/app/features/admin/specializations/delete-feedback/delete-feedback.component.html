@@ -1,0 +1,22 @@
+<p-dialog
+      [(visible)]="visible"
+      [modal]="true"
+      [style]="{ width: '629px' }"
+      [draggable]="false"
+      [resizable]="false"
+      styleClass="feedback-dialog"
+      [closeOnEscape]="true"
+      [dismissableMask]="true"
+      (onHide)="close()">
+  <div class="delete-container feedback-container">
+    <div class="delete-info feedback-info">
+      <img src="../../../../../assets/Images/svg/delete-feedback.png" alt="">
+      <h3>Specialization deleted successfully</h3>
+      <p>
+        The specialization has been deleted
+        successfully and all associated information
+        has been permanently removed from the system.
+      </p>
+    </div>
+  </div>
+</p-dialog>

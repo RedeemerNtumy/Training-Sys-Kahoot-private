@@ -4,6 +4,7 @@ import { TrainerNavigationsComponent } from "../trainer-navigations/trainer-navi
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { UserRoleService } from '../../../core/services/user-role/user-role.service';
+import { TraineeNavigationsComponent } from "../trainee-navigations/trainee-navigations.component";
 
 @Component({
   selector: 'app-navigations',
@@ -13,8 +14,9 @@ import { UserRoleService } from '../../../core/services/user-role/user-role.serv
     TrainerNavigationsComponent,
     RouterLink,
     RouterLinkActive,
-    NgIf
-  ],
+    NgIf,
+    TraineeNavigationsComponent
+],
   templateUrl: './navigations.component.html',
   styleUrl: './navigations.component.scss'
 })

@@ -1,0 +1,27 @@
+<div class="paginator">
+  <button
+    class="pg-btn"
+    [disabled]="currentPage === 1"
+    (click)="onPrevPage()"
+  >
+    Prev
+  </button>
+
+  <ng-container *ngFor="let page of getPageNumbers()">
+    <button
+      (click)="onPageChange(page)"
+      class="pg-btn"
+      [class.active]="page === currentPage"
+    >
+      {{ page }}
+    </button>
+  </ng-container>
+
+  <button
+    class="pg-btn"
+    [disabled]="currentPage === totalPages"
+    (click)="onNextPage()"
+  >
+    Next
+  </button>
+</div>
