@@ -19,7 +19,6 @@ export const authInterceptor: HttpInterceptorFn = (
     return next(req);
   }
 
-  console.log('AuthInterceptor invoked');
   const token = localStorage.getItem('token');
   const modifiedReq = token
     ? req.clone({
@@ -34,7 +33,6 @@ export const authInterceptor: HttpInterceptorFn = (
           if (token) {
             try {
               const decodedToken = jwtDecode(token);
-              console.log('Decoded token:', decodedToken);
               localStorage.setItem('token', token);
               localStorage.setItem(
                 'decodedToken',
