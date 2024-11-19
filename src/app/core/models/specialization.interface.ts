@@ -1,4 +1,4 @@
-export interface Ispecialization {
+export interface specialization {
   id?: number ;
   name: string;
   description: string;
@@ -15,7 +15,6 @@ export interface ContentItem {
   prerequisites: string[];
   createdAt: string;
   traineesCount?: number;
-  // Add additional fields if necessary
 }
 
 interface Pageable {

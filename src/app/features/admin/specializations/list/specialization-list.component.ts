@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Ispecialization } from '../../../../core/models/specialization.interface';
+import { specialization } from '@core/models/specialization.interface';
 import { NoSpecializationAddedComponent } from "../no-specialization-added/no-specialization-added.component";
 import { CommonModule, NgFor } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
-import { DateformatPipe } from "../../../../core/pipes/dateFormat/dateformat.pipe";
 import { Router } from '@angular/router';
 import { DeleteModalComponent } from "../delete-modal/delete-modal.component";
 import { ListCardComponent } from "./list-card/list-card.component";
 import { Observable, map,combineLatest, BehaviorSubject } from 'rxjs';
-import { SpecializationFacadeService } from '../../../../core/services/specialization-facade/specialization-facade.service';
-import { PaginatorComponent } from "../../../../core/shared/paginator/paginator.component";
+import { SpecializationFacadeService } from '@core/services/specialization-facade/specialization-facade.service';
+import { PaginatorComponent } from "@core/shared/paginator/paginator.component";
 
 
 interface ActionEvent {
   event: Event;
   action: string;
-  spec: Ispecialization;
+  spec: specialization;
 }
 
 @Component({
@@ -26,7 +25,6 @@ interface ActionEvent {
     CommonModule,
     HeaderComponent,
     NgFor,
-    DateformatPipe,
     DeleteModalComponent,
     ListCardComponent,
     PaginatorComponent
@@ -39,7 +37,7 @@ export class SpecializationListComponent implements OnInit {
   deleteModalVisible = false;
   selectedSpecializationId?: number;
   deleteFeedbackMap = new Map<number | undefined, boolean>();
-  specializations$!: Observable<Ispecialization[]>;
+  specializations$!: Observable<specialization[]>;
   private pageSubject = new BehaviorSubject<number>(1);
   currentPage$ = this.pageSubject.asObservable()
   pageSize = 2;
@@ -82,7 +80,6 @@ export class SpecializationListComponent implements OnInit {
 
   handleAction(actionEvent: ActionEvent): void {
     actionEvent.event.stopPropagation();
-
     switch (actionEvent.action) {
       case 'update':
         this.navigateToCreate(actionEvent.spec.id);
@@ -112,7 +109,6 @@ export class SpecializationListComponent implements OnInit {
   }
 
   private navigateToCreate(id: number | undefined): void {
-    console.log('update action triggered');
     this.router.navigate(['home', 'admin', 'specialization', 'create'], {
       queryParams: { id }
     });

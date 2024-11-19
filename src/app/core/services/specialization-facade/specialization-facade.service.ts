@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, tap, map, Observable } from 'rxjs';
-import { Ispecialization } from '../../models/specialization.interface';
+import { BehaviorSubject, catchError, Observable, tap, map } from 'rxjs';
+import { specialization } from '../../models/specialization.interface';
 import { ErrorHandleService } from '../error-handle/error-handle.service';
 import { SpecializationCrudService } from '../specialization-crud/specialization-crud.service';
 
@@ -9,10 +8,10 @@ import { SpecializationCrudService } from '../specialization-crud/specialization
   providedIn: 'root'
 })
 export class SpecializationFacadeService {
-  private specializationSubject = new BehaviorSubject<Ispecialization[]>([]);
+  private specializationSubject = new BehaviorSubject<specialization[]>([]);
   specialization$ = this.specializationSubject.asObservable();
 
-  selectedSpecializationSubject = new BehaviorSubject<Ispecialization>({
+  selectedSpecializationSubject = new BehaviorSubject<specialization>({
     id: undefined,
     name: '',
     description: '',
@@ -23,6 +22,7 @@ export class SpecializationFacadeService {
 
   private sortSubject = new BehaviorSubject<'asc'|'desc'>('desc');
   sortDirection$ = this.sortSubject.asObservable();
+
 
   constructor(
     private errorService: ErrorHandleService,
@@ -42,7 +42,7 @@ export class SpecializationFacadeService {
       });
   }
 
-  private sort(specializations: Ispecialization[]): Ispecialization[] {
+  private sort(specializations: specialization[]): specialization[] {
     const direction = this.sortSubject.value;
     return [...specializations].sort((a, b) => {
       const dateA = new Date(a.createdAt).getTime();
@@ -57,7 +57,7 @@ export class SpecializationFacadeService {
     this.loadSpecializations();
   }
 
-  getSpecializationById(id: number): Observable<Ispecialization> {
+ getSpecializationById(id: number): Observable<specialization> {
     return this.specializationCrud.getSpecializationById(id)
       .pipe(
         tap((data) => {
@@ -68,7 +68,7 @@ export class SpecializationFacadeService {
       );
   }
 
-  create(specialization: Ispecialization): Observable<any> {
+  create(specialization: specialization): Observable<any> {
     return this.specializationCrud.createSpecialization(specialization)
     .pipe(
       catchError(this.errorService.handleError),
@@ -78,13 +78,14 @@ export class SpecializationFacadeService {
     );
   }
 
-  update(id: number, specialization: Partial<Ispecialization>): Observable<Ispecialization> {
+  update(id: number, specialization: Partial<specialization>): Observable<specialization> {
     return this.specializationCrud.updateSpecialization(id, specialization)
     .pipe(
       tap(() => this.loadSpecializations()),
       catchError(this.errorService.handleError)
     );
   }
+
 
   delete(id: number): Observable<void> {
     return this.specializationCrud.deleteSpecialization(id)
