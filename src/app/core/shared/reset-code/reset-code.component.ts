@@ -2,34 +2,63 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InputFieldComponent } from '../input-field/input-field.component';
-import { interval, Subject, takeUntil } from 'rxjs';
+import { interval, Subject, switchMap, takeUntil, timer } from 'rxjs';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
+import { MessageComponent } from '../message/message.component';
 
 @Component({
   selector: 'app-reset-code',
   standalone: true,
-  imports: [CommonModule, InputFieldComponent],
+  imports: [
+    CommonModule,
+    InputFieldComponent,
+    ReactiveFormsModule,
+    MessageComponent,
+  ],
   templateUrl: './reset-code.component.html',
   styleUrl: './reset-code.component.scss',
 })
 export class ResetCodeComponent {
   state: 'sent' | 'enter' = 'sent';
-  codeExpiryTime = '03:00';
-  private readonly EXPIRY_TIME_IN_SECONDS = 180; // 3 minutes in seconds
+  codeExpiryTime = '10:00';
+  private readonly EXPIRY_TIME_IN_SECONDS = 600;
   private timeRemaining = this.EXPIRY_TIME_IN_SECONDS;
   isExpired = false;
   private destroy$ = new Subject<void>();
-  constructor(private route: ActivatedRoute, private router: Router) {}
+
+  showErrorMessage = false;
+  showSuccessMessage = false;
+  isLoading = false;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) {}
+
+  otp: FormGroup = this.fb.group({
+    otp: ['', Validators.required],
+  });
 
   ngOnInit(): void {
     this.route.data.subscribe((data) => {
       this.state = data['state'];
     });
+    this.codeExpiryTime = '10:00';
     this.startCountdown();
   }
 
   private startCountdown() {
     this.timeRemaining = this.EXPIRY_TIME_IN_SECONDS;
     this.isExpired = false;
+    this.codeExpiryTime = '10:00';
 
     interval(1000)
       .pipe(takeUntil(this.destroy$))
@@ -57,9 +86,50 @@ export class ResetCodeComponent {
     this.router.navigate(['auth/reset-code-enter']);
   }
 
-  onVerifyCode() {}
+  onVerifyCode() {
+    this.isLoading = true;
+
+    if (this.otp.valid) {
+      const { otp } = this.otp.value;
+
+      this.authService
+        .verifyOtp(otp)
+        .pipe(
+          switchMap(() => timer(2000)),
+          switchMap(() => {
+            this.isLoading = false;
+            this.showSuccessMessage = true;
+            return timer(1000);
+          })
+        )
+        .subscribe({
+          next: () => {
+            this.router.navigate(['/auth']);
+          },
+          error: (err) => {
+            this.showErrorMessage = true;
+            this.isLoading = false;
+            console.error(err);
+          },
+        });
+    }
+  }
 
   onResendCode() {
-    
+    const decodedToken = JSON.parse(
+      localStorage.getItem('decodedToken') || '{}'
+    );
+    const email = decodedToken.email;
+
+    if (email) {
+      this.authService.resetPassword(email).subscribe({
+        next: () => {
+          this.startCountdown();
+        },
+        error: (err) => {
+          console.error('Error resending OTP', err);
+        },
+      });
+    }
   }
 }
