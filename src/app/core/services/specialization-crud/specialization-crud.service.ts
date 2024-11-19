@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 
 export class SpecializationCrudService {
-  private hostedServer = environment.apiUrl;
+  private hostedServer = environment.BaseUrl;
 
   constructor(
     private http: HttpClient,
