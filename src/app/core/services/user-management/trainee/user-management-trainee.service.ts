@@ -1,23 +1,25 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cohort, Specialization } from '../../../models/cohort.interface';
 import { ErrorHandlerService } from '../../cohort-data/error-handling/error-handler.service';
-import { catchError } from 'rxjs';
+import { catchError, tap, throwError } from 'rxjs';
+import { environment } from '../../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserManagementTraineeService {
 
-  private allspecializations = "http://localhost:9000/allSpecilizations";
-  private allcohorts = "http://localhost:9000/allCohorts";
+  private allspecializations = `${environment.BaseUrl}/specializations`;
+  private allcohorts = `${environment.BaseUrl}/cohorts/assignable`;
+  // private allcohorts = "http://localhost:9000/allCohorts";
 
   constructor(
     private http: HttpClient,
     private errorHandlerService: ErrorHandlerService,
   ) { }
 
-  getAllspecializations() {
+  getAllspecializations() {    
     return this.http.get<Specialization[]>(this.allspecializations).pipe(
       catchError(error => this.errorHandlerService.handleError(error))
     )
@@ -28,9 +30,4 @@ export class UserManagementTraineeService {
       catchError(error => this.errorHandlerService.handleError(error))
     )
   }
-
-  // checkAccountExistence() {
-  //   this.http.get<User>(this.apiUrl);
-  // }
-
 }

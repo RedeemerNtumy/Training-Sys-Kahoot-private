@@ -15,8 +15,8 @@
             <div class="specialization">
                 <label for="specialization">Specialization</label>
                 <select formControlName="specialization" id="specialization-select-list">
-                  <option *ngFor="let option of allSpecializations$ | async" [value]="option.value">
-                    {{ option.value }}
+                  <option *ngFor="let option of allSpecializations$ | async" [value]="option.id">
+                    {{ option.name }}
                   </option>
                 </select>
             </div>
