@@ -5,6 +5,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { UserRoleService } from '../../../core/services/user-role/user-role.service';
 import { ActiveNavService } from '../../../core/services/active-nav/active-nav.service';
+import { TraineeNavigationsComponent } from "../trainee-navigations/trainee-navigations.component";
 
 @Component({
   selector: 'app-navigations',
@@ -14,8 +15,9 @@ import { ActiveNavService } from '../../../core/services/active-nav/active-nav.s
     TrainerNavigationsComponent,
     RouterLink,
     RouterLinkActive,
-    NgIf
-  ],
+    NgIf,
+    TraineeNavigationsComponent
+],
   templateUrl: './navigations.component.html',
   styleUrl: './navigations.component.scss'
 })

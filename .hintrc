@@ -3,12 +3,25 @@
     "development"
   ],
   "hints": {
+    "axe/name-role-value": [
+      "default",
+      {
+        "button-name": "off"
+      }
+    ],
     "compat-api/css": [
       "default",
       {
         "ignore": [
-          "scrollbar-width"
+          "backdrop-filter"
         ]
+      }
+    ],
+    "axe/structure": [
+      "default",
+      {
+        "list": "off",
+        "listitem": "off"
       }
     ]
   }
