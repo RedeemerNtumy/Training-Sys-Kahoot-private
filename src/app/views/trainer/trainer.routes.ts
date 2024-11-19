@@ -1,9 +1,7 @@
 
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TraineeManagementComponent } from '../trainer/trainee-management/trainee-management.component';
-// import { DashboardComponent } from './views/admin/dashboard/dashboard.component';
-// import { TraineeManagementComponent } from './views/admin/trainees/trainee-management.component';
+
 
 export const adminRoutes: Routes = [
   {
