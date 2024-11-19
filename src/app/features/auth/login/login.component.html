@@ -33,10 +33,7 @@
         />
 
         <app-message
-          *ngIf="
-            loginForm.get('email')?.hasError('email') &&
-            (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)
-          "
+          *ngIf="showError"
           type="error"
           title="Error"
           message="Please check, you entered a wrong email."
@@ -50,11 +47,7 @@
         />
 
         <app-message
-          *ngIf="
-            loginForm.get('password')?.hasError('required') &&
-            (loginForm.get('password')?.touched ||
-              loginForm.get('password')?.dirty)
-          "
+          *ngIf="showError"
           type="error"
           title="Error"
           message="Please check, you entered a wrong password"

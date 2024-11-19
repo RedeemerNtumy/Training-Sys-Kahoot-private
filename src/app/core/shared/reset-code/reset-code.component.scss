@@ -1,6 +1,6 @@
-@use "../../../../styleSheet/mixins" as *;
-@use "../../../../styleSheet/variables" as *;
-@use "../../../../styleSheet/button" as *;
+@import "../../../../styleSheet/mixins";
+@import "../../../../styleSheet/variables";
+@import "../../../../styleSheet/button";
 
 .reset-code-container {
   width: 100%;
@@ -26,6 +26,42 @@
       width: 100%;
       @include flexbox(column);
       gap: 4rem;
+
+      .input-container {
+        width: 100%;
+        @include flexbox(column);
+        gap: 2rem;
+      }
+
+      .btn {
+        @include flexbox(row, center, center);
+        gap: 1rem;
+
+        & .spinner {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          border-top-color: #fff;
+          animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        &:disabled {
+          background-color: #80808018;
+          cursor: not-allowed;
+        }
+
+        &.load {
+          background-color: $clr-primary-500;
+        }
+      }
     }
 
     .resend-info {

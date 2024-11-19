@@ -9,26 +9,49 @@
         verify your identity as a user.
       </p>
     </div>
-    <form class="reset-code-form">
+    <form class="reset-code-form" [formGroup]="otp" (ngSubmit)="onVerifyCode()">
       <div *ngIf="state === 'enter'" class="input-container">
         <app-input-field
           type="text"
           placeholder="Enter 6 digit code"
-          formControlName="codeInput"
+          formControlName="otp"
+        />
+
+        <app-message
+          *ngIf="showErrorMessage"
+          type="error"
+          title="Error"
+          message="Please check, you entered a code"
+        />
+        <app-message
+          *ngIf="showSuccessMessage"
+          type="success"
+          title="Success"
+          message="OTP verified successfullyPlease create your new password to complete the reset process"
         />
       </div>
 
-      <button type="button" *ngIf="state === 'sent'" (click)="onEnterCode()" class="btn">
+      <button
+        type="button"
+        *ngIf="state === 'sent'"
+        (click)="onEnterCode()"
+        class="btn"
+      >
         Enter Code
       </button>
 
       <button
-        type="submit"
         *ngIf="state === 'enter'"
-        (click)="onVerifyCode()"
         class="btn"
+        [class]="isLoading ? 'load' : ''"
+        type="submit"
+        [disabled]="otp.invalid"
       >
-        Verify Code
+        <ng-container *ngIf="!isLoading"> Verify Code </ng-container>
+        <ng-container *ngIf="isLoading">
+          <span class="spinner"></span>
+          <span> Submitting </span>
+        </ng-container>
       </button>
     </form>
 
