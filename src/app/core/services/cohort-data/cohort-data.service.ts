@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Cohort, CohortDetails, CohortList, Specialization } from '../../models/cohort.interface';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
 import { ErrorHandlerService } from './error-handling/error-handler.service';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class CohortDataService {
   private apiUrl: string = '';
   private mockupdateCohortData = 'assets/mockupdatecohort.json'
 
-  private cohortsListUrl: string = 'http://localhost:9000/cohortsList';
+  // private cohortsListUrl: string = 'http://localhost:9000/cohortsList';
+  private cohortsListUrl: string = `${environment.BaseUrl}/cohorts`;
   private cohortFormsDataUrl: string = 'http://localhost:9000/cohortsFormData/25';
   private cohortsDetailsUrl: string = 'http://localhost:9000/cohortDetails';
   private specializationsUrl: string = 'http://localhost:9000/allSpecilizations';
@@ -31,12 +33,30 @@ export class CohortDataService {
     public errorhandlerService: ErrorHandlerService
     ) { }
 
+  
   //(HTTP Request) Retriev a list of cohorts from backend 
-  getAllCohorts(): Observable<CohortList[]>{ 
-    return this.http.get<CohortList[]>(this.cohortsListUrl).pipe(
+  // getAllCohorts(): Observable<CohortList[]>{ 
+  //   return this.http.get<CohortList[]>(this.cohortsListUrl).pipe(
+  //     tap((response: any) => {
+  //       console.log("allcohorts: ", response);
+  //     }),
+  //     catchError(error => this.errorhandlerService.handleError(error))
+  //   )
+  // }
+  getAllCohorts(): Observable<CohortList[]> { 
+    const headers = new HttpHeaders({
+      "ngrok-skip-browser-warning": "69420"
+    });
+  
+    return this.http.get<CohortList[]>(this.cohortsListUrl, { headers }).pipe(
+      tap((response: CohortList[]) => {
+        console.log("allcohorts: ", response);
+      }),
       catchError(error => this.errorhandlerService.handleError(error))
-    )
+    );
   }
+  
+
 
   //(HTTP Request) Make a post request to backend to add cohort
   addCohort(formData: Cohort) {
