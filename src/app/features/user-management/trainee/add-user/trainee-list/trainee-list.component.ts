@@ -1,21 +1,18 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { SearchbarComponent } from '../../../../core/shared/searchbar/searchbar.component';
-import { AsyncPipe, NgFor, NgIf, TitleCasePipe } from '@angular/common';
-import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
-import { BehaviorSubject, Observable, catchError, combineLatest, map } from 'rxjs';
-import { User } from '../../../../core/models/cohort.interface';
-import { TraineeListComponent } from './trainee-list/trainee-list.component';
+import { Router } from '@angular/router';
+import { TraineeInsystemService } from '../../../../../core/services/user-management/trainee/trainee-insystem.service';
+import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
+import { User } from '../../../../../core/models/cohort.interface';
+import { AsyncPipe, NgIf, TitleCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-add-user',
+  selector: 'app-trainee-list',
   standalone: true,
-  imports: [SearchbarComponent, RouterModule, AsyncPipe, NgIf, TraineeListComponent],
-  templateUrl: './add-user.component.html',
-  styleUrl: './add-user.component.scss',
+  imports: [AsyncPipe, NgIf, TitleCasePipe],
+  templateUrl: './trainee-list.component.html',
+  styleUrl: './trainee-list.component.scss'
 })
-export class AddUserComponent {
-
+export class TraineeListComponent {
   traineeUsers$!: Observable<User[]>;
   filteredTrainees$!: Observable<User[]>;
   trainerTabClicked: boolean = true;
@@ -158,20 +155,4 @@ export class AddUserComponent {
     this.deleteModalSuccess = !this.deleteModalSuccess;
   }
 
-
-
-
-
-
-
-
-
-
-  goToAddUserForm() {
-    this.router.navigate(['/home/admin/user-management/add-user-form']);
-  }
-
-  goToAddTrainerForm() {
-    this.router.navigate(['/home/admin/user-management/add-trianer']);
-  }
 }
