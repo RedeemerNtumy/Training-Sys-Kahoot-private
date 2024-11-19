@@ -38,6 +38,24 @@ export class AuthService {
       );
   }
 
+  resetPassword(email: string): Observable<any> {
+    const url = `${environment.BaseUrl}/send-otp?email=${email}`;
+    return this.http.post(url, {});
+  }
+
+  verifyOtp(otp: string): Observable<any> {
+    const url = `${environment.BaseUrl}/verify-otp?otp=${otp}`;
+    return this.http.post(url, {}, { responseType: 'text' }).pipe(
+      map((response) => {
+        try {
+          return JSON.parse(response);
+        } catch (e) {
+          return response;
+        }
+      })
+    );
+  }
+
   decodeToken(token: string): { role: string; email: string } {
     const decoded: DecodedToken = jwtDecode(token);
     return { role: decoded.role, email: decoded.email };
