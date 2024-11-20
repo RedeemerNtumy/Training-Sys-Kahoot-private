@@ -9,6 +9,7 @@ import { Countries, Gender, User } from '../../../models/cohort.interface';
 })
 export class TraineeInsystemService {
 
+  // testUrl: string = 'http://localhost:9000/cohortsList';
   private checkUserUrl: string = "http://localhost:9000/users";
   private gendersUrl: string = "http://localhost:9000/gender";
   private countriesUrl: string = "http://localhost:9000/countries";
@@ -132,7 +133,3 @@ export class TraineeInsystemService {
   
 
 }
-function untildistinct(): import("rxjs").OperatorFunction<User[], unknown> {
-  throw new Error('Function not implemented.');
-}
-

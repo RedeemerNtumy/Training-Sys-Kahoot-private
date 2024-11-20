@@ -6,11 +6,13 @@ import { TraineeInsystemService } from '../../../../core/services/user-managemen
 import { BehaviorSubject, Observable, catchError, combineLatest, map } from 'rxjs';
 import { User } from '../../../../core/models/cohort.interface';
 import { TraineeListComponent } from './trainee-list/trainee-list.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-add-user',
   standalone: true,
-  imports: [SearchbarComponent, RouterModule, AsyncPipe, NgIf, TraineeListComponent],
+  imports: [SearchbarComponent, RouterModule, AsyncPipe, NgIf, TraineeListComponent,MatTabsModule],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss',
 })
@@ -156,6 +158,26 @@ export class AddUserComponent {
 
   toggleDeleteModalSuccess() {
     this.deleteModalSuccess = !this.deleteModalSuccess;
+  }
+
+  onTabChanged(event: MatTabChangeEvent) {
+    if (event.index === 0) {
+      this.setToTrainerTab();
+    } else if (event.index === 1) {
+      this.setToTraineeTab();
+    }
+  }
+
+
+  setToTrainerTab() {
+    this.trainerTabClicked = true;
+    console.log(this.trainerTabClicked, 'trainer')
+  }
+
+  setToTraineeTab() {
+    this.trainerTabClicked = false;
+    console.log(this.trainerTabClicked, 'trainee')
+
   }
 
 

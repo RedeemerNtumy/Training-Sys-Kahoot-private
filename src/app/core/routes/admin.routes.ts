@@ -106,16 +106,14 @@ export const adminRoutes: Routes = [
           import(
             '../../features/user-management/trainee/add-user/add-user.component'
           ).then((m) => m.AddUserComponent),
-          children: [
-            {
-              path: 'trainee-list',
-              loadComponent: () =>
-                import(
-                  '../../features/user-management/trainee/add-user/trainee-list/trainee-list.component'
-                ).then((m) => m.TraineeListComponent)
-            }
-          ]
-      },
+        },
+        {
+          path: 'trainee-list',
+          loadComponent: () =>
+            import(
+              '../../features/user-management/trainee/add-user/trainee-list/trainee-list.component'
+            ).then((m) => m.TraineeListComponent)
+        },
       {
         path: 'add-user-form',
         loadComponent: () =>

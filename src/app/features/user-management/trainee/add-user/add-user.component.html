@@ -1,4 +1,4 @@
-  <div class="confirm-delete-modal-wrapper"
+  <!-- <div class="confirm-delete-modal-wrapper"
     [class]="isConfirmDeleteModalOpen ? 'confirmDeleteModal' : 'notConfirmDeleteModal'"
   >
       <div class="deletemodal" >
@@ -28,17 +28,18 @@
         <p>The profile has been deleted successfully and all associated information has been permanently removed from the system.</p>
       </div>
 
-  </div>
+  </div> -->
 
 
+  <!-- *ngIf="(traineeUsers$ | async)?.length !== 0" -->
         <div class="container-with-list"
-            *ngIf="(traineeUsers$ | async)?.length !== 0"
         >
             <div class="wrapper">
                 <app-searchbar 
                     [title]="'Registered Users'" 
                     [placeholder]="'Name, email'" 
                     [hide]="false"
+                    [buttonContent]="trainerTabClicked ? 'Add Trainer': 'Add Trainee'"
                     (searchChanged)="onSearchChange($event)"
                     (sortClicked)="onSortList()" 
                     (activeStatus)="filterByActive()"
@@ -50,17 +51,21 @@
                 />
                 <div class="divider"></div>
 
-                <div class="tabs">
-                    <a routerLink="/home/admin/user-management/" routerLinkActive="tabActive">Trainer</a>
-                    <a routerLink="/home/admin/user-management/trainee-list" routerLinkActive="tabActive">Trainee</a>
-                </div>
-                <app-trainee-list />
+                
+                <mat-tab-group (selectedTabChange)="onTabChanged($event)">
+                  <mat-tab label="Trainer"> Content 1 </mat-tab>
+                  <mat-tab label="Trainee"><app-trainee-list /> </mat-tab>
+                </mat-tab-group>
+                    <!-- <a routerLink="/home/admin/user-management/" routerLinkActive="tabActive">Trainer</a>
+                    <a routerLink="/home/admin/user-management/trainee-list" routerLinkActive="tabActive">Trainee</a> -->
+              
+                
             </div>
         </div>
 
 
 
-<div class="container" 
+        <!-- <div class="container" 
         *ngIf="(traineeUsers$ | async)?.length === 0"
 >
   <div class="add-trainer" (click)="goToAddTrainerForm()">
@@ -86,4 +91,4 @@
       to manage trainees
     </p>
   </div>
-</div>
+</div> -->
