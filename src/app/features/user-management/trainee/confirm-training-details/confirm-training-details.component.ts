@@ -34,7 +34,7 @@ export class ConfirmTrainingDetailsComponent {
       cohort: [{value: '', disabled: true}, Validators.required],
       enrollementDate: [{value: '', disabled: true}, Validators.required],
       status: [{value: '', disabled: true}, Validators.required],
-      trainingId: [{value: '', disabled: true}, Validators.required]
+      // trainingId: [{value: '', disabled: true}, Validators.required]
     })
 
     this.allSpecializations$ = this.userManagementTraineeService.getAllspecializations();
@@ -48,7 +48,7 @@ export class ConfirmTrainingDetailsComponent {
           cohort: data.cohort,
           enrollementDate: data.enrollementDate,
           status: capitalizedStatus,
-          trainingId: data.trainingId,
+          // trainingId: data.trainingId,
         }) 
       }
 
@@ -59,7 +59,7 @@ export class ConfirmTrainingDetailsComponent {
   onSubmit() {
     if(this.traineeInSystemService.userDataRetrieved) {
 
-      this.toggleModal();
+      // this.toggleModal();
 
       combineLatest([
         this.traineeInSystemService.firstFormState$,
@@ -72,7 +72,7 @@ export class ConfirmTrainingDetailsComponent {
       });
     }
     else if(this.newUserFormSecTwo.valid && !this.traineeInSystemService.userDataRetrieved) {
-      this.toggleModal();
+      // this.toggleModal();
 
       combineLatest([
         this.traineeInSystemService.firstFormState$,
@@ -81,7 +81,12 @@ export class ConfirmTrainingDetailsComponent {
       
         // Combine or process the states as needed
         const combinedState = { ...firstFormState, ...secondFormState };
-        this.traineeInSystemService.createNewUser(combinedState, combinedState.email);
+        if(this.traineeInSystemService.retreivedUserData$){
+
+        }
+        else { 
+          this.traineeInSystemService.createNewUser(combinedState);
+        }
       });
 
       

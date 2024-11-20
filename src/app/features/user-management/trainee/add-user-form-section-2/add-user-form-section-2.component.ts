@@ -33,7 +33,7 @@ export class AddUserFormSection2Component {
       cohort: ['', Validators.required],
       enrollementDate: ['', Validators.required],
       status: ['', Validators.required],
-      trainingId: ['', Validators.required]
+      // trainingId: ['', Validators.required]
     })
 
     this.allSpecializations$ = this.userManagementTraineeService.getAllspecializations();
@@ -47,7 +47,7 @@ export class AddUserFormSection2Component {
           cohort: data.cohort?? '',
           enrollementDate: data.enrollementDate?? '',
           status: capitalizedStatus?? '',
-          trainingId: data.trainingId?? '',
+          // trainingId: data.trainingId?? '',
         })
       }
     })

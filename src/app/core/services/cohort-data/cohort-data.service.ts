@@ -10,16 +10,8 @@ import { environment } from '../../../../environments/environment.development';
 })
 export class CohortDataService {
 
-  private apiUrl: string = '';
-  private mockupdateCohortData = 'assets/mockupdatecohort.json'
-
-  // private cohortsListUrl: string = 'http://localhost:9000/cohortsList';
-  private backendUrl: string = 'https://79ea-154-161-15-134.ngrok-free.app/api/v1';
-  private cohortsListUrl: string = `${this.backendUrl}/cohorts`;
-  // private cohortFormsDataUrl: string = 'http://localhost:9000/cohortsFormData/25';
-  // private cohortFormsDataUrl: string = 'http://localhost:9000/cohortsFormData/25';
+  private cohortsListUrl: string = `${environment.BaseUrl}/cohorts`;
   private cohortsDetailsUrl: string = 'http://localhost:9000/cohortDetails';
-  private specializationsUrl: string = 'http://localhost:9000/allSpecilizations';
 
   selectedCohortId: string = "1";
   selectedCohortForUpdate: string = "";
@@ -60,7 +52,7 @@ export class CohortDataService {
 
     const form = { ...formData }
     form['traineesEnrolled'] = 0;
-    return this.http.post<CohortList>(this.cohortsListUrl, form);
+    return this.http.post<CohortList>(this.cohortsListUrl, form, { headers });
   }
 
   //(HTTP Request) Make a post request to backend for Cohort Details including trainee list
@@ -85,13 +77,13 @@ export class CohortDataService {
       "ngrok-skip-browser-warning": "69420"
     });
     
-    return this.http.get<Cohort>(`${this.backendUrl}/cohorts/${this.selectedCohortId}`).pipe(
+    return this.http.get<Cohort>(`${this.cohortsListUrl}/cohorts/${this.selectedCohortId}`).pipe(
       catchError(error => this.errorhandlerService.handleError(error))
     )
   }
 
   updateCohort(formData: Cohort) {
-    return this.http.put<Cohort>(`${this.backendUrl}`, formData).pipe(
+    return this.http.put<Cohort>(`${this.cohortsListUrl}`, formData).pipe(
       catchError(error => this.errorhandlerService.handleError(error))
     )
   }
@@ -102,16 +94,6 @@ export class CohortDataService {
     });
 
     return this.http.delete<CohortList>(`${this.cohortsListUrl}/${id}`).pipe(
-      catchError(error => this.errorhandlerService.handleError(error))
-    )
-  }
-
-  getAllSpecializations() { 
-    const headers = new HttpHeaders({
-      "ngrok-skip-browser-warning": "69420"
-    });
-     
-    return this.http.get<Specialization[]>(this.specializationsUrl).pipe(
       catchError(error => this.errorhandlerService.handleError(error))
     )
   }

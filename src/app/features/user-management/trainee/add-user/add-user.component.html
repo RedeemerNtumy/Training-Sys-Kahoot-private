@@ -32,7 +32,7 @@
 
 
   <!-- *ngIf="(traineeUsers$ | async)?.length !== 0" -->
-        <div class="container-with-list"
+        <!-- <div class="container-with-list"
         >
             <div class="wrapper">
                 <app-searchbar 
@@ -55,18 +55,15 @@
                 <mat-tab-group (selectedTabChange)="onTabChanged($event)">
                   <mat-tab label="Trainer"> Content 1 </mat-tab>
                   <mat-tab label="Trainee"><app-trainee-list /> </mat-tab>
-                </mat-tab-group>
-                    <!-- <a routerLink="/home/admin/user-management/" routerLinkActive="tabActive">Trainer</a>
-                    <a routerLink="/home/admin/user-management/trainee-list" routerLinkActive="tabActive">Trainee</a> -->
-              
+                </mat-tab-group>              
                 
             </div>
-        </div>
+        </div> -->
 
 
 
-        <!-- <div class="container" 
-        *ngIf="(traineeUsers$ | async)?.length === 0"
+        <!-- *ngIf="(traineeUsers$ | async)?.length === 0" -->
+        <div class="container" 
 >
   <div class="add-trainer" (click)="goToAddTrainerForm()">
     <img
@@ -91,4 +88,4 @@
       to manage trainees
     </p>
   </div>
-</div> -->
+</div>

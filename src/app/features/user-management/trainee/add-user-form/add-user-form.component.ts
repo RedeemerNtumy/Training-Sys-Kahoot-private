@@ -3,9 +3,11 @@ import { InputFieldComponent } from '../../../../core/shared/input-field/input-f
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, first, of, switchMap, } from 'rxjs';
-import { Countries, Gender, User } from '../../../../core/models/cohort.interface';
+import { Countries, Gender, Specialization, User } from '../../../../core/models/cohort.interface';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
+import { UserManagementTraineeService } from '@core/services/user-management/trainee/user-management-trainee.service';
+import { specialization } from '@core/models/specialization.interface';
 
 @Component({
   selector: 'app-add-user-form',
@@ -21,6 +23,7 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   newUserForm!: FormGroup;
   genders$!: Observable<Gender[]>;
   countries$!: Observable<Countries[]>;
+  
 
   //Image upload
   previewUrl: string | ArrayBuffer | null = null;
@@ -48,7 +51,7 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
       lastName: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       gender: ['', Validators.required],
-      country: ['', Validators.required],
+      country: ['', ],
       address: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       universityCompleted: ['', Validators.required],

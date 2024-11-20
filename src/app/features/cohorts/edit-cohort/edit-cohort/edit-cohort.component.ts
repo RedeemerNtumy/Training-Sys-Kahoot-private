@@ -6,6 +6,9 @@ import { ModalService } from '../../../../core/services/modal/modal.service';
 import { ModalComponent } from '../../../../core/shared/modal/modal.component';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { InputFieldComponent } from '../../../../core/shared/input-field/input-field.component';
+import { Observable } from 'rxjs';
+import { UserManagementTraineeService } from '@core/services/user-management/trainee/user-management-trainee.service';
+import { Specialization } from '@core/models/cohort.interface';
 
 @Component({
   selector: 'app-edit-cohort',
@@ -19,21 +22,21 @@ export class EditCohortComponent {
   newCohortForm!: FormGroup;
   isModalOpen: boolean = false;
   editBtnClicked: boolean = true;
-  
-  allSpecializations = [
-    { label: 'UI/UX', value: 'UI/UX' },
-    { label: 'Frontend Engineering', value: 'Frontend' },
-    { label: 'Backend Engineering', value: 'Backend' }
-  ];
+
+  allSpecializations$!: Observable<Specialization[]>;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     public modalService: ModalService,
     public cohortDataService: CohortDataService,
+    public usermanagementservice: UserManagementTraineeService,
   ) {}
 
   ngOnInit() {
+
+    this.allSpecializations$ = this.usermanagementservice.getAllspecializations();
+
     this.newCohortForm = this.fb.group({
       name: ['', Validators.required],
       specialization: this.fb.array([this.fb.control('', Validators.required)]),
@@ -48,6 +51,7 @@ export class EditCohortComponent {
         // Populate the form with cohort data
         this.newCohortForm.patchValue({
           name: cohortData.name,
+          specialization: this.fb.array([this.fb.control('', Validators.required)]),
           startDate: cohortData.startDate,
           endDate: cohortData.endDate,
           description: cohortData.description
@@ -89,19 +93,10 @@ export class EditCohortComponent {
     }
   }
 
-  // Get filtered options for each select based on other selections
-  getFilteredSpecializations(currentIndex: number): { label: string; value: string }[] {
-    const selectedValues = this.specialization.controls.map(
-      control => control.get('specialization')?.value
-    );
-    return this.allSpecializations.filter(
-      option => !selectedValues.includes(option.value) || selectedValues[currentIndex] === option.value
-    );
-  }
-
   // Submit form
   onSubmit() {
     if(this.newCohortForm.valid) { 
+      console.log("form: ", this.newCohortForm)
       this.cohortDataService.addCohort(this.newCohortForm.value).subscribe({
         next: (response) => {            
           console.log('Data submitted successfully', response);

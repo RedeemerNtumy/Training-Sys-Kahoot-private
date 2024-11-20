@@ -2,13 +2,16 @@ import { Component } from '@angular/core';
 import { InputFieldComponent } from "../../../core/shared/input-field/input-field.component";
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { CohortDataService } from '../../../core/services/cohort-data/cohort-data.service';
+import { Specialization } from '@core/models/cohort.interface';
+import { Observable } from 'rxjs';
+import { UserManagementTraineeService } from '@core/services/user-management/trainee/user-management-trainee.service';
 
 @Component({
   selector: 'app-create-new-cohort',
   standalone: true,
-  imports: [InputFieldComponent, ReactiveFormsModule, NgIf, NgFor],
+  imports: [InputFieldComponent, ReactiveFormsModule, NgIf, NgFor, AsyncPipe],
   templateUrl: './create-new-cohort.component.html',
   styleUrl: './create-new-cohort.component.scss'
 })
@@ -16,18 +19,14 @@ export class CreateNewCohortComponent {
 
   newCohortForm!: FormGroup;
   isModalOpen: boolean = false;
-  
-  allSpecializations = [
-    { label: 'UI/UX', value: 'UI/UX' },
-    { label: 'Frontend Engineering', value: 'Frontend' },
-    { label: 'Backend Engineering', value: 'Backend' }
-  ];
+  allSpecializations$!: Observable<Specialization[]>;
+
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    // public modalService: ModalService,
     public cohortDataService: CohortDataService,
+    public usermanagementservice: UserManagementTraineeService,
   ) {}
 
   ngOnInit() {
@@ -38,6 +37,8 @@ export class CreateNewCohortComponent {
       endDate: ['', Validators.required],
       description: ['']
     })
+
+    this.allSpecializations$ = this.usermanagementservice.getAllspecializations();
   }
 
   // Get specializations for from form
@@ -58,14 +59,14 @@ export class CreateNewCohortComponent {
   }
 
   // Get filtered options for each select based on other selections
-  getFilteredSpecializations(currentIndex: number): { label: string; value: string }[] {
-    const selectedValues = this.specialization.controls.map(
-      control => control.get('specialization')?.value
-    );
-    return this.allSpecializations.filter(
-      option => !selectedValues.includes(option.value) || selectedValues[currentIndex] === option.value
-    );
-  }
+  // getFilteredSpecializations(currentIndex: number): { label: string; value: string }[] {
+  //   const selectedValues = this.specialization.controls.map(
+  //     control => control.get('specialization')?.value
+  //   );
+  //   return this.allSpecializations.filter(
+  //     option => !selectedValues.includes(option.value) || selectedValues[currentIndex] === option.value
+  //   );
+  // }
 
   // Submit form
   onSubmit() {
