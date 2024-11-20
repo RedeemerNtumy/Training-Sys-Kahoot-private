@@ -107,14 +107,7 @@ export class UpdateCohortComponent {
   // Submit form
   onSubmit() {
     if(this.newCohortForm.valid) {
-      this.cohortDataService.updateCohort(this.newCohortForm.value).subscribe({
-        next: (response) => {
-          console.log('Data submitted successfully', response);
-        },
-        error: (error) => { 
-          console.error('Error submitting data', error);
-        }
-      }) 
+      this.cohortDataService.updateCohort(this.newCohortForm.value);
       this.modalService.toggleSuccessModal()
       this.newCohortForm.reset();   
     }
