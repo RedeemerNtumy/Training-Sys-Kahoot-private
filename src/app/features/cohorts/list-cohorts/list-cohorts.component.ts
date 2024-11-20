@@ -7,11 +7,12 @@ import { SearchbarComponent } from '../../../core/shared/searchbar/searchbar.com
 import { Router, } from '@angular/router';
 import { ModalComponent } from "../../../core/shared/modal/modal.component";
 import { ModalService } from '../../../core/services/modal/modal.service';
+import { PaginatorComponent } from '@core/shared/paginator/paginator.component';
 
 @Component({
   selector: 'app-list-cohorts',
   standalone: true,
-  imports: [AsyncPipe, NgFor, NgIf, SearchbarComponent, ModalComponent],
+  imports: [AsyncPipe, NgFor, NgIf, SearchbarComponent, ModalComponent, PaginatorComponent],
   templateUrl: './list-cohorts.component.html',
   styleUrl: './list-cohorts.component.scss'
 })
@@ -23,8 +24,14 @@ export class ListCohortsComponent {
   deleteCohortById: string = '';
 
   ellipsisClicked: boolean = false;
-  selectedCohortName: string | null = ''; 
+  selectedCohortId: string | null = ''; 
   hideDeleteModal: boolean = true;
+
+  //Pagination 
+  private pageSubject = new BehaviorSubject<number>(1);
+  currentPage$ = this.pageSubject.asObservable();
+  pageSize = 4;
+  totalPages = 1;
 
   constructor(
     private cohortDataService: CohortDataService, 
@@ -36,13 +43,16 @@ export class ListCohortsComponent {
   ngOnInit() {
     this.cohortsList$ = this.cohortDataService.getAllCohorts()
 
-    this.filteredCohorts$ = combineLatest([this.cohortsList$, this.searchTerm$]).pipe(
-      map(([cohorts, searchTerm]) =>
+    this.filteredCohorts$ = combineLatest([this.cohortsList$, this.searchTerm$, this.currentPage$]).pipe(
+      map(([cohorts, searchTerm, page]) => {
         cohorts.filter(cohort =>
           cohort.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      )
-    );
+        ),
+        this.totalPages = Math.ceil(cohorts.length /this.pageSize);
+        const startIndex = (page -1) * this.pageSize;
+        return cohorts.slice(startIndex, startIndex + this.pageSize);
+      })
+    )
   }
 
   // Update search term on changes from the search bar
@@ -65,11 +75,11 @@ export class ListCohortsComponent {
 
   toggleEllipsis(selectedCohort: string, event:Event) {
     event.stopPropagation();
-    this.selectedCohortName = this.selectedCohortName === selectedCohort ? null : selectedCohort;
-    if(this.selectedCohortName === null) {
+    this.selectedCohortId = this.selectedCohortId === selectedCohort ? null : selectedCohort;
+    if(this.selectedCohortId === null) {
       this.ellipsisClicked = false;
     }
-    else if(this.selectedCohortName === selectedCohort) {
+    else if(this.selectedCohortId === selectedCohort) {
       this.ellipsisClicked = true;
     }
   }
@@ -77,6 +87,7 @@ export class ListCohortsComponent {
   // Set data into form and route to edit cohort component
   updateCohort(id: string) {
     this.cohortDataService.selectedCohortForUpdate = id;
+    console.log("seleted", this.selectedCohortId)
     this.goToUpdateCohort();
   }
 
@@ -122,5 +133,10 @@ export class ListCohortsComponent {
     this.router.navigate(['/home/admin/cohorts/trainees-list'])
   }
 
+
+  // Pagination 
+  onPageChange(page: number) {
+    this.pageSubject.next(page);
+  }
 
 }

@@ -19,8 +19,8 @@
 
         @if(cohort$ | async; as cohort) {
             <div class="title-enrolled">
-                <span>{{cohort.cohortName}}</span>
-                <span>{{ cohort.enrollmentCount }} Enrolled</span>
+                <span>{{cohort.name}}</span>
+                <span>{{ cohort.trainees.length }} Enrolled</span>
             </div>
         }
 

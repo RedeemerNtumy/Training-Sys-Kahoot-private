@@ -16,7 +16,7 @@ export class CohortDataService {
   // private cohortsListUrl: string = 'http://localhost:9000/cohortsList';
   private backendUrl: string = 'https://79ea-154-161-15-134.ngrok-free.app/api/v1';
   private cohortsListUrl: string = `${this.backendUrl}/cohorts`;
-  private cohortFormsDataUrl: string = 'http://localhost:9000/cohortsFormData/25';
+  // private cohortFormsDataUrl: string = 'http://localhost:9000/cohortsFormData/25';
   // private cohortFormsDataUrl: string = 'http://localhost:9000/cohortsFormData/25';
   private cohortsDetailsUrl: string = 'http://localhost:9000/cohortDetails';
   private specializationsUrl: string = 'http://localhost:9000/allSpecilizations';
@@ -44,7 +44,7 @@ export class CohortDataService {
   
     return this.http.get<CohortList[]>(this.cohortsListUrl, { headers }).pipe(
       tap((response: CohortList[]) => {
-        console.log("allcohorts: ", response);
+        // console.log("allcohorts: ", response);
       }),
       catchError(error => this.errorhandlerService.handleError(error))
     );
@@ -69,8 +69,13 @@ export class CohortDataService {
       "ngrok-skip-browser-warning": "69420"
     });
 
-    return this.http.get<CohortDetails>(this.cohortsDetailsUrl).pipe(
-      catchError(error => this.errorhandlerService.handleError(error))
+    return this.http.get<CohortDetails>(`${this.cohortsListUrl}/${this.selectedCohortId}`, { headers }).pipe(
+      // catchError(error => this.errorhandlerService.handleError(error))
+      tap((response) => console.log("selected-cohort-width-id", response)),
+      catchError(error => {
+        console.error("Error fetching selected cohort details:", error);
+        return throwError(() => new Error("Failed to fetch cohort details. Please try again later."));
+      })
     )
   }
 
@@ -79,8 +84,8 @@ export class CohortDataService {
     const headers = new HttpHeaders({
       "ngrok-skip-browser-warning": "69420"
     });
-
-    return this.http.get<Cohort>(`${this.cohortFormsDataUrl}`).pipe(
+    
+    return this.http.get<Cohort>(`${this.backendUrl}/cohorts/${this.selectedCohortId}`).pipe(
       catchError(error => this.errorhandlerService.handleError(error))
     )
   }

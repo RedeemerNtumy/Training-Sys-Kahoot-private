@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject, Observable, combineLatest, filter, map } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, filter, map, of } from 'rxjs';
 import { CohortDetails, CohortList, Trainees } from '../../../core/models/cohort.interface';
 import { Router } from '@angular/router';
 import { CohortDataService } from '../../../core/services/cohort-data/cohort-data.service';
@@ -16,6 +16,7 @@ import { SearchbarComponent } from '../../../core/shared/searchbar/searchbar.com
 export class TraineesListComponent {
   
   cohort$!: Observable<CohortDetails>; 
+  cohortTrainees$!: Observable<Trainees[]>; // holds list of trainees in cohort
   filteredTrainees$!: Observable<Trainees[]>;
   
   private searchTerm$ = new BehaviorSubject<string>(''); 
@@ -34,9 +35,13 @@ export class TraineesListComponent {
     // Get cohort details with trainees list from service
     this.cohort$ = this.cohortDataService.getSelectedCohortDetails(); 
 
-    this.filteredTrainees$ = combineLatest([this.cohort$, this.searchTerm$, this.statusFilter$, this.specializationFilter$]).pipe(
+    this.cohortTrainees$ = this.cohort$.pipe(
+      map(data => data.trainees)
+    );
+
+    this.filteredTrainees$ = combineLatest([this.cohortTrainees$, this.searchTerm$, this.statusFilter$, this.specializationFilter$]).pipe(
       map(([cohort, searchTerm, statusFilter, specFilter]) => {
-        return cohort.trainees.filter((trainee: Trainees) => {
+        return cohort.filter((trainee: Trainees) => {
           const lowerSearchTerm = searchTerm.toLowerCase();
           const matchesSearch = trainee.fullName.toLowerCase().includes(lowerSearchTerm) || 
                                 trainee.email.toLowerCase().includes(lowerSearchTerm);
