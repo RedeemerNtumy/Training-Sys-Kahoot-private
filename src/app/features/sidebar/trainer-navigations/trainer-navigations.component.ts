@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ActiveNavService } from '../../../core/services/active-nav/active-nav.service';
 
 @Component({
   selector: 'app-trainer-navigations',
@@ -10,5 +11,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 
 export class TrainerNavigationsComponent {
+ constructor(private activeNav: ActiveNavService){}
 
+ setActiveNav(nav:string){
+  this.activeNav.setcurrentNav(nav);
+ }
 }

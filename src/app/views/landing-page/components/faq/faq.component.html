@@ -1,0 +1,25 @@
+<section class="home-section content-container">
+  <h3 class="section-title">Frequently Asked Questions</h3>
+  <p class="text-secondary">
+    Find answers to some of the most common questions about Training Suite.
+    Whether you're a trainer, administrator, or trainee, these FAQs are designed
+    to help you navigate the platform with ease and get the most out of your
+    learning experience
+  </p>
+
+  <div class="accordion">
+    <p-accordion
+      [multiple]="true"
+      [activeIndex]="[0]"
+      expandIcon="pi pi-plus"
+      collapseIcon="pi pi-minus"
+    >
+      <p-accordionTab
+        *ngFor="let faq of faqs"
+        [header]="faq.question"
+      >
+        <p class="topic">{{ faq.answer }}</p>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</section>

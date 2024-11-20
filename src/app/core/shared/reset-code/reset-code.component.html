@@ -1,0 +1,69 @@
+<div class="reset-code-container">
+  <div class="reset-code-wrapper">
+    <div class="reset-code__text">
+      <h2 *ngIf="state === 'sent'">Reset Code Sent</h2>
+      <h2 *ngIf="state === 'enter'">Enter Reset Code</h2>
+
+      <p>
+        A 6-digit code has been sent to the email provided. Go to your email to
+        verify your identity as a user.
+      </p>
+    </div>
+    <form class="reset-code-form" [formGroup]="otp" (ngSubmit)="onVerifyCode()">
+      <div *ngIf="state === 'enter'" class="input-container">
+        <app-input-field
+          type="text"
+          placeholder="Enter 6 digit code"
+          formControlName="otp"
+        />
+
+        <app-message
+          *ngIf="showErrorMessage"
+          type="error"
+          title="Error"
+          message="Please check, you entered a code"
+        />
+        <app-message
+          *ngIf="showSuccessMessage"
+          type="success"
+          title="Success"
+          message="OTP verified successfullyPlease create your new password to complete the reset process"
+        />
+      </div>
+
+      <button
+        type="button"
+        *ngIf="state === 'sent'"
+        (click)="onEnterCode()"
+        class="btn"
+      >
+        Enter Code
+      </button>
+
+      <button
+        *ngIf="state === 'enter'"
+        class="btn"
+        [class]="isLoading ? 'load' : ''"
+        type="submit"
+        [disabled]="otp.invalid"
+      >
+        <ng-container *ngIf="!isLoading"> Verify Code </ng-container>
+        <ng-container *ngIf="isLoading">
+          <span class="spinner"></span>
+          <span> Submitting </span>
+        </ng-container>
+      </button>
+    </form>
+
+    <div *ngIf="state === 'enter'" class="resend-info">
+      <p>Didn't receive the code? <a (click)="onResendCode()">Resend</a></p>
+      <p>
+        Code expires in <span>{{ codeExpiryTime }}</span>
+      </p>
+    </div>
+
+    <div *ngIf="state === 'sent'" class="help-link">
+      <p>Need help? <a href="/contact-support">Please contact support</a></p>
+    </div>
+  </div>
+</div>

@@ -4,6 +4,7 @@ import { TrainerNavigationsComponent } from "../trainer-navigations/trainer-navi
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { UserRoleService } from '../../../core/services/user-role/user-role.service';
+import { ActiveNavService } from '../../../core/services/active-nav/active-nav.service';
 import { TraineeNavigationsComponent } from "../trainee-navigations/trainee-navigations.component";
 
 @Component({
@@ -21,7 +22,12 @@ import { TraineeNavigationsComponent } from "../trainee-navigations/trainee-navi
   styleUrl: './navigations.component.scss'
 })
 export class NavigationsComponent {
-  constructor(private roleService: UserRoleService) {}
+  constructor(private roleService: UserRoleService,
+    private activeNav: ActiveNavService) {}
+
+  ngOnInit(){
+    this.activeNav.currentNavSubject$.subscribe((value)=> console.log(value));
+  }
 
   get role() {
     return this.roleService.getUserRole();
