@@ -32,7 +32,7 @@ interface Sort {
   empty: boolean;
 }
 
-export interface IContentResponse <T>{
+export interface ContentResponse <T>{
   content: T;
   empty: boolean;
   first: boolean;

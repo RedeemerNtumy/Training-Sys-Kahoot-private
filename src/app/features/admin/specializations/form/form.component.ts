@@ -79,7 +79,7 @@ export class FormComponent implements OnInit {
   private prepareFormData(){
     const formValue = this.specializationForm.value;
       const prerequisites = formValue.prerequisites.filter((prereq: string) => prereq.trim() !== '');
-      const specialization: Ispecialization = {
+      const specialization: specialization = {
         ...(this.initialData?.id && { id: this.initialData.id }),
         name: formValue.name,
         description: formValue.description,
