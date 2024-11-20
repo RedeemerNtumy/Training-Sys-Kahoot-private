@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {  catchError, Observable,tap } from 'rxjs';
-import { IContentResponse, specialization } from '../../models/specialization.interface';
+import { ContentResponse, specialization } from '../../models/specialization.interface';
 import { ErrorHandleService } from '../error-handle/error-handle.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,8 @@ export class SpecializationCrudService {
     private errorService: ErrorHandleService
   ) { }
 
-  getAllSpecializations():Observable<IContentResponse<specialization[]>>{
-    return this.http.get<IContentResponse<specialization[]>>(`${this.hostedServer}specializations`)
+  getAllSpecializations():Observable<ContentResponse<specialization[]>>{
+    return this.http.get<ContentResponse<specialization[]>>(`${this.hostedServer}specializations`)
     .pipe(
       tap((response) => console.log('Specializations from Backend:', response.content)),
       catchError(this.errorService.handleError)
