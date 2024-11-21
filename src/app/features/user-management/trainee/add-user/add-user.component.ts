@@ -50,7 +50,10 @@ export class AddUserComponent {
     private trainersService: TrainerService
   ) {}
 
-
+  ngOnInit(): void {
+    this.traineeUsers$ = this.traineesInsystemService.getAllTrainees();
+    this.trainersData$ = this.trainersService.getAllTrainers();
+  }
 
   tabClicked() {
     this.trainerTabClicked = !this.trainerTabClicked;
@@ -166,11 +169,10 @@ export class AddUserComponent {
   }
 
   goToTrainerOrTrainee() {
-    if(this.trainerTabClicked === true) {
-      this.router.navigate(['/home/admin/user-management/add-trainer'])
-    }
-    else if(this.trainerTabClicked === false) {
-      this.router.navigate(['/home/admin/user-management/add-user-form'])
+    if (this.trainerTabClicked === true) {
+      this.goToAddTrainerForm();
+    } else if (this.trainerTabClicked === false) {
+      this.goToAddUserForm();
     }
   }
 }
