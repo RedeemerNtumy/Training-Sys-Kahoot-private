@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class UserCreationService {
-  private apiUrl = `${environment.BaseUrl}/reset-password`;
+  private apiUrl = `${environment.BaseUrl}/auth/reset-password`;
 
   constructor(private http: HttpClient) {}
 

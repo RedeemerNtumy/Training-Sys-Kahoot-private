@@ -17,7 +17,7 @@ export class AuthService {
     password: string
   ): Observable<{ success: boolean; token?: string; message?: string }> {
     return this.http
-      .post<LoginResponse>(`${environment.BaseUrl}/login`, { email, password })
+      .post<LoginResponse>(`${environment.BaseUrl}/auth/login`, { email, password })
       .pipe(
         map((response: LoginResponse) => {
           console.log(response.firstTime);
@@ -39,12 +39,12 @@ export class AuthService {
   }
 
   resetPassword(email: string): Observable<any> {
-    const url = `${environment.BaseUrl}/send-otp?email=${email}`;
+    const url = `${environment.BaseUrl}/auth/send-otp?email=${email}`;
     return this.http.post(url, {});
   }
 
   verifyOtp(otp: string): Observable<any> {
-    const url = `${environment.BaseUrl}/verify-otp?otp=${otp}`;
+    const url = `${environment.BaseUrl}/auth/verify-otp?otp=${otp}`;
     return this.http.post(url, {}, { responseType: 'text' }).pipe(
       map((response) => {
         try {
