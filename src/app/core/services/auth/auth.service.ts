@@ -17,7 +17,10 @@ export class AuthService {
     password: string
   ): Observable<{ success: boolean; token?: string; message?: string }> {
     return this.http
-      .post<LoginResponse>(`${environment.BaseUrl}/auth/login`, { email, password })
+      .post<LoginResponse>(`${environment.BaseUrl}/auth/login`, {
+        email,
+        password,
+      })
       .pipe(
         map((response: LoginResponse) => {
           console.log(response.firstTime);
@@ -62,12 +65,12 @@ export class AuthService {
   }
 
   private routeUser(role: string): void {
-    if (role === 'ADMIN') {
-      this.router.navigate(['/home/admin']);
-    } else if (role === 'TRAINER') {
-      this.router.navigate(['/home/admin/cohorts']);
+    if (role === 'TRAINER') {
+      this.router.navigate(['/home/trainer']);
+    } else if (role === 'TRAINEE') {
+      this.router.navigate(['/home/trainee']);
     } else {
-      this.router.navigate(['/home/admin/user-management']);
+      this.router.navigate(['/home/admin']);
     }
   }
 }
