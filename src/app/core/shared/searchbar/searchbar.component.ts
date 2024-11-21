@@ -5,6 +5,7 @@ import { CohortDataService } from '../../services/cohort-data/cohort-data.servic
 import { Observable } from 'rxjs';
 import { CommonModule, NgFor } from '@angular/common';
 import { Specialization } from '../../models/cohort.interface';
+import { UserManagementTraineeService } from '@core/services/user-management/trainee/user-management-trainee.service';
 
 @Component({
   selector: 'app-searchbar',
@@ -43,6 +44,7 @@ export class SearchbarComponent implements OnInit {
   constructor(
     public searchbarService: SearchbarService,
     public cohortDataService: CohortDataService,
+    public usermanagementService: UserManagementTraineeService,
   ) {}
 
   onAddClick(): void {
@@ -50,7 +52,7 @@ export class SearchbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allSpecializations$ = this.cohortDataService.getAllSpecializations();
+    this.allSpecializations$ = this.usermanagementService.getAllspecializations();
   }
 
   onSearchInput(): void {

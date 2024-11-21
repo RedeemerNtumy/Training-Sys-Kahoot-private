@@ -19,10 +19,9 @@ export interface CohortList {
 
 // For getting the cohort trainees for a single cohort
 export interface CohortDetails {
-    filter(arg0: (data: any) => any): unknown;
     id: string,
     name: string,
-    specialization: string[],
+    specializations: string[],
     startDate: Date,
     endDate: Date,
     traineesEnrolled: number,

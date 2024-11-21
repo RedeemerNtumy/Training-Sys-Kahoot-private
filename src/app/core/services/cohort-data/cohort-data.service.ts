@@ -11,7 +11,6 @@ import { environment } from '../../../../environments/environment.development';
 export class CohortDataService {
 
   private cohortsListUrl: string = `${environment.BaseUrl}/cohorts`;
-  private cohortsDetailsUrl: string = 'http://localhost:9000/cohortDetails';
 
   selectedCohortId: string = "1";
   selectedCohortForUpdate: string = "";
@@ -50,9 +49,9 @@ export class CohortDataService {
       "ngrok-skip-browser-warning": "69420"
     });
 
-    const form = { ...formData }
-    form['traineesEnrolled'] = 0;
-    return this.http.post<CohortList>(this.cohortsListUrl, form, { headers });
+    return this.http.post<CohortList>(this.cohortsListUrl, formData, { headers }).pipe(
+      catchError(error => this.errorhandlerService.handleError(error))
+    )
   }
 
   //(HTTP Request) Make a post request to backend for Cohort Details including trainee list
@@ -62,12 +61,7 @@ export class CohortDataService {
     });
 
     return this.http.get<CohortDetails>(`${this.cohortsListUrl}/${this.selectedCohortId}`, { headers }).pipe(
-      // catchError(error => this.errorhandlerService.handleError(error))
-      tap((response) => console.log("selected-cohort-width-id", response)),
-      catchError(error => {
-        console.error("Error fetching selected cohort details:", error);
-        return throwError(() => new Error("Failed to fetch cohort details. Please try again later."));
-      })
+      catchError(error => this.errorhandlerService.handleError(error))
     )
   }
 
@@ -83,7 +77,7 @@ export class CohortDataService {
   }
 
   updateCohort(formData: Cohort) {
-    return this.http.put<Cohort>(`${this.cohortsListUrl}`, formData).pipe(
+    return this.http.put<Cohort>(`${this.cohortsListUrl}/${this.selectedCohortForUpdate}`, formData).pipe(
       catchError(error => this.errorhandlerService.handleError(error))
     )
   }

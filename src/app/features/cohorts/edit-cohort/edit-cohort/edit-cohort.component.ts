@@ -47,25 +47,32 @@ export class EditCohortComponent {
 
     // Set data into form from create cohort form
     this.cohortDataService.createCohortFormData$.subscribe((cohortData) => {
+      console.log("Cohort Data received: ", cohortData);
+      
       if (cohortData) {
-        // Populate the form with cohort data
+        // Ensure specialization is handled correctly
+        const specializations = Array.isArray(cohortData.specialization) 
+          ? cohortData.specialization 
+          : [cohortData.specialization].filter(Boolean);
+  
+        // Patch form values
         this.newCohortForm.patchValue({
           name: cohortData.name,
-          specialization: this.fb.array([this.fb.control('', Validators.required)]),
           startDate: cohortData.startDate,
           endDate: cohortData.endDate,
           description: cohortData.description
         });
-
-        // Populate specialization array
+  
+        // Rebuild specialization FormArray
         const specializationArray = this.newCohortForm.get('specialization') as FormArray;
-        specializationArray.clear(); // Clear existing controls
-        cohortData.specialization.forEach((spec: string) => {
-          specializationArray.push(this.fb.control(spec, Validators.required));
-          console.log(spec);
+        specializationArray.clear();
+        specializations.forEach((specId: string) => {
+          specializationArray.push(this.fb.control(specId, Validators.required));
         });
+
       }
     });
+  
 
     // Disable input fields on initialization
     if (this.editBtnClicked === true) {
@@ -96,17 +103,21 @@ export class EditCohortComponent {
   // Submit form
   onSubmit() {
     if(this.newCohortForm.valid) { 
-      console.log("form: ", this.newCohortForm)
-      this.cohortDataService.addCohort(this.newCohortForm.value).subscribe({
-        next: (response) => {            
-          console.log('Data submitted successfully', response);
+      const formValue = {
+        ...this.newCohortForm.value,
+        specialization: this.specialization.value,
+        description: this.newCohortForm.get('description')?.value
+      };
+      console.log("form: value: ", formValue)
+      this.cohortDataService.addCohort(formValue).subscribe({
+        next: (res) => {
+          this.newCohortForm.reset();
+          this.modalService.toggleSuccessModal()
         },
-        error: (error) => { 
-          console.error('Error submitting data', error);
+        error: (error) => {
+
         }
       })
-      this.newCohortForm.reset();
-      this.modalService.toggleSuccessModal()
     }
     else {
       console.log("Not valid")
