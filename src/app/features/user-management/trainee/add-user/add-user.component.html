@@ -1,5 +1,5 @@
-   <!-- *ngIf="(traineeUsers$ | async)?.length !== 0" -->
-        <div class="container-with-list"
+<div class="container-with-list"
+*ngIf="(traineeUsers$ | async)?.length !== 0"
         >
             <div class="wrapper">
                 <app-searchbar 
@@ -30,8 +30,8 @@
 
 
 
-        <!-- *ngIf="(traineeUsers$ | async)?.length === 0" -->
-        <!-- <div class="container" 
+        <div class="container" 
+        *ngIf="(traineeUsers$ | async)?.length === 0"
 >
   <div class="add-trainer" (click)="goToAddTrainerForm()">
     <img
@@ -56,4 +56,4 @@
       to manage trainees
     </p>
   </div>
-</div> -->
+</div>

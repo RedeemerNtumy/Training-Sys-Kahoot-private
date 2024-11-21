@@ -45,6 +45,7 @@ export class CohortDataService {
 
   //(HTTP Request) Make a post request to backend to add cohort
   addCohort(formData: Cohort) {
+    console.log("formData", formData)
     const headers = new HttpHeaders({
       "ngrok-skip-browser-warning": "69420"
     });

@@ -39,7 +39,10 @@ export class AddUserComponent {
   ) {}
 
 
-
+  ngOnInit() {
+    // Get cohort details with trainees list from service
+    this.traineeUsers$ = this.traineesInsystemService.getAllTrainees(); 
+  }
   
 
   tabClicked() {

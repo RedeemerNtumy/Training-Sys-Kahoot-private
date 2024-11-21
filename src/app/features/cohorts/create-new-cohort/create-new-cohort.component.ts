@@ -18,7 +18,6 @@ import { UserManagementTraineeService } from '@core/services/user-management/tra
 export class CreateNewCohortComponent {
 
   newCohortForm!: FormGroup;
-  isModalOpen: boolean = false;
   allSpecializations$!: Observable<Specialization[]>;
 
 
@@ -30,6 +29,7 @@ export class CreateNewCohortComponent {
   ) {}
 
   ngOnInit() {
+
     this.newCohortForm = this.fb.group({
       name: ['', Validators.required],
       specialization: this.fb.array([this.fb.control('', Validators.required)]),
@@ -57,16 +57,6 @@ export class CreateNewCohortComponent {
       this.specialization.removeAt(index);
     }
   }
-
-  // Get filtered options for each select based on other selections
-  // getFilteredSpecializations(currentIndex: number): { label: string; value: string }[] {
-  //   const selectedValues = this.specialization.controls.map(
-  //     control => control.get('specialization')?.value
-  //   );
-  //   return this.allSpecializations.filter(
-  //     option => !selectedValues.includes(option.value) || selectedValues[currentIndex] === option.value
-  //   );
-  // }
 
   // Submit form
   onSubmit() {

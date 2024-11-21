@@ -46,9 +46,7 @@ export class EditCohortComponent {
     })
 
     // Set data into form from create cohort form
-    this.cohortDataService.createCohortFormData$.subscribe((cohortData) => {
-      console.log("Cohort Data received: ", cohortData);
-      
+    this.cohortDataService.createCohortFormData$.subscribe((cohortData) => {      
       if (cohortData) {
         // Ensure specialization is handled correctly
         const specializations = Array.isArray(cohortData.specializations) 
@@ -84,7 +82,7 @@ export class EditCohortComponent {
 
   // Get specializations for from form
   get specializations(): FormArray {
-    return this.newCohortForm.get('specialization') as FormArray;
+    return this.newCohortForm.get('specializations') as FormArray;
   }
 
 
@@ -105,22 +103,16 @@ export class EditCohortComponent {
     if(this.newCohortForm.valid) { 
       const formValue = {
         ...this.newCohortForm.value,
-        specializations: this.specializations.value,
+        specializationIds: this.specializations.value,
         description: this.newCohortForm.get('description')?.value
       };
-      console.log("form: value: ", formValue)
       this.cohortDataService.addCohort(formValue).subscribe({
-        next: (res) => {
-          this.newCohortForm.reset();
-          this.modalService.toggleSuccessModal()
-        },
-        error: (error) => {
-
+        next: () => {
+          this.modalService.toggleSuccessModal();
         }
       })
     }
     else {
-      console.log("Not valid")
       this.newCohortForm.markAllAsTouched();
     }
   }
