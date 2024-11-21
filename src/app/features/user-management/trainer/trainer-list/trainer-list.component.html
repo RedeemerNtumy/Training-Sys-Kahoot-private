@@ -1,9 +1,5 @@
 <div class="container">
   <div class="list-wrapper" *ngIf="trainersData$ | async as trainers">
-    <app-searchbar
-      (searchChanged)="onSearchChange($event)"
-      placeholder="Search by name or email"
-    ></app-searchbar>
     <div class="trainers-length">
       <div class="col-1">
         <h3>Trainers</h3>
@@ -36,6 +32,9 @@
           <div class="role">{{ trainer.role | titlecase }}</div>
           <div class="status" [ngClass]="trainer.status | lowercase">
             {{ trainer.status | titlecase }}
+          </div>
+          <div class="menu">
+            <mat-icon svgIcon="dots"></mat-icon>
           </div>
         </div>
       </div>

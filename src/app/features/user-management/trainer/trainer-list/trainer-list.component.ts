@@ -8,7 +8,7 @@ import { SvgService } from '@core/services/svg/svg.service';
 import { TraineeInsystemService } from '@core/services/user-management/trainee/trainee-insystem.service';
 import { TrainerService } from '@core/services/user-management/trainer/trainer.service';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
-import { SearchbarComponent } from "../../../../core/shared/searchbar/searchbar.component";
+import { SearchbarComponent } from '../../../../core/shared/searchbar/searchbar.component';
 
 @Component({
   selector: 'app-trainer-list',
@@ -43,17 +43,20 @@ export class TrainerListComponent {
   ngOnInit() {
     this.trainersData$ = combineLatest([
       this.trainersService.getAllTrainers(),
-      this.searchTerm$
+      this.searchTerm$,
     ]).pipe(
       map(([trainers, searchTerm]) => {
         const lowerSearchTerm = searchTerm.toLowerCase();
-        return trainers.filter(trainer =>
-          trainer.firstName.toLowerCase().includes(lowerSearchTerm) ||
-          trainer.lastName.toLowerCase().includes(lowerSearchTerm) ||
-          trainer.email.toLowerCase().includes(lowerSearchTerm)
+        return trainers.filter(
+          (trainer) =>
+            trainer.firstName.toLowerCase().includes(lowerSearchTerm) ||
+            trainer.lastName.toLowerCase().includes(lowerSearchTerm) ||
+            trainer.email.toLowerCase().includes(lowerSearchTerm)
         );
       })
     );
+
+    
   }
 
   tabClicked() {

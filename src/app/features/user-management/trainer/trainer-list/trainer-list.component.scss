@@ -82,6 +82,12 @@
           & div:nth-child(4) {
             width: 7%;
           }
+          & div:nth-child(5) {
+            display: flex;
+            flex: 1;
+            align-self: center;
+            justify-content: flex-end;
+          }
 
           .status {
             padding: 1rem;
