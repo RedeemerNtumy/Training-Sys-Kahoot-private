@@ -5,12 +5,18 @@ import { environment } from '../../../../environments/environment.development';
 import { DecodedToken, LoginResponse, User } from '../../models/iuser';
 import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
+import { UserRoleService } from '../user-role/user-role.service';
+import { UserRole } from '@core/models/user-role.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private userRoleService: UserRoleService
+  ) {}
 
   login(
     email: string,
@@ -27,6 +33,8 @@ export class AuthService {
           if (response) {
             localStorage.setItem('token', response.token);
             const decodedToken = this.decodeToken(response.token);
+
+            this.userRoleService.setUserRole(decodedToken.role as UserRole);
 
             if (response.firstTime) {
               this.router.navigate(['/auth']);
@@ -65,12 +73,19 @@ export class AuthService {
   }
 
   private routeUser(role: string): void {
-    if (role === 'TRAINER') {
-      this.router.navigate(['/home/trainer']);
-    } else if (role === 'TRAINEE') {
-      this.router.navigate(['/home/trainee']);
-    } else {
-      this.router.navigate(['/home/admin']);
+    switch (role) {
+      case 'TRAINER':
+        this.router.navigate(['/home/trainer']);
+        break;
+      case 'TRAINEE':
+        this.router.navigate(['/home/trainee']);
+        break;
+      case 'ADMIN':
+        this.router.navigate(['/home/admin']);
+        break;
+      default:
+        this.router.navigate(['/auth/login']);
+        break;
     }
   }
 }
