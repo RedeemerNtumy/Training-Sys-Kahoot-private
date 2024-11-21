@@ -81,12 +81,14 @@ export class ConfirmTrainingDetailsComponent {
       
         // Combine or process the states as needed
         const combinedState = { ...firstFormState, ...secondFormState };
-        if(this.traineeInSystemService.retreivedUserData$){
+        console.log("combined state: ", combinedState);
+        this.traineeInSystemService.createNewUser(combinedState)
+        // if(this.traineeInSystemService.retreivedUserData$){
 
-        }
-        else { 
-          this.traineeInSystemService.createNewUser(combinedState);
-        }
+        // }
+        // else { 
+        //   this.traineeInSystemService.createNewUser(combinedState);
+        // }
       });
 
       

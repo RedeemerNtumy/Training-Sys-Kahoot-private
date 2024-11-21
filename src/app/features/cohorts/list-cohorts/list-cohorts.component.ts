@@ -45,12 +45,19 @@ export class ListCohortsComponent {
 
     this.filteredCohorts$ = combineLatest([this.cohortsList$, this.searchTerm$, this.currentPage$]).pipe(
       map(([cohorts, searchTerm, page]) => {
-        cohorts.filter(cohort =>
+        // Fixed the filter and return syntax
+        const filteredCohorts = cohorts.filter(cohort =>
           cohort.name.toLowerCase().includes(searchTerm.toLowerCase())
-        ),
-        this.totalPages = Math.ceil(cohorts.length /this.pageSize);
-        const startIndex = (page -1) * this.pageSize;
-        return cohorts.slice(startIndex, startIndex + this.pageSize);
+        );
+
+        // Calculate total pages
+        this.totalPages = Math.ceil(filteredCohorts.length / this.pageSize);
+
+        // Calculate start index for pagination
+        const startIndex = (page - 1) * this.pageSize;
+
+        // Return paginated filtered cohorts
+        return filteredCohorts.slice(startIndex, startIndex + this.pageSize);
       })
     )
   }

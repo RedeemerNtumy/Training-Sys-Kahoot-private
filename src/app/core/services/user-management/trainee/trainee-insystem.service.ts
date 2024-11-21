@@ -106,6 +106,7 @@ export class TraineeInsystemService {
   createNewUser(combinedState: any) {
     // Convert the combined state to FormData
   const newFormData = new FormData();
+  console.log("combined state in service: ", combinedState)
   
   // Iterate through the combined state and append to FormData
   Object.keys(combinedState).forEach(key => {

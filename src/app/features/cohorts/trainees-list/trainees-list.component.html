@@ -105,6 +105,12 @@
                 </div>
             </div>
         </div>
+        <app-paginator 
+                [currentPage$]="currentPage$"
+                [totalPages]="totalPages"
+                [pageSize]="pageSize"
+                (pageChange)="onPageChange($event)"
+            />
     </div>
 
 </div>
