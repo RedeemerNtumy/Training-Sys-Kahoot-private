@@ -43,10 +43,10 @@
                             <span>*</span>
                         </div>
                         <p>Add the specialization for this cohort (e.g., "UI/UX Design", "Data Science", "Front-End Development").</p>
-                        <div formArrayName="specialization">
-                            <div class="specialization-lists" *ngFor="let specCtrl of specialization.controls; let i = index">
+                        <div formArrayName="specializations">
+                            <div class="specialization-lists" *ngFor="let specCtrl of specializations.controls; let i = index">
                                 <div class="select-options">
-                                    <select [formControlName]="i" name="specialization" id="specialization-select-list">
+                                    <select [formControlName]="i" name="specializations" id="specialization-select-list">
                                         <option *ngFor="let option of allSpecializations$ | async" [value]="option.id">
                                             {{ option.name }}
                                           </option>

@@ -39,7 +39,7 @@ export class EditCohortComponent {
 
     this.newCohortForm = this.fb.group({
       name: ['', Validators.required],
-      specialization: this.fb.array([this.fb.control('', Validators.required)]),
+      specializations: this.fb.array([this.fb.control('', Validators.required)]),
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       description: ['']
@@ -51,9 +51,9 @@ export class EditCohortComponent {
       
       if (cohortData) {
         // Ensure specialization is handled correctly
-        const specializations = Array.isArray(cohortData.specialization) 
-          ? cohortData.specialization 
-          : [cohortData.specialization].filter(Boolean);
+        const specializations = Array.isArray(cohortData.specializations) 
+          ? cohortData.specializations 
+          : [cohortData.specializations].filter(Boolean);
   
         // Patch form values
         this.newCohortForm.patchValue({
@@ -64,7 +64,7 @@ export class EditCohortComponent {
         });
   
         // Rebuild specialization FormArray
-        const specializationArray = this.newCohortForm.get('specialization') as FormArray;
+        const specializationArray = this.newCohortForm.get('specializations') as FormArray;
         specializationArray.clear();
         specializations.forEach((specId: string) => {
           specializationArray.push(this.fb.control(specId, Validators.required));
@@ -83,20 +83,20 @@ export class EditCohortComponent {
 
 
   // Get specializations for from form
-  get specialization(): FormArray {
+  get specializations(): FormArray {
     return this.newCohortForm.get('specialization') as FormArray;
   }
 
 
   // Add new specialization element to dom
   addSpecialization(): void {
-    this.specialization.push(this.fb.control('', Validators.required));
+    this.specializations.push(this.fb.control('', Validators.required));
   }
 
   // Remove specialization with specified index
   removeSpecialization(index: number) {
-    if(this.specialization.length > 1) {
-      this.specialization.removeAt(index);
+    if(this.specializations.length > 1) {
+      this.specializations.removeAt(index);
     }
   }
 
@@ -105,7 +105,7 @@ export class EditCohortComponent {
     if(this.newCohortForm.valid) { 
       const formValue = {
         ...this.newCohortForm.value,
-        specialization: this.specialization.value,
+        specializations: this.specializations.value,
         description: this.newCohortForm.get('description')?.value
       };
       console.log("form: value: ", formValue)
@@ -127,14 +127,14 @@ export class EditCohortComponent {
 
   // Disable specializiation fields
   disableFields() {
-    this.specialization.controls.forEach(control => {
+    this.specializations.controls.forEach(control => {
       control.disable();
     });
     this.newCohortForm.get('description')?.disable();
   }
-  // Enable specialization fields
+  // Enable specializations fields
   enableFields() {
-    this.specialization.controls.forEach(control => {
+    this.specializations.controls.forEach(control => {
       control.enable();
     });
     this.newCohortForm.get('description')?.enable();

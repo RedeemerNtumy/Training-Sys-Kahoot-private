@@ -77,6 +77,7 @@ export class CohortDataService {
   }
 
   updateCohort(formData: Cohort) {
+    console.log("formData: ", formData)
     return this.http.put<Cohort>(`${this.cohortsListUrl}/${this.selectedCohortForUpdate}`, formData).pipe(
       catchError(error => this.errorhandlerService.handleError(error))
     )

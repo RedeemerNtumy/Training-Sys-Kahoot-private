@@ -1,7 +1,7 @@
 export interface Cohort {
     id: string,
     name: string,
-    specialization: string[],
+    specializations: string[],
     startDate: Date,
     endDate: Date,
     traineesEnrolled: number,

@@ -105,9 +105,24 @@ export class UpdateCohortComponent {
   // Submit form
   onSubmit() {
     if(this.newCohortForm.valid) {
-      this.cohortDataService.updateCohort(this.newCohortForm.value);
-      this.modalService.toggleSuccessModal()
-      this.newCohortForm.reset();   
+      // console.log(this.newCohortForm.value)
+      const newForm = {
+        ... this.newCohortForm.value,
+        specializationIds: this.specializations.value
+      }
+
+      delete newForm.specializations;
+
+      console.log("after adding: ", newForm)
+      this.cohortDataService.updateCohort(newForm).subscribe({
+        next: (res) => {
+          console.log(res)
+          this.modalService.toggleSuccessModal()
+          this.newCohortForm.reset();  
+        },
+        error: (error) => {console.log(error)}
+      })
+       
     }
     else {
       this.newCohortForm.markAllAsTouched();
