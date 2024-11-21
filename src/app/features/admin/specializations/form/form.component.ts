@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { Ispecialization } from '../../../../core/models/specialization.interface';
-import { SpecializationFacadeService } from '../../../../core/services/specialization-facade/specialization-facade.service';
+import { specialization } from '@core/models/specialization.interface';
+import { SpecializationFacadeService } from '@core/services/specialization-facade/specialization-facade.service';
 import { AddFeedbackComponent } from "../add-feedback/add-feedback.component";
+
 
 @Component({
   selector: 'app-form',
@@ -15,8 +16,10 @@ import { AddFeedbackComponent } from "../add-feedback/add-feedback.component";
 })
 
 export class FormComponent implements OnInit {
-  @Input() initialData?: Ispecialization ;
-  @Output() formSubmit = new EventEmitter<Ispecialization>();
+
+  @Input() initialData?: specialization ;
+  @Output() formSubmit = new EventEmitter<specialization>();
+
 
   specializationForm!: FormGroup;
   isEditMode = false;

@@ -34,8 +34,8 @@ export const routes: Routes = [
       },
       {
         path:'trainee',
-        loadComponent:() => import('./views/trainee/dashboard/dashboard.component')
-        .then(m => m.DashboardComponent),
+        loadComponent:() => import('./views/trainee/home/home.component')
+        .then(m => m.HomeComponent),
         children: traineeRoutes
       },
     ],

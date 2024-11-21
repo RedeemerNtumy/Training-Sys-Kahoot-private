@@ -1,19 +1,18 @@
-@use '../../../../styleSheet/variables' as var;
-@use '../../../../styleSheet/button' as *;
-@use '../../../../styleSheet/mixins' as *;
-
+@import "../../../../styleSheet/variables";
+@import "../../../../styleSheet/button";
+@import "../../../../styleSheet/mixins";
 
 .user-creation__container {
   width: 100%;
   height: 100vh;
-  background-color: var.$clr-body;
+  background-color: $clr-body;
   @include flexbox(column, center, center);
   z-index: 10;
 
   .user-creation__wrapper {
     @include flexbox(column);
     width: 57.9rem;
-    background-color: var.$clr-white;
+    background-color: $clr-white;
     padding: 5.6rem;
     gap: 3.6rem;
     border: 1px solid #f0f0f0;
@@ -26,17 +25,17 @@
         width: 100%;
         @include flexbox(row, center, center);
         gap: 1rem;
-        color: var.$clr-gray-800;
+        color: $clr-gray-800;
         margin-bottom: 1.6rem;
 
         p {
-          font-size: var.$font-size-h3;
-          color: var.$clr-gray-800;
+          font-size: $font-size-h3;
+          color: $clr-gray-800;
           font-size: 1.8rem;
           font-weight: 600;
 
           span {
-            color: var.$clr-primary-500;
+            color: $clr-primary-500;
           }
         }
       }
@@ -45,14 +44,14 @@
         width: 100%;
 
         h3 {
-          font-size: var.$font-size-h3;
+          font-size: $font-size-h3;
           font-weight: 700;
-          color: var.$clr-gray-800;
+          color: $clr-gray-800;
         }
 
         p {
-          color: var.$clr-gray-500;
-          font-size: var.$font-size-body;
+          color: $clr-gray-500;
+          font-size: $font-size-body;
         }
       }
     }
@@ -78,7 +77,7 @@
             gap: 0.7rem;
 
             p {
-              font-size: var.$font-size-label;
+              font-size: $font-size-label;
               font-weight: 700;
             }
           }
@@ -86,7 +85,7 @@
             margin: 0;
             padding-left: 20px;
             line-height: 1.4;
-            font-size: var.$font-size-label;
+            font-size: $font-size-label;
             font-weight: 400;
           }
 
@@ -109,8 +108,8 @@
 
         .forgot-password {
           align-self: flex-end;
-          color: var.$clr-primary-500;
-          font-size: var.$font-size-xbody;
+          color: $clr-primary-500;
+          font-size: $font-size-xbody;
           font-weight: 700;
         }
 
@@ -140,7 +139,7 @@
           }
 
           &.load {
-            background-color: var.$clr-primary-500;
+            background-color: $clr-primary-500;
           }
         }
       }
