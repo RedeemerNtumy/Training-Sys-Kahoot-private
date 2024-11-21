@@ -40,39 +40,7 @@ export class AddUserComponent {
 
 
 
-  ngOnInit() {
-    // Get cohort details with trainees list from service
-    this.traineeUsers$ = this.traineesInsystemService.getAllTrainees(); 
-
-    this.filteredTrainees$ = combineLatest([
-      this.traineeUsers$, 
-      this.searchTerm$, 
-      this.statusFilter$, 
-      this.specializationFilter$
-    ]).pipe(
-      map(([trainees, searchTerm, statusFilter, specFilter]) => {
-        const lowerSearchTerm = searchTerm.toLowerCase();
-    
-        return trainees.filter((trainee: User) => {
-          // Check if trainee matches the search term
-          const matchesSearch = 
-            trainee.firstName.toLowerCase().includes(lowerSearchTerm) || 
-            trainee.lastName.toLowerCase().includes(lowerSearchTerm) || 
-            trainee.email.toLowerCase().includes(lowerSearchTerm) || 
-            trainee.phoneNumber.includes(lowerSearchTerm);
-    
-          // Check if trainee matches the status filter
-          const matchesStatus = statusFilter ? trainee.status === statusFilter : true;
-    
-          // Check if trainee matches the specialization filter
-          const matchesSpecialization = specFilter ? trainee.specialization === specFilter : true;
-    
-          return matchesSearch && matchesStatus && matchesSpecialization;
-        });
-      })
-    );
-    
-  }
+  
 
   tabClicked() {
     this.trainerTabClicked = !this.trainerTabClicked;
