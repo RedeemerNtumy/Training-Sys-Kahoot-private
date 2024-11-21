@@ -196,4 +196,13 @@ export class AddUserComponent {
   goToAddTrainerForm() {
     this.router.navigate(['/home/admin/user-management/add-trianer']);
   }
+
+  goToTrainerOrTrainee() {
+    if(this.trainerTabClicked === true) {
+      this.router.navigate(['/home/admin/user-management/add-trainer'])
+    }
+    else if(this.trainerTabClicked === false) {
+      this.router.navigate(['/home/admin/user-management/add-user-form'])
+    }
+  }
 }

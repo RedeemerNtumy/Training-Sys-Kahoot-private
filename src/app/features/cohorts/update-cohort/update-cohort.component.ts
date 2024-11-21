@@ -71,9 +71,7 @@ export class UpdateCohortComponent {
         const specializationArray = this.newCohortForm.get('specializations') as FormArray;
         specializationArray.clear();
         specializations.forEach((spec: any) => {
-          // const specId = spec.name;
-          // console.log("specId: ", specId)
-          specializationArray.push(this.fb.control(spec, Validators.required));
+          specializationArray.push(this.fb.control(spec.id, Validators.required));
         });
       }
     });

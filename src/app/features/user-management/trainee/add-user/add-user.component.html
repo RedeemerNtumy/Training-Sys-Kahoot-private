@@ -28,11 +28,11 @@
         <p>The profile has been deleted successfully and all associated information has been permanently removed from the system.</p>
       </div>
 
-  </div> -->
+  </div> --> 
 
 
   <!-- *ngIf="(traineeUsers$ | async)?.length !== 0" -->
-        <!-- <div class="container-with-list"
+        <div class="container-with-list"
         >
             <div class="wrapper">
                 <app-searchbar 
@@ -48,6 +48,7 @@
                     (resetStatus)="clearStatusFilter()"
                     (specializationFilter)="filterBySpecialization($event)"
                     (resetSpecialization)="clearSpecializationFilter()"
+                    (addButtonClicked)="goToTrainerOrTrainee()"
                 />
                 <div class="divider"></div>
 
@@ -58,12 +59,12 @@
                 </mat-tab-group>              
                 
             </div>
-        </div> -->
+        </div>
 
 
 
         <!-- *ngIf="(traineeUsers$ | async)?.length === 0" -->
-        <div class="container" 
+        <!-- <div class="container" 
 >
   <div class="add-trainer" (click)="goToAddTrainerForm()">
     <img
@@ -88,4 +89,4 @@
       to manage trainees
     </p>
   </div>
-</div>
+</div> -->
