@@ -19,7 +19,7 @@ export class SearchbarComponent implements OnInit {
 
 
   // Emmitter to be used for triggering button element
-  @Output() addCohortClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output() addButtonClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
   @Output() sortClicked: EventEmitter<void> = new EventEmitter<void>();
 
@@ -48,7 +48,7 @@ export class SearchbarComponent implements OnInit {
   ) {}
 
   onAddClick(): void {
-    this.addCohortClicked.emit();
+    this.addButtonClicked.emit();
   }
 
   ngOnInit() {
