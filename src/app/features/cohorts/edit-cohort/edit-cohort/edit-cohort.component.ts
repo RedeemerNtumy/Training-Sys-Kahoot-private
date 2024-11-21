@@ -6,6 +6,9 @@ import { ModalService } from '../../../../core/services/modal/modal.service';
 import { ModalComponent } from '../../../../core/shared/modal/modal.component';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { InputFieldComponent } from '../../../../core/shared/input-field/input-field.component';
+import { Observable } from 'rxjs';
+import { UserManagementTraineeService } from '@core/services/user-management/trainee/user-management-trainee.service';
+import { Specialization } from '@core/models/cohort.interface';
 
 @Component({
   selector: 'app-edit-cohort',
@@ -19,24 +22,24 @@ export class EditCohortComponent {
   newCohortForm!: FormGroup;
   isModalOpen: boolean = false;
   editBtnClicked: boolean = true;
-  
-  allSpecializations = [
-    { label: 'UI/UX', value: 'UI/UX' },
-    { label: 'Frontend Engineering', value: 'Frontend' },
-    { label: 'Backend Engineering', value: 'Backend' }
-  ];
+
+  allSpecializations$!: Observable<Specialization[]>;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     public modalService: ModalService,
     public cohortDataService: CohortDataService,
+    public usermanagementservice: UserManagementTraineeService,
   ) {}
 
   ngOnInit() {
+
+    this.allSpecializations$ = this.usermanagementservice.getAllspecializations();
+
     this.newCohortForm = this.fb.group({
       name: ['', Validators.required],
-      specialization: this.fb.array([this.fb.control('', Validators.required)]),
+      specializations: this.fb.array([this.fb.control('', Validators.required)]),
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       description: ['']
@@ -44,24 +47,32 @@ export class EditCohortComponent {
 
     // Set data into form from create cohort form
     this.cohortDataService.createCohortFormData$.subscribe((cohortData) => {
+      console.log("Cohort Data received: ", cohortData);
+      
       if (cohortData) {
-        // Populate the form with cohort data
+        // Ensure specialization is handled correctly
+        const specializations = Array.isArray(cohortData.specializations) 
+          ? cohortData.specializations 
+          : [cohortData.specializations].filter(Boolean);
+  
+        // Patch form values
         this.newCohortForm.patchValue({
           name: cohortData.name,
           startDate: cohortData.startDate,
           endDate: cohortData.endDate,
           description: cohortData.description
         });
-
-        // Populate specialization array
-        const specializationArray = this.newCohortForm.get('specialization') as FormArray;
-        specializationArray.clear(); // Clear existing controls
-        cohortData.specialization.forEach((spec: string) => {
-          specializationArray.push(this.fb.control(spec, Validators.required));
-          console.log(spec);
+  
+        // Rebuild specialization FormArray
+        const specializationArray = this.newCohortForm.get('specializations') as FormArray;
+        specializationArray.clear();
+        specializations.forEach((specId: string) => {
+          specializationArray.push(this.fb.control(specId, Validators.required));
         });
+
       }
     });
+  
 
     // Disable input fields on initialization
     if (this.editBtnClicked === true) {
@@ -72,46 +83,41 @@ export class EditCohortComponent {
 
 
   // Get specializations for from form
-  get specialization(): FormArray {
+  get specializations(): FormArray {
     return this.newCohortForm.get('specialization') as FormArray;
   }
 
 
   // Add new specialization element to dom
   addSpecialization(): void {
-    this.specialization.push(this.fb.control('', Validators.required));
+    this.specializations.push(this.fb.control('', Validators.required));
   }
 
   // Remove specialization with specified index
   removeSpecialization(index: number) {
-    if(this.specialization.length > 1) {
-      this.specialization.removeAt(index);
+    if(this.specializations.length > 1) {
+      this.specializations.removeAt(index);
     }
-  }
-
-  // Get filtered options for each select based on other selections
-  getFilteredSpecializations(currentIndex: number): { label: string; value: string }[] {
-    const selectedValues = this.specialization.controls.map(
-      control => control.get('specialization')?.value
-    );
-    return this.allSpecializations.filter(
-      option => !selectedValues.includes(option.value) || selectedValues[currentIndex] === option.value
-    );
   }
 
   // Submit form
   onSubmit() {
     if(this.newCohortForm.valid) { 
-      this.cohortDataService.addCohort(this.newCohortForm.value).subscribe({
-        next: (response) => {            
-          console.log('Data submitted successfully', response);
+      const formValue = {
+        ...this.newCohortForm.value,
+        specializations: this.specializations.value,
+        description: this.newCohortForm.get('description')?.value
+      };
+      console.log("form: value: ", formValue)
+      this.cohortDataService.addCohort(formValue).subscribe({
+        next: (res) => {
+          this.newCohortForm.reset();
+          this.modalService.toggleSuccessModal()
         },
-        error: (error) => { 
-          console.error('Error submitting data', error);
+        error: (error) => {
+
         }
       })
-      this.newCohortForm.reset();
-      this.modalService.toggleSuccessModal()
     }
     else {
       console.log("Not valid")
@@ -121,14 +127,14 @@ export class EditCohortComponent {
 
   // Disable specializiation fields
   disableFields() {
-    this.specialization.controls.forEach(control => {
+    this.specializations.controls.forEach(control => {
       control.disable();
     });
     this.newCohortForm.get('description')?.disable();
   }
-  // Enable specialization fields
+  // Enable specializations fields
   enableFields() {
-    this.specialization.controls.forEach(control => {
+    this.specializations.controls.forEach(control => {
       control.enable();
     });
     this.newCohortForm.get('description')?.enable();

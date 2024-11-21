@@ -1,13 +1,14 @@
 export interface Cohort {
     id: string,
     name: string,
-    specialization: string[],
+    specializations: string[],
     startDate: Date,
     endDate: Date,
     traineesEnrolled: number,
     description: string,
 }
 
+// For getting a list of cohorts
 export interface CohortList {
     id: string,
     name: string,
@@ -16,10 +17,15 @@ export interface CohortList {
     traineesEnrolled: number,
 }
 
+// For getting the cohort trainees for a single cohort
 export interface CohortDetails {
-    id: string;
-    cohortName: string;
-    enrollmentCount: number;
+    id: string,
+    name: string,
+    specializations: string[],
+    startDate: Date,
+    endDate: Date,
+    traineesEnrolled: number,
+    description: string,
     trainees: Trainees[];
 }
 
