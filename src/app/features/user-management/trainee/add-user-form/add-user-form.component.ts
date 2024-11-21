@@ -35,11 +35,12 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     public traineeInsystemService: TraineeInsystemService,
+    public usermanagementService: UserManagementTraineeService,
   ) {}
 
   ngOnInit() {
-    this.genders$ = this.traineeInsystemService.getGenders();
-    this.countries$ = this.traineeInsystemService.getCountries();
+    this.genders$ = this.usermanagementService.getAllGenders();
+    this.countries$ = this.usermanagementService.getAllCountries()
 
     this.newUserForm = this.fb.group({
       email: [
