@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, catchError, Observable, retry, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  Observable,
+  retry,
+  tap,
+  throwError,
+} from 'rxjs';
 import { environment } from '../../../../../environments/environment.development';
 import { ErrorHandleService } from '@core/services/error-handle/error-handle.service';
 import { Trainer } from '@core/models/trainer.interface';
@@ -26,7 +33,11 @@ export class TrainerService {
       .post<any>(`${environment.BaseUrl}/users/trainer/create`, formData, {
         headers,
       })
-      .pipe(catchError((error) => this.errorHandler.handleError(error)));
+      .pipe(
+        catchError((error) => {
+          return throwError(error.error);
+        })
+      );
   }
 
   getAllTrainers() {
@@ -44,7 +55,9 @@ export class TrainerService {
         tap((response) => {
           this.allTrainersSubject.next(response);
         }),
-        catchError((error) => this.errorHandler.handleError(error))
+        catchError((error) => {
+          return throwError(error.error);
+        })
       );
   }
 }
