@@ -20,6 +20,10 @@ export class SvgService {
       'add-image',
       sanitizer.bypassSecurityTrustResourceUrl('assets/Images/svg/add-image-icon.svg')
     );
+    iconRegistry.addSvgIcon(
+      'dots',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/Images/svg/dot-menu.svg')
+    );
 
   }
 }
