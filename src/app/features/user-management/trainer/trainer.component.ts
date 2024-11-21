@@ -138,7 +138,7 @@ export class TrainerComponent {
         console.error('Error creating trainer', error);
         this.showFeedback(
           'Error creating trainer',
-          `${error.message}`,
+          `${error.error}`,
           'assets/Images/svg/add-spec.svg'
         );
       },
