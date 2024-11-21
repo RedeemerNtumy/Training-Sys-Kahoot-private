@@ -111,7 +111,7 @@ export class ListCohortsComponent {
   confirmDelete() {
     this.cohortDataService.deleteCohort(this.deleteCohortById).subscribe({
       next: (response) => {
-        console.log("successfully deleted cohort", response)
+        window.location.reload();
       },
       error: (error) => {
         console.log("error deleting cohort: ", error)

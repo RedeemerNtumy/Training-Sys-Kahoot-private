@@ -32,7 +32,7 @@ export class CreateNewCohortComponent {
 
     this.newCohortForm = this.fb.group({
       name: ['', Validators.required],
-      specialization: this.fb.array([this.fb.control('', Validators.required)]),
+      specializations: this.fb.array([this.fb.control('', Validators.required)]),
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       description: ['']
@@ -42,26 +42,25 @@ export class CreateNewCohortComponent {
   }
 
   // Get specializations for from form
-  get specialization(): FormArray {
-    return this.newCohortForm.get('specialization') as FormArray;
+  get specializations(): FormArray {
+    return this.newCohortForm.get('specializations') as FormArray;
   }
 
   // Add new specialization element to dom
   addSpecialization(): void {
-    this.specialization.push(this.fb.control('', Validators.required));
+    this.specializations.push(this.fb.control('', Validators.required));
   }
 
-  // Remove specialization with specified index
-  removeSpecialization(index: number) {
-    if(this.specialization.length > 1) {
-      this.specialization.removeAt(index);
+  // Remove specializations with specified index
+  removeSpecializations(index: number) {
+    if(this.specializations.length > 1) {
+      this.specializations.removeAt(index);
     }
   }
 
   // Submit form
   onSubmit() {
     if(this.newCohortForm.valid) {
-      console.log(this.newCohortForm.value)
       this.cohortDataService.setCohortFormData(this.newCohortForm.value)
       this.router.navigate(['/home/admin/cohorts/edit-cohort']);
     }
