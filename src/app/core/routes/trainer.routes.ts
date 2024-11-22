@@ -23,7 +23,14 @@ export const trainerRoutes: Routes = [
     path: 'grade-management',
     loadComponent : ()=> import('@views/trainer/grade-management/grade-management.component')
     .then(m => m.GradeManagementComponent),
-    data: { role: 'trainerer' }
+    data: { role: 'trainer' },
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('../../features/grade-management/welcome-page/welcome-page.component')
+        .then(m => m.WelcomePageComponent)
+      }
+    ]
   },
   {
     path: 'trainee-management',

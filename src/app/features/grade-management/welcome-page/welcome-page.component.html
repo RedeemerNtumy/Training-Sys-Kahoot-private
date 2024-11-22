@@ -1,7 +1,12 @@
 <div class="container">
-    <div class="modal-like-card">
-        <img src="../../../../assets/Images/png/ga" alt="welcome icon">
+
+    <div *ngIf="listEmpty" class="modal-like-card">
+        <img src="../../../../assets/Images/png/grade-welcome-pic.png" alt="welcome icon">
         <h2>Welcome to TrainingSuite!</h2>
         <p>Your account has been created successfully. A cohort will be assigned to you soon, and you’ll be ready to begin managing your training sessions. Stay tuned for further updates</p>
+    </div>
+
+    <div *ngIf="!listEmpty" class="main-list">
+
     </div>
 </div>

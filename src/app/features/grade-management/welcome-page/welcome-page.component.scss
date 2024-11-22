@@ -2,9 +2,10 @@
 
 .container {
     display: flex;
-    
+    justify-content: center;
 
     .modal-like-card {
+        margin-top: 5rem;
         @include modal-like-card;
     }
 }
