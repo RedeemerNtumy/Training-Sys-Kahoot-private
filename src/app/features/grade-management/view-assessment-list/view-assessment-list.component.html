@@ -1,6 +1,6 @@
 <p-tabView>
     <p-tabPanel header="Assignments">
-        <p>
+        <div>
             <app-view-assignments
                 *ngIf="hasGraded"
                 [cardType]="'Graded Assignments'"
@@ -9,8 +9,19 @@
                 *ngIf="hasUngraded"
                 [cardType]="'Ungraded Assignments'"
             />
-        </p>
+            
+            <div class="container"
+            *ngIf="!hasGraded && !hasUngraded"
+            >
+                <div class="no-data">
+                    <img src="../../../../assets/Images/png/add-trainee.png" alt="no assessment">
+                    <h2>No Assessments to grade</h2>
+                    <p>There are currently no accessments to grade. Kindly create assessments in the assessment panel</p>
+                </div>
+            </div>
+        </div>
     </p-tabPanel>
+    
     <p-tabPanel header="Grade History">
         <p>
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium...
@@ -18,6 +29,4 @@
     </p-tabPanel>
 </p-tabView>
 
-<div class="container">
-    
-</div>
+

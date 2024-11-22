@@ -41,6 +41,8 @@
     margin-bottom: 3rem;
 }
 
+
+// For div containing table header and trainees count
 @mixin title-count {
     width: 96.6rem;
     display: flex;
@@ -67,6 +69,8 @@
     }
 }
 
+
+// For table headers
 @mixin table-header {
     width: 96.6rem;
     // display: flex;

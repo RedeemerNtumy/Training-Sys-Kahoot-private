@@ -1,0 +1,12 @@
+@import '../../../../styleSheet/grade_management_mixins';
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.no-data {
+    @include modal-like-card;
+}
