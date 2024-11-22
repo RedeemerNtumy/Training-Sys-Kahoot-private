@@ -114,10 +114,8 @@ export class ViewAssessmentListComponent {
       const graded = data.find((a: { cardType: string; }) => a.cardType === "Graded Assignments"); // to be removed
 
       // Calculate lengths
-      this.UngradedCount = ungraded ? ungraded.assignments.length: 0; // to be 
-      console.log("ungraded count: ", this.UngradedCount)
+      this.UngradedCount = ungraded ? ungraded.assignments.length: 0; // to be removed
       this.GradedCount = graded ? graded.assignments.length: 0; // to be removed
-      console.log("graded count: ", this.GradedCount)
       // this.UngradedCount = data.Ungraded.length;
       // this.GradedCount = data.Graded.length;
 
