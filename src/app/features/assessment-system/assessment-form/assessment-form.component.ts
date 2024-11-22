@@ -40,7 +40,6 @@ export class AssessmentFormComponent {
   }
 
   ngOnInit() {
-    // Set the assessment type based on input or route parameter
     this.route.paramMap.subscribe((params) => {
       const type = params.get('type');
       if (type) {
