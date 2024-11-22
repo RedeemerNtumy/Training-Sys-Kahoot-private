@@ -1,0 +1,10 @@
+@import '../../../../styleSheet/grade_management_mixins';
+
+.container {
+    display: flex;
+    
+
+    .modal-like-card {
+        @include modal-like-card;
+    }
+}
