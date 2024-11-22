@@ -10,4 +10,8 @@
     & .table-header {
         @include table-header;
     }
+
+    & .table-items {
+        @include table-items;
+    }
 }
