@@ -1,7 +1,12 @@
 <p-tabView>
     <p-tabPanel header="Assignments">
         <p>
-            <app-view-assignments />
+            <app-view-assignments
+                [cardType]="'Graded Assignments'"
+            />
+            <app-view-assignments
+                [cardType]="'Ungraded Assignments'"
+            />
         </p>
     </p-tabPanel>
     <p-tabPanel header="Grade History">
