@@ -2,9 +2,11 @@
     <p-tabPanel header="Assignments">
         <p>
             <app-view-assignments
+                *ngIf="hasGraded"
                 [cardType]="'Graded Assignments'"
             />
             <app-view-assignments
+                *ngIf="hasUngraded"
                 [cardType]="'Ungraded Assignments'"
             />
         </p>
