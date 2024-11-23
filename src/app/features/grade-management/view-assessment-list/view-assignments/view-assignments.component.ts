@@ -1,21 +1,21 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { Component, Input, SimpleChanges } from '@angular/core';
+import { Observable, of, map } from 'rxjs';
 
 @Component({
   selector: 'app-view-assignments',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, NgFor, AsyncPipe],
   templateUrl: './view-assignments.component.html',
   styleUrl: './view-assignments.component.scss'
 })
 export class ViewAssignmentsComponent {
 
   @Input() cardType = ''; // set component to graded or ungraded
+  filteredAssignments: any[] = []; // holds the filtered data
 
-  getAssessments$!: Observable<any>;
 
-  // Sample data to use for assessment
+  // Sample data to use for assessment (to be removed)
   assessments = [
     {
       "cardType": "Ungraded Assignments",
@@ -23,29 +23,29 @@ export class ViewAssignmentsComponent {
       "assignments": [
         {
           "id": 1,
-          "title": "Basic of User-Centered Design",
-          "dateCreated": "2024-05-14",
+          "title": "Introduction to Frontend Frameworks",
+          "dateCreated": "2024-06-01",
           "type": "Quiz",
           "action": "Grade Now"
         },
         {
           "id": 2,
-          "title": "Basic of User-Centered Design",
-          "dateCreated": "2024-05-14",
-          "type": "Quiz",
+          "title": "Responsive Design Workshop",
+          "dateCreated": "2024-06-02",
+          "type": "Project",
           "action": "Grade Now"
         },
         {
           "id": 3,
-          "title": "Basic of User-Centered Design",
-          "dateCreated": "2024-05-14",
-          "type": "Quiz",
+          "title": "JavaScript Basics Assessment",
+          "dateCreated": "2024-06-03",
+          "type": "Open Ended",
           "action": "Grade Now"
         },
         {
           "id": 4,
-          "title": "Basic of User-Centered Design",
-          "dateCreated": "2024-05-14",
+          "title": "CSS Flexbox Mastery",
+          "dateCreated": "2024-06-04",
           "type": "Quiz",
           "action": "Grade Now"
         }
@@ -57,35 +57,51 @@ export class ViewAssignmentsComponent {
       "assignments": [
         {
           "id": 1,
-          "title": "Basic of User-Centered Design",
-          "dateCreated": "2024-05-14",
+          "title": "React Components Evaluation",
+          "dateCreated": "2024-06-01",
           "type": "Quiz",
           "gradedTrainees": 20
         },
         {
           "id": 2,
-          "title": "Basic of User-Centered Design",
-          "dateCreated": "2024-05-14",
-          "type": "Quiz",
+          "title": "Angular Directives Exercise",
+          "dateCreated": "2024-06-02",
+          "type": "Project",
           "gradedTrainees": 20
         },
         {
           "id": 3,
-          "title": "Basic of User-Centered Design",
-          "dateCreated": "2024-05-14",
-          "type": "Quiz",
+          "title": "TypeScript Fundamentals",
+          "dateCreated": "2024-06-03",
+          "type": "Open Ended",
           "gradedTrainees": 20
         },
         {
           "id": 4,
-          "title": "Basic of User-Centered Design",
-          "dateCreated": "2024-05-14",
+          "title": "Advanced DOM Manipulation",
+          "dateCreated": "2024-06-04",
           "type": "Quiz",
           "gradedTrainees": 20
         }
       ]
     }
-  ]
+  ];
 
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['cardType']) {
+      this.filterAssignments();
+    }
+  }
+
+  filterAssignments(): void {
+    const selectedAssessment = this.assessments.find(
+      assessment => assessment.cardType === this.cardType
+    );
+    this.filteredAssignments = selectedAssessment
+      ? selectedAssessment.assignments
+      : [];
+    console.log(selectedAssessment)
+  }
   
 } 

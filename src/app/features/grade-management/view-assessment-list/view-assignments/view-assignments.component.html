@@ -1,4 +1,4 @@
-<div class="assessment-card">
+<div class="assessment-card" *ngIf="filterAssignments">
 
     <!-- card title and quiz count div  -->
     <div class="title-quiz-count">
@@ -21,50 +21,16 @@
         </tr>
     </table>
 
-    <table class="table-items">
+    <table class="table-items" *ngFor="let assignments of filteredAssignments"
+    >
         <tr>
-            <td>#1</td>
-            <td>Basic of User-Centered Design</td>
-            <td>14/05/24</td>
-            <td>Quiz</td>
-            <td *ngIf="cardType === 'Graded Assignments' ">Graded: 20  trainees</td>
-            <button *ngIf="cardType === 'Ungraded Assignments'">Grade Now</button>
+            <td>#{{ assignments.id }}</td>
+            <td>{{ assignments.title }}</td>
+            <td>{{ assignments.dateCreated }}</td>
+            <td>{{ assignments.type }}</td>
+            <td *ngIf="cardType === 'Graded Assignments' ">Graded {{ assignments.gradedTrainees }} trainees</td>
+            <button *ngIf="cardType === 'Ungraded Assignments'">{{ assignments.action }}</button>
         </tr>
         <div class="divider"></div>
     </table>
-    <table class="table-items">
-        <tr>
-            <td>#2</td>
-            <td>Basic of User-Centered Design</td>
-            <td>14/05/24</td>
-            <td>Quiz</td>
-            <td *ngIf="cardType === 'Graded Assignments' ">Graded: 20  trainees</td>
-            <button *ngIf="cardType === 'Ungraded Assignments'">Grade Now</button>
-        </tr>
-        <div class="divider"></div>
-    </table>
-    <table class="table-items">
-        <tr>
-            <td>#3</td>
-            <td>Basic of User-Centered Design</td>
-            <td>14/05/24</td>
-            <td>Quiz</td>
-            <td *ngIf="cardType === 'Graded Assignments' ">Graded: 20  trainees</td>
-            <button *ngIf="cardType === 'Ungraded Assignments'">Grade Now</button>
-        </tr>
-        <div class="divider"></div>
-    </table>
-    <table class="table-items">
-        <tr>
-            <td>#4</td>
-            <td>Basic of User-Centered Design</td>
-            <td>14/05/24</td>
-            <td>Quiz</td>
-            <td *ngIf="cardType === 'Graded Assignments' ">Graded: 20  trainees</td>
-            <button *ngIf="cardType === 'Ungraded Assignments'">Grade Now</button>
-        </tr>
-        <div class="divider"></div>
-    </table>
-
-
 </div>
