@@ -1,7 +1,32 @@
 @import '../../../../../styleSheet/grade_management_mixins';
+@import '../../../../../styleSheet/variables';
 
 .assessment-card {
     @include assessment-card;
+    border: none;
+    background: #fcfcfc;
+
+    app-searchbar {
+        margin-bottom: 3.1rem;
+    }
+
+    & .ellipsis {
+        position: relative; 
+
+        svg {
+            cursor: pointer;
+        }
+
+        svg:hover {
+            path {
+                fill: $clr-primary-500;
+            }
+        }
+
+        & .option-box {
+            @include ellipsis;
+        }
+    }
 }
 
 .table-header {
