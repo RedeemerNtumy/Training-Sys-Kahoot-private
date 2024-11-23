@@ -1,0 +1,13 @@
+@import '../../../../../styleSheet/grade_management_mixins';
+
+.assessment-card {
+    @include assessment-card;
+}
+
+.table-header {
+    @include table-header-for-images;
+}
+
+.table-items-with-images {
+    @include table-items-with-images;
+}
