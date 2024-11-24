@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { SearchbarComponent } from '@core/shared/searchbar/searchbar.component';
 
 @Component({
@@ -10,6 +10,8 @@ import { SearchbarComponent } from '@core/shared/searchbar/searchbar.component';
 })
 export class ViewGradeHistoryComponent {
 
+  @ViewChild('ellipsisIcon') ellipsisIcon!: ElementRef;
+
   showEllipseOptions: boolean = false;
 
   constructor() {}
@@ -20,4 +22,11 @@ export class ViewGradeHistoryComponent {
     console.log("clicked", this.showEllipseOptions)
   }
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if(this.ellipsisIcon && !this.ellipsisIcon.nativeElement.contains(event.target)) {
+      this.showEllipseOptions = false;
+    }
+  }
+ 
 }
