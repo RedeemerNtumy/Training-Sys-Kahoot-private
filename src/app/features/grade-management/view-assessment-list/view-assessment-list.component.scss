@@ -10,3 +10,15 @@
 .no-data {
     @include modal-like-card;
 }
+
+p-tabPanel {
+    & div {
+        height: 80vh;
+        overflow-y: scroll;
+    }
+
+    & p {
+        height: 65vh;
+        overflow-y: scroll;
+    }
+}
