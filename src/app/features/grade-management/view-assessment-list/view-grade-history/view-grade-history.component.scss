@@ -2,7 +2,7 @@
 @import '../../../../../styleSheet/variables';
 
 .assessment-card {
-    @include assessment-card;
+    // @include assessment-card;
     border: none;
     background: #fcfcfc;
 
@@ -11,22 +11,10 @@
     }
 
     & .ellipsis {
-        position: relative; 
-
-        svg {
-            cursor: pointer;
-        }
-
-        svg:hover {
-            path {
-                fill: $clr-primary-500;
-            }
-        }
-
-        & .option-box {
-            @include ellipsis;
-        }
+        cursor: pointer;
+        position: relative;
     }
+
 }
 
 .table-header {
@@ -35,4 +23,15 @@
 
 .table-items-with-images {
     @include table-items-with-images;
+}
+
+
+// Ellipsis styling
+.showEllipse {
+    @include ellipsis;
+}
+
+
+.dontShowEllipse {
+    display: none;
 }

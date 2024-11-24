@@ -10,4 +10,14 @@ import { SearchbarComponent } from '@core/shared/searchbar/searchbar.component';
 })
 export class ViewGradeHistoryComponent {
 
+  showEllipseOptions: boolean = false;
+
+  constructor() {}
+
+
+  toggleEllipseOptions() {
+    this.showEllipseOptions = !this.showEllipseOptions;
+    console.log("clicked", this.showEllipseOptions)
+  }
+
 }
