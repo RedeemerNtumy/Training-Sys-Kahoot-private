@@ -12,6 +12,10 @@ export class WelcomePageComponent implements OnInit {
 
   welcometimeUp: boolean = false;
 
+
+  constructor() {}
+  
+
   ngOnInit() {
     this.setModalDisplayTime();
   }

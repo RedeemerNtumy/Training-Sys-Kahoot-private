@@ -1,12 +1,33 @@
 @import '../../../../styleSheet/grade_management_mixins';
 
 .container {
-    display: flex;
-    justify-content: center;
-    background: gray;
+    // display: flex;
+    // justify-content: center;
 
     .modal-like-card {
         margin-top: 5rem;
         @include modal-like-card;
+    }
+}
+
+.main-list {
+    width: 100%;
+
+    & .add-quiz-lab-presentation-icons {
+        display: flex;
+        gap: 3.801rem;
+        margin-bottom: 3.8rem;
+
+        & .add-quiz {
+            @include addAssessmentBtns;
+        }
+
+        & .add-labs {
+            @include addAssessmentBtns;
+        }
+
+        & .add-presentation {
+            @include addAssessmentBtns;
+        }
     }
 }
