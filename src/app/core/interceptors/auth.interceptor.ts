@@ -1,6 +1,4 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpClient,
   HttpEvent,
   HttpHandlerFn,
   HttpInterceptorFn,
@@ -8,22 +6,23 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { jwtDecode } from 'jwt-decode';
 
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<any>> => {
-  if (!req.url.includes('/login')) {
-    return next(req);
-  }
-
   const token = localStorage.getItem('token');
+
   const modifiedReq = token
     ? req.clone({
         headers: req.headers.set('Authorization', `Bearer ${token}`),
       })
     : req;
+
+  if (!req.url.includes('/login')) {
+    return next(modifiedReq);
+  }
+
   return next(modifiedReq).pipe(
     tap({
       next: (event) => {
