@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NavigationsComponent } from "./navigations/navigations.component";
 
 
@@ -7,8 +7,10 @@ import { NavigationsComponent } from "./navigations/navigations.component";
   standalone: true,
   imports: [NavigationsComponent],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss'
+  styleUrl: './sidebar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class SidebarComponent {
 
 }
