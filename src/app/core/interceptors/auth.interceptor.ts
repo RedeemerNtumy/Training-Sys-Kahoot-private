@@ -1,6 +1,4 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpClient,
   HttpEvent,
   HttpHandlerFn,
   HttpInterceptorFn,
@@ -8,7 +6,6 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { jwtDecode } from 'jwt-decode';
 
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
