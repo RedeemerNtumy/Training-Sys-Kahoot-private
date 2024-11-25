@@ -41,14 +41,9 @@ export class TrainerService {
   }
 
   getAllTrainers() {
-    const headers = new HttpHeaders({
-      'cross-roads': 'ADMIN',
-      'ngrok-skip-browser-warning': '69420',
-    });
     return this.http
       .get<Trainer[]>(`${environment.BaseUrl}/users/role`, {
         params: { role: 'TRAINER' },
-        headers,
       })
       .pipe(
         retry(2),
