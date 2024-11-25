@@ -1,34 +1,23 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { SearchbarComponent } from '../../../../core/shared/searchbar/searchbar.component';
-import { AsyncPipe, NgFor, NgIf, TitleCasePipe } from '@angular/common';
-import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
-import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
-import { User } from '../../../../core/models/cohort.interface';
-import { TraineeListComponent } from './trainee-list/trainee-list.component';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatTabChangeEvent } from '@angular/material/tabs';
-import { TrainerListComponent } from '../../trainer/trainer-list/trainer-list.component';
+import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
+import { User } from '@core/models/cohort.interface';
 import { Trainer } from '@core/models/trainer.interface';
+import { SvgService } from '@core/services/svg/svg.service';
+import { TraineeInsystemService } from '@core/services/user-management/trainee/trainee-insystem.service';
 import { TrainerService } from '@core/services/user-management/trainer/trainer.service';
+import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
+import { SearchbarComponent } from '../../../../core/shared/searchbar/searchbar.component';
 
 @Component({
-  selector: 'app-add-user',
+  selector: 'app-trainer-list',
   standalone: true,
-  imports: [
-    SearchbarComponent,
-    RouterModule,
-    AsyncPipe,
-    NgIf,
-    TraineeListComponent,
-    MatTabsModule,
-    TrainerListComponent,
-  ],
-  templateUrl: './add-user.component.html',
-  styleUrl: './add-user.component.scss',
+  imports: [CommonModule, MatIconModule, SearchbarComponent],
+  templateUrl: './trainer-list.component.html',
+  styleUrl: './trainer-list.component.scss',
 })
-export class AddUserComponent {
-  traineeUsers$!: Observable<User[]>;
+export class TrainerListComponent {
   trainersData$!: Observable<Trainer[]>;
   filteredTrainees$!: Observable<User[]>;
   trainerTabClicked: boolean = true;
@@ -47,12 +36,27 @@ export class AddUserComponent {
   constructor(
     private router: Router,
     private traineesInsystemService: TraineeInsystemService,
+    private svgService: SvgService,
     private trainersService: TrainerService
   ) {}
 
-  ngOnInit(): void {
-    this.traineeUsers$ = this.traineesInsystemService.getAllTrainees();
-    this.trainersData$ = this.trainersService.getAllTrainers();
+  ngOnInit() {
+    this.trainersData$ = combineLatest([
+      this.trainersService.getAllTrainers(),
+      this.searchTerm$,
+    ]).pipe(
+      map(([trainers, searchTerm]) => {
+        const lowerSearchTerm = searchTerm.toLowerCase();
+        return trainers.filter(
+          (trainer) =>
+            trainer.firstName.toLowerCase().includes(lowerSearchTerm) ||
+            trainer.lastName.toLowerCase().includes(lowerSearchTerm) ||
+            trainer.email.toLowerCase().includes(lowerSearchTerm)
+        );
+      })
+    );
+
+    
   }
 
   tabClicked() {
@@ -140,39 +144,5 @@ export class AddUserComponent {
 
   toggleDeleteModalSuccess() {
     this.deleteModalSuccess = !this.deleteModalSuccess;
-  }
-
-  onTabChanged(event: MatTabChangeEvent) {
-    if (event.index === 0) {
-      this.setToTrainerTab();
-    } else if (event.index === 1) {
-      this.setToTraineeTab();
-    }
-  }
-
-  setToTrainerTab() {
-    this.trainerTabClicked = true;
-    console.log(this.trainerTabClicked, 'trainer');
-  }
-
-  setToTraineeTab() {
-    this.trainerTabClicked = false;
-    console.log(this.trainerTabClicked, 'trainee');
-  }
-
-  goToAddUserForm() {
-    this.router.navigate(['/home/admin/user-management/add-user-form']);
-  }
-
-  goToAddTrainerForm() {
-    this.router.navigate(['/home/admin/user-management/add-trianer']);
-  }
-
-  goToTrainerOrTrainee() {
-    if (this.trainerTabClicked === true) {
-      this.goToAddTrainerForm();
-    } else if (this.trainerTabClicked === false) {
-      this.goToAddUserForm();
-    }
   }
 }
