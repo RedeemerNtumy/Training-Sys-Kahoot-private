@@ -52,7 +52,9 @@
             [formControlName]="i"
             type="text"
             placeholder="Add prerequisite: Basic design skills, Programming knowledge...">
-          <img
+
+
+          <img *ngIf="prerequisites.controls.length > 1"
             class="close"
             src="../../../../../assets/Images/svg/delete.svg"
             alt="Remove prerequisite"
