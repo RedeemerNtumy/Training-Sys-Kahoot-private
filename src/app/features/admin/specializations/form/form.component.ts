@@ -5,11 +5,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { Ispecialization } from '../../../../core/models/specialization.interface';
 import { SpecializationFacadeService } from '../../../../core/services/specialization-facade/specialization-facade.service';
 import { AddFeedbackComponent } from "../add-feedback/add-feedback.component";
+import { MatRipple } from '@angular/material/core';
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatButtonModule, AddFeedbackComponent],
+  imports: [ReactiveFormsModule, CommonModule,
+    MatButtonModule, AddFeedbackComponent,MatRipple],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
