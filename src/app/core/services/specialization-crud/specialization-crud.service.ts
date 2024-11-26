@@ -17,31 +17,32 @@ export class SpecializationCrudService {
     private errorService: ErrorHandleService
   ) { }
 
-  getAllSpecializations():Observable<ContentResponse<specialization[]>>{
-    return this.http.get<ContentResponse<specialization[]>>(`${this.hostedServer}specializations`)
+  getAllSpecializations():Observable<specialization[]>{
+    return this.http.get<specialization[]>(`${this.hostedServer}/specializations`)
     .pipe(
-      tap((response) => console.log('Specializations from Backend:', response.content)),
+    
+      tap((response) => console.log('Specializations from Backend:', response)),
       catchError(this.errorService.handleError)
     );
   }
 
   getSpecializationById(id: number):Observable<specialization>{
-    const url = `${this.hostedServer}specializations/${id}`;
+    const url = `${this.hostedServer}/specializations/${id}`;
     return this.http.get<specialization>(url)
   }
 
   createSpecialization(specialization: specialization){
-    const url = `${this.hostedServer}specializations`
+    const url = `${this.hostedServer}/specializations`
     return this.http.post(url, specialization)
   }
 
   updateSpecialization(id: number, specialization: Partial<specialization>):Observable<specialization>{
-    const url = `${this.hostedServer}specializations/${id}`;
+    const url = `${this.hostedServer}/specializations/${id}`;
     return this.http.put<specialization>(url, specialization)
   }
 
   deleteSpecialization(id: number):Observable<void>{
-    const url = `${this.hostedServer}specializations/${id}`;
+    const url = `${this.hostedServer}/specializations/${id}`;
     return this.http.delete<void>(url)
   }
 }

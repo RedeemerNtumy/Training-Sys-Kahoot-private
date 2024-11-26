@@ -33,7 +33,7 @@ export const trainerRoutes: Routes = [
   },
   {
     path: 'curriculum',
-    loadComponent: () => import('@views/trainer/curriculum/curriculum.component')
+    loadComponent: () => import('@views/admin/curriculum/curriculum.component')
     .then(m => m.CurriculumComponent),
     data: { role: 'trainer' }
   },

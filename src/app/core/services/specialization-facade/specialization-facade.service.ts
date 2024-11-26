@@ -34,7 +34,7 @@ export class SpecializationFacadeService {
   private loadSpecializations() {
     this.specializationCrud.getAllSpecializations()
       .pipe(
-        map(response => this.sort(response.content))
+        map(response => this.sort(response))
       )
       .subscribe({
         next: (specializations) => this.specializationSubject.next(specializations),
