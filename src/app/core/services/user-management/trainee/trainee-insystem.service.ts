@@ -103,50 +103,34 @@ export class TraineeInsystemService {
     )
   }
 
-  createNewUser(combinedState: any) {
-    // Convert the combined state to FormData
-  const newFormData = new FormData();
-  console.log("combined state in service: ", combinedState)
+  createNewUser(combinedState: { [key: string]: any }) {
+    const newFormData = new FormData();
   
-  // Iterate through the combined state and append to FormData
-  Object.keys(combinedState).forEach(key => {
-    const value = combinedState[key];
-    
-    if (value !== undefined && value !== null) {
-      if (value instanceof Date) {
-        // Convert Date to ISO string
-        newFormData.append(key, value.toISOString());
-      } else if (value instanceof File) {
-        // If it's already a File, append directly
-        newFormData.append(key, value);
-      } else {
-        // Convert other types to string
-        newFormData.append(key, String(value));
+    Object.keys(combinedState).forEach((key) => {
+      const value = combinedState[key];
+      if (value !== undefined && value !== null) {
+        if (value instanceof Date) {
+          newFormData.append(key, value.toISOString());
+        } else if (value instanceof File) {
+          newFormData.append(key, value);
+        } else {
+          newFormData.append(key, String(value));
+        }
       }
-    }
-  });
+    });
 
-  return this.http.post<User>(this.addTrainee, newFormData).pipe(
-    tap((createdUser) => {
-      // Reset form states
-      // this.firstFormStateSubject.next(null);
-      // this.secondFormStateSubject.next(null);
-    }),
-    catchError((error) => {
-      console.error('Error creating user:', error);
-      return throwError(() => new Error("Failed to create user"));
-    })
-  );
+    return this.http.post<User>(this.addTrainee, newFormData).pipe(
+      tap(() => {
+        // Reset form states
+        this.firstFormStateSubject.next(null);
+        this.secondFormStateSubject.next(null);
+      }),
+      catchError((error) => {
+        console.error('Error creating user:', error);
+        return throwError(() => new Error("Failed to create user"));
+      })
+    );
   }
-  // createNewUser(newFormData: {}, email: string | undefined) {
-  //   return this.http.post<User>(`${this.checkUserUrl}?email=${encodeURIComponent(email || '')}`, newFormData).pipe(
-  //     tap(() => {
-  //       this.firstFormStateSubject.next(null)
-  //       this.secondFormStateSubject.next(null)
-  //     }),
-  //     catchError(error => this.errorHandlerService.handleError(error))
-  //   )
-  // }
 
 
   getAllTrainees() {
