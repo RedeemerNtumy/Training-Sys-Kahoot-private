@@ -6,7 +6,7 @@ import { UserRole } from '@core/models/user-role.interface';
 })
 
 export class UserRoleService {
-  private userRole: UserRole = UserRole.TRAINER;
+  private userRole: UserRole = UserRole.ADMIN;
 
 
   getUserRole(): UserRole {
