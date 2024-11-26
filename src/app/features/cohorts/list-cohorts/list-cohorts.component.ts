@@ -43,6 +43,10 @@ export class ListCohortsComponent {
   ngOnInit() {
     this.cohortsList$ = this.cohortDataService.getAllCohorts()
 
+    this.cohortsList$.subscribe(data => {
+      console.log(data)
+    })
+
     this.filteredCohorts$ = combineLatest([this.cohortsList$, this.searchTerm$, this.currentPage$]).pipe(
       map(([cohorts, searchTerm, page]) => {
         // Fixed the filter and return syntax
