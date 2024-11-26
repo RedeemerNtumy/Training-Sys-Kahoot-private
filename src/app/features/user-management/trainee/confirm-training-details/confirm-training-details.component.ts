@@ -57,9 +57,6 @@ export class ConfirmTrainingDetailsComponent {
   }
 
   onSubmit() {
-    if(this.newUserFormSecTwo.valid) {
-      console.log(this.newUserFormSecTwo.value)
-
       combineLatest([
         this.traineeInSystemService.firstFormState$,
         this.traineeInSystemService.secondFormState$,
@@ -67,7 +64,6 @@ export class ConfirmTrainingDetailsComponent {
         const combinedState: { [key: string]: any } = { ...firstFormState, ...secondFormState };
         this.traineeInSystemService.createNewUser(combinedState)
       })
-    }
   }
 
   cancel() {
