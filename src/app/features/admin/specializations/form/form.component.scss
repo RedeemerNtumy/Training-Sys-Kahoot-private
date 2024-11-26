@@ -5,7 +5,7 @@ form{
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-  padding-bottom: 3rem;
+  max-height: 78vh;
   .create-info-head {
     display: flex;
     flex-direction: column;
@@ -22,6 +22,7 @@ form{
 
   .scrollable-content{
     @include flexbox($direction: column);
+    @include custom-scrollbar;
     gap:1.5rem;
     .spec-type-field {
       display: flex;
@@ -82,15 +83,20 @@ form{
     }
   }
 
-  .add-spec-btn {
-    margin-top: 7.1rem;
-    background-color: #F98416 !important;
-    color: #fff;
-    font-weight: 700;
-  }
+  .button-container{
+    width: 100%;
+    background-color: transparent;
+    margin-top: auto;
+    .add-spec-btn {
+      background-color: #F98416 !important;
+      color: #fff;
+      width: 100%;
+      font-weight: 700;
+    }
 
-  .add-spec-btn[disabled] {
-    cursor: not-allowed;
-    opacity: 0.6;
+    .add-spec-btn[disabled] {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
   }
 }

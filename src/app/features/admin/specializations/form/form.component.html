@@ -66,14 +66,17 @@
     </div>
   </div>
 
-  <button
-    matRipple
-    type="button"
-    [disabled]="specializationForm.invalid"
-    class="add-spec-btn"
-    (click)="submitForm()">
-    {{ isEditMode ? 'Update' : 'Create' }} Specialization
-  </button>
+  <div class="button-container">
+
+    <button
+      matRipple
+      type="button"
+      [disabled]="specializationForm.invalid"
+      class="add-spec-btn"
+      (click)="submitForm()">
+      {{ isEditMode ? 'Update' : 'Create' }} Specialization
+    </button>
+  </div>
 </form>
 
 
