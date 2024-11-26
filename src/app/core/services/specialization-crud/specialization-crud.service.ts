@@ -17,10 +17,11 @@ export class SpecializationCrudService {
     private errorService: ErrorHandleService
   ) { }
 
-  getAllSpecializations():Observable<ContentResponse<specialization[]>>{
-    return this.http.get<ContentResponse<specialization[]>>(`${this.hostedServer}/specializations`)
+  getAllSpecializations():Observable<specialization[]>{
+    return this.http.get<specialization[]>(`${this.hostedServer}/specializations`)
     .pipe(
-      tap((response) => console.log('Specializations from Backend:', response.content)),
+    
+      tap((response) => console.log('Specializations from Backend:', response)),
       catchError(this.errorService.handleError)
     );
   }
