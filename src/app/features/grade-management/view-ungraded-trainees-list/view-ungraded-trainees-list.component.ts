@@ -2,13 +2,13 @@ import { NgIf } from '@angular/common';
 import { TabViewModule } from 'primeng/tabview';
 import { Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ViewGradeHistoryComponent } from '../view-assessment-list/view-grade-history/view-grade-history.component';
-import { ViewAssignmentsComponent } from '../view-assessment-list/view-assignments/view-assignments.component';
+
+import { TraineesListComponent } from './trainees-list/trainees-list.component';
 
 @Component({
   selector: 'app-view-ungraded-trainees-list',
   standalone: true,
-  imports: [NgIf, TabViewModule, ViewGradeHistoryComponent, ViewAssignmentsComponent],
+  imports: [NgIf, TabViewModule, TraineesListComponent],
   templateUrl: './view-ungraded-trainees-list.component.html',
   styleUrl: './view-ungraded-trainees-list.component.scss'
 })
