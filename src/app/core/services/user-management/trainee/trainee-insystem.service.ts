@@ -1,24 +1,16 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorHandlerService } from '../../cohort-data/error-handling/error-handler.service';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
-import { Countries, Gender, User } from '../../../models/cohort.interface';
+import { User } from '../../../models/cohort.interface';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TraineeInsystemService {
 
-  // testUrl: string = 'http://localhost:9000/cohortsList';
-  private checkUserUrl: string = "http://localhost:9000/users";
-  private gendersUrl: string = "http://localhost:9000/gender";
-  private countriesUrl: string = "http://localhost:9000/countries";
-
-  // private const headers = new HttpHeaders({
-  //   "ngrok-skip-browser-warning": "69420"
-  // });
-
-  private addTrainee: string = "https://8fc1-196-61-35-158.ngrok-free.app/api/v1/users/trainee/create"
+  private addTrainee: string = environment.BaseUrl
 
   public retreivedUserDataSubject = new BehaviorSubject<User | null>(null);
   public retreivedUserData$: Observable<User | null> = this.retreivedUserDataSubject.asObservable();
@@ -51,7 +43,7 @@ export class TraineeInsystemService {
 
   // Get the email entered into the input field
   checkEmail(email: string) {
-    return this.http.get<User[]>(`${this.checkUserUrl}?email=${encodeURIComponent(email)}`).pipe(
+    return this.http.get<User[]>(`${this.addTrainee}?email=${encodeURIComponent(email)}`).pipe(
       tap(response => {
         const [data] = response;
         this.retreivedUserDataSubject.next(data);
@@ -61,20 +53,6 @@ export class TraineeInsystemService {
         this.errorHandlerService.handleError(error);
         return [];
       })
-    )
-  }
-
-
-
-  getGenders() {
-    return this.http.get<Gender[]>(this.gendersUrl).pipe(
-      catchError(error => this.errorHandlerService.handleError(error))
-    )
-  }
-
-  getCountries() {
-    return this.http.get<Countries[]>(this.countriesUrl).pipe(
-      catchError(error => this.errorHandlerService.handleError(error))
     )
   }
 
@@ -94,7 +72,7 @@ export class TraineeInsystemService {
   //Usermanagment add user requests
   //Put request to backend
   updateUserData(updateFormData: {}, email: string | undefined) {
-    return this.http.put<User>(`${this.checkUserUrl}?email=${encodeURIComponent(email || '')}`, updateFormData).pipe(
+    return this.http.put<User>(`${this.addTrainee}?email=${encodeURIComponent(email || '')}`, updateFormData).pipe(
       tap(() => {
         this.firstFormStateSubject.next(null)
         this.secondFormStateSubject.next(null)
@@ -119,7 +97,7 @@ export class TraineeInsystemService {
       }
     });
 
-    return this.http.post<User>(this.addTrainee, newFormData).pipe(
+    return this.http.post<User>(`${this.addTrainee}/users/trainee/create`, newFormData).pipe(
       tap(() => {
         // Reset form states
         this.firstFormStateSubject.next(null);
@@ -134,7 +112,7 @@ export class TraineeInsystemService {
 
 
   getAllTrainees() {
-    return this.http.get<User[]>(this.checkUserUrl).pipe(
+    return this.http.get<User[]>(this.addTrainee).pipe(
       tap((response) => {
         this.allTraineesSubject.next(response)
       }),
@@ -147,7 +125,7 @@ export class TraineeInsystemService {
   }
 
   deleteSelectedTrainee(email: string) {
-    return this.http.delete<User>(`${this.checkUserUrl}?email=${encodeURIComponent(email)}`).pipe(
+    return this.http.delete<User>(`${this.addTrainee}?email=${encodeURIComponent(email)}`).pipe(
       tap((response) => {
         console.log(response);
         this.deleteModalSuccessful = true;
