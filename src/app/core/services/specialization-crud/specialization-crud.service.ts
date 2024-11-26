@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/specializations/environment';
 import { HttpClient } from '@angular/common/http';
 import {  catchError, Observable,tap } from 'rxjs';
-import { IContentResponse, Ispecialization } from '../../models/specialization.interface';
+import { Ispecialization } from '../../models/specialization.interface';
 import { ErrorHandleService } from '../error-handle/error-handle.service';
 
 @Injectable({
@@ -17,10 +17,10 @@ export class SpecializationCrudService {
     private errorService: ErrorHandleService
   ) { }
 
-  getAllSpecializations():Observable<IContentResponse<Ispecialization[]>>{
-    return this.http.get<IContentResponse<Ispecialization[]>>(`${this.hostedServer}specializations`)
+  getAllSpecializations():Observable<Ispecialization[]>{
+    return this.http.get<Ispecialization[]>(`${this.hostedServer}specializations`)
     .pipe(
-      tap((response) => console.log('Specializations from Backend:', response.content)),
+      tap((response) => console.log('Specializations from Backend:', response)),
       catchError(this.errorService.handleError)
     );
   }

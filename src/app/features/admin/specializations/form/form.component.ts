@@ -1,17 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { Ispecialization } from '../../../../core/models/specialization.interface';
 import { SpecializationFacadeService } from '../../../../core/services/specialization-facade/specialization-facade.service';
-import { AddFeedbackComponent } from "../add-feedback/add-feedback.component";
 import { MatRipple } from '@angular/material/core';
 
 @Component({
   selector: 'app-form',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule,
-    MatButtonModule, AddFeedbackComponent,MatRipple],
+    MatButtonModule,MatRipple],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
