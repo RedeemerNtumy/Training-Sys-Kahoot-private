@@ -1,5 +1,6 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, of, map } from 'rxjs';
 
 @Component({
@@ -87,6 +88,10 @@ export class ViewAssignmentsComponent {
     }
   ];
 
+  constructor(
+    private router: Router,
+  ) {}
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['cardType']) {
@@ -104,4 +109,8 @@ export class ViewAssignmentsComponent {
     console.log(selectedAssessment)
   }
   
+  toUngradedList() {
+    this.router.navigate(['home/trainer/grade-management/ungraded-list'])
+  }
+
 } 

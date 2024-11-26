@@ -29,7 +29,7 @@
             <td>{{ assignments.dateCreated }}</td>
             <td>{{ assignments.type }}</td>
             <td *ngIf="cardType === 'Graded Assignments' ">Graded {{ assignments.gradedTrainees }} trainees</td>
-            <button *ngIf="cardType === 'Ungraded Assignments'">{{ assignments.action }}</button>
+            <button *ngIf="cardType === 'Ungraded Assignments'" (click)="toUngradedList()">{{ assignments.action }}</button>
         </tr>
         <div class="divider"></div>
     </table>
