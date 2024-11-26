@@ -1,0 +1,60 @@
+{
+  "curriculums": [
+    {
+      "id": 1,
+      "createdAt": "2024-11-20T10:00:00Z",
+      "title": "Frontend Development",
+      "description": "Learn the essentials of frontend development, including HTML, CSS, and JavaScript.",
+      "assignedSpecialization": "Web Development",
+      "assignedCohort": "Cohort 2024",
+      "learningObjectives": [
+        "Understand the basics of HTML, CSS, and JavaScript",
+        "Build responsive and accessible web pages",
+        "Implement client-side scripting"
+      ],
+      "thumbnail": "https://example.com/thumbnails/frontend.png",
+      "modules": [
+        {
+          "title": "HTML Basics",
+          "description": "Learn the fundamental structure of HTML documents.",
+          "topics": ["Elements", "Attributes", "Document Structure"],
+          "moduleFile": "https://example.com/files/html-basics.pdf"
+        },
+        {
+          "title": "CSS Fundamentals",
+          "description": "Master styling web pages with CSS.",
+          "topics": ["Selectors", "Box Model", "Flexbox"],
+          "moduleFile": "https://example.com/files/css-fundamentals.pdf"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "createdAt": "2024-10-15T08:00:00Z",
+      "title": "Backend Development",
+      "description": "Understand server-side programming and database integration.",
+      "assignedSpecialization": "Software Engineering",
+      "assignedCohort": "Cohort 2024",
+      "learningObjectives": [
+        "Build server-side applications",
+        "Connect and query databases",
+        "Implement RESTful APIs"
+      ],
+      "thumbnail": "https://example.com/thumbnails/backend.png",
+      "modules": [
+        {
+          "title": "Node.js Basics",
+          "description": "Introduction to server-side programming with Node.js.",
+          "topics": ["Node.js Core Modules", "Asynchronous Programming", "Express.js"],
+          "moduleFile": "https://example.com/files/nodejs-basics.pdf"
+        },
+        {
+          "title": "Database Management",
+          "description": "Learn to work with relational and non-relational databases.",
+          "topics": ["SQL Basics", "NoSQL Databases", "Database Optimization"],
+          "moduleFile": "https://example.com/files/database-management.pdf"
+        }
+      ]
+    }
+  ]
+}
