@@ -13,6 +13,5 @@ import { CommonModule } from '@angular/common';
 })
 
 export class CurriculumListComponent {
-
   curriculum :string[] =[]
 }
