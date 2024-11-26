@@ -48,26 +48,22 @@ export class EditCohortComponent {
     // Set data into form from create cohort form
     this.cohortDataService.createCohortFormData$.subscribe((cohortData) => {      
       if (cohortData) {
-        // Ensure specialization is handled correctly
         const specializations = Array.isArray(cohortData.specializations) 
           ? cohortData.specializations 
           : [cohortData.specializations].filter(Boolean);
-  
-        // Patch form values
+    
         this.newCohortForm.patchValue({
           name: cohortData.name,
           startDate: cohortData.startDate,
           endDate: cohortData.endDate,
           description: cohortData.description
         });
-  
-        // Rebuild specialization FormArray
+    
         const specializationArray = this.newCohortForm.get('specializations') as FormArray;
         specializationArray.clear();
-        specializations.forEach((specId: string) => {
+        specializations.forEach((specId) => {
           specializationArray.push(this.fb.control(specId, Validators.required));
         });
-
       }
     });
   
@@ -104,11 +100,20 @@ export class EditCohortComponent {
       const formValue = {
         ...this.newCohortForm.value,
         specializationIds: this.specializations.value,
-        description: this.newCohortForm.get('description')?.value
+        description: this.newCohortForm.get('description')?.value,
       };
+  
+      // Remove original specializations
+      delete formValue.specializations;
+  
+      console.log("before request: ", formValue)
       this.cohortDataService.addCohort(formValue).subscribe({
         next: () => {
           this.modalService.toggleSuccessModal();
+          // this.goBack(); 
+        },
+        error: (err) => {
+          console.error('Submission error', err);
         }
       })
     }
@@ -147,6 +152,10 @@ export class EditCohortComponent {
   // Navigate to list of cohorts
   goBack() {
     this.router.navigate(['/home/admin/cohorts'])
+  }
+
+  toggleSuccessModal() {
+    this.isModalOpen = !this.isModalOpen;
   }
   
 }

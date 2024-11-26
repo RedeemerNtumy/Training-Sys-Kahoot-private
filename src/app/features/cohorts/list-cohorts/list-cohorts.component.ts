@@ -27,6 +27,8 @@ export class ListCohortsComponent {
   selectedCohortId: string | null = ''; 
   hideDeleteModal: boolean = true;
 
+  listEmptyCheck!: boolean;
+
   //Pagination 
   private pageSubject = new BehaviorSubject<number>(1);
   currentPage$ = this.pageSubject.asObservable();
@@ -42,6 +44,16 @@ export class ListCohortsComponent {
 
   ngOnInit() {
     this.cohortsList$ = this.cohortDataService.getAllCohorts()
+
+    this.cohortsList$.subscribe({
+      next: (response) => {
+        console.log("cohort list: ", response)
+      },
+      error: (err) => {
+        console.log("cohort list error: ", err)
+      }
+
+    })
 
     this.filteredCohorts$ = combineLatest([this.cohortsList$, this.searchTerm$, this.currentPage$]).pipe(
       map(([cohorts, searchTerm, page]) => {
@@ -111,7 +123,7 @@ export class ListCohortsComponent {
   confirmDelete() {
     this.cohortDataService.deleteCohort(this.deleteCohortById).subscribe({
       next: (response) => {
-        console.log("successfully deleted cohort", response)
+        window.location.reload();
       },
       error: (error) => {
         console.log("error deleting cohort: ", error)

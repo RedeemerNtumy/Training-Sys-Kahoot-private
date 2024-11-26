@@ -57,44 +57,16 @@ export class ConfirmTrainingDetailsComponent {
   }
 
   onSubmit() {
-    if(this.traineeInSystemService.userDataRetrieved) {
-
-      // this.toggleModal();
-
-      combineLatest([
-        this.traineeInSystemService.firstFormState$,
-        this.traineeInSystemService.secondFormState$
-      ]).subscribe(([firstFormState, secondFormState]) => {
-      
-        // Combine or process the states as needed
-        const combinedState = { ...firstFormState, ...secondFormState };
-        this.traineeInSystemService.updateUserData(combinedState, combinedState.email)
-      });
-    }
-    else if(this.newUserFormSecTwo.valid && !this.traineeInSystemService.userDataRetrieved) {
-      // this.toggleModal();
+    if(this.newUserFormSecTwo.valid) {
+      console.log(this.newUserFormSecTwo.value)
 
       combineLatest([
         this.traineeInSystemService.firstFormState$,
-        this.traineeInSystemService.secondFormState$
+        this.traineeInSystemService.secondFormState$,
       ]).subscribe(([firstFormState, secondFormState]) => {
-      
-        // Combine or process the states as needed
-        const combinedState = { ...firstFormState, ...secondFormState };
-        console.log("combined state: ", combinedState);
+        const combinedState: { [key: string]: any } = { ...firstFormState, ...secondFormState };
         this.traineeInSystemService.createNewUser(combinedState)
-        // if(this.traineeInSystemService.retreivedUserData$){
-
-        // }
-        // else { 
-        //   this.traineeInSystemService.createNewUser(combinedState);
-        // }
-      });
-
-      
-    }
-    else {
-
+      })
     }
   }
 
