@@ -1,3 +1,4 @@
+import { CreateComponent } from './../../features/admin/curriculum/create/create.component';
 
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../views/admin/dashboard/dashboard.component';
@@ -154,7 +155,41 @@ export const adminRoutes: Routes = [
     path: 'curriculum',
     loadComponent: () => import('@views/admin/curriculum/curriculum.component')
     .then(m => m.CurriculumComponent),
-    data: { role: 'admin' }
+    data: { role: 'admin' },
+    children: [
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full'
+      },
+      {
+        path: 'list',
+        loadComponent: () => import('@features/admin/curriculum/curriculum-list/curriculum-list.component')
+       .then(m => m.CurriculumListComponent)
+      },
+      {
+        path: 'create',
+        loadComponent: () => import('@features/admin/curriculum/create/create.component')
+       .then(m => m.CreateComponent),
+       children:[
+         {
+          path: '',
+          redirectTo: 'create-curriculum',
+          pathMatch: 'full'
+         },
+         {
+           path: 'create-curriculum',
+           loadComponent: () => import('@features/admin/curriculum/create/form/form.component')
+          .then(m => m.FormComponent)
+         },
+         {
+           path: 'create-module',
+           loadComponent: () => import('@features/admin/curriculum/create/form/module/module.component')
+          .then(m => m.ModuleComponent)
+         },
+       ]
+      }
+    ]
   },
   {
     path: 'report',
