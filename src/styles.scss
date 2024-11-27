@@ -1,6 +1,6 @@
 @use "./styleSheet/base" as *;
-@use "./styleSheet/typography" as *;
-@use "./styleSheet/variables" as *;
+// @use "./styleSheet/typography" as *;
+// @use "./styleSheet/variables" as *;
 @use "./styleSheet/mixins" as *;
 @use "@angular/material" as mat;
 @include mat.core();
