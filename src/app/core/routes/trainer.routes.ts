@@ -27,8 +27,8 @@ export const trainerRoutes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('../../features/grade-management/welcome-page/welcome-page.component')
-        .then(m => m.WelcomePageComponent)
+        loadComponent: () => import('../../features/grade-management/assessment-tabs/assessment-tabs.component')
+        .then(m => m.AssessmentTabsComponent)
       },
       {
         path: 'view-assessments',
