@@ -1,1 +1,27 @@
-<p>header works!</p>
+<section class="curriculum-settings">
+  <div class="grp-1">
+    <h3>Curriculum</h3>
+    <div class="search-field">
+      <img src="../../../../../../assets/Images/svg/iconoir_search.svg" alt="search-icon">
+      <input
+        type="text"
+        placeholder="Name"
+        (input)="onSearch($event)">
+    </div>
+
+    <div class="grp-2">
+      <button class="settings-btn">
+        <img src="../../../../../../assets/Images/svg/filter-icon.svg" alt="filter-icon">
+        Filter
+      </button>
+      <button class="settings-btn sort" (click)="onSort()" [class.active]="sortDirection === 'asc'">
+        <img src="../../../../../../assets/Images/svg/sort-icon.svg" alt="sort-icon">
+        Sort {{ sortDirection === 'asc' ? '↑' : '↓' }}
+      </button>
+      <button class="add-curriculum-btn" matRipple (click)="navigateToCreate()">
+        Add Curriculum
+      </button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</section>

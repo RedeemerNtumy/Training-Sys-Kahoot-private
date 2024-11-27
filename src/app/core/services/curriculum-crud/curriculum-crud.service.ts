@@ -9,11 +9,13 @@ import { catchError, Observable,tap } from 'rxjs';
 })
 
 export class CurriculumCrudService {
-  private localServer = 'http://localhost:3000/curriculums/';
+  private localServer = 'http://localhost:3000/curriculums';
 
   constructor(private http: HttpClient,
     private errorService: ErrorHandleService
-  ) { }
+  ) {
+    
+   }
 
   getAllCurriculums():Observable<curriculum[]> {
     return this.http.get<curriculum[]>(this.localServer)

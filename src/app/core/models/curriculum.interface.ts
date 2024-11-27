@@ -7,7 +7,7 @@ export interface module {
 }
 
 export interface curriculum {
-  createdAt?: string;
+  createdAt: string;
   title: string;
   description: string;
   assignedSpecialization: string;
@@ -15,4 +15,5 @@ export interface curriculum {
   learningObjectives: string[];
   thumbnail: string;
   modules: module[];
+  topics: string[];
 }

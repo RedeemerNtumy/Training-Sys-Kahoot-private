@@ -30,11 +30,11 @@ export class FormComponent implements OnInit {
 
 
   navigateToList(){
-    this.router.navigate(['home','admin','curriculum','list']);
+    this.router.navigate(['home','admin','curriculum-management']);
   }
 
   private navigateToCreateModule(){
-    this.router.navigate(['home','admin','curriculum','create','create-module']);
+    this.router.navigate(['home','admin','curriculum-management','create-curriculum','create-module']);
   }
 
   ngOnInit(): void {
@@ -129,7 +129,7 @@ export class FormComponent implements OnInit {
   onContinue() {
     // if (this.curriculumForm.valid) {
       this.curriculumStateService.setCurriculumForm(this.curriculumForm);
-      this.router.navigate(['home', 'admin', 'curriculum', 'create', 'create-module']);
+      this.navigateToCreateModule()
     // }
   }
 

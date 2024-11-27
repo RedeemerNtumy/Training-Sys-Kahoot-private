@@ -15,6 +15,6 @@ export class EmptyHintComponent {
   constructor(private router:Router){}
 
   navigateToCreate(){
-    this.router.navigate(['home','admin','curriculum','create']);
+    this.router.navigate(['home','admin','curriculum','create-curriculum']);
   }
 }

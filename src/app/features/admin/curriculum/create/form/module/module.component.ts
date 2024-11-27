@@ -49,7 +49,7 @@ export class ModuleComponent implements OnInit {
             this.addModule();
           }
         } else {
-          this.router.navigate(['home', 'admin', 'curriculum', 'create', 'create-curriculum']);
+          this.router.navigate(['home', 'admin', 'curriculum', 'create-curriculum']);
         }
       });
   }
@@ -65,7 +65,7 @@ export class ModuleComponent implements OnInit {
   }
 
   navigateToCreateCurriculum(){
-    this.router.navigate(['home', 'admin', 'curriculum', 'create']);
+    this.router.navigate(['home', 'admin', 'curriculum-management', 'create-curriculum']);
   }
 
   getTopics(moduleIndex: number): FormArray {
