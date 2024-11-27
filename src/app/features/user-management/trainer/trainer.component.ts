@@ -40,8 +40,8 @@ export class TrainerComponent {
   ) {}
 
   ngOnInit() {
-    this.genders$ = this.traineeInsystemService.getGenders();
-    this.countries$ = this.traineeInsystemService.getCountries();
+    // this.genders$ = this.traineeInsystemService.getGenders();
+    // this.countries$ = this.traineeInsystemService.getCountries();
 
     this.trainerForm = this.fb.group({
       email: [
