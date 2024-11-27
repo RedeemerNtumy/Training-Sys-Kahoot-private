@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { TraineesListComponent } from './trainees-list/trainees-list.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-ungraded-trainees-list',
@@ -93,7 +94,9 @@ export class ViewUngradedTraineesListComponent {
   ]
   
 
-  constructor() {
+  constructor(
+    private router: Router,
+  ) {
     // private assessmentService: assessmentService,
   }
 

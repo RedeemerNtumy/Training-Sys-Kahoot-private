@@ -39,6 +39,11 @@ export const trainerRoutes: Routes = [
         path: 'ungraded-list',
         loadComponent: () => import('../../features/grade-management/view-ungraded-trainees-list/view-ungraded-trainees-list.component')
         .then(m => m.ViewUngradedTraineesListComponent),
+      },
+      {
+        path: 'grade-assignment',
+        loadComponent: () => import('../../features/grade-management/grade-assignment/grade-assignment.component')
+        .then(m => m.GradeAssignmentComponent),
       }
     ]
   },

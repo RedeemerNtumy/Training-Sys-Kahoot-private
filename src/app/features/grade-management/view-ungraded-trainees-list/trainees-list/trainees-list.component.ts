@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trainees-list',
@@ -9,4 +10,11 @@ import { Component } from '@angular/core';
 })
 export class TraineesListComponent {
 
+  constructor(
+    private router: Router,
+  ) {}
+
+  toGradeAssignment() {
+    this.router.navigate(['/home/trainer/grade-management/grade-assignment'])
+  }
 }
