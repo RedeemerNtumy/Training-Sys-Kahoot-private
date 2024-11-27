@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { adminRoutes } from './views/admin/admin.routes';
 import { trainerRoutes } from './core/routes/trainer.routes';
 import { traineeRoutes } from './core/routes/trainee.routes';
+import { adminRoutes } from './core/routes/admin.routes';
 
 export const routes: Routes = [
   {

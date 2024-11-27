@@ -1,10 +1,22 @@
 body{
   background: #fdfdfc;
   width: 100%;
-  min-height: 100vh;
+  max-height: 100vh;
   display: flex;
+  overflow: hidden;
 
   main{
     width: 100%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    .header{
+      width: calc(100% - 24.1rem);
+      position: fixed;
+      margin-bottom: 5rem;
+    }
+    .dashboard{
+      margin-top: 10.3rem;
+      margin-left: 2.4rem;
+    }
   }
 }

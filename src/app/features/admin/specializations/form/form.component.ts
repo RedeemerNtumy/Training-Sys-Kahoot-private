@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { Ispecialization } from '../../../../core/models/specialization.interface';
+import { specialization } from '../../../../core/models/specialization.interface';
 import { SpecializationFacadeService } from '../../../../core/services/specialization-facade/specialization-facade.service';
 import { MatRipple } from '@angular/material/core';
 
@@ -16,8 +16,8 @@ import { MatRipple } from '@angular/material/core';
 })
 
 export class FormComponent implements OnInit {
-  @Input() initialData?: Ispecialization ;
-  @Output() formSubmit = new EventEmitter<Ispecialization>();
+  @Input() initialData?: specialization ;
+  @Output() formSubmit = new EventEmitter<specialization>();
 
   specializationForm!: FormGroup;
   isEditMode = false;
@@ -77,7 +77,7 @@ export class FormComponent implements OnInit {
   private prepareFormData(){
     const formValue = this.specializationForm.value;
       const prerequisites = formValue.prerequisites.filter((prereq: string) => prereq.trim() !== '');
-      const specialization: Ispecialization = {
+      const specialization: specialization = {
         ...(this.initialData?.id && { id: this.initialData.id }),
         name: formValue.name,
         description: formValue.description,

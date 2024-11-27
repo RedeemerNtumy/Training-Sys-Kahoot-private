@@ -17,12 +17,6 @@ export const adminRoutes: Routes = [
     data: { role: 'admin' }
   },
   {
-    path: 'trainees',
-    loadComponent : ()=> import('./trainees/trainee-management.component')
-    .then(m => m.TraineeManagementComponent),
-    data: { role: 'admin' }
-  },
-  {
     path: 'specialization',
     loadComponent: () => import('./specializations/specialization-management.component')
       .then(m => m.SpecializationManagementComponent),

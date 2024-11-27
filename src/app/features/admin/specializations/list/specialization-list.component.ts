@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Ispecialization } from '../../../../core/models/specialization.interface';
+import { specialization } from '../../../../core/models/specialization.interface';
 import { NoSpecializationAddedComponent } from "../no-specialization-added/no-specialization-added.component";
 import { CommonModule, NgFor } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
@@ -15,7 +15,7 @@ import { PaginatorComponent } from "../../../../core/shared/paginator/paginator.
 interface ActionEvent {
   event: Event;
   action: string;
-  spec: Ispecialization;
+  spec: specialization;
 }
 
 @Component({
@@ -39,7 +39,7 @@ export class SpecializationListComponent implements OnInit {
   deleteModalVisible = false;
   selectedSpecializationId?: number;
   deleteFeedbackMap = new Map<number | undefined, boolean>();
-  specializations$!: Observable<Ispecialization[]>;
+  specializations$!: Observable<specialization[]>;
   private pageSubject = new BehaviorSubject<number>(1);
   currentPage$ = this.pageSubject.asObservable()
   pageSize = 2;

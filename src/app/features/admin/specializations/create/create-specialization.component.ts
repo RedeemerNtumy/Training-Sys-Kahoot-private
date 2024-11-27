@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from "../form/form.component";
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SpecializationFacadeService } from '../../../../core/services/specialization-facade/specialization-facade.service';
-import { Ispecialization } from '../../../../core/models/specialization.interface';
+import { specialization } from '../../../../core/models/specialization.interface';
 import { switchMap } from 'rxjs/operators';
 import { of,timer } from 'rxjs';
 import { AddFeedbackComponent } from "../add-feedback/add-feedback.component";
@@ -18,7 +18,7 @@ import { AddFeedbackComponent } from "../add-feedback/add-feedback.component";
 })
 
 export class CreateSpecializationComponent {
-  specializationData?: Ispecialization;
+  specializationData?: specialization;
   specializationId?: number;
   isLoading: boolean = false;
   showFeedback: boolean = false;
@@ -50,7 +50,7 @@ export class CreateSpecializationComponent {
     });
   }
 
-  handleFormSubmit(formData: Ispecialization) {
+  handleFormSubmit(formData: specialization) {
     const formOperation = this.specializationData?.id ?
       this.facadeService.update(this.specializationData.id, formData)
       : this.facadeService.create(formData);
@@ -70,7 +70,7 @@ export class CreateSpecializationComponent {
   }
 
   navigateToList(){
-    this.router.navigate(['home','admin','specialization','list'])
+    this.router.navigate(['home','admin','specialization-management'])
   }
 }
 

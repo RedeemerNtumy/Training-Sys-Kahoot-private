@@ -1,43 +1,44 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../../environments/specializations/environment';
+
 import { HttpClient } from '@angular/common/http';
 import {  catchError, Observable,tap } from 'rxjs';
-import { Ispecialization } from '../../models/specialization.interface';
 import { ErrorHandleService } from '../error-handle/error-handle.service';
+import { environment } from '../../../../environments/environment.development';
+import { specialization } from '../../models/specialization.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class SpecializationCrudService {
-  private hostedServer = environment.apiUrl;
+  private hostedServer = environment.BaseUrl;
 
   constructor(
     private http: HttpClient,
     private errorService: ErrorHandleService
   ) { }
 
-  getAllSpecializations():Observable<Ispecialization[]>{
-    return this.http.get<Ispecialization[]>(`${this.hostedServer}specializations`)
+  getAllSpecializations():Observable<specialization[]>{
+    return this.http.get<specialization[]>(`${this.hostedServer}specializations`)
     .pipe(
       tap((response) => console.log('Specializations from Backend:', response)),
       catchError(this.errorService.handleError)
     );
   }
 
-  getSpecializationById(id: number):Observable<Ispecialization>{
+  getSpecializationById(id: number):Observable<specialization>{
     const url = `${this.hostedServer}specializations/${id}`;
-    return this.http.get<Ispecialization>(url)
+    return this.http.get<specialization>(url)
   }
 
-  createSpecialization(specialization: Ispecialization){
+  createSpecialization(specialization: specialization){
     const url = `${this.hostedServer}specializations`
     return this.http.post(url, specialization)
   }
 
-  updateSpecialization(id: number, specialization: Partial<Ispecialization>):Observable<Ispecialization>{
+  updateSpecialization(id: number, specialization: Partial<specialization>):Observable<specialization>{
     const url = `${this.hostedServer}specializations/${id}`;
-    return this.http.put<Ispecialization>(url, specialization)
+    return this.http.put<specialization>(url, specialization)
   }
 
   deleteSpecialization(id: number):Observable<void>{
