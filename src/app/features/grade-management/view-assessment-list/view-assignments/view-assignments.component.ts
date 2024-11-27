@@ -110,7 +110,7 @@ export class ViewAssignmentsComponent {
   }
   
   toUngradedList() {
-    this.router.navigate(['home/trainer/grade-management/ungraded-list'])
+    this.router.navigate(['home/trainer/grade-management/trainee-list'])
   }
 
 } 

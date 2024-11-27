@@ -1,12 +1,12 @@
 <p-tabView (onChange)="onTabChange($event)" [activeIndex]="activeIndex">
     <p-tabPanel header="Assignments">
         <div>
-            <router-outlet></router-outlet>
         </div>
     </p-tabPanel>
     
-    <p-tabPanel header="Grade History" (click)="goToGradeHistory()">
+    <p-tabPanel header="Grade History">
         <p>
+            <router-outlet></router-outlet>
         </p>
     </p-tabPanel>
 </p-tabView>

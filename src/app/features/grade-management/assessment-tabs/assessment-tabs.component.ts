@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { TabViewModule } from 'primeng/tabview';
 import { Observable, of } from 'rxjs';
 
@@ -18,6 +18,8 @@ export class AssessmentTabsComponent {
   GradedCount: number = 0;
   hasUngraded: boolean = false;
   hasGraded: boolean = false;
+
+  activeIndex: number = 0;
 
   // sample data for simulating request for assessments
   assessments = [
@@ -92,7 +94,9 @@ export class AssessmentTabsComponent {
   ]
   
 
-  constructor() {
+  constructor(
+    private router: Router,
+  ) {
     // private assessmentService: assessmentService,
   }
 
@@ -122,6 +126,20 @@ export class AssessmentTabsComponent {
       this.hasUngraded = this.UngradedCount > 0;
       this.hasGraded = this.GradedCount > 0;
     }) 
+  }
+
+  onTabChange(event: any) {
+    if (event.index === 1) { // Index of the "Grade History" tab
+      console.log("grade history clicked")
+        this.goToGradeHistory();
+    }
+  }
+
+
+
+  goToGradeHistory() {
+    this.router.navigate(['/home/trainer/grade-management/grade-history'])
+    console.log("working?")
   }
 
 }

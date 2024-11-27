@@ -28,23 +28,32 @@ export const trainerRoutes: Routes = [
       {
         path: '',
         loadComponent: () => import('../../features/grade-management/assessment-tabs/assessment-tabs.component')
-        .then(m => m.AssessmentTabsComponent)
+        .then(m => m.AssessmentTabsComponent),
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('../../features/grade-management/view-assessment-list/view-assessment-list.component')
+            .then(m => m.ViewAssessmentListComponent),
+          },
+          {
+            path: 'trainee-list',
+            loadComponent: () => import('../../features/grade-management/view-ungraded-trainees-list/trainees-list/trainees-list.component')
+            .then(m => m.TraineesListComponent),
+          },
+        ]
       },
       {
-        path: 'view-assessments',
-        loadComponent: () => import('../../features/grade-management/view-assessment-list/view-assessment-list.component')
-        .then(m => m.ViewAssessmentListComponent),
+        path: 'grade-history',
+        loadComponent: () => import('../../features/grade-management/assessment-tabs-second/assessment-tabs-second.component')
+        .then(m => m.AssessmentTabsSecondComponent),
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('../../features/grade-management/view-grade-history-list/view-grade-history/view-grade-history.component')
+            .then(m => m.ViewGradeHistoryComponent),
+          },
+        ]
       },
-      {
-        path: 'ungraded-list',
-        loadComponent: () => import('../../features/grade-management/view-ungraded-trainees-list/view-ungraded-trainees-list.component')
-        .then(m => m.ViewUngradedTraineesListComponent),
-      },
-      {
-        path: 'grade-assignment',
-        loadComponent: () => import('../../features/grade-management/grade-assignment/grade-assignment.component')
-        .then(m => m.GradeAssignmentComponent),
-      }
     ]
   },
   {
