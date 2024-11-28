@@ -1,38 +1,58 @@
 import { Component } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
+import { ModalComponent } from '../components/modal/modal.component';
+import {
+  AssessmentData,
+  CreateAssessment,
+} from '@core/models/assessment-form.interface';
+import { AssessmentService } from '@core/services/assessment/assessment.service';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { SearchbarComponent } from "../../../core/shared/searchbar/searchbar.component";
+import { AssessmentCardComponent } from "../components/assessment-card/assessment-card.component";
 
 @Component({
   selector: 'app-assessment-list',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, ModalComponent, CommonModule, SearchbarComponent, AssessmentCardComponent],
   templateUrl: './assessment-list.component.html',
   styleUrl: './assessment-list.component.scss',
 })
 export class AssessmentListComponent {
-  assessmentTypes = [
-    {
-      type: 'quiz',
-      label: 'Quiz',
-      icon: 'assets/Images/png/quiz.png',
-      route: '/home/trainer/assessment/create/quiz',
-    },
-    {
-      type: 'lab',
-      label: 'Labs',
-      icon: 'assets/Images/png/lab.png',
-      route: '/home/trainer/assessment/create/lab',
-    },
-    {
-      type: 'presentation',
-      label: 'Presentation',
-      icon: 'assets/Images/png/presentation.png',
-      route: '/home/trainer/assessment/create/presentation',
-    },
-  ];
+  showModal = false;
+  assessmentTypes: CreateAssessment[] = [];
+  assessments$!: Observable<AssessmentData[]>;
 
-  constructor(private router: Router) {}
+
+  constructor(
+    private router: Router,
+    private assessmentService: AssessmentService
+  ) {
+    this.assessmentService
+      .getAssessmentType()
+      .subscribe((data: CreateAssessment[]) => {
+        this.assessmentTypes = data;
+      });
+  }
+
+  ngOnInit(): void {
+    this.fetchAssessments();
+    this.assessments$ = this.assessmentService.assessments$;
+  }
+
+  fetchAssessments() {
+    this.assessmentService.getAssessments().subscribe();
+  }
 
   navigateToAssessmentForm(type: string) {
-    this.router.navigate(['/home/trainer/assessment/create', type]);
+    if (type === 'quiz') {
+      this.showModal = true;
+    } else {
+      this.router.navigate(['/home/trainer/assessment/create', type]);
+    }
+  }
+
+  handleCloseModal() {
+    this.showModal = false;
   }
 }

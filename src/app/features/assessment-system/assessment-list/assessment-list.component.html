@@ -1,28 +1,51 @@
-<div class="empty-assessment">
-  <div class="content">
-    <div class="col-1">
-      <img
-        src="assets/Images/png/no-assessment.png"
-        alt="No Assessment Available"
-        class="empty-icon"
-      />
-      <h2>No Assessment Available</h2>
-      <p>
-        You currently have no quizzes created. Click on "Create Quiz" to add new
-        quizzes and assign them to your trainees.
-      </p>
-    </div>
-
-    <div class="assessment-types">
-      @for (item of assessmentTypes; track item.type) {
-      <a (click)="navigateToAssessmentForm(item.type)" class="assessment-type">
-        <span class="icon">
-          <img [src]="item.icon" />
-        </span>
-        <span class="label">{{ item.label }}</span>
-        <span class="plus">+</span>
-      </a>
-      }
+<div
+  *ngIf="(assessments$ | async)?.length ?? 0 >= 1; else noDataTemplate"
+  class="wrapper"
+>
+  <div class="col-1">
+    <app-searchbar [title]="'Assessment'" [placeholder]="'Name'" />
+  </div>
+  <div class="assessments">
+    <div *ngFor="let assessment of (assessments$ | async) ?? []">
+      <app-assessment-card [assessment]="assessment" />
     </div>
   </div>
 </div>
+
+<ng-template #noDataTemplate>
+  <div class="empty-assessment">
+    <div class="content">
+      <div class="col-1">
+        <img
+          src="assets/Images/png/no-assessment.png"
+          alt="No Assessment Available"
+          class="empty-icon"
+        />
+        <h2>No Assessment Available</h2>
+        <p>
+          You currently have no quizzes created. Click on "Create Quiz" to add
+          new quizzes and assign them to your trainees.
+        </p>
+      </div>
+
+      <div class="assessment-types">
+        @for (item of assessmentTypes; track item.type) {
+        <a
+          (click)="navigateToAssessmentForm(item.type)"
+          class="assessment-type"
+        >
+          <span class="icon">
+            <img [src]="item.icon" />
+          </span>
+          <span class="label">{{ item.label }}</span>
+          <span class="plus">+</span>
+        </a>
+        }
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+@if (showModal) {
+<app-modal (closeModal)="handleCloseModal()"></app-modal>
+}
