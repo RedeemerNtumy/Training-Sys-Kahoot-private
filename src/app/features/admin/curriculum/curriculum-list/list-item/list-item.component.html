@@ -1,9 +1,11 @@
-<div class="list-item">
+<div class="list-item" (click)="navigateToDetail()">
   <span class="curriculum-index">#{{ curriculumIndex + 1}}</span>
   <div class="curriculum-info">
     <span class="curriculum-txt-1">{{ curriculum.title }}</span>
     <span class="curriculum-txt-2">{{ curriculum.modules.length }}</span>
-    <span class="curriculum-txt-3">{{ curriculum.topics.length }}</span>
+    <span class="curriculum-txt-3">
+      {{ getTotalTopics() }}
+    </span>
     <span class="curriculum-txt-4">{{ curriculum.assignedSpecialization }}</span>
   </div>
 

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { curriculum } from '@core/models/curriculum.interface';
 import { OptionsDropdownComponent } from "../../../../../core/shared/options-dropdown/options-dropdown.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-item',
@@ -15,7 +16,7 @@ export class ListItemComponent {
   @Input() curriculumIndex!: number;
   isDropdownActive = false;
 
-  constructor() {
+  constructor(private router:Router) {
     document.addEventListener('click', () => {
       this.isDropdownActive = false;
     });
@@ -27,6 +28,13 @@ export class ListItemComponent {
     });
   }
 
+  getTotalTopics(): number {
+    return this.curriculum.modules.reduce((total, mod) => total + mod.topics.length, 0);
+  }
+
+  navigateToDetail() {
+    this.router.navigate(['home','admin','curriculum-management','curriculum', this.curriculum.id ]);
+  }
 
   dropdownOptions = [
     {
