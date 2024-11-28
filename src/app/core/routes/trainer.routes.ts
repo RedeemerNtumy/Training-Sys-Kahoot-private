@@ -34,6 +34,13 @@ export const trainerRoutes: Routes = [
             '@features/assessment-system/assessment-form/assessment-form.component'
           ).then((m) => m.AssessmentFormComponent),
       },
+      {
+        path: ':quiz-creation',
+        loadComponent: () =>
+          import(
+            '@features/assessment-system/quiz-creation/quiz-creation.component'
+          ).then((m) => m.QuizCreationComponent),
+      },
     ],
   },
   {
