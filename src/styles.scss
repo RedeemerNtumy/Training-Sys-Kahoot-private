@@ -1,10 +1,14 @@
 @use "./styleSheet/base" as *;
-@use "./styleSheet/typography" as *;
-@use "./styleSheet/variables" as *;
+// @use "./styleSheet/typography" as *;
+// @use "./styleSheet/variables" as *;
 @use "./styleSheet/mixins" as *;
 @use "@angular/material" as mat;
 @include mat.core();
 @import "primeicons/primeicons.css";
+@import './styleSheet/variables';
+
+@import './styleSheet/variables';
+@import './styleSheet/typography';
 
 // Define palettes
 $primary: mat.define-palette(mat.$indigo-palette);
@@ -66,6 +70,37 @@ $theme: mat.define-light-theme(
   }
 }
 
-body{
-  min-height: 100vh;
+
+.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
+  flex-grow: 0 !important;
+}
+
+
+// PrimeNG styles for tab - used in grade-management\
+ul.p-tabview-nav {
+  margin-bottom: 2.8rem;
+  border: none;
+  display: flex;
+  gap: 3.5rem;
+  background: none;
+}
+
+span.p-tabview-title {
+  display: grid;
+  place-items: center;
+  height: 3.5rem;
+  font-family: $font-lato;
+  font-size: $font-size-body;
+  color: $clr-gray-500;
+}
+
+.p-tabview-nav li.p {
+  background: none;
+}
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-color: $clr-primary-500;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  background: none;
 }

@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class TraineeInsystemService {
 
-  private addTrainee: string = environment.BaseUrl
+  private baseUrl: string = environment.BaseUrl
 
   public retreivedUserDataSubject = new BehaviorSubject<User | null>(null);
   public retreivedUserData$: Observable<User | null> = this.retreivedUserDataSubject.asObservable();
@@ -43,7 +43,7 @@ export class TraineeInsystemService {
 
   // Get the email entered into the input field
   checkEmail(email: string) {
-    return this.http.get<User[]>(`${this.addTrainee}?email=${encodeURIComponent(email)}`).pipe(
+    return this.http.get<User[]>(`${this.baseUrl}?email=${encodeURIComponent(email)}`).pipe(
       tap(response => {
         const [data] = response;
         this.retreivedUserDataSubject.next(data);
@@ -72,7 +72,7 @@ export class TraineeInsystemService {
   //Usermanagment add user requests
   //Put request to backend
   updateUserData(updateFormData: {}, email: string | undefined) {
-    return this.http.put<User>(`${this.addTrainee}?email=${encodeURIComponent(email || '')}`, updateFormData).pipe(
+    return this.http.put<User>(`${this.baseUrl}?email=${encodeURIComponent(email || '')}`, updateFormData).pipe(
       tap(() => {
         this.firstFormStateSubject.next(null)
         this.secondFormStateSubject.next(null)
@@ -81,27 +81,13 @@ export class TraineeInsystemService {
     )
   }
 
-  createNewUser(combinedState: { [key: string]: any }) {
-    const newFormData = new FormData();
-  
-    Object.keys(combinedState).forEach((key) => {
-      const value = combinedState[key];
-      if (value !== undefined && value !== null) {
-        if (value instanceof Date) {
-          newFormData.append(key, value.toISOString());
-        } else if (value instanceof File) {
-          newFormData.append(key, value);
-        } else {
-          newFormData.append(key, String(value));
-        }
-      }
-    });
-
-    return this.http.post<User>(`${this.addTrainee}/users/trainee/create`, newFormData).pipe(
+  createNewUser(formData: FormData) {
+    return this.http.post<User>(`${this.baseUrl}/users/trainee/create`, formData).pipe(
       tap(() => {
         // Reset form states
         this.firstFormStateSubject.next(null);
         this.secondFormStateSubject.next(null);
+        console.log('Submitting trainee details to API');
       }),
       catchError((error) => {
         console.error('Error creating user:', error);
@@ -109,10 +95,11 @@ export class TraineeInsystemService {
       })
     );
   }
+  
 
 
   getAllTrainees() {
-    return this.http.get<User[]>(this.addTrainee).pipe(
+    return this.http.get<User[]>(`${this.baseUrl}/users/role?role=TRAINEE`).pipe(
       tap((response) => {
         this.allTraineesSubject.next(response)
       }),
@@ -125,7 +112,7 @@ export class TraineeInsystemService {
   }
 
   deleteSelectedTrainee(email: string) {
-    return this.http.delete<User>(`${this.addTrainee}?email=${encodeURIComponent(email)}`).pipe(
+    return this.http.delete<User>(`${this.baseUrl}?email=${encodeURIComponent(email)}`).pipe(
       tap((response) => {
         console.log(response);
         this.deleteModalSuccessful = true;
