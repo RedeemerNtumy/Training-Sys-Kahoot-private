@@ -99,6 +99,11 @@ export const adminRoutes: Routes = [
        .then(m => m.CurriculumListComponent)
       },
       {
+        path: 'curriculum/:id',
+        loadComponent: () => import('@features/admin/curriculum/detail/detail.component')
+        .then(m => m.DetailComponent)
+      },
+      {
         path: 'create-curriculum',
         loadComponent: () => import('@features/admin/curriculum/create/create.component')
        .then(m => m.CreateComponent),

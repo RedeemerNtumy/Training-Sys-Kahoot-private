@@ -14,7 +14,7 @@ export class CurriculumCrudService {
   constructor(private http: HttpClient,
     private errorService: ErrorHandleService
   ) {
-    
+
    }
 
   getAllCurriculums():Observable<curriculum[]> {
@@ -26,8 +26,8 @@ export class CurriculumCrudService {
   }
 
   getCurriculumById(id: number): Observable<curriculum> {
-    const url = `${this.localServer}${id}`;
-    return this.http.get<curriculum>(url)
+    const url = `${this.localServer}/${id}`;
+    return this.http.get<curriculum>(url);
   }
 
   createCurriculum(curriculum: curriculum){

@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { curriculum } from '@core/models/curriculum.interface';
-import { BehaviorSubject,combineLatest, map } from 'rxjs';
+import { BehaviorSubject,combineLatest, map,tap,catchError } from 'rxjs';
 import { ErrorHandleService } from '../error-handle/error-handle.service';
 import { CurriculumCrudService } from '../curriculum-crud/curriculum-crud.service';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class CurriculumFacadeService {
   private curriculumSubject = new BehaviorSubject<curriculum[]>([]);
   private searchTermSubject = new BehaviorSubject<string>('');
   private sortDirectionSubject = new BehaviorSubject<'asc' | 'desc'>('asc');
-
+  // private selectedCurriculumSubject = new BehaviorSubject<curriculum>({});
+  // selectedCurriculum = this.selectedCurriculumSubject.asObservable()
 
   readonly curriculum$ = this.curriculumSubject.asObservable();
   readonly searchTerm$ = this.searchTermSubject.asObservable();
@@ -65,8 +67,18 @@ export class CurriculumFacadeService {
     this.sortDirectionSubject.next(currentDirection === 'asc' ? 'desc' : 'asc');
   }
 
-  // Method to refresh data
+
   refreshCurriculum() {
     this.loadCurriculum();
+  }
+
+
+  getSelectedCurriculum(id:number){
+    return this.curriculumCrud.getCurriculumById(id).pipe(
+      tap((data) => {
+        console.log(data);
+      }),
+      catchError(this.errorService.handleError)
+    )
   }
 }
