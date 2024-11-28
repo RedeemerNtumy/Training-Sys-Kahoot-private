@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { specialization } from '@core/models/specialization.interface';
@@ -10,7 +10,8 @@ import { AddFeedbackComponent } from "../add-feedback/add-feedback.component";
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatButtonModule, AddFeedbackComponent],
+  imports: [ReactiveFormsModule, CommonModule,
+    MatButtonModule,MatRipple],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
