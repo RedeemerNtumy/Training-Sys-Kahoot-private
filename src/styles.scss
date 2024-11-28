@@ -65,3 +65,20 @@ $theme: mat.define-light-theme(
     }
   }
 }
+
+.mat-mdc-tab-group,
+.mat-mdc-tab-nav-bar {
+  --mdc-tab-indicator-active-indicator-color: #f98416 !important;
+  --mat-tab-header-disabled-ripple-color: #f98416 !important;
+  --mat-tab-header-pagination-icon-color: #f98416 !important;
+  --mat-tab-header-inactive-label-text-color: #676767 !important;
+  --mat-tab-header-active-label-text-color: #676767 !important;
+  --mat-tab-header-active-ripple-color: #fff !important;
+  --mat-tab-header-inactive-ripple-color: #fff !important;
+  --mat-tab-header-inactive-focus-label-text-color: #676767 !important;
+  --mat-tab-header-inactive-hover-label-text-color: #676767 !important;
+  --mat-tab-header-active-focus-label-text-color: #676767 !important;
+  --mat-tab-header-active-hover-label-text-color: #676767 !important;
+  --mat-tab-header-active-focus-indicator-color: #f98416 !important;
+  --mat-tab-header-active-hover-indicator-color: #f98416 !important;
+}
