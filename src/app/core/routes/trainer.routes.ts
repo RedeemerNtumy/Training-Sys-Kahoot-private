@@ -29,6 +29,18 @@ export const trainerRoutes: Routes = [
         path: '',
         loadComponent: () => import('../../features/grade-management/welcome-page/welcome-page.component')
         .then(m => m.WelcomePageComponent)
+      },
+      {
+        path: 'view-assessments',
+        loadComponent: () => import('../../features/grade-management/view-assessment-list/view-assessment-list.component')
+        .then(m => m.ViewAssessmentListComponent),
+        children: [
+          {
+            path: 'ungraded-list',
+            loadComponent: () => import('../../features/grade-management/view-assessment-list/view-ungraded-trainees-list/view-ungraded-trainees-list.component')
+            .then(m => m.ViewUngradedTraineesListComponent),
+          }
+        ]
       }
     ]
   },
