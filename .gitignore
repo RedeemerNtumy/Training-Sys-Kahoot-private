@@ -42,3 +42,6 @@ testem.log
 Thumbs.db
 
 /src/environments
+
+db.json
+src/assets/data/assessmentType.json
