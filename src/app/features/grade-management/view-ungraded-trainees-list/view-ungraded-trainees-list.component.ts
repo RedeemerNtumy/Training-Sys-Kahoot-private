@@ -1,19 +1,19 @@
-import { Component } from '@angular/core';
-import { TabViewModule } from 'primeng/tabview';
-import { ViewAssignmentsComponent } from './view-assignments/view-assignments.component';
-import { Observable, of } from 'rxjs';
 import { NgIf } from '@angular/common';
-import { ViewGradeHistoryComponent } from '../view-grade-history-list/view-grade-history/view-grade-history.component';
+import { TabViewModule } from 'primeng/tabview';
+import { Component } from '@angular/core';
+import { Observable, of } from 'rxjs';
+
+import { TraineesListComponent } from './trainees-list/trainees-list.component';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-view-assessment-list',
+  selector: 'app-view-ungraded-trainees-list',
   standalone: true,
-  imports: [TabViewModule, ViewAssignmentsComponent, NgIf, ViewGradeHistoryComponent],
-  templateUrl: './view-assessment-list.component.html',
-  styleUrl: './view-assessment-list.component.scss'
+  imports: [NgIf, TabViewModule, TraineesListComponent],
+  templateUrl: './view-ungraded-trainees-list.component.html',
+  styleUrl: './view-ungraded-trainees-list.component.scss'
 })
-export class ViewAssessmentListComponent {
-
+export class ViewUngradedTraineesListComponent {
   getAssessments$!: Observable<any>;
 
   UngradedCount: number = 0;
@@ -94,7 +94,9 @@ export class ViewAssessmentListComponent {
   ]
   
 
-  constructor() {
+  constructor(
+    private router: Router,
+  ) {
     // private assessmentService: assessmentService,
   }
 
@@ -109,7 +111,7 @@ export class ViewAssessmentListComponent {
     this.getAssessments$ = of(this.assessments); // to be removed
 
     // Assign graded and ungraded lengths to different variables
-    this.getAssessments$.subscribe(data => {
+    this.getAssessments$.subscribe((data: any[]) => {
       // Filter the data based on cardType
       const ungraded = data.find((a: { cardType: string; }) => a.cardType === "Ungraded Assignments"); // to be removed
       const graded = data.find((a: { cardType: string; }) => a.cardType === "Graded Assignments"); // to be removed
@@ -125,7 +127,6 @@ export class ViewAssessmentListComponent {
       this.hasGraded = this.GradedCount > 0;
     }) 
   }
-
 
 
 }

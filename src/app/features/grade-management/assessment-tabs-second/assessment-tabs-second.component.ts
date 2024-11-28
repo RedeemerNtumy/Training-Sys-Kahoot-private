@@ -1,25 +1,24 @@
 import { Component } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { TabViewModule } from 'primeng/tabview';
-import { ViewAssignmentsComponent } from './view-assignments/view-assignments.component';
 import { Observable, of } from 'rxjs';
-import { NgIf } from '@angular/common';
-import { ViewGradeHistoryComponent } from '../view-grade-history-list/view-grade-history/view-grade-history.component';
 
 @Component({
-  selector: 'app-view-assessment-list',
+  selector: 'app-assessment-tabs-second',
   standalone: true,
-  imports: [TabViewModule, ViewAssignmentsComponent, NgIf, ViewGradeHistoryComponent],
-  templateUrl: './view-assessment-list.component.html',
-  styleUrl: './view-assessment-list.component.scss'
+  imports: [TabViewModule, RouterOutlet],
+  templateUrl: './assessment-tabs-second.component.html',
+  styleUrl: './assessment-tabs-second.component.scss'
 })
-export class ViewAssessmentListComponent {
-
+export class AssessmentTabsSecondComponent {
   getAssessments$!: Observable<any>;
 
   UngradedCount: number = 0;
   GradedCount: number = 0;
   hasUngraded: boolean = false;
   hasGraded: boolean = false;
+
+  activeIndex: number = 1;
 
   // sample data for simulating request for assessments
   assessments = [
@@ -94,7 +93,9 @@ export class ViewAssessmentListComponent {
   ]
   
 
-  constructor() {
+  constructor(
+    private router: Router,
+  ) {
     // private assessmentService: assessmentService,
   }
 
@@ -126,6 +127,13 @@ export class ViewAssessmentListComponent {
     }) 
   }
 
+  onTabChange(event: any) {
+    if (event.index === 0) { // Index of the "Grade history" tab
+        this.goToAssignments();
+    }
+  }
 
-
+  goToAssignments() {
+    this.router.navigate(['/home/trainer/grade-management/'])
+  }
 }
