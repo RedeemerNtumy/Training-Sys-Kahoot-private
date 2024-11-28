@@ -1,0 +1,53 @@
+@import '../styleSheet/variables';
+
+@mixin modal-like-card {
+    width: 59.5rem;
+    height: fit-content;
+    background: $clr-white;
+    border-radius: .8rem;
+    padding: 4.8rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & img {
+        margin-bottom: 1.9rem;
+    }
+
+    & h2 {
+        font-size: $font-size-h5;
+        margin-bottom: 1.9rem;
+        color: $clr-gray-800;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    & p {
+        font-size: $font-size-body;
+        color: $clr-gray-500;
+        font-weight: 400;
+        text-align: center;
+    }
+}
+
+
+
+
+// Welcome page mixins 
+@mixin addAssessmentBtns {
+    display: flex;
+    align-items: center;
+
+    img {
+        width: 3.8rem;
+        height: 3.8rem;
+        margin-right: 1.2rem;
+    }
+
+    span {
+        font-size: $font-size-body;
+        color: $clr-gray-500;
+        font-weight: 400;
+        margin-right: 1rem;
+    }
+}
