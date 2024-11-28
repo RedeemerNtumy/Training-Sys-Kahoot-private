@@ -91,12 +91,36 @@ export class ModuleComponent implements OnInit {
     this.removeModule(index);
   }
 
+
+  get formControls(){
+    return {
+      title: this.parentForm.get('title'),
+      description: this.parentForm.get('description'),
+      topics: this.parentForm.get('topics')
+    };
+  }
+
   onCreateCurriculum(): void {
     if (this.parentForm?.valid) {
       console.log('Final curriculum data:', this.parentForm.value);
       this.router.navigate(['home', 'admin', 'curriculum', 'list']);
+    } else {
+      this.markFormGroupTouched(this.parentForm);
     }
   }
+
+  private markFormGroupTouched(formGroup: FormGroup | FormArray): void {
+    Object.values(formGroup.controls).forEach(control => {
+      if (control instanceof FormGroup || control instanceof FormArray) {
+        this.markFormGroupTouched(control);
+      } else {
+        control.markAsTouched();
+      }
+    });
+  }
+
+
+
 
   selectModule(index: number): void {
     this.activeModuleIndex = index;
