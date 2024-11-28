@@ -1,6 +1,7 @@
 
 import { Routes } from '@angular/router';
-import { DashboardComponent } from '@views/trainer/dashboard/dashboard.component';
+import { WelcomePageComponent } from '@features/grade-management/welcome-page/welcome-page.component';
+
 
 export const trainerRoutes: Routes = [
   {
@@ -10,7 +11,7 @@ export const trainerRoutes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    component: WelcomePageComponent,
     data: { role: 'trainer' }
   },
   {
