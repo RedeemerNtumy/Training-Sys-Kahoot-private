@@ -11,7 +11,9 @@ import {
   AssessmentType,
 } from '@core/models/assessment-form.interface';
 import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { QuizDataService } from '@core/services/assessment/quiz-data.service';
+import { AssessmentService } from '@core/services/assessment/assessment.service';
 
 @Component({
   selector: 'app-assessment-form',
@@ -28,7 +30,13 @@ export class AssessmentFormComponent {
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private quizDataService: QuizDataService,
+    private assessmentService: AssessmentService
+  ) {
     this.form = this.fb.group({
       assessmentType: ['', Validators.required],
       title: ['', Validators.required],
@@ -37,6 +45,7 @@ export class AssessmentFormComponent {
       coverImage: [null],
       attachments: [[]],
     });
+    
   }
 
   ngOnInit() {
@@ -76,9 +85,29 @@ export class AssessmentFormComponent {
         ...this.form.value,
         assessmentType: this.type,
       };
+
       console.log('Form Data:', formData);
-      console.log('Assessment Type:', this.type);
-      this.formSubmit.emit(formData);
+
+      if (this.type === 'quiz') {
+        this.quizDataService.setQuizData(formData);
+        this.router.navigate(['/home/trainer/assessment/quiz-creation']);
+      } else {
+        this.assessmentService.addAssessment(formData).subscribe(() => {
+          console.log('sending to backend', formData);
+          this.formSubmit.emit(formData);
+        });
+      }
     }
+  }
+  
+
+  submitQuizWithQuestions(questions: any[]) {
+    this.quizDataService.getQuizData().subscribe((formData) => {
+      if (formData) {
+        formData.questions = questions;
+        this.formSubmit.emit(formData);
+        this.quizDataService.clearQuizData();
+      }
+    });
   }
 }
