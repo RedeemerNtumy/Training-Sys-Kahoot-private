@@ -152,33 +152,23 @@ export const adminRoutes: Routes = [
     ],
   },
   {
-    path: 'curriculum',
+    path: 'curriculum-management',
     loadComponent: () => import('@views/admin/curriculum/curriculum.component')
     .then(m => m.CurriculumComponent),
     data: { role: 'admin' },
     children: [
       {
         path: '',
-        redirectTo: 'list',
-        pathMatch: 'full'
-      },
-      {
-        path: 'list',
         loadComponent: () => import('@features/admin/curriculum/curriculum-list/curriculum-list.component')
        .then(m => m.CurriculumListComponent)
       },
       {
-        path: 'create',
+        path: 'create-curriculum',
         loadComponent: () => import('@features/admin/curriculum/create/create.component')
        .then(m => m.CreateComponent),
        children:[
          {
-          path: '',
-          redirectTo: 'create-curriculum',
-          pathMatch: 'full'
-         },
-         {
-           path: 'create-curriculum',
+           path: '',
            loadComponent: () => import('@features/admin/curriculum/create/form/form.component')
           .then(m => m.FormComponent)
          },

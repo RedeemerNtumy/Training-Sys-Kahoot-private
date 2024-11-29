@@ -1,9 +1,45 @@
 <main class="curriculum-container">
-  <ng-container *ngIf="curriculum.length == 0">
+  <ng-container *ngIf="showNoCurriculums">
     <app-empty-hint/>
   </ng-container>
-  <ng-container *ngIf="curriculum.length > 0">
+
+
+  <ng-container *ngIf="!showNoCurriculums">
     <app-header/>
-    <app-list-item/>
+
+    <ng-container *ngIf="showNoSearchResults">
+      <section class="no-results-section">
+        <div class="no-results-content">
+          <img src="../../../../../assets/Images/svg/undraw_no_data_re_kwbl.svg" alt="No results found">
+          <h3>No matching curriculums found</h3>
+          <p>We couldn't find any curriculum matching "{{ searchTerm }}"</p>
+          <p>Try adjusting your search term or Create a new curriculum</p>
+        </div>
+      </section>
+    </ng-container>
+
+
+    <section class="list-section" *ngIf="!showNoSearchResults">
+      <div class="title">
+        <span>
+          Curriculums
+          <img src="../../../../../assets/Images/svg/oui_i-in-circle.svg" alt="">
+        </span>
+        <p>{{ curriculums.length }} Curriculums</p>
+      </div>
+
+      <div class="list-header">
+        <span class="header-title-1">Title</span>
+        <span class="header-title-2">Modules</span>
+        <span class="header-title-3">Topics</span>
+        <span class="header-title-1">Specializations</span>
+      </div>
+
+      <ng-container *ngFor="let curriculum of curriculums; let curriculumIndex = index">
+        <app-list-item
+          [curriculum]="curriculum"
+          [curriculumIndex]="curriculumIndex"/>
+      </ng-container>
+    </section>
   </ng-container>
 </main>

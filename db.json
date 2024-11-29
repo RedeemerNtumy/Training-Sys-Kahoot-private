@@ -25,8 +25,15 @@
           "description": "Master styling web pages with CSS.",
           "topics": ["Selectors", "Box Model", "Flexbox"],
           "moduleFile": "https://example.com/files/css-fundamentals.pdf"
+        },
+        {
+          "title": "JavaScript Essentials",
+          "description": "Learn the basics of JavaScript programming.",
+          "topics": ["Variables and Data Types", "Functions", "DOM Manipulation"],
+          "moduleFile": "https://example.com/files/javascript-essentials.pdf"
         }
-      ]
+      ],
+      "topics": ["HTML", "CSS", "JavaScript", "Responsive Design", "Web Accessibility"]
     },
     {
       "id": 2,
@@ -53,8 +60,102 @@
           "description": "Learn to work with relational and non-relational databases.",
           "topics": ["SQL Basics", "NoSQL Databases", "Database Optimization"],
           "moduleFile": "https://example.com/files/database-management.pdf"
+        },
+        {
+          "title": "Building RESTful APIs",
+          "description": "Develop and test RESTful APIs using best practices.",
+          "topics": ["HTTP Methods", "API Security", "API Testing"],
+          "moduleFile": "https://example.com/files/restful-apis.pdf"
         }
-      ]
+      ],
+      "topics": ["Node.js", "Database Management", "RESTful APIs", "Asynchronous Programming"]
+    },
+    {
+      "id": 3,
+      "createdAt": "2024-09-30T09:00:00Z",
+      "title": "Mobile App Development",
+      "description": "Learn to create mobile applications using cross-platform frameworks.",
+      "assignedSpecialization": "App Development",
+      "assignedCohort": "Cohort 2024",
+      "learningObjectives": [
+        "Develop cross-platform mobile applications",
+        "Understand mobile app architecture",
+        "Implement native-like user interfaces"
+      ],
+      "thumbnail": "https://example.com/thumbnails/mobile.png",
+      "modules": [
+        {
+          "title": "Introduction to Flutter",
+          "description": "Learn the basics of Flutter framework for cross-platform development.",
+          "topics": ["Flutter Widgets", "State Management", "Dart Basics"],
+          "moduleFile": "https://example.com/files/flutter-intro.pdf"
+        },
+        {
+          "title": "Building Mobile UI",
+          "description": "Create responsive and interactive mobile interfaces.",
+          "topics": ["UI Design Principles", "Animations", "Gesture Handling"],
+          "moduleFile": "https://example.com/files/mobile-ui.pdf"
+        }
+      ],
+      "topics": ["Flutter", "Dart", "State Management", "Mobile UI Design", "Animations"]
+    },
+    {
+      "id": 4,
+      "createdAt": "2024-08-25T14:00:00Z",
+      "title": "Data Science Fundamentals",
+      "description": "An introduction to data science, focusing on data analysis and visualization.",
+      "assignedSpecialization": "Data Science",
+      "assignedCohort": "Cohort 2024",
+      "learningObjectives": [
+        "Understand the basics of data analysis",
+        "Visualize data using Python libraries",
+        "Learn statistical methods for data interpretation"
+      ],
+      "thumbnail": "https://example.com/thumbnails/data-science.png",
+      "modules": [
+        {
+          "title": "Introduction to Data Science",
+          "description": "Explore the fundamentals of data science and its applications.",
+          "topics": ["What is Data Science?", "Applications"],
+          "moduleFile": "https://example.com/files/data-science-intro.pdf"
+        },
+        {
+          "title": "Data Visualization",
+          "description": "Learn to create visual representations of data.",
+          "topics": ["Matplotlib Basics", "Seaborn for Visualization", "Dashboards"],
+          "moduleFile": "https://example.com/files/data-visualization.pdf"
+        }
+      ],
+      "topics": ["Data Analysis", "Python", "Visualization", "Statistics", "Dashboards"]
+    },
+    {
+      "id": 5,
+      "createdAt": "2024-07-15T12:00:00Z",
+      "title": "Cybersecurity Basics",
+      "description": "Understand the fundamentals of cybersecurity and how to protect systems.",
+      "assignedSpecialization": "Cybersecurity",
+      "assignedCohort": "Cohort 2024",
+      "learningObjectives": [
+        "Identify potential cybersecurity threats",
+        "Understand encryption and security protocols",
+        "Apply best practices for securing applications"
+      ],
+      "thumbnail": "https://example.com/thumbnails/cybersecurity.png",
+      "modules": [
+        {
+          "title": "Cybersecurity Overview",
+          "description": "Learn the essentials of cybersecurity and its importance.",
+          "topics": ["Threat Landscape", "Cyber Attacks", "Defense Strategies"],
+          "moduleFile": "https://example.com/files/cybersecurity-overview.pdf"
+        },
+        {
+          "title": "Encryption and Protocols",
+          "description": "Understand the role of encryption in securing systems.",
+          "topics": ["Symmetric and Asymmetric Encryption", "SSL/TLS", "Data Integrity"],
+          "moduleFile": "https://example.com/files/encryption-protocols.pdf"
+        }
+      ],
+      "topics": ["Cybersecurity", "Encryption", "Security Protocols", "Threat Analysis", "Defense Strategies"]
     }
   ]
 }
