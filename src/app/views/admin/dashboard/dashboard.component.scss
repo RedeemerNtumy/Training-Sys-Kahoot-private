@@ -117,7 +117,8 @@
             width: 126px;
             height: 126px;
             border-radius: 50%;
-            background: conic-gradient(#4caf50 0% 75%, #e0e0e0 75% 100%);
+            background: conic-gradient(#4caf50 75%, #e0e0e0 75% 100%);
+            transform: rotate(-180deg)
           }
 
           .progress-circle::after {
