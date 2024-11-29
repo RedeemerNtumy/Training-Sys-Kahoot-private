@@ -1,0 +1,159 @@
+import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { QuestionListItemComponent } from '../components/question-list-item/question-list-item.component';
+import { CommonModule } from '@angular/common';
+import { AnswerComponent } from '../components/answer/answer.component';
+import {
+  ReactiveFormsModule,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+} from '@angular/forms';
+import { AssessmentFormComponent } from '../assessment-form/assessment-form.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { QuizDataService } from '@core/services/assessment/quiz-data.service';
+import { AssessmentService } from '@core/services/assessment/assessment.service';
+
+@Component({
+  selector: 'app-quiz-creation',
+  standalone: true,
+  imports: [
+    MatIconModule,
+    QuestionListItemComponent,
+    CommonModule,
+    AnswerComponent,
+    ReactiveFormsModule,
+  ],
+  templateUrl: './quiz-creation.component.html',
+  styleUrl: './quiz-creation.component.scss',
+})
+export class QuizCreationComponent {
+  quizForm: FormGroup;
+  selectedQuestionIndex: number | null = null;
+  quizTitle: string = '';
+
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private quizDataService: QuizDataService,
+    private assessmentService: AssessmentService
+  ) {
+    this.quizForm = this.fb.group({
+      questions: this.fb.array([]),
+    });
+    this.loadQuizData();
+    this.loadQuizTitle();
+  }
+
+  get questions(): FormArray<FormGroup> {
+    return this.quizForm.get('questions') as FormArray<FormGroup>;
+  }
+
+  get answers(): FormArray {
+    const selectedQuestion = this.questions.at(
+      this.selectedQuestionIndex!
+    ) as FormGroup;
+    return selectedQuestion && selectedQuestion.get('answers')
+      ? (selectedQuestion.get('answers') as FormArray)
+      : new FormArray<any>([]);
+  }
+
+  addQuestion() {
+    const questionGroup = this.fb.group({
+      text: '',
+      answers: this.fb.array([]),
+      timestamp: new Date().toISOString(),
+    });
+    this.questions.push(questionGroup);
+    this.selectedQuestionIndex = this.questions.length - 1;
+  }
+
+  selectQuestion(index: number) {
+    this.selectedQuestionIndex = index;
+  }
+
+  addAnswer(questionIndex: number) {
+    const answers = (this.questions.at(questionIndex) as FormGroup).get(
+      'answers'
+    ) as FormArray;
+    answers.push(this.fb.control(''));
+  }
+
+  updateAnswer(questionIndex: number, answerIndex: number, value: string) {
+    const answers = (this.questions.at(questionIndex) as FormGroup).get(
+      'answers'
+    ) as FormArray;
+    answers.at(answerIndex).setValue(value);
+  }
+
+  removeAnswer(questionIndex: number, answerIndex: number) {
+    const answers = (this.questions.at(questionIndex) as FormGroup).get(
+      'answers'
+    ) as FormArray;
+    answers.removeAt(answerIndex);
+  }
+
+  getOption(index: number): string {
+    return String.fromCharCode(65 + index);
+  }
+
+  submitQuiz() {
+    const quizData = this.quizForm.value.questions.map(
+      (question: any, index: number) => ({
+        questionNumber: index + 1,
+        questionText: question.text,
+        updatedTime: question.timestamp,
+        options: question.answers.map((answer: string, i: number) => ({
+          option: this.getOption(i),
+          value: answer,
+        })),
+      })
+    );
+
+    this.quizDataService.getQuizData().subscribe((assessmentFormData) => {
+      if (assessmentFormData) {
+        const combinedData = {
+          ...assessmentFormData,
+          questions: quizData,
+        };
+
+        const assessmentFormComponent = new AssessmentFormComponent(
+          this.fb,
+          this.route,
+          this.router,
+          this.quizDataService,
+          this.assessmentService
+        );
+        assessmentFormComponent.submitQuizWithQuestions(quizData);
+
+        console.log(combinedData);
+      }
+    });
+  }
+
+  saveQuizData() {
+    const quizData = this.quizForm.value;
+    localStorage.setItem('quizData', JSON.stringify(quizData));
+  }
+
+  loadQuizData() {
+    const savedQuizData = localStorage.getItem('quizData');
+    if (savedQuizData) {
+      const quizData = JSON.parse(savedQuizData);
+      this.quizForm.setValue(quizData);
+    }
+  }
+
+  loadQuizTitle() {
+    this.quizDataService.getQuizData().subscribe((assessmentFormData) => {
+      if (assessmentFormData) {
+        this.quizTitle = assessmentFormData.title;
+      }
+    });
+  }
+
+  save() {
+    this.saveQuizData();
+  }
+}

@@ -1,0 +1,51 @@
+@import "../../../../../styleSheet/variables";
+@import "../../../../../styleSheet/mixins";
+
+.container {
+  @include flexbox(row, center, center);
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  background: #00000052;
+  height: 100vh;
+  width: 100%;
+
+  .wrapper {
+    width: 96.9rem;
+    height: 69.6rem;
+    background-color: $clr-white;
+    border-radius: 0.8rem;
+    padding: 2.4rem;
+    @include flexbox(column, flex-start, center);
+    gap: 1.6rem;
+
+    .col-1 {
+      width: 100%;
+
+      .header {
+        @include flexbox(row, space-between, center);
+        width: 100%;
+
+        .assign {
+          color: $clr-gray-500;
+          font-size: 2rem;
+          font-weight: 700;
+        }
+
+        .close {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .col-2 {
+      width: 100%;
+
+      & .p-tabview .p-tabview-nav {
+        background: red;
+        border: none;
+      }
+    }
+  }
+}
