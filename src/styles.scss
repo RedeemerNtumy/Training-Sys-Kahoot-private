@@ -82,3 +82,21 @@ $theme: mat.define-light-theme(
   --mat-tab-header-active-focus-indicator-color: #f98416 !important;
   --mat-tab-header-active-hover-indicator-color: #f98416 !important;
 }
+
+.p-datatable .p-datatable-thead > tr > th {
+  font-size: 1.5rem;
+  background: #f0f0f0;
+  padding: 0.8rem 1.6rem;
+  font-weight: 400;
+  color: #676767;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 2.3rem 1.6rem;
+  font-size: 1.5rem;
+  color: #676767;
+}
+
+.p-datatable .p-datatable-tbody {
+  gap: 1.5rem;
+}
