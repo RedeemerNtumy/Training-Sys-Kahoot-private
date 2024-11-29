@@ -1,0 +1,509 @@
+@import "../styleSheet/variables";
+
+@mixin modal-like-card {
+  width: 59.5rem;
+  height: fit-content;
+  background: $clr-white;
+  border-radius: 0.8rem;
+  padding: 4.8rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & img {
+    margin-bottom: 1.9rem;
+  }
+
+  & h2 {
+    font-size: $font-size-h5;
+    margin-bottom: 1.9rem;
+    color: $clr-gray-800;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  & p {
+    font-size: $font-size-body;
+    color: $clr-gray-500;
+    font-weight: 400;
+    text-align: center;
+  }
+}
+
+// Welcome page mixins
+@mixin addAssessmentBtns {
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 3.8rem;
+    height: 3.8rem;
+    margin-right: 1.2rem;
+  }
+
+  span {
+    font-size: $font-size-body;
+    color: $clr-gray-500;
+    font-weight: 400;
+    margin-right: 1rem;
+  }
+}
+
+@mixin assessment-card {
+  width: fit-content;
+  font-family: $font-lato;
+  height: fit-content;
+  border-radius: 0.8rem;
+  border: 0.1rem solid $clr-gray-50;
+  padding: 2.4rem;
+  margin-bottom: 3rem;
+}
+
+// For div containing table header and trainees count
+@mixin title-count {
+  width: 96.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.4rem;
+
+  span:first-of-type {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    & p {
+      font-size: $font-size-body;
+      font-weight: 600;
+      color: $clr-gray-700;
+    }
+  }
+
+  span:last-of-type {
+    font-size: $font-size-body;
+    font-weight: 700;
+    color: $clr-gray-500;
+  }
+}
+
+// For table headers without images
+@mixin table-header {
+  width: 96.6rem;
+  // display: flex;
+  // flex-direction: column;
+
+  & tr {
+    width: 100%;
+    height: 3.5rem;
+    background: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.4rem;
+
+    & td {
+      font-size: $font-size-body;
+      font-weight: 600;
+      color: $clr-gray-800;
+    }
+
+    & td:nth-child(1) {
+      width: 11.2rem;
+    }
+    & td:nth-child(2) {
+      width: 29.6rem;
+    }
+    & td:nth-child(3) {
+      width: 19.2rem;
+    }
+    & td:nth-child(4) {
+      width: 19.2rem;
+    }
+    & td:nth-child(5) {
+      width: 12rem;
+    }
+  }
+}
+
+// For table items without images
+@mixin table-items {
+  width: 96.6rem;
+  display: flex;
+  flex-direction: column;
+
+  tr {
+    display: flex;
+    width: 100%;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & td {
+      font-size: $font-size-body;
+      font-weight: 400;
+      color: $clr-gray-500;
+    }
+
+    & td:nth-child(1) {
+      width: 11.2rem;
+    }
+    & td:nth-child(2) {
+      width: 29.6rem;
+    }
+    & td:nth-child(3) {
+      width: 19.2rem;
+    }
+    & td:nth-child(4) {
+      width: 19.2rem;
+    }
+    & button {
+      width: 12rem;
+      height: 3.5rem;
+      border-radius: 0.8rem;
+      color: $clr-gray-500;
+      outline: none;
+      border: 1px solid $clr-gray-50;
+      background: $clr-white;
+      cursor: pointer;
+    }
+    & button:hover {
+      outline: none;
+      background: $clr-gray-50;
+    }
+  }
+
+  & .divider {
+    width: 100%;
+    height: 0.1rem;
+    background: $clr-gray-50;
+    margin: 2rem 0;
+  }
+}
+
+// For table headers with images
+@mixin table-header-for-images {
+  width: 96.6rem;
+  display: flex;
+  flex-direction: column;
+  font-family: $font-lato;
+
+  & tr {
+    width: 100%;
+    height: 3.5rem;
+    background: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3.2rem;
+    gap: 0px;
+
+    & td {
+      font-size: $font-size-body;
+      font-weight: 600;
+      color: $clr-gray-800;
+    }
+
+    & td:nth-child(1) {
+      width: 4.3rem;
+    }
+    & td:nth-child(2) {
+      width: 23rem;
+      overflow-x: hidden;
+    }
+    & td:nth-child(3) {
+      width: 13rem;
+    }
+    & td:nth-child(4) {
+      width: 12.3rem;
+      text-align: center;
+    }
+    & td:nth-child(5) {
+      width: 12.3rem;
+      text-align: center;
+    }
+    & td:nth-child(6) {
+      width: 12.3rem;
+      text-align: center;
+    }
+    & td:nth-child(7) {
+      width: 12.3rem;
+      text-align: center;
+    }
+    & td:nth-child(8) {
+      width: 2.4rem;
+    }
+  }
+}
+
+// For table items with images
+@mixin table-items-with-images {
+  width: 96.6rem;
+  display: flex;
+  flex-direction: column;
+  font-family: $font-lato;
+
+  tr {
+    display: flex;
+    width: 100%;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3px;
+
+    & td {
+      font-size: $font-size-body;
+      font-weight: 400;
+      color: $clr-gray-500;
+    }
+
+    & td:nth-child(1) {
+      width: 4.3rem;
+    }
+    & td:nth-child(2) {
+      width: 23rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      & img {
+      }
+    }
+    & td:nth-child(3) {
+      width: 13rem;
+      display: flex;
+      gap: 1rem;
+    }
+    & td:nth-child(4) {
+      width: 12.3rem;
+      text-align: center;
+    }
+    & td:nth-child(5) {
+      width: 12.3rem;
+      text-align: center;
+    }
+    & td:nth-child(6) {
+      width: 12.3rem;
+      text-align: center;
+    }
+    & td:nth-child(7) {
+      width: 12.3rem;
+      text-align: center;
+    }
+    & td:nth-child(8) {
+      width: 2.4rem;
+      position: relative;
+    }
+  }
+
+  & .divider {
+    width: 100%;
+    height: 0.1rem;
+    background: $clr-gray-50;
+    margin: 2rem 0;
+  }
+}
+
+@mixin ellipsis {
+  width: 12.5rem;
+  height: 7rem;
+  border-radius: 0.8rem;
+  border: 0.1rem solid $clr-gray-100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 1.5rem;
+  background: $clr-white;
+
+  & span {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-size: $font-size-xbody;
+    font-weight: 400;
+    color: $clr-gray-400;
+    cursor: pointer;
+  }
+
+  & span:hover {
+    svg {
+      path {
+        fill: $clr-primary-500;
+      }
+    }
+    p {
+      color: $clr-primary-500;
+    }
+  }
+}
+
+// Welcome page mixins
+@mixin addAssessmentBtns {
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 3.8rem;
+    height: 3.8rem;
+    margin-right: 1.2rem;
+  }
+
+  span {
+    font-size: $font-size-body;
+    color: $clr-gray-500;
+    font-weight: 400;
+    margin-right: 1rem;
+  }
+}
+
+// For grading trainees answers
+@mixin title-and-trainee-name {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.7rem;
+
+  span {
+    font-size: $font-size-subtitle;
+    font-weight: 600;
+    color: $clr-gray-700;
+  }
+}
+
+@mixin score {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3.1rem;
+
+  & span {
+    font-size: $font-size-subtitle-2;
+    color: $clr-gray-500;
+    font-weight: 600;
+  }
+
+  & span {
+    font-size: $font-size-xbody;
+    font-weight: 400;
+    color: $clr-gray-500;
+  }
+}
+
+@mixin directions {
+  font-size: $font-size-xbody;
+  font-weight: 400;
+  color: $clr-gray-500;
+}
+
+@mixin divider {
+  width: 100%;
+  height: 1px;
+  background: $clr-gray-50;
+  margin: 1.9rem 0 3.6rem 0;
+}
+
+@mixin questions-container {
+  display: flex;
+  width: 27.4rem;
+  height: fit-content;
+  padding: 0 1.2rem;
+  gap: 2.7rem;
+}
+
+@mixin question-list {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+
+  & span:first-of-type {
+    width: 25rem;
+    font-size: $font-size-subtitle-2;
+    font-weight: 400;
+    color: $clr-gray-500;
+    margin-bottom: 0.8rem;
+  }
+
+  & span:last-of-type {
+    width: 25rem;
+    font-size: $font-size-xbody;
+    font-weight: 400;
+    color: $clr-gray-500;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid $clr-gray-50;
+  }
+}
+
+@mixin questions-content {
+  width: 65.5rem;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+}
+
+@mixin question-header {
+  font-size: $font-size-subtitle-2;
+  font-weight: 500;
+  color: $clr-gray-700;
+  font-size: 1.8rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin trainees-answer {
+  font-size: $font-size-body;
+  font-weight: 400;
+  color: $clr-gray-500;
+  padding: 1rem;
+}
+
+@mixin grading-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & button.prev {
+    width: 10.5rem;
+    height: 5.4rem;
+    border-radius: 0.8rem;
+    border: 0.1rem solid $clr-primary-400;
+    color: $clr-primary-500;
+    background: $clr-white;
+  }
+
+  & div {
+    display: flex;
+    gap: 1.6rem;
+    align-items: center;
+
+    & input {
+      width: 15.5rem;
+      height: 5.5rem;
+      border-radius: 0.8rem;
+      border: 0.1rem solid $clr-gray-100;
+      padding: 0 1.6rem;
+    }
+
+    & input:focus {
+      outline: none;
+      border: 0.1rem solid $clr-primary-400;
+    }
+
+    & button.proceed {
+      width: 13.8rem;
+      height: 5.5rem;
+      background: $clr-primary-500;
+      border-radius: 0.8rem;
+      color: $clr-white;
+      border: none;
+    }
+  }
+}
