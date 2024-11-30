@@ -1,0 +1,22 @@
+<div class="card">
+  <p-table [value]="cohorts" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Trainee Name</th>
+        <th>Email</th>
+        <th>Specilization</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cohort>
+      <tr>
+        <td>{{ cohort.topic }}</td>
+        <td>{{ cohort.specialization }}</td>
+        <td>{{ cohort.trainer }}</td>
+        <td>
+          <input type="checkbox" />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
