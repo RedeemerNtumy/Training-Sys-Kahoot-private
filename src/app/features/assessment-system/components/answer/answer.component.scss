@@ -46,6 +46,11 @@
     }
   }
 
+  .mark-correct.active {
+    background-color: #E1FFE6;
+    color: #018419;
+  }
+
   .delete-answer {
     background: none;
     border: none;

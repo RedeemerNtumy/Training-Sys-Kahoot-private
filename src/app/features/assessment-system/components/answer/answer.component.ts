@@ -24,4 +24,14 @@ export class AnswerComponent {
   onAnswerInputChange(value: string) {
     this.answerChange.emit(value);
   }
+
+  toggleMarkCorrect(event: Event) {
+    const button = event.target as HTMLElement;
+    const parent = button.closest('.answers');
+    if (parent) {
+      const buttons = parent.querySelectorAll('.mark-correct');
+      buttons.forEach(btn => btn.classList.remove('active'));
+    }
+    button.classList.add('active');
+  }
 }
