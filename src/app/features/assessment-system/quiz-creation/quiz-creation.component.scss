@@ -162,6 +162,8 @@
         margin-bottom: 1.6rem;
       }
 
+
+
       h2 {
         font-size: 1.2rem;
         margin-bottom: 1rem;
@@ -170,13 +172,14 @@
       .question-input {
         width: 100%;
         padding: 0.8rem;
-        font-size: 1rem;
+        font-size: 1.6rem;
         border: 1px solid #ddd;
         border-radius: 4px;
         margin-bottom: 1.5rem;
         outline: none;
         resize: vertical;
         scrollbar-width: none;
+        color: $clr-gray-500;
 
         &:focus {
           border-color: $clr-primary-500;
