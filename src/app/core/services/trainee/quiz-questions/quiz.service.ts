@@ -15,6 +15,28 @@ export class QuizService {
     private http: HttpClient
   ) { }
 
+
+  // Fetch quizTitle
+  getQuizTitle(): Observable<string | null> {
+    return this.http.get<any[]>(this.quizesUrl).pipe(
+      map((response) => {
+        const quiz = response.find((quiz) => quiz.id === this.quizId);
+        return quiz ? quiz.quizTitle : null;
+      })
+    );
+  }
+
+
+  getQuizDetails(): Observable<any | null> {
+    return this.http.get<any[]>(this.quizesUrl).pipe(
+      map((response) => {
+        const quiz = response.find((quiz) => quiz.id === this.quizId);
+        return quiz ? quiz.quizDetails : null;
+      })
+    );
+  }
+
+
   // Fetch questions for a specific quiz by ID
   getQuestionById(): Observable<any> {
     return this.http.get<any[]>(this.quizesUrl).pipe(
@@ -26,13 +48,6 @@ export class QuizService {
       })
     );
   }
-
-  // getQuestionsByQuizId(quizId: number): Observable<any> {
-  //   console.log(quizId)
-  //   return this.http.get(`${this.quizesUrl}/${quizId}`).pipe(
-  //     map((quiz: any) => quiz.questions) // Extract questions from the quiz
-  //   );
-  // }
 
 
 }

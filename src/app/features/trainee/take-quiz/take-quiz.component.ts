@@ -1,6 +1,6 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '@core/services/trainee/quiz-questions/quiz.service';
 import { Observable } from 'rxjs';
 
@@ -13,19 +13,21 @@ import { Observable } from 'rxjs';
 })
 export class TakeQuizComponent implements OnInit {
 
+  currentQuizTitle$!: Observable<any>;
+  currentQuizDetails$!: Observable<any>;
   currentQuestion$!: Observable<any>;
   selectedAnswerId: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private quizService: QuizService,
   ) {}
 
   ngOnInit() {
+    this.currentQuizTitle$ = this.quizService.getQuizTitle();
+    this.currentQuizDetails$ = this.quizService.getQuizDetails();
     this.currentQuestion$ = this.quizService.getQuestionById();
-    this.currentQuestion$.subscribe(data => {
-      console.log(data)
-    })
   }
 
   checkSelectedAnswer(id: number) {
@@ -36,6 +38,13 @@ export class TakeQuizComponent implements OnInit {
     return this.selectedAnswerId === id;
   }
 
+  goBack() {
+    this.quizService.questionId = this.quizService.questionId - 1;
+  }
+
+  next() {
+    this.quizService.questionId = this.quizService.questionId + 1;
+  }
 
 
 }
