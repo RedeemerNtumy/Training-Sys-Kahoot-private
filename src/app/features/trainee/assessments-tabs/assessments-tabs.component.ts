@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { TabViewModule } from 'primeng/tabview';
+import { QuizListComponent } from './quiz-list/quiz-list.component';
 
 @Component({
   selector: 'app-assessments-tabs',
   standalone: true,
-  imports: [TabViewModule],
+  imports: [TabViewModule, QuizListComponent],
   templateUrl: './assessments-tabs.component.html',
   styleUrl: './assessments-tabs.component.scss'
 })
