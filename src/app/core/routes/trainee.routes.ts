@@ -24,6 +24,11 @@ export const traineeRoutes: Routes = [
         path: '',
         loadComponent: () => import('../../features/trainee/assessments-tabs/assessments-tabs.component')
         .then(m => m.AssessmentsTabsComponent)
+      },
+      {
+        path: 'quiz/:id',
+        loadComponent: () => import('../../features/trainee/take-quiz/take-quiz.component')
+        .then(m => m.TakeQuizComponent)
       }
     ]
   },

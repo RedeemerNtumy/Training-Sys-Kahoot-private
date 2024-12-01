@@ -28,7 +28,7 @@
             <td>{{ item.title }}</td>
             <td>{{ item.dateCreated }}</td>
             <td>{{ item.type }}</td>
-            <button (click)="takeQuiz()">{{ item.action }}</button>
+            <button (click)="takeQuiz(item.id)">{{ item.action }}</button>
         </tr>
         <div class="divider"></div>
     </table>

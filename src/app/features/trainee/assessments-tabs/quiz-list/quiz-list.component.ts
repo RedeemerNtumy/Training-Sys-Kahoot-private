@@ -72,15 +72,11 @@ export class QuizListComponent {
   init() {
     this.assessments$ = of(this.quizes[0].assignments); 
     // this.assessments$ = this.assessmentService.getAssessments();
-
-    this.assessments$.subscribe(data => {
-      console.log(data)
-    })
   }
   
 
   
-  takeQuiz() {
-    this.router.navigate(['home/trainee/assessments/'])
+  takeQuiz(id: number) {
+    this.router.navigate([`home/trainee/assessments/quiz/${id}`]);
   }
 }
