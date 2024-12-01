@@ -77,11 +77,22 @@
 
         <div class="course-materials-section">
           <h5>Course Materials</h5>
-          <div >
+          <div>
             <div class="material-list" *ngFor="let module of curriculum?.modules; let matIndex = index">
-              <div *ngFor="let file of module.moduleFile; let fileIndex = index" class="mat-item">
-                <img src="../../../../../assets/Images/svg/preview-file.svg" alt="">
-                <a [href]="file" target="_blank">{{ file }}</a>
+              <div class="module-files">
+                <h6>{{ module.title }}</h6>
+                <div *ngIf="module.files?.length; else noFiles">
+                  <div *ngFor="let file of module.files" class="mat-item">
+                    <img [src]="getFileIcon(file.type)" alt="file icon">
+                    <span class="file-info">
+                      <span class="file-name">{{ file.name }}</span>
+                      <span class="file-size">{{ file.size }}</span>
+                    </span>
+                  </div>
+                </div>
+                <ng-template #noFiles>
+                  <p class="no-files">No files uploaded for this module</p>
+                </ng-template>
               </div>
             </div>
           </div>

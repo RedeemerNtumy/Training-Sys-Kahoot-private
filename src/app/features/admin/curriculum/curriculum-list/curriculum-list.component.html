@@ -19,27 +19,30 @@
     </ng-container>
 
 
-    <section class="list-section" *ngIf="!showNoSearchResults">
-      <div class="title">
-        <span>
-          Curriculums
-          <img src="../../../../../assets/Images/svg/oui_i-in-circle.svg" alt="">
-        </span>
-        <p>{{ curriculums.length }} Curriculums</p>
-      </div>
+    <div class="scrollable-content">
+      <section class="list-section" *ngIf="!showNoSearchResults">
+        <div class="title">
+          <span>
+            Curriculums
+            <img src="../../../../../assets/Images/svg/oui_i-in-circle.svg" alt="">
+          </span>
+          <p>{{ curriculums.length }} Curriculums</p>
+        </div>
 
-      <div class="list-header">
-        <span class="header-title-1">Title</span>
-        <span class="header-title-2">Modules</span>
-        <span class="header-title-3">Topics</span>
-        <span class="header-title-1">Specializations</span>
-      </div>
+        <div class="list-header">
+          <span class="header-title-1">Title</span>
+          <span class="header-title-2">Modules</span>
+          <span class="header-title-3">Topics</span>
+          <span class="header-title-1">Specializations</span>
+        </div>
 
-      <ng-container *ngFor="let curriculum of curriculums; let curriculumIndex = index">
-        <app-list-item
-          [curriculum]="curriculum"
-          [curriculumIndex]="curriculumIndex"/>
-      </ng-container>
-    </section>
+        <ng-container *ngFor="let curriculum of curriculums; let curriculumIndex = index">
+          <app-list-item
+            [curriculum]="curriculum"
+            [curriculumIndex]="curriculumIndex"/>
+        </ng-container>
+      </section>
+
+    </div>
   </ng-container>
 </main>

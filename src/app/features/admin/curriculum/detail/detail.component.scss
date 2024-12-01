@@ -157,16 +157,46 @@ main{
 
         .course-materials-section{
           margin-top: 2.4rem;
-          h5{
-            margin-bottom: 2rem;
-            font-size: 1.8rem;
-            font-weight: 700;
+          .module-files {
+            margin-bottom: 1rem;
+
+            h6 {
+              margin-bottom: 0.5rem;
+              font-weight: 500;
+            }
           }
 
-          .mat-item{
-            margin-bottom: 1.2rem;
-            gap: 1rem;
-            @include flexbox;
+          .mat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+
+            img {
+              width: 24px;
+              height: 24px;
+            }
+
+            .file-info {
+              display: flex;
+              flex-direction: column;
+
+              .file-name {
+                font-weight: 500;
+              }
+
+              .file-size {
+                font-size: 0.875rem;
+                color: #666;
+              }
+            }
+          }
+
+          .no-files {
+            color: #666;
+            font-style: italic;
           }
         }
       }

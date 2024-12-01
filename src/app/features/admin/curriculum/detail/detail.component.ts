@@ -29,12 +29,19 @@ export class DetailComponent implements OnInit{
       const id = +params['id'];
       this.curriculumFacade.getSelectedCurriculum(id).subscribe(
         (curriculum) => {
-          console.log('details comes here:'+curriculum);
-
-          this.curriculum = curriculum
+          this.curriculum = curriculum;
         }
       );
     });
+  }
+
+  getFileIcon(fileType: string): string {
+    if (fileType?.includes('pdf')) {
+      return '../../../../../assets/Images/svg/pdf-icon.svg';
+    } else if (fileType?.includes('image')) {
+      return '../../../../../assets/Images/svg/image-icon.svg';
+    }
+    return '../../../../../assets/Images/svg/file-icon.svg';
   }
 
 
