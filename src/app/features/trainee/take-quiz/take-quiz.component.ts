@@ -10,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TakeQuizComponent {
   quizId!: number;
+  // answerClicked: boolean = false;
+  selectedAnswerId: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,6 +20,14 @@ export class TakeQuizComponent {
   ngOnInit() {
     this.quizId = Number(this.route.snapshot.paramMap.get('id'));
     console.log("Quiz ID:", this.quizId);  // Debugging
+  }
+
+  checkSelectedAnswer(id: number) {
+    this.selectedAnswerId = id;
+  }
+
+  isAnswerSelected(id: number): boolean {
+    return this.selectedAnswerId === id;
   }
 
 }
