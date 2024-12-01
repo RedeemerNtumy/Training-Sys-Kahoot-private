@@ -17,18 +17,19 @@
 
     <button class="current-question-indicator">Question 1</button>
 
-    <div class="main-question">
+    <div class="main-question" *ngIf="currentQuestion$ | async as question">
         <p class="question">
-            What is the primary goal of User-Centered Design (UCD)?
+            {{ question.text }}
         </p>
 
         <div class="question-check" 
+            *ngFor="let option of question.options"
             (click)="checkSelectedAnswer(1)"
             [class]="isAnswerSelected(1) ? 'clicked' : 'not-clicked' "
         >
             <input type="radio" name="quiz-answer" id="quiz-answer">
             <span class="radio-circle"></span>
-            <label for="quiz-answer" (click)="$event.preventDefault()">A large-scale design element that defines the overall user journey</label>
+            <label for="quiz-answer" (click)="$event.preventDefault()">{{ option.text }}</label>
         </div>
 
     </div>
