@@ -1,5 +1,6 @@
 
 import { Routes } from '@angular/router';
+import { AssessmentsTabsComponent } from '@features/trainee/assessments-tabs/assessments-tabs.component';
 import { DashboardComponent } from '@views/trainee/dashboard/dashboard.component';
 
 export const traineeRoutes: Routes = [
@@ -17,7 +18,13 @@ export const traineeRoutes: Routes = [
     path: 'assessments',
     loadComponent : ()=> import('@views/trainee/assessment/assessment.component')
     .then(m => m.AssessmentComponent),
-    data: { role: 'trainee' }
+    data: { role: 'trainee' },
+    children: [
+      {
+        path: 'assessments-list',
+        component: AssessmentsTabsComponent,
+      }
+    ]
   },
   {
     path: 'modules',
