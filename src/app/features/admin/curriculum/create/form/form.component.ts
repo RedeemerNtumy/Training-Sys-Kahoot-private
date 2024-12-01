@@ -17,6 +17,8 @@ import { CurriculumStateService } from '@core/services/curriculum-state/curricul
 })
 
 export class FormComponent implements OnInit {
+  showFeedback: boolean = false;
+  isUpdate: boolean = false;
   isEditMode: boolean = false;
   curriculumForm!: FormGroup;
   curriculumData!: curriculum;
@@ -151,13 +153,5 @@ export class FormComponent implements OnInit {
       });
     }
   }
-
-
-  onCurriculumComplete() {
-    const curriculumData: curriculum = this.curriculumForm.value;
-    console.log('Final curriculum data:', curriculumData);
-
-  }
-
 }
 

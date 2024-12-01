@@ -168,10 +168,13 @@
       [modules]="modules"
       [activeModuleIndex]="activeModuleIndex"
       [parentFormValid]="parentForm.valid || false"
+      [showFeedback]="showFeedback"
       (moduleSelected)="onModuleSelected($event)"
       (moduleRemoved)="onModuleRemoved($event)"
       (createCurriculum)="onCreateCurriculum()">
     </app-module-list>
 
   </div>
+
+  <app-feedback-modal/>
 </section>
