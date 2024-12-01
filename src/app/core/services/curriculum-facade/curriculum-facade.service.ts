@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { curriculum } from '@core/models/curriculum.interface';
-import { BehaviorSubject,combineLatest, map,tap,catchError } from 'rxjs';
+import { BehaviorSubject,combineLatest, map,tap,catchError, Observable } from 'rxjs';
 import { ErrorHandleService } from '../error-handle/error-handle.service';
 import { CurriculumCrudService } from '../curriculum-crud/curriculum-crud.service';
 
@@ -12,8 +12,6 @@ export class CurriculumFacadeService {
   private curriculumSubject = new BehaviorSubject<curriculum[]>([]);
   private searchTermSubject = new BehaviorSubject<string>('');
   private sortDirectionSubject = new BehaviorSubject<'asc' | 'desc'>('asc');
-  // private selectedCurriculumSubject = new BehaviorSubject<curriculum>({});
-  // selectedCurriculum = this.selectedCurriculumSubject.asObservable()
 
   readonly curriculum$ = this.curriculumSubject.asObservable();
   readonly searchTerm$ = this.searchTermSubject.asObservable();
@@ -25,7 +23,7 @@ export class CurriculumFacadeService {
     private errorService: ErrorHandleService,
     private curriculumCrud: CurriculumCrudService
   ) {
-    this.loadCurriculum();
+    this.refreshCurriculum();
   }
   readonly filteredAndSortedCurriculum$ = combineLatest([
     this.curriculum$,
@@ -77,8 +75,19 @@ export class CurriculumFacadeService {
     return this.curriculumCrud.getCurriculumById(id).pipe(
       tap((data) => {
         console.log(data);
+        this.loadCurriculum();
       }),
       catchError(this.errorService.handleError)
+    )
+  }
+
+  create(curriculum: curriculum):Observable<any>{
+    return this.curriculumCrud.createCurriculum(curriculum)
+    .pipe(
+       catchError(this.errorService.handleError),
+       tap(() => {
+        this.refreshCurriculum()
+       })
     )
   }
 }

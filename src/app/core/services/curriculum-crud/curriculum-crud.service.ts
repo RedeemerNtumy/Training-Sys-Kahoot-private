@@ -17,7 +17,7 @@ export class CurriculumCrudService {
 
    }
 
-  getAllCurriculums():Observable<curriculum[]> {
+   getAllCurriculums():Observable<curriculum[]> {
     return this.http.get<curriculum[]>(this.localServer)
     .pipe(
       tap((response: any) => console.log('Specializations from Backend:' + response)),
@@ -25,7 +25,7 @@ export class CurriculumCrudService {
     );
   }
 
-  getCurriculumById(id: number): Observable<curriculum> {
+  getCurriculumById(id: number) {
     const url = `${this.localServer}/${id}`;
     return this.http.get<curriculum>(url);
   }
