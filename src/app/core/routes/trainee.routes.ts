@@ -21,8 +21,9 @@ export const traineeRoutes: Routes = [
     data: { role: 'trainee' },
     children: [
       {
-        path: 'assessments-list',
-        component: AssessmentsTabsComponent,
+        path: '',
+        loadComponent: () => import('../../features/trainee/assessments-tabs/assessments-tabs.component')
+        .then(m => m.AssessmentsTabsComponent)
       }
     ]
   },

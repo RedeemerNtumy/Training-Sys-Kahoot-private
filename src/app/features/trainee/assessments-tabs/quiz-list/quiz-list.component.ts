@@ -14,6 +14,11 @@ export class QuizListComponent {
   cardType = 'Assessment Available'; // set component title 
   assessments$!: Observable<any[]>; // holds the filtered data
 
+  
+  constructor(
+    private router: Router,
+  ) {}
+
 
   // Sample data to use for assessment (to be removed)
   quizes = [
@@ -66,20 +71,16 @@ export class QuizListComponent {
 
   init() {
     this.assessments$ = of(this.quizes[0].assignments); 
+    // this.assessments$ = this.assessmentService.getAssessments();
 
     this.assessments$.subscribe(data => {
       console.log(data)
     })
   }
   
-  
-
-  constructor(
-    private router: Router,
-  ) {}
 
   
   takeQuiz() {
-    this.router.navigate(['home/trainer/grade-management/trainee-list'])
+    this.router.navigate(['home/trainee/assessments/'])
   }
 }
