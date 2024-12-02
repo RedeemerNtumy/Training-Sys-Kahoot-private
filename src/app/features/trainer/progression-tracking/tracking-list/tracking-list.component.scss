@@ -6,11 +6,47 @@
 ::ng-deep .custom-table {
   font-family: $font-lato;
 
-  
+  .p-dropdown {
+
+    .p-dropdown-label {
+      font-size: 1.6rem;
+      padding: 0.5rem 1rem;
+      color: $clr-gray-700;
+      height: 2.75rem;
+
+      &:hover{
+        border-color: $clr-primary-500;
+      }
+    }
+
+    &.p-focus {
+      box-shadow: 0 0 0 0.2rem rgba(249, 132, 22, 0.2);
+      border-color: $clr-primary-500;
+    }
+  }
+
+  .p-dropdown-panel {
+    .p-dropdown-items {
+      .p-dropdown-item {
+        padding: 0.5rem 1rem;
+        font-size: 1.6rem;
+
+        &:hover {
+          background-color: #f8f9fa;
+          color: #f98416;
+        }
+
+        &.p-highlight {
+          background-color: rgba(249, 132, 22, 0.1);
+          color: #f98416;
+        }
+      }
+    }
+  }
 
   .p-sortable-column.p-highlight {
     .p-sortable-column-icon {
-      color: #f98416 !important;
+      color: $clr-primary-500 !important;
     }
   }
 
@@ -29,11 +65,7 @@
 
   }
 
-  tr:first-child {
-    td {
-      // margin-top: 4rem;
-    }
-  }
+
 
   tr {
     td {

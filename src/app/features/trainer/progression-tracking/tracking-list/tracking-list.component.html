@@ -43,7 +43,21 @@
         <img [src]="trainee.profileImage" alt="trainee-name" *ngIf="trainee.profileImage">
         {{trainee.traineeName}}
       </td>
-      <td>{{trainee.currentPhase | titlecase}}</td>
+      <td>
+        <p-dropdown
+          [options]="phaseOptions"
+          [(ngModel)]="trainee.currentPhase"
+          (onChange)="updateTraineePhase(trainee, $event.value)"
+          
+        >
+          <ng-template let-item pTemplate="selectedItem">
+            {{item | titlecase}}
+          </ng-template>
+          <ng-template let-item pTemplate="item">
+            {{item | titlecase}}
+          </ng-template>
+        </p-dropdown>
+      </td>
       <td>
         <p-progressBar [value]="trainee.progress" [showValue]="false"></p-progressBar>
       </td>

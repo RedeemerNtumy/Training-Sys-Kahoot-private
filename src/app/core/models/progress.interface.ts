@@ -5,3 +5,6 @@ export interface progress{
   progress: number;
   completionDate: Date;
 }
+
+
+export type phaseOption = progress['currentPhase'] | 'advance' | 'capstone';
