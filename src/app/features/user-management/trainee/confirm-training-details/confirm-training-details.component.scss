@@ -60,15 +60,15 @@
 
 
 .container {
-    width: 100%;
     display: flex;
     justify-content: center;
     overflow-x: scroll;
-    // padding-top: 5rem;
+    padding-left: 12rem;
+    padding-right: 12rem;
+    background: #fdfdfc;
 
     & .wrapper {
-        width: 67.5rem;
-        height: 90vh;
+        height: 85vh;
         overflow-y: scroll;
         margin-top: 2.6rem;
         padding-bottom: 8rem;
@@ -76,7 +76,6 @@
         & .back-button {
             width: fit-content;
             display: flex;         
-            // align-items: center;
             gap: 0.4rem;
             margin-bottom: 2.1rem;
             cursor: pointer;
@@ -111,7 +110,11 @@
         }
 
         & form {
-            overflow-y: scroll;
+            overflow-y: hidden;
+
+            & .status {
+                margin-bottom: 20rem;
+            }
 
             & button {
                 width: 100%;

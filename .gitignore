@@ -48,3 +48,6 @@ src/assets/data/assessmentType.json
 
 # Json Webserver folder
 /jws-dbs
+
+db.json
+
