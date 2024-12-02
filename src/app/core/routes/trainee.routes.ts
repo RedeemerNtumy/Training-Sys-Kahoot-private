@@ -29,6 +29,11 @@ export const traineeRoutes: Routes = [
         path: 'quiz/:id',
         loadComponent: () => import('../../features/trainee/take-quiz/take-quiz.component')
         .then(m => m.TakeQuizComponent)
+      },
+      {
+        path: 'feedback',
+        loadComponent: () => import('../../features/trainee/quiz-feedback-page/quiz-feedback-page.component')
+        .then(m => m.QuizFeedbackPageComponent)
       }
     ]
   },

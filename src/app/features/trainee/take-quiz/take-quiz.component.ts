@@ -49,7 +49,7 @@ export class TakeQuizComponent implements OnInit {
   }
 
   submit() {
-    
+    this.router.navigate(['/home/trainee/assessments/feedback'])
   }
 
 
