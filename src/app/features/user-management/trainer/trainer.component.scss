@@ -7,20 +7,21 @@
   display: flex;
   justify-content: center;
   overflow-x: scroll;
-  // padding-top: 5rem;
+  scrollbar-width: none;
+  background-color: $clr-white;
 
   & .wrapper {
     height: 90vh;
     overflow-y: scroll;
     margin-top: 2.6rem;
-    padding-bottom: 8rem;
     scrollbar-width: none;
     scroll-behavior: smooth;
+    padding: 0 12.5rem;
+    padding-bottom: 8rem;
 
     & .back-button {
       width: fit-content;
       display: flex;
-      // align-items: center;
       gap: 0.4rem;
       margin-bottom: 2.1rem;
       cursor: pointer;
