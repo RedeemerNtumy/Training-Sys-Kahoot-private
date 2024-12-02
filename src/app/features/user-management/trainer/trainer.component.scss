@@ -7,7 +7,8 @@
   display: flex;
   justify-content: center;
   overflow-x: scroll;
-  // padding-top: 5rem;
+  background-color: $clr-white;
+
 
   & .wrapper {
     height: 90vh;
@@ -16,11 +17,11 @@
     padding-bottom: 8rem;
     scrollbar-width: none;
     scroll-behavior: smooth;
+    padding: 0 12.5rem;
 
     & .back-button {
       width: fit-content;
       display: flex;
-      // align-items: center;
       gap: 0.4rem;
       margin-bottom: 2.1rem;
       cursor: pointer;
