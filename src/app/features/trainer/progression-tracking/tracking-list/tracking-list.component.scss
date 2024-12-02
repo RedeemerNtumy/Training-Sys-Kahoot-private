@@ -2,8 +2,17 @@
 @use '../../../../../styleSheet/mixins' as *;
 
 
+
 ::ng-deep .custom-table {
   font-family: $font-lato;
+
+  
+
+  .p-sortable-column.p-highlight {
+    .p-sortable-column-icon {
+      color: #f98416 !important;
+    }
+  }
 
   .header-cell {
     padding-block: 1.05rem;
@@ -17,6 +26,7 @@
     white-space: nowrap;
     text-align: left;
     height: 4rem;
+
   }
 
   tr:first-child {

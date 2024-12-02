@@ -1,10 +1,39 @@
-<p-table [value]="progressData"  styleClass="custom-table">
-  <ng-template pTemplate="header">
+<p-table
+  [value]="progressData"
+  styleClass="custom-table"
+  [sortField]="sortField"
+  [sortOrder]="sortOrder"
+  (onSort)="onSort($event)">
+  <ng-template pTemplate="header" class="custom-table ">
     <tr class="header-row">
-      <th class="header-cell">Trainee Name</th>
-      <th class="header-cell">Current Phase/Level</th>
-      <th class="header-cell">Progress Indicator</th>
-      <th class="header-cell">Completion Date</th>
+      <th class="header-cell" pSortableColumn="traineeName"
+       matTooltip="sort by trainee's name"
+       matTooltipPosition="below"
+      >
+        Trainee Name
+        <p-sortIcon field="traineeName"></p-sortIcon>
+      </th>
+      <th class="header-cell" pSortableColumn="currentPhase"
+        matTooltip="sort by phase/level"
+        matTooltipPosition="below"
+      >
+        Current Phase/Level
+        <p-sortIcon field="currentPhase"></p-sortIcon>
+      </th>
+      <th class="header-cell" pSortableColumn="progress"
+        matTooltip="sort by progress"
+        matTooltipPosition="below"
+      >
+        Progress Indicator
+        <p-sortIcon field="progress"></p-sortIcon>
+      </th>
+      <th class="header-cell" pSortableColumn="completionDate"
+        matTooltip="sort by date completed"
+        matTooltipPosition="below"
+      >
+        Completion Date
+        <p-sortIcon field="completionDate"></p-sortIcon>
+      </th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-trainee>
