@@ -1,0 +1,8 @@
+@use '../../../../styleSheet/mixins' as *;
+
+main{
+  width: 100%;
+  border: 1px dashed;
+  padding-right: 2rem;
+  @include flexbox($direction: column)
+}

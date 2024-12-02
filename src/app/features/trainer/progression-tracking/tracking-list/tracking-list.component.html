@@ -1,0 +1,24 @@
+<p-table [value]="progressData"  styleClass="custom-table">
+  <ng-template pTemplate="header">
+    <tr class="header-row">
+      <th class="header-cell">Trainee Name</th>
+      <th class="header-cell">Current Phase/Level</th>
+      <th class="header-cell">Progress Indicator</th>
+      <th class="header-cell">Completion Date</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-trainee>
+    <tr>
+      <td class="profile-name">
+        <img [src]="getAvatarUrl(trainee.traineeName)" alt="trainee-name" *ngIf="!trainee.profileImage">
+        <img [src]="trainee.profileImage" alt="trainee-name" *ngIf="trainee.profileImage">
+        {{trainee.traineeName}}
+      </td>
+      <td>{{trainee.currentPhase | titlecase}}</td>
+      <td>
+        <p-progressBar [value]="trainee.progress" [showValue]="false"></p-progressBar>
+      </td>
+      <td>{{trainee.completionDate | date:'shortDate'}}</td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -77,8 +77,8 @@ export const adminRoutes: Routes = [
     data: { role: 'admin' }
   },
   {
-    path: 'progress-tracking',
-    loadComponent: () => import('@views/admin/progress-tracking/progress-tracking.component')
+    path: 'progression-tracking',
+    loadComponent: () => import('@views/trainer/progress-tracking/progress-tracking.component')
     .then(m => m.ProgressTrackingComponent)
   },
   {
