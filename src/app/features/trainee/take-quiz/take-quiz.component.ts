@@ -40,10 +40,16 @@ export class TakeQuizComponent implements OnInit {
 
   goBack() {
     this.quizService.questionId = this.quizService.questionId - 1;
+    this.currentQuestion$ = this.quizService.getQuestionById();
   }
 
   next() {
     this.quizService.questionId = this.quizService.questionId + 1;
+    this.currentQuestion$ = this.quizService.getQuestionById();
+  }
+
+  submit() {
+    
   }
 
 

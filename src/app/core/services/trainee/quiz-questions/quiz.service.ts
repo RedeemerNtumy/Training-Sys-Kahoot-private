@@ -9,14 +9,14 @@ export class QuizService {
 
   private quizesUrl = 'http://localhost:9000/quizes';
   questionId = 1;
-  quizId = 'e6c8';
+  quizId = '5c0f';
 
   constructor(
     private http: HttpClient
   ) { }
 
 
-  // Fetch quizTitle
+  // Fetch quiz title
   getQuizTitle(): Observable<string | null> {
     return this.http.get<any[]>(this.quizesUrl).pipe(
       map((response) => {
@@ -26,7 +26,7 @@ export class QuizService {
     );
   }
 
-
+  // Fetch quiz details
   getQuizDetails(): Observable<any | null> {
     return this.http.get<any[]>(this.quizesUrl).pipe(
       map((response) => {
@@ -41,9 +41,7 @@ export class QuizService {
   getQuestionById(): Observable<any> {
     return this.http.get<any[]>(this.quizesUrl).pipe(
       map((response) => {
-        // Find the quiz by its ID
         const quiz = response.find((quiz) => quiz.id === this.quizId);
-        // Find the question by its ID within the quiz
         return quiz?.questions.find((question: { id: number }) => question.id === this.questionId) || null;
       })
     );
