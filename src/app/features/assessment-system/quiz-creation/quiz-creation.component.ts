@@ -13,6 +13,7 @@ import { AssessmentFormComponent } from '../assessment-form/assessment-form.comp
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizDataService } from '@core/services/assessment/quiz-data.service';
 import { AssessmentService } from '@core/services/assessment/assessment.service';
+import { InputFieldComponent } from "../../../core/shared/input-field/input-field.component";
 
 @Component({
   selector: 'app-quiz-creation',
@@ -23,7 +24,8 @@ import { AssessmentService } from '@core/services/assessment/assessment.service'
     CommonModule,
     AnswerComponent,
     ReactiveFormsModule,
-  ],
+    InputFieldComponent
+],
   templateUrl: './quiz-creation.component.html',
   styleUrl: './quiz-creation.component.scss',
 })
@@ -141,7 +143,22 @@ export class QuizCreationComponent {
     const savedQuizData = localStorage.getItem('quizData');
     if (savedQuizData) {
       const quizData = JSON.parse(savedQuizData);
-      this.quizForm.setValue(quizData);
+      if (quizData.questions) {
+        const questionsArray = this.fb.array(
+          quizData.questions.map((question: any) =>
+            this.fb.group({
+              text: question.text,
+              answers: this.fb.array(
+                question.answers.map((answer: string) =>
+                  this.fb.control(answer)
+                )
+              ),
+              timestamp: question.timestamp,
+            })
+          )
+        );
+        this.quizForm.setControl('questions', questionsArray);
+      }
     }
   }
 

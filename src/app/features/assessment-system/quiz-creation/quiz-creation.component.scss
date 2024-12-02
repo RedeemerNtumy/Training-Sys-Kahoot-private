@@ -162,8 +162,6 @@
         margin-bottom: 1.6rem;
       }
 
-
-
       h2 {
         font-size: 1.2rem;
         margin-bottom: 1rem;
@@ -202,22 +200,31 @@
         margin-top: 0.5rem;
       }
 
-      .add-answer {
-        display: flex;
-        align-items: center;
-        background: none;
-        border: none;
-        border-radius: 0.8rem;
-        font-size: 1.8rem;
-        padding: 1rem;
-        cursor: pointer;
-        color: $clr-gray-500;
-        transition: all 0.3s ease-in-out;
+      .col-2 {
+        @include flexbox(row, space-between, center);
+        gap: 1.2rem;
 
-        &:hover,
-        &:focus {
-          background: $clr-primary-500;
-          color: $clr-white;
+        .add-answer {
+          display: flex;
+          align-items: center;
+          background: none;
+          border: none;
+          border-radius: 0.8rem;
+          font-size: 1.8rem;
+          padding: 1rem;
+          cursor: pointer;
+          color: $clr-gray-500;
+          transition: all 0.3s ease-in-out;
+
+          &:hover,
+          &:focus {
+            background: $clr-primary-500;
+            color: $clr-white;
+          }
+        }
+
+        .mark-div {
+          width: 12rem;
         }
       }
     }

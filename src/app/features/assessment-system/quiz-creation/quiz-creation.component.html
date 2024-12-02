@@ -60,10 +60,7 @@
       [formGroup]="questions.at(selectedQuestionIndex)"
     >
       <h3>State your Question</h3>
-      <textarea
-        class="question-input"
-        formControlName="text"
-      ></textarea>
+      <textarea class="question-input" formControlName="text"></textarea>
 
       <div class="answers" formArrayName="answers">
         <app-answer
@@ -79,13 +76,18 @@
       <p *ngIf="answers.length === 0" class="error">Add at least one answer.</p>
 
       <!-- Add New Answer -->
-      <button
-        class="add-answer"
-        type="button"
-        (click)="addAnswer(selectedQuestionIndex)"
-      >
-        + Add new Answer
-      </button>
+      <div class="col-2">
+        <button
+          class="add-answer"
+          type="button"
+          (click)="addAnswer(selectedQuestionIndex)"
+        >
+          + Add new Answer
+        </button>
+        <div class="mark-div">
+          <app-input-field placeholder="Add mark" />
+        </div>
+      </div>
     </div>
   </div>
 
