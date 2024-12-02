@@ -66,6 +66,7 @@ export class QuizCreationComponent {
       text: '',
       answers: this.fb.array([]),
       timestamp: new Date().toISOString(),
+      marks: 0,
     });
     this.questions.push(questionGroup);
     this.selectedQuestionIndex = this.questions.length - 1;
@@ -79,14 +80,23 @@ export class QuizCreationComponent {
     const answers = (this.questions.at(questionIndex) as FormGroup).get(
       'answers'
     ) as FormArray;
-    answers.push(this.fb.control(''));
+    answers.push(this.fb.group({ text: '', isCorrect: false }));
   }
 
   updateAnswer(questionIndex: number, answerIndex: number, value: string) {
     const answers = (this.questions.at(questionIndex) as FormGroup).get(
       'answers'
     ) as FormArray;
-    answers.at(answerIndex).setValue(value);
+    answers.at(answerIndex).get('text')?.setValue(value);
+  }
+
+  toggleCorrectAnswer(questionIndex: number, answerIndex: number) {
+    const answers = (this.questions.at(questionIndex) as FormGroup).get(
+      'answers'
+    ) as FormArray;
+    answers.controls.forEach((answer, i) => {
+      answer.get('isCorrect')?.setValue(i === answerIndex);
+    });
   }
 
   removeAnswer(questionIndex: number, answerIndex: number) {
@@ -101,15 +111,18 @@ export class QuizCreationComponent {
   }
 
   submitQuiz() {
+    console.log('submitting');
     const quizData = this.quizForm.value.questions.map(
       (question: any, index: number) => ({
         questionNumber: index + 1,
         questionText: question.text,
         updatedTime: question.timestamp,
-        options: question.answers.map((answer: string, i: number) => ({
+        options: question.answers.map((answer: any, i: number) => ({
           option: this.getOption(i),
-          value: answer,
+          value: answer.text,
+          isCorrect: answer.isCorrect,
         })),
+        marks: question.marks,
       })
     );
 
@@ -149,11 +162,15 @@ export class QuizCreationComponent {
             this.fb.group({
               text: question.text,
               answers: this.fb.array(
-                question.answers.map((answer: string) =>
-                  this.fb.control(answer)
+                question.answers.map((answer: any) =>
+                  this.fb.group({
+                    text: answer.text,
+                    isCorrect: answer.isCorrect,
+                  })
                 )
               ),
               timestamp: question.timestamp,
+              marks: question.marks,
             })
           )
         );

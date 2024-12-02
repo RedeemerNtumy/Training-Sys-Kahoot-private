@@ -67,10 +67,12 @@
           class="answer"
           *ngFor="let answer of answers.controls; let i = index"
           [option]="getOption(i)"
-          [answer]="answer.value"
+          [answer]="answer.get('text')?.value"
+          [isCorrect]="answer.get('isCorrect')?.value"
           [index]="i"
           (deleteAnswer)="removeAnswer(selectedQuestionIndex, i)"
           (answerChange)="updateAnswer(selectedQuestionIndex, i, $event)"
+          (toggleCorrect)="toggleCorrectAnswer(selectedQuestionIndex, i)"
         />
       </div>
       <p *ngIf="answers.length === 0" class="error">Add at least one answer.</p>
@@ -85,7 +87,10 @@
           + Add new Answer
         </button>
         <div class="mark-div">
-          <app-input-field placeholder="Add mark" />
+          <app-input-field
+            placeholder="Add mark"
+            formControlName="marks"
+          ></app-input-field>
         </div>
       </div>
     </div>
