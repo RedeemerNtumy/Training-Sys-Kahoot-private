@@ -564,6 +564,154 @@
     { "name": "Yemen", "code": "YE" },
     { "name": "Zambia", "code": "ZM" },
     { "name": "Zimbabwe", "code": "ZW" }
+  ],
+  "quizes": [
+    {
+      "quizTitle": "Basics of User-Centered Design",
+      "quizDetails": {
+        "quizType": "Quiz",
+        "dateCreated": "14/05/24",
+        "numberOfQuestions": 10,
+        "duration": "15:00",
+        "currentQuestionIndex": 1,
+        "totalQuestions": 15
+      },
+      "questions": [
+        {
+          "id": 1,
+          "text": "What is the primary goal of User-Centered Design (UCD)?",
+          "options": [
+            {
+              "id": 1,
+              "text": "A large-scale design element that defines the overall user journey"
+            },
+            {
+              "id": 2,
+              "text": "Ensuring the design is easy to implement for developers"
+            },
+            {
+              "id": 3,
+              "text": "Meeting the user's needs by enhancing usability and accessibility"
+            },
+            {
+              "id": 4,
+              "text": "Maximizing aesthetic appeal over functionality"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "text": "Which principle is NOT part of User-Centered Design?",
+          "options": [
+            {
+              "id": 1,
+              "text": "Focus on the user"
+            },
+            {
+              "id": 2,
+              "text": "Iterative design process"
+            },
+            {
+              "id": 3,
+              "text": "Aesthetic design over functionality"
+            },
+            {
+              "id": 4,
+              "text": "Clear understanding of user tasks"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "text": "What is the first step in the User-Centered Design process?",
+          "options": [
+            {
+              "id": 1,
+              "text": "Prototyping"
+            },
+            {
+              "id": 2,
+              "text": "Conducting user research"
+            },
+            {
+              "id": 3,
+              "text": "Finalizing the design"
+            },
+            {
+              "id": 4,
+              "text": "Developing the solution"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "text": "How does User-Centered Design benefit users?",
+          "options": [
+            {
+              "id": 1,
+              "text": "Increases usability and accessibility"
+            },
+            {
+              "id": 2,
+              "text": "Minimizes development costs"
+            },
+            {
+              "id": 3,
+              "text": "Focuses on innovative aesthetics"
+            },
+            {
+              "id": 4,
+              "text": "Reduces the need for usability testing"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "text": "What role does prototyping play in UCD?",
+          "options": [
+            {
+              "id": 1,
+              "text": "It finalizes the design"
+            },
+            {
+              "id": 2,
+              "text": "It helps identify usability issues early"
+            },
+            {
+              "id": 3,
+              "text": "It ensures design consistency"
+            },
+            {
+              "id": 4,
+              "text": "It eliminates the need for feedback"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "text": "Which is a common method used in user research?",
+          "options": [
+            {
+              "id": 1,
+              "text": "Focus groups"
+            },
+            {
+              "id": 2,
+              "text": "Code reviews"
+            },
+            {
+              "id": 3,
+              "text": "Automated testing"
+            },
+            {
+              "id": 4,
+              "text": "Design documentation"
+            }
+          ]
+        }
+      ]
+    }
+    
   ]
   
 
