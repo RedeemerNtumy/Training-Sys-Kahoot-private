@@ -1,6 +1,7 @@
 
 import { Routes } from '@angular/router';
 import { AssessmentsTabsComponent } from '@features/trainee/assessments-tabs/assessments-tabs.component';
+import { LabSubmittionFormComponent } from '@features/trainee/lab-submittion-form/lab-submittion-form.component';
 import { DashboardComponent } from '@views/trainee/dashboard/dashboard.component';
 
 export const traineeRoutes: Routes = [
@@ -34,6 +35,10 @@ export const traineeRoutes: Routes = [
         path: 'feedback',
         loadComponent: () => import('../../features/trainee/quiz-feedback-page/quiz-feedback-page.component')
         .then(m => m.QuizFeedbackPageComponent)
+      },
+      {
+        path: 'lab-form',
+        component: LabSubmittionFormComponent
       }
     ]
   },
