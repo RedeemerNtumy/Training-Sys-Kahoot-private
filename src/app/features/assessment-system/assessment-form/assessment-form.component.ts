@@ -44,8 +44,9 @@ export class AssessmentFormComponent {
       description: ['', Validators.required],
       coverImage: [null],
       attachments: [[]],
+      deadline: ['', Validators.required],
     });
-    
+
   }
 
   ngOnInit() {
@@ -99,7 +100,7 @@ export class AssessmentFormComponent {
       }
     }
   }
-  
+
 
   submitQuizWithQuestions(questions: any[]) {
     this.quizDataService.getQuizData().subscribe((formData) => {
