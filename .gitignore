@@ -44,3 +44,5 @@ Thumbs.db
 
 # Json Webserver folder
 /jws-dbs
+
+db.json
