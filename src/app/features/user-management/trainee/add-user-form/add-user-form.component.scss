@@ -4,17 +4,21 @@
 
 .container {
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
-  overflow-x: scroll;
+  overflow-x: hidden;
+  background: #fdfdfc;
   // padding-top: 5rem;
 
   & .wrapper {
     // width: 67.5rem;
-    height: 90vh;
-    overflow-y: scroll;
+    width: 100%;
+    height: 85vh;
+    overflow-y: hidden;
     margin-top: 2.6rem;
-    padding-bottom: 8rem;
+    padding-left: 8rem;
+    padding-right: 8rem;
     scrollbar-width: none;
 
     & .back-button {
@@ -55,7 +59,9 @@
     }
 
     & form {
+      height: 80vh;
       overflow-y: scroll;
+      padding-bottom: 14rem;
 
       & .first-last-name {
         display: flex;
@@ -67,8 +73,17 @@
       & .gender-country {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        // align-items: center;
         gap: 4.9rem;
+
+        div:first-of-type {
+          width: 100%;
+        }
+
+        div:last-of-type {
+          width: 100%;
+        }
+
       }
 
       & button {
@@ -201,13 +216,19 @@ select:focus {
     }
 }
 
+}
+
+
 .error-wrapper {
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .error {
   text-align: right;
-  color: $clr-red-500;
-}
 
+  span {
+    color: $clr-red-500;
+  }
 }
