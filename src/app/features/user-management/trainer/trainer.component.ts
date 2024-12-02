@@ -7,7 +7,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { catchError, debounceTime, distinctUntilChanged, first, Observable, switchMap } from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  first,
+  Observable,
+  switchMap,
+} from 'rxjs';
 import {
   Countries,
   Gender,
@@ -62,9 +69,9 @@ export class TrainerComponent {
 
   ngOnInit() {
     this.trainerForm = this.initTrainerForm();
-    this.countryService.getCountries().subscribe((countries) => {
+    this.userManagementService.getAllCountries().subscribe((countries) => {
       this.countries = countries.map((country) => ({
-        name: country.name.common,
+        name: country.name,
       }));
     });
     this.allSpecializations$ =
