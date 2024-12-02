@@ -15,7 +15,7 @@
     (ngModelChange)="onAnswerInputChange($event)"
   />
 
-  <button class="mark-correct" type="button" (click)="toggleMarkCorrect($event)">
+  <button class="mark-correct" type="button" [class.active]="isCorrect" (click)="toggleMarkCorrect($event)">
     <mat-icon>check</mat-icon> Mark as correct
   </button>
   <button class="delete-answer" type="button" (click)="onDeleteAnswer()">
