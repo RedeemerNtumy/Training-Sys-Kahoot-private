@@ -20,6 +20,9 @@ export class CreateNewCohortComponent {
   newCohortForm!: FormGroup;
   allSpecializations$!: Observable<Specialization[]>;
 
+  startDateMin!: string;
+  endDateMin!: string;
+
 
   constructor(
     private fb: FormBuilder,
@@ -29,6 +32,7 @@ export class CreateNewCohortComponent {
   ) {}
 
   ngOnInit() {
+    this.setMinMaxDates()
 
     this.newCohortForm = this.fb.group({
       name: ['', Validators.required],
@@ -72,6 +76,18 @@ export class CreateNewCohortComponent {
   // Navigate to list of cohorts
   goBack() {
     this.router.navigate(['/home/admin/cohorts'])
+  }
+
+  setMinMaxDates() {
+    const today = new Date();
+    this.startDateMin = this.formatDate(today); // Start date is from today
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    this.endDateMin = this.formatDate(tomorrow); 
+  }
+
+  formatDate(date: Date): string {
+    return date.toISOString().split('T')[0];
   }
 
 }

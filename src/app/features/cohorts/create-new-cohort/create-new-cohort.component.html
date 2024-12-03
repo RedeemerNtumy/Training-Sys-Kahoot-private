@@ -56,8 +56,8 @@
                     <span>Duration</span>
                     <p>Specify the duration of the cohort</p>
                     <div class="start-end">
-                        <app-input-field type="date" formControlName="startDate" id="start-date" />
-                        <app-input-field type="date" formControlName="endDate" id="end-date" />
+                        <app-input-field type="date" formControlName="startDate" id="start-date" [minDate]="startDateMin"/>
+                        <app-input-field type="date" formControlName="endDate" id="end-date"  [minDate]="endDateMin"/>
                     </div>
                 </div>
                 <div class="description">

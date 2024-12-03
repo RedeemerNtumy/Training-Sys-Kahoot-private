@@ -47,7 +47,7 @@ export class CohortDataService {
 
   //(HTTP Request) Make a post request to backend for Cohort Details including trainee list
   getSelectedCohortDetails() {
-    return this.http.get<CohortDetails>(`${this.cohortsListUrl}/${this.selectedCohortId}`).pipe(
+    return this.http.get<CohortDetails>(`${this.cohortsListUrl}/${this.selectedCohortForUpdate}`).pipe(
       catchError(error => this.errorhandlerService.handleError(error))
     )
   }

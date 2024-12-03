@@ -51,7 +51,7 @@
                     <label for="dob">Date of birth</label>
                     <span>*</span>
                 </div>
-                <input type="date" formControlName="dateOfBirth">
+                <input type="date" formControlName="dateOfBirth" [max]="maxDate">
             </div>
             <div class="error" *ngIf="newUserForm.controls['dateOfBirth'].invalid && (newUserForm.controls['dateOfBirth'].touched || newUserForm.controls['dateOfBirth'].dirty)">
                 <span>Field is required</span>
@@ -108,7 +108,7 @@
                     <label for="address">Phone Number</label>
                     <span>*</span>
                 </div>
-                <input type="text" formControlName="phoneNumber">
+                <input type="number" formControlName="phoneNumber">
             </div>
             <div class="error" *ngIf="newUserForm.controls['phoneNumber'].invalid && (newUserForm.controls['phoneNumber'].touched || newUserForm.controls['phoneNumber'].dirty)">
                 <span>Field is required</span>

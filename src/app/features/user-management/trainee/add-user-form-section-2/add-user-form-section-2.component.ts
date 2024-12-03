@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Cohort, Specialization } from '../../../../core/models/cohort.interface';
-import { Observable } from 'rxjs';
+import { Observable, first, of, switchMap } from 'rxjs';
 import { UserManagementTraineeService } from '../../../../core/services/user-management/trainee/user-management-trainee.service';
 import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
 
@@ -36,21 +36,24 @@ export class AddUserFormSection2Component {
       // trainingId: ['', Validators.required]
     })
 
+    this.traineeInSystemService.secondFormState$
+    .pipe(
+      first(), // Ensure we only subscribe once
+      switchMap(secondFormState => {
+        if (secondFormState) {
+          return of(secondFormState); // Use firstFormState if available
+        }
+        return this.traineeInSystemService.retreivedUserData$; // Otherwise fallback to retrievedUserData$
+      })
+    )
+    .subscribe(data => {
+      if (data) {
+        this.newUserFormSecTwo.patchValue(data);
+      }
+    });
+
     this.allSpecializations$ = this.userManagementTraineeService.getAllspecializations();
     this.allCohorts$ = this.userManagementTraineeService.getAllCohorts();
-     
-    this.traineeInSystemService.retreivedUserData$.subscribe(data => {
-      if(data) {
-        const capitalizedStatus = this.capitalizeFirstLetter(data.status);
-        this.newUserFormSecTwo.patchValue({
-          specialization: data.specialization?? '',
-          cohort: data.cohort?? '',
-          enrollementDate: data.enrollementDate?? '',
-          status: capitalizedStatus?? '',
-          // trainingId: data.trainingId?? '',
-        })
-      }
-    })
 
   }
 

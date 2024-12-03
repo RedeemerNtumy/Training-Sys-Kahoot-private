@@ -30,6 +30,8 @@ export class InputFieldComponent implements ControlValueAccessor {
   @Input() disabled!: boolean;
   @Input() required!: boolean;
 
+  @Input() minDate?: string;
+
   isPasswordVisible: boolean = false;
   isDisabled: boolean = false;
 
