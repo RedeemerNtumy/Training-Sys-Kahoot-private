@@ -1,0 +1,24 @@
+<div *ngIf="assessment" class="cards">
+  <div class="img-div">
+    <img [src]="assessment.coverImage" [alt]="assessment.title" />
+  </div>
+  <div class="col-1">
+    <div class="content">
+      <h3>{{ assessment.title }}</h3>
+      <div class="label">
+        <div><span>&#8226;</span> {{ assessment.assessmentType }}</div>
+        <div><span>&#8226;</span> {{ assessment.focusArea }}</div>
+        <div><span>&#8226;</span>{{ assessment.questionsCount }} Question</div>
+      </div>
+      <p>{{ assessment.description }}</p>
+    </div>
+    <button (click)="onShowAssignAssessmentModal()">
+      <span>+</span>
+      <p>Assign</p>
+    </button>
+  </div>
+</div>
+
+@if(showAssignAssessmentModal) {
+<app-assign-assessment />
+}
