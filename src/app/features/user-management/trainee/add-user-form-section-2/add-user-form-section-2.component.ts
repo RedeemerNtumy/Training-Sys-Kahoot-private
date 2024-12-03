@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Cohort, Specialization } from '../../../../core/models/cohort.interface';
-import { Observable, first, of, switchMap } from 'rxjs';
+import { Observable, first, map, of, switchMap, tap } from 'rxjs';
 import { UserManagementTraineeService } from '../../../../core/services/user-management/trainee/user-management-trainee.service';
 import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
 
@@ -19,6 +19,8 @@ export class AddUserFormSection2Component {
   newUserFormSecTwo!: FormGroup;
   allSpecializations$!: Observable<Specialization[]>;
   allCohorts$!: Observable<Cohort[]>;
+
+  selectedCohortStatus: string | undefined = '';
 
   constructor(
     private fb: FormBuilder,
@@ -36,6 +38,10 @@ export class AddUserFormSection2Component {
       // trainingId: ['', Validators.required]
     })
 
+    this.allSpecializations$ = this.userManagementTraineeService.getAllspecializations();
+    this.allCohorts$ = this.userManagementTraineeService.getAllCohorts();  
+    
+     
     this.traineeInSystemService.secondFormState$
     .pipe(
       first(), // Ensure we only subscribe once
@@ -52,20 +58,37 @@ export class AddUserFormSection2Component {
       }
     });
 
-    this.allSpecializations$ = this.userManagementTraineeService.getAllspecializations();
-    this.allCohorts$ = this.userManagementTraineeService.getAllCohorts();
-
   }
 
   onSubmit() {
-    const formData = this.newUserFormSecTwo;
 
-    if(!formData.invalid) {
+    const selectedCohort = this.newUserFormSecTwo.get('cohort')?.value;
+    console.log(selectedCohort);
+
+    this.allCohorts$
+    .pipe(
+      map((cohorts) => cohorts.filter((cohort) => cohort.id == selectedCohort)) // Filter the array
+    )
+    .subscribe((filteredCohorts) => {
+      console.log('Filtered Cohort:', filteredCohorts);
+  
+      this.selectedCohortStatus = filteredCohorts[0].status;
+      console.log('Selected Cohort Status:', this.selectedCohortStatus);
+
+      this.newUserFormSecTwo.patchValue({
+        status: this.selectedCohortStatus,
+      });
+
+      console.log("new user: ", this.newUserFormSecTwo.value)
+
+    });
+
+    if(!this.newUserFormSecTwo.invalid) {
       this.setSecondFormState()
       this.goToConfirmPage();
     }
     else {
-      formData.markAllAsTouched();
+      this.newUserFormSecTwo.markAllAsTouched();
     }
   }
 
