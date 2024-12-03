@@ -1,0 +1,19 @@
+@import '../../../../../styleSheet/grade_management_mixins';
+
+.assessment-card {
+    @include assessment-card;
+    height: 70vh;
+    overflow-y: scroll;
+
+    & .title-quiz-count {
+        @include title-count;
+    }
+
+    & .table-header {
+        @include table-header;
+    }
+
+    & .table-items {
+        @include table-items;
+    }
+}

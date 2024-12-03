@@ -1,0 +1,119 @@
+{
+  "cohortDetails": {
+    "id": "1",
+    "cohortName": "Cohort 1",
+    "enrollmentCount": 10,
+    "trainees": [
+      {
+        "id": "1",
+        "cohort": "Cohort 1",
+        "enrolled": 265,
+        "fullName": "Alex Agyeman",
+        "email": "alex.a@gmail.com",
+        "contact": "+233 553673610",
+        "status": "Inactive",
+        "specialization": "UI/UX Design",
+        "date_added": "2024-10-12"
+      },
+      {
+        "id": "2",
+        "cohort": "Cohort 1",
+        "enrolled": 290,
+        "fullName": "Boadi Solomon",
+        "email": "boadi.solomon@example.com",
+        "contact": "+233 553842619",
+        "status": "Deactivated",
+        "specialization": "Frontend Development",
+        "date_added": "2024-09-18"
+      },
+      {
+        "id": "3",
+        "cohort": "Cohort 1",
+        "enrolled": 260,
+        "fullName": "Sammy Tugga",
+        "email": "sammy.tugga@example.com",
+        "contact": "+233 552344110",
+        "status": "Active",
+        "specialization": "Backend Development",
+        "date_added": "2024-08-05"
+      },
+      {
+        "id": "4",
+        "cohort": "Cohort 1",
+        "enrolled": 275,
+        "fullName": "Linda Yeboah",
+        "email": "linda.y@example.com",
+        "contact": "+233 552987431",
+        "status": "Active",
+        "specialization": "Data Science",
+        "date_added": "2024-07-20"
+      },
+      {
+        "id": "5",
+        "cohort": "Cohort 1",
+        "enrolled": 310,
+        "fullName": "Kwame Biney",
+        "email": "kwame.biney@example.com",
+        "contact": "+233 551234567",
+        "status": "Inactive",
+        "specialization": "UI/UX Design",
+        "date_added": "2024-06-10"
+      },
+      {
+        "id": "6",
+        "cohort": "Cohort 1",
+        "enrolled": 300,
+        "fullName": "Sarah Mensah",
+        "email": "sarah.mensah@example.com",
+        "contact": "+233 550123456",
+        "status": "Active",
+        "specialization": "Machine Learning",
+        "date_added": "2024-05-01"
+      },
+      {
+        "id": "7",
+        "cohort": "Cohort 1",
+        "enrolled": 285,
+        "fullName": "Isaac Asante",
+        "email": "isaac.asante@example.com",
+        "contact": "+233 558765432",
+        "status": "Active",
+        "specialization": "Cybersecurity",
+        "date_added": "2024-04-10"
+      },
+      {
+        "id": "8",
+        "cohort": "Cohort 1",
+        "enrolled": 320,
+        "fullName": "Nana Osei",
+        "email": "nana.osei@example.com",
+        "contact": "+233 552345678",
+        "status": "Deactivated",
+        "specialization": "Blockchain Development",
+        "date_added": "2024-03-15"
+      },
+      {
+        "id": "9",
+        "cohort": "Cohort 1",
+        "enrolled": 305,
+        "fullName": "Rita Owusu",
+        "email": "rita.owusu@example.com",
+        "contact": "+233 556789012",
+        "status": "Inactive",
+        "specialization": "Full Stack Development",
+        "date_added": "2024-02-20"
+      },
+      {
+        "id": "10",
+        "cohort": "Cohort 1",
+        "enrolled": 295,
+        "fullName": "Peter Quaye",
+        "email": "peter.quaye@example.com",
+        "contact": "+233 554321098",
+        "status": "Active",
+        "specialization": "Embedded Systems",
+        "date_added": "2024-01-25"
+      }
+    ]
+  }
+}
