@@ -8,12 +8,13 @@ import {
   FormArray,
   FormBuilder,
   FormGroup,
+  FormsModule,
+  Validators,
 } from '@angular/forms';
 import { AssessmentFormComponent } from '../assessment-form/assessment-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizDataService } from '@core/services/assessment/quiz-data.service';
 import { AssessmentService } from '@core/services/assessment/assessment.service';
-import { InputFieldComponent } from "../../../core/shared/input-field/input-field.component";
 
 @Component({
   selector: 'app-quiz-creation',
@@ -24,8 +25,8 @@ import { InputFieldComponent } from "../../../core/shared/input-field/input-fiel
     CommonModule,
     AnswerComponent,
     ReactiveFormsModule,
-    InputFieldComponent
-],
+    FormsModule,
+  ],
   templateUrl: './quiz-creation.component.html',
   styleUrl: './quiz-creation.component.scss',
 })
@@ -33,6 +34,7 @@ export class QuizCreationComponent {
   quizForm: FormGroup;
   selectedQuestionIndex: number | null = null;
   quizTitle: string = '';
+  showErrors: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -43,7 +45,9 @@ export class QuizCreationComponent {
   ) {
     this.quizForm = this.fb.group({
       questions: this.fb.array([]),
+      timeFrame: [10, Validators.required],
     });
+    this.addQuestion();
     this.loadQuizData();
     this.loadQuizTitle();
   }
@@ -63,10 +67,10 @@ export class QuizCreationComponent {
 
   addQuestion() {
     const questionGroup = this.fb.group({
-      text: '',
-      answers: this.fb.array([]),
+      text: ['', Validators.required],
+      answers: this.fb.array([], Validators.required),
       timestamp: new Date().toISOString(),
-      marks: 0,
+      marks: [0, Validators.required],
     });
     this.questions.push(questionGroup);
     this.selectedQuestionIndex = this.questions.length - 1;
@@ -111,6 +115,12 @@ export class QuizCreationComponent {
   }
 
   submitQuiz() {
+    this.showErrors = true;
+
+    if (this.quizForm.invalid) {
+      return;
+    }
+
     console.log('submitting');
     const quizData = this.quizForm.value.questions.map(
       (question: any, index: number) => ({
@@ -131,6 +141,7 @@ export class QuizCreationComponent {
         const combinedData = {
           ...assessmentFormData,
           questions: quizData,
+          timeFrame: this.quizForm.value.timeFrame, 
         };
 
         const assessmentFormComponent = new AssessmentFormComponent(
@@ -143,6 +154,9 @@ export class QuizCreationComponent {
         assessmentFormComponent.submitQuizWithQuestions(quizData);
 
         console.log(combinedData);
+
+        // Remove quiz data from local storage after submission
+        localStorage.removeItem('quizData');
       }
     });
   }

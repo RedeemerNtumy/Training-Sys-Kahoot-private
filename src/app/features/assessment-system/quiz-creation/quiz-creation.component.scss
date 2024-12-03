@@ -225,6 +225,20 @@
 
         .mark-div {
           width: 12rem;
+
+          input {
+            width: 100%;
+            height: 3rem;
+            font-size: 1.8rem;
+            font-weight: 600;
+            padding: 0.8rem;
+            border: 1px solid $clr-gray-300;
+            margin-bottom: 2.5rem;
+
+            &:focus {
+              border: 1px solid $clr-primary-500;
+            }
+          }
         }
       }
     }
