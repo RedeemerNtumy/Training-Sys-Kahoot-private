@@ -11,6 +11,10 @@
   padding: 0.8rem;
   cursor: pointer;
 
+  &:hover {
+    background: #fffaf6;
+  }
+
   .question-title {
     font-weight: bold;
   }
