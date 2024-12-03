@@ -24,7 +24,7 @@
 
 
 <div class="container">
-        <div class="no-cohorts" *ngIf="(cohortsList$ | async)?.length === 0">
+        <div class="no-cohorts" *ngIf="listEmptyCheck === true">
             <div class="content">
                 <img src="../../../../assets/Images/png/Conference.png" alt="conference image">
                 <span>No Cohorts Created Yet</span>
@@ -35,7 +35,7 @@
         </div>
         <!-- no-cohorts ends here -->
 
-        <div class="container-with-list" *ngIf="(cohortsList$ | async)?.length !== 0">
+        <div class="container-with-list" *ngIf="listEmptyCheck === false">
             <app-searchbar 
                 [title]="'Cohort'" 
                 [placeholder]="'Name'" 

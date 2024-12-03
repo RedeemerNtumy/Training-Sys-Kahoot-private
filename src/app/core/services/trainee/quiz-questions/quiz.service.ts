@@ -8,8 +8,8 @@ import { Observable, map } from 'rxjs';
 export class QuizService {
 
   private quizesUrl = 'http://localhost:9000/quizes';
-  questionId = 1;
-  quizId = '5c0f';
+  questionId = 1; 
+  quizId = '7cb5';
 
   constructor(
     private http: HttpClient
