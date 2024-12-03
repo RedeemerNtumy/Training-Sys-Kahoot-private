@@ -27,7 +27,7 @@ export class ListCohortsComponent {
   selectedCohortId: string | null = ''; 
   hideDeleteModal: boolean = true;
 
-  listEmptyCheck!: boolean;
+  listEmptyCheck: boolean = true;
 
   //Pagination 
   private pageSubject = new BehaviorSubject<number>(1);
@@ -47,7 +47,7 @@ export class ListCohortsComponent {
 
     this.cohortsList$.subscribe({
       next: (response) => {
-        console.log("cohort list: ", response)
+        this.listEmptyCheck = false;
       },
       error: (err) => {
         console.log("cohort list error: ", err)
