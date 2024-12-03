@@ -18,7 +18,7 @@ export const trainerRoutes: Routes = [
       import('@views/trainer/assessment/assessment.component').then(
         (m) => m.AssessmentComponent
       ),
-    data: { role: 'trainerer' },
+    data: { role: 'trainer' },
     children: [
       {
         path: '',
@@ -49,7 +49,7 @@ export const trainerRoutes: Routes = [
       import('@views/trainer/grade-management/grade-management.component').then(
         (m) => m.GradeManagementComponent
       ),
-    data: { role: 'trainerer' },
+    data: { role: 'trainer' },
   },
   {
     path: 'trainee-management',
