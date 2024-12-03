@@ -63,13 +63,21 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
       userProfilePhoto: ['']
     })
 
-    this.traineeInsystemService.retreivedUserData$
-      .subscribe(data=> {
-        if (data) {
-          console.log(data)
-          this.newUserForm.patchValue(data);
+    this.traineeInsystemService.firstFormState$
+    .pipe(
+      first(), // Ensure we only subscribe once
+      switchMap(firstFormState => {
+        if (firstFormState) {
+          return of(firstFormState); // Use firstFormState if available
         }
-      });
+        return this.traineeInsystemService.retreivedUserData$; // Otherwise fallback to retrievedUserData$
+      })
+    )
+    .subscribe(data => {
+      if (data) {
+        this.newUserForm.patchValue(data);
+      }
+    });
   }
 
   onSubmit() {
