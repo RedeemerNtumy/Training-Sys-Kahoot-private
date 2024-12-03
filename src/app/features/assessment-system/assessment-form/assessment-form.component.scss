@@ -101,6 +101,14 @@
         background: $clr-white;
         position: relative;
         cursor: pointer;
+
+        .file-upload {
+          @include flexbox(column, center, center);
+
+          .img {
+            color: $clr-primary-500;
+          }
+        }
       }
     }
 

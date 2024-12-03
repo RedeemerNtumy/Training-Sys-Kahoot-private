@@ -14,8 +14,10 @@ export class AnswerComponent {
   @Input() option!: string;
   @Input() answer!: string;
   @Input() index!: number;
+  @Input() isCorrect!: boolean;
   @Output() deleteAnswer = new EventEmitter<void>();
   @Output() answerChange = new EventEmitter<string>();
+  @Output() toggleCorrect = new EventEmitter<void>();
 
   onDeleteAnswer() {
     this.deleteAnswer.emit();
@@ -23,5 +25,16 @@ export class AnswerComponent {
 
   onAnswerInputChange(value: string) {
     this.answerChange.emit(value);
+  }
+
+  toggleMarkCorrect(event: Event) {
+    this.toggleCorrect.emit();
+    const button = event.target as HTMLElement;
+    const parent = button.closest('.answers');
+    if (parent) {
+      const buttons = parent.querySelectorAll('.mark-correct');
+      buttons.forEach(btn => btn.classList.remove('active'));
+    }
+    button.classList.add('active');
   }
 }

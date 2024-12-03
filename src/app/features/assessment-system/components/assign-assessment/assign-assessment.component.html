@@ -9,11 +9,64 @@
       </div>
     </div>
     <div class="col-2">
-      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-        <mat-tab label="First">Content 1</mat-tab>
-        <mat-tab label="Second">Content 2</mat-tab>
-        <mat-tab label="Third">Content 3</mat-tab>
-      </mat-tab-group>
+      <div class="filters-container">
+        <mat-form-field
+          appearance="outline"
+          class="w-48"
+          (click)="specializationSelect.open()"
+        >
+          <mat-label>Specialization</mat-label>
+          <mat-select
+            #specializationSelect
+            [(ngModel)]="selectedSpecialization"
+            (selectionChange)="applyFilters()"
+          >
+            <mat-option [value]="''">All</mat-option>
+            <mat-option
+              *ngFor="let spec of filterOptions.specialization"
+              [value]="spec"
+            >
+              {{ spec }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field
+          appearance="outline"
+          class="w-48"
+          (click)="cohortSelect.open()"
+        >
+          <mat-label>Cohort</mat-label>
+          <mat-select
+            #cohortSelect
+            [(ngModel)]="selectedCohort"
+            (selectionChange)="applyFilters()"
+          >
+            <mat-option [value]="''">All</mat-option>
+            <mat-option
+              *ngFor="let cohort of filterOptions.cohort"
+              [value]="cohort"
+            >
+              {{ cohort }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-checkbox>Select All</mat-checkbox>
+      </div>
+      <div class="filters-wrapper">
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+          <mat-tab label="Trainees">
+            <app-trainee-list />
+          </mat-tab>
+          <mat-tab label="Cohort">
+            <app-cohort-list />
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+    <div class="actions-container">
+      <button class="btn cancel">Cancel</button>
+      <button class="btn assign">Assign</button>
     </div>
   </div>
 </div>
