@@ -28,6 +28,8 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   //Image upload
   previewUrl: string | ArrayBuffer | null = null;
   selectedFile!: File;
+
+  maxDate!: string;
   
   private unsubscribe$ = new Subject<void>();
 
@@ -39,6 +41,8 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.setMaxDateOfBirth();
+
     this.genders$ = this.usermanagementService.getAllGenders();
     this.countries$ = this.usermanagementService.getAllCountries()
 
@@ -133,6 +137,18 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
 
   changeImage() {
     this.triggerFileSelect();
+  }
+
+  setMaxDateOfBirth() {
+    const today = new Date(); 
+    // Calculate the date 7 years ago
+    const sevenYearsAgo = new Date(today);
+    sevenYearsAgo.setFullYear(today.getFullYear() - 7);
+    this.maxDate = this.formatDate(sevenYearsAgo); 
+  }
+
+  formatDate(date: Date): string {
+    return date.toISOString().split('T')[0];
   }
 
 
