@@ -1,0 +1,18 @@
+@use '../../../../styleSheet/mixins' as *;
+@use '../../../../styleSheet/variables' as *;
+
+main{
+  width: 100%;
+  padding-right: 4rem;
+  @include flexbox($direction: column);
+  gap: 3.6rem;
+
+  .scrollable-content{
+    max-height: 65vh;
+    padding-right: 6rem;
+    overflow-y: auto;
+    @include custom-scrollbar;
+  }
+
+  
+}

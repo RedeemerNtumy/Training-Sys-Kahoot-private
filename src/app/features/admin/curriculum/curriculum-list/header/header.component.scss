@@ -1,0 +1,92 @@
+@use '../../../../../../styleSheet/mixins' as *;
+@use '../../../../../../styleSheet/variables' as *;
+
+.curriculum-settings{
+  @include flexbox($direction: column);
+
+  .grp-1{
+    width: 94.9rem;
+    @include flexbox($align:center,$justify:space-between);
+    gap:2.26rem;
+
+    h3{
+      font-size: $font-size-subtitle;
+      font-weight: 700;
+    }
+
+    .search-field{
+      padding-left: 2.073rem;
+      @include flexbox($align:center);
+      gap:1.45rem;
+      height: 4.3rem;
+      width: 37.4rem;
+      border-radius: .8rem;
+      border: 1px solid $clr-gray-100;
+
+      &:hover{
+        border: 1px solid $clr-primary-500;
+      }
+
+      img{
+        width: 1.89rem;
+        height: 1.89rem;
+      }
+
+      input{
+        width: 100%;
+        border: none;
+        background-color: transparent;
+        caret-color: $clr-primary-500;
+        &:focus{
+          outline: none;
+        }
+
+
+      }
+    }
+    .grp-2{
+      @include flexbox($align:center);
+      gap: 2.267rem;
+      .settings-btn{
+        border: none;
+        background-color: transparent;
+        @include flexbox($align:center);
+        gap: 1rem;
+        cursor: pointer;
+        height: 4.4rem;
+        width: 8.4rem;
+        padding: 8px;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+
+        &:hover{
+          background-color: rgba(0, 0, 0, 0.04);
+        }
+      }
+
+      .sort{
+        &.active img {
+          transform: scaleY(-1);
+        }
+      }
+
+      .add-curriculum-btn{
+        @include flexbox($align:center);
+        gap:1.1rem;
+        background-color: $clr-primary-500;
+        color: $clr-white;
+        border-radius: .8rem;
+        padding: 1.6rem 2.4rem;
+        font-size: $font-size-body;
+        cursor: pointer;
+        border: none;
+      }
+    }
+  }
+
+  mat-divider{
+    margin-top: 2.9rem;
+    width: 94.9rem;
+  }
+
+}

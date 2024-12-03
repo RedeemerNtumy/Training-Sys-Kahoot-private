@@ -82,14 +82,8 @@ export const adminRoutes: Routes = [
     ],
   },
   {
-    path: 'cohorts',
-    loadComponent: () => import('@views/admin/cohorts/cohorts-management.component')
-    .then(m => m.CohortsManagementComponent),
-    data: { role: 'admin' }
-  },
-  {
     path: 'progression-tracking',
-    loadComponent: () => import('@views/admin/progress-tracking/progress-tracking.component')
+    loadComponent: () => import('@views/trainer/progress-tracking/progress-tracking.component')
     .then(m => m.ProgressTrackingComponent)
   },
   {
@@ -151,10 +145,39 @@ export const adminRoutes: Routes = [
     ],
   },
   {
-    path: 'curriculum',
+    path: 'curriculum-management',
     loadComponent: () => import('@views/admin/curriculum/curriculum.component')
     .then(m => m.CurriculumComponent),
-    data: { role: 'admin' }
+    data: { role: 'admin' },
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('@features/admin/curriculum/curriculum-list/curriculum-list.component')
+       .then(m => m.CurriculumListComponent)
+      },
+      {
+        path: 'curriculum/:id',
+        loadComponent: () => import('@features/admin/curriculum/detail/detail.component')
+        .then(m => m.DetailComponent)
+      },
+      {
+        path: 'create-curriculum',
+        loadComponent: () => import('@features/admin/curriculum/create/create.component')
+       .then(m => m.CreateComponent),
+       children:[
+         {
+           path: '',
+           loadComponent: () => import('@features/admin/curriculum/create/form/form.component')
+          .then(m => m.FormComponent)
+         },
+         {
+           path: 'create-module',
+           loadComponent: () => import('@features/admin/curriculum/create/form/module/module.component')
+          .then(m => m.ModuleComponent)
+         },
+       ]
+      }
+    ]
   },
   {
     path: 'report',
