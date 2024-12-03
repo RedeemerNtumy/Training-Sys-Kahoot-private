@@ -1,14 +1,5 @@
-<ng-container *ngIf="trainersData$ | async as trainers"> </ng-container>
-
 <div class="container">
   <div class="list-wrapper" *ngIf="trainersData$ | async as trainers">
-    <ng-container *ngIf="trainers?.length === 0">
-      <div class="no-trainer">
-        <mat-icon svgIcon="info"></mat-icon>
-        No Trainer Created
-      </div>
-    </ng-container>
-
     <div class="trainers-length">
       <div class="col-1">
         <h3>Trainers</h3>
@@ -24,7 +15,7 @@
       </div>
     </div>
 
-    <div class="trainers">
+    <div class="trainers" *ngIf="trainers.length > 0; else noTrainers">
       <div class="headers">
         <div>No.</div>
         <div>Name</div>
@@ -48,5 +39,11 @@
         </div>
       </div>
     </div>
+    <ng-template #noTrainers>
+      <div class="no-trainer">
+        <mat-icon svgIcon="info"></mat-icon>
+        No Trainer Created
+      </div>
+    </ng-template>
   </div>
 </div>
