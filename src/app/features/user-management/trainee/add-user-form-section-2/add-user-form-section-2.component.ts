@@ -34,7 +34,7 @@ export class AddUserFormSection2Component {
       specialization: ['', Validators.required],
       cohort: ['', Validators.required],
       enrollementDate: ['', Validators.required],
-      status: ['', Validators.required],
+      status: ['',],
       // trainingId: ['', Validators.required]
     })
 
