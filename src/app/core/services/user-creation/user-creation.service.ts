@@ -17,10 +17,9 @@ export class UserCreationService {
     confirmPassword: string,
     token: string
   ): Observable<any> {
-    const headers = { Authorization: `Bearer ${token}` };
     const body = { newPassword: password, confirmPassword };
-    return this.http.put(this.apiUrl, body, { headers, responseType: 'text' }).pipe(
-      map(response => {
+    return this.http.put(this.apiUrl, body, { responseType: 'text' }).pipe(
+      map((response) => {
         try {
           return JSON.parse(response);
         } catch (e) {

@@ -7,6 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
 import { UserRoleService } from '../user-role/user-role.service';
 import { UserRole } from '@core/models/user-role.interface';
+import { TokenService } from '../token/token.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private userRoleService: UserRoleService
+    private userRoleService: UserRoleService,
+    private tokenService: TokenService
   ) {}
 
   login(
@@ -29,9 +31,8 @@ export class AuthService {
       })
       .pipe(
         map((response: LoginResponse) => {
-          console.log(response.firstTime);
           if (response) {
-            localStorage.setItem('token', response.token);
+            this.tokenService.setToken(response.token);
             const decodedToken = this.decodeToken(response.token);
 
             this.userRoleService.setUserRole(decodedToken.role as UserRole);
