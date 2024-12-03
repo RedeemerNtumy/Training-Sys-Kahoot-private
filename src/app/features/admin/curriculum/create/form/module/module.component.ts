@@ -8,6 +8,10 @@ import { ModuleListComponent } from "../module-list/module-list.component";
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { CurriculumStateService } from '@core/services/curriculum-state/curriculum-state.service';
+import { FeedbackModalComponent } from "../../../../../../core/shared/feedback-modal/feedback-modal.component";
+import { CurriculumFacadeService } from '@core/services/curriculum-facade/curriculum-facade.service';
+import { curriculum } from '@core/models/curriculum.interface';
+
 
 
 
@@ -15,7 +19,7 @@ import { CurriculumStateService } from '@core/services/curriculum-state/curricul
   selector: 'app-module',
   standalone: true,
   imports: [MatRipple, ReactiveFormsModule,
-    CommonModule, AccordionModule, ModuleListComponent],
+    CommonModule, AccordionModule, ModuleListComponent, FeedbackModalComponent],
   templateUrl: './module.component.html',
   styleUrl: './module.component.scss'
 })
@@ -24,6 +28,8 @@ import { CurriculumStateService } from '@core/services/curriculum-state/curricul
 export class ModuleComponent implements OnInit {
   parentForm!: FormGroup;
   private formSubscription: Subscription | null = null;
+  showFeedback: boolean = false;
+  curriculums: curriculum[] = []
 
   activeModuleIndex = 0;
   readonly allowedFileTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/webp', 'application/pdf'];
@@ -33,7 +39,8 @@ export class ModuleComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private curriculumStateService: CurriculumStateService,
-    private router: Router
+    private router: Router,
+    private curriculumService: CurriculumFacadeService
   ) {
     this.parentForm = this.fb.group({
       modules: this.fb.array([])
@@ -42,16 +49,20 @@ export class ModuleComponent implements OnInit {
 
   ngOnInit(): void {
     this.formSubscription = this.curriculumStateService.getCurriculumForm()
-      .subscribe(form => {
-        if (form) {
-          this.parentForm = form;
-          if (this.modules.length === 0) {
-            this.addModule();
-          }
-        } else {
-          this.router.navigate(['home', 'admin', 'curriculum', 'create', 'create-curriculum']);
+    .subscribe(form => {
+      if (form) {
+        this.parentForm = form;
+        if (this.modules.length === 0) {
+          this.addModule();
         }
-      });
+      } else {
+        this.router.navigate(['home', 'admin', 'curriculum', 'create-curriculum']);
+      }
+    });
+
+    this.curriculumService.curriculum$.subscribe((curriculums: curriculum[]) => {
+      this.curriculums = curriculums;
+    });
   }
 
   ngOnDestroy(): void {
@@ -65,7 +76,7 @@ export class ModuleComponent implements OnInit {
   }
 
   navigateToCreateCurriculum(){
-    this.router.navigate(['home', 'admin', 'curriculum', 'create']);
+    this.router.navigate(['home', 'admin', 'curriculum-management', 'create-curriculum']);
   }
 
   getTopics(moduleIndex: number): FormArray {
@@ -77,7 +88,7 @@ export class ModuleComponent implements OnInit {
       title: ['', Validators.required],
       description: ['', Validators.required],
       topics: this.fb.array([this.fb.control('', Validators.required)]),
-      files: [[]]
+      files: []
     });
     this.modules.push(moduleGroup);
     this.uploadedFiles[this.modules.length - 1] = [];
@@ -91,11 +102,59 @@ export class ModuleComponent implements OnInit {
     this.removeModule(index);
   }
 
+
+  get formControls(){
+    return {
+      title: this.parentForm.get('title'),
+      description: this.parentForm.get('description'),
+      topics: this.parentForm.get('topics')
+    };
+  }
+
   onCreateCurriculum(): void {
     if (this.parentForm?.valid) {
-      console.log('Final curriculum data:', this.parentForm.value);
-      this.router.navigate(['home', 'admin', 'curriculum', 'list']);
+      this.showFeedback = true;
+      const formData = this.parentForm.value;
+      const formattedModules = formData.modules.map((module: any, index: number) => ({
+        ...module,
+        files: this.uploadedFiles[index]?.map(file => ({
+          name: file.name,
+          size: file.size,
+          type: file.type
+        })) || []
+      }));
+      const curriculumData = {
+        ...formData,
+        modules: formattedModules,
+        id: this.curriculums.length + 1,
+        createdAt: new Date().toISOString()
+      };
+      console.log('Final curriculum data:', curriculumData);
+      this.curriculumService.create(curriculumData).subscribe({
+        next: () => {
+          setTimeout(() => {
+            this.showFeedback = false;
+            this.router.navigate(['home', 'admin', 'curriculum-management']);
+          }, 3000);
+        },
+        error: (error) => {
+          this.showFeedback = false;
+          console.error('Error creating curriculum:', error);
+        }
+      });
+    } else {
+      this.markFormGroupTouched(this.parentForm);
     }
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup | FormArray): void {
+    Object.values(formGroup.controls).forEach(control => {
+      if (control instanceof FormGroup || control instanceof FormArray) {
+        this.markFormGroupTouched(control);
+      } else {
+        control.markAsTouched();
+      }
+    });
   }
 
   selectModule(index: number): void {
@@ -133,7 +192,6 @@ export class ModuleComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     this.dragOver[moduleIndex] = false;
-
     const files = event.dataTransfer?.files;
     if (files?.length) {
       this.handleFile(files[0], moduleIndex);
@@ -182,7 +240,7 @@ export class ModuleComponent implements OnInit {
       const moduleGroup = this.modules.at(moduleIndex);
       const files = this.uploadedFiles[moduleIndex].map(f => f.file);
       moduleGroup.patchValue({
-        files: files
+        moduleFile: files
       });
     } else {
       alert('Please upload only PNG, JPG, JPEG, WEBP, or PDF files');

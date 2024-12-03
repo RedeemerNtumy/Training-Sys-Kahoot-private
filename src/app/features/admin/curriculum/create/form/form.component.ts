@@ -17,6 +17,8 @@ import { CurriculumStateService } from '@core/services/curriculum-state/curricul
 })
 
 export class FormComponent implements OnInit {
+  showFeedback: boolean = false;
+  isUpdate: boolean = false;
   isEditMode: boolean = false;
   curriculumForm!: FormGroup;
   curriculumData!: curriculum;
@@ -30,15 +32,24 @@ export class FormComponent implements OnInit {
 
 
   navigateToList(){
-    this.router.navigate(['home','admin','curriculum','list']);
+    this.router.navigate(['home','admin','curriculum-management']);
   }
 
   private navigateToCreateModule(){
-    this.router.navigate(['home','admin','curriculum','create','create-module']);
+    this.router.navigate(['home','admin','curriculum-management','create-curriculum','create-module']);
   }
 
   ngOnInit(): void {
     this.prepareCurriculumForm();
+  }
+
+  get formControls() {
+    return {
+      title: this.curriculumForm.get('title'),
+      description: this.curriculumForm.get('description'),
+      assignedSpecialization: this.curriculumForm.get('assignedSpecialization'),
+      assignedCohort: this.curriculumForm.get('assignedCohort')
+    };
   }
 
   private prepareCurriculumForm() {
@@ -83,12 +94,9 @@ export class FormComponent implements OnInit {
 
   private handleFile(file: File) {
     if (this.allowedFileTypes.includes(file.type)) {
-      // Update form control
       this.curriculumForm.patchValue({
         thumbnail: file
       });
-
-      // Create preview
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.previewImage = e.target.result;
@@ -127,18 +135,23 @@ export class FormComponent implements OnInit {
   }
 
   onContinue() {
-    // if (this.curriculumForm.valid) {
+    if (this.curriculumForm.valid) {
       this.curriculumStateService.setCurriculumForm(this.curriculumForm);
-      this.router.navigate(['home', 'admin', 'curriculum', 'create', 'create-module']);
-    // }
+      this.navigateToCreateModule();
+    } else {
+      Object.keys(this.formControls).forEach(key => {
+        const control = this.formControls[key as keyof typeof this.formControls];
+        if (control?.invalid) {
+          control.markAsTouched();
+        }
+      });
+
+      this.learningObjectives.controls.forEach(control => {
+        if (control.invalid) {
+          control.markAsTouched();
+        }
+      });
+    }
   }
-
-
-  onCurriculumComplete() {
-    const curriculumData: curriculum = this.curriculumForm.value;
-    console.log('Final curriculum data:', curriculumData);
-
-  }
-
 }
 

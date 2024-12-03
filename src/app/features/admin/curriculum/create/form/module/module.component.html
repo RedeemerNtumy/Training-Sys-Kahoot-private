@@ -32,6 +32,7 @@
                 <input
                   type="text"
                   formControlName="title"
+                  [class.invalid]="module.get('title')?.touched && module.get('title')?.invalid"
                   placeholder="Enter module name here">
               </div>
 
@@ -43,6 +44,7 @@
                 </div>
                 <textarea
                   formControlName="description"
+                  [class.invalid]="module.get('description')?.touched && module.get('description')?.invalid"
                   placeholder="Enter Module description"
                   rows="8">
                 </textarea>
@@ -60,6 +62,7 @@
                       <input
                         [formControlName]="topicIndex"
                         type="text"
+                        [class.invalid]="topic.touched && topic.invalid"
                         placeholder="Enter topic">
                       <img
                         *ngIf="getTopics(moduleIndex).length > 1"
@@ -165,10 +168,13 @@
       [modules]="modules"
       [activeModuleIndex]="activeModuleIndex"
       [parentFormValid]="parentForm.valid || false"
+      [showFeedback]="showFeedback"
       (moduleSelected)="onModuleSelected($event)"
       (moduleRemoved)="onModuleRemoved($event)"
       (createCurriculum)="onCreateCurriculum()">
     </app-module-list>
 
   </div>
+
+  <app-feedback-modal/>
 </section>

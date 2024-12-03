@@ -1,0 +1,50 @@
+.options-container {
+  position: relative;
+
+  .options {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .options-dropdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: .8rem;
+    border: 1px solid #e0e0e0;
+    width: 12.7rem;
+    color: #858585;
+    font-size: 1.4rem;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 0.5rem;
+    animation: popIn 0.15s ease-out forwards;
+    z-index: 5;
+
+    button {
+      display: flex;
+      height: 3.35rem;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      gap: 1rem;
+      transition: all 0.2s ease-in-out;
+      border-radius: 0.4rem;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f5f5f5;
+        color: #333;
+        img {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}
+

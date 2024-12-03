@@ -97,6 +97,7 @@ section{
           @include flexbox($direction: column);
           gap: 1.6rem;
           .type-field {
+
             h4{
               font-size: $font-size-subtitle-2;
             }
@@ -170,6 +171,11 @@ section{
         &:focus-within {
           outline: none;
           border-color: darken(#F98416, 5%);
+        }
+
+        &.invalid{
+          border-color: #E42514;
+          background-color: #fff5f5;
         }
 
         &::placeholder {
