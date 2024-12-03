@@ -47,11 +47,40 @@ export const trainerRoutes: Routes = [
   },
   {
     path: 'grade-management',
-    loadComponent: () =>
-      import('@views/trainer/grade-management/grade-management.component').then(
-        (m) => m.GradeManagementComponent
-      ),
+    loadComponent : ()=> import('@views/trainer/grade-management/grade-management.component')
+    .then(m => m.GradeManagementComponent),
     data: { role: 'trainer' },
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('../../features/grade-management/assessment-tabs/assessment-tabs.component')
+        .then(m => m.AssessmentTabsComponent),
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('../../features/grade-management/view-assessment-list/view-assessment-list.component')
+            .then(m => m.ViewAssessmentListComponent),
+          },
+          {
+            path: 'trainee-list',
+            loadComponent: () => import('../../features/grade-management/view-ungraded-trainees-list/trainees-list/trainees-list.component')
+            .then(m => m.TraineesListComponent),
+          },
+        ]
+      },
+      {
+        path: 'grade-history',
+        loadComponent: () => import('../../features/grade-management/assessment-tabs-second/assessment-tabs-second.component')
+        .then(m => m.AssessmentTabsSecondComponent),
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('../../features/grade-management/view-grade-history-list/view-grade-history/view-grade-history.component')
+            .then(m => m.ViewGradeHistoryComponent),
+          },
+        ]
+      },
+    ]
   },
   {
     path: 'trainee-management',
@@ -60,10 +89,39 @@ export const trainerRoutes: Routes = [
     data: { role: 'trainer' }
   },
   {
-    path: 'curriculum',
+    path: 'curriculum-management',
     loadComponent: () => import('@views/admin/curriculum/curriculum.component')
     .then(m => m.CurriculumComponent),
-    data: { role: 'trainer' }
+    data: { role: 'trainer' },
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('@features/admin/curriculum/curriculum-list/curriculum-list.component')
+       .then(m => m.CurriculumListComponent)
+      },
+      {
+        path: 'curriculum/:id',
+        loadComponent: () => import('@features/admin/curriculum/detail/detail.component')
+        .then(m => m.DetailComponent)
+      },
+      {
+        path: 'create-curriculum',
+        loadComponent: () => import('@features/admin/curriculum/create/create.component')
+       .then(m => m.CreateComponent),
+       children:[
+         {
+           path: '',
+           loadComponent: () => import('@features/admin/curriculum/create/form/form.component')
+          .then(m => m.FormComponent)
+         },
+         {
+           path: 'create-module',
+           loadComponent: () => import('@features/admin/curriculum/create/form/module/module.component')
+          .then(m => m.ModuleComponent)
+         },
+       ]
+      }
+    ]
   },
   {
     path: 'progress-tracking',
