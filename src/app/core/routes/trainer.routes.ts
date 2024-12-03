@@ -124,7 +124,7 @@ export const trainerRoutes: Routes = [
     ]
   },
   {
-    path: 'progress-tracking',
+    path: 'progression-tracking',
     loadComponent: () => import('@views/trainer/progress-tracking/progress-tracking.component')
     .then(m => m.ProgressTrackingComponent)
   },
