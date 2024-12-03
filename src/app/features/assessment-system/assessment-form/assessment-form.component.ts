@@ -5,6 +5,8 @@ import {
   FormGroup,
   ReactiveFormsModule,
   Validators,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import {
   AssessmentData,
@@ -27,6 +29,7 @@ export class AssessmentFormComponent {
   @Output() formSubmit = new EventEmitter<AssessmentData>();
 
   selectedFileName: string = '';
+  upLoadedFile: string = '';
 
   form: FormGroup;
 
@@ -44,9 +47,19 @@ export class AssessmentFormComponent {
       description: ['', Validators.required],
       coverImage: [null],
       attachments: [[]],
-      deadline: ['', Validators.required],
+      deadline: ['', [Validators.required, this.futureDateValidator]],
     });
 
+  }
+
+  // Custom validator to check if the date is in the future
+  futureDateValidator(control: AbstractControl): ValidationErrors | null {
+    const selectedDate = new Date(control.value);
+    const currentDate = new Date();
+    if (selectedDate < currentDate) {
+      return { pastDate: true };
+    }
+    return null;
   }
 
   ngOnInit() {
@@ -72,8 +85,9 @@ export class AssessmentFormComponent {
   }
 
   onFileSelected(event: any) {
-    const files = Array.from(event.target.files);
+    const files = Array.from(event.target.files) as File[];
     if (files.length) {
+      this.upLoadedFile = files[0].name;
       this.form.patchValue({
         attachments: files,
       });
