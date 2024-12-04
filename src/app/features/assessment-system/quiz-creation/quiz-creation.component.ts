@@ -15,6 +15,7 @@ import { AssessmentFormComponent } from '../assessment-form/assessment-form.comp
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizDataService } from '@core/services/assessment/quiz-data.service';
 import { AssessmentService } from '@core/services/assessment/assessment.service';
+import { AssessmentData, Quiz } from '@core/models/assessment-form.interface';
 
 @Component({
   selector: 'app-quiz-creation',
@@ -128,30 +129,24 @@ export class QuizCreationComponent {
         text: answer.text,
         isCorrect: answer.isCorrect,
       })),
-      marks: question.marks,
+      mark: question.marks,
     }));
 
-    this.quizDataService.getQuizData().subscribe((assessmentFormData) => {
-      if (assessmentFormData) {
-        const combinedData = {
-          ...assessmentFormData,
-          questions: quizData,
-          timeFrame: this.quizForm.value.timeFrame,
-        };
+    const assessmentData: Quiz = {
+      questions: quizData,
+      timeFrame: this.quizForm.value.timeFrame,
+    };
 
-        const assessmentFormComponent = new AssessmentFormComponent(
-          this.fb,
-          this.route,
-          this.router,
-          this.quizDataService,
-          this.assessmentService
-        );
-        assessmentFormComponent.submitQuizWithQuestions(quizData);
+    console.log(quizData);
 
-        console.log(combinedData);
-
-        // Remove quiz data from local storage after submission
+    this.assessmentService.addAssessment(quizData, this.quizForm.value.timeFrame).subscribe({
+      next: (response) => {
+        console.log('Quiz submitted successfully', response);
         localStorage.removeItem('quizData');
+        this.router.navigate(['/home/trainer/assessment/quiz-creation']);
+      },
+      error: (err) => {
+        console.error('Error submitting quiz', err);
       }
     });
   }
