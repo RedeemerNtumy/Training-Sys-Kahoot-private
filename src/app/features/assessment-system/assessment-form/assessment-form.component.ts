@@ -84,22 +84,35 @@ export class AssessmentFormComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      const formData: AssessmentData = {
-        ...this.form.value,
-        assessmentType: this.type,
-      };
+      const formData = new FormData();
+      Object.keys(this.form.value).forEach((key) => {
+        if (key === 'attachments') {
+          this.form.value[key].forEach((file: File) => {
+            formData.append('attachments', file, file.name);
+          });
+        } else {
+          formData.append(key, this.form.value[key]);
+        }
+      });
+      formData.append('assessmentType', this.type);
 
       if (this.type === 'quiz') {
-        delete formData.attachments;
-        this.quizDataService.setQuizData(formData);
-        console.log('sending to backend', formData);
-        this.router.navigate(['/home/trainer/assessment/quiz-creation']);
+        formData.delete('attachments');
+        this.quizDataService.setQuizData(formData, true).subscribe({
+          next: (response) => {
+            this.router.navigate(['/home/trainer/assessment/quiz-creation']);
+            localStorage.setItem('quizId', JSON.stringify(response));
+          },
+          error: (err) => {
+            console.error(err);
+          },
+        });
       } else {
         console.log('sending to backend', formData);
-        this.assessmentService.addAssessment(formData).subscribe(() => {
-          console.log('sending to backend', formData);
-          this.formSubmit.emit(formData);
-        });
+        // this.assessmentService.addAssessment(formData).subscribe(() => {
+        //   console.log('sending to backend', formData);
+        //   this.formSubmit.emit(this.form.value);
+        // });
       }
     }
   }
