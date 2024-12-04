@@ -1,12 +1,13 @@
-import { Component, model } from '@angular/core';
+import { Component, model, Output, EventEmitter } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TraineeListComponent } from '../trainee-list/trainee-list.component';
 import { CohortListComponent } from '../cohort-list/cohort-list.component';
-import { MatSelectModule } from '@angular/material/select';
+import { DropdownModule } from 'primeng/dropdown';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TabViewModule } from 'primeng/tabview';
 
 interface FilterOptions {
   specialization: string[];
@@ -20,11 +21,12 @@ interface FilterOptions {
     MatTabsModule,
     TraineeListComponent,
     CohortListComponent,
-    MatSelectModule,
+    DropdownModule,
     MatFormFieldModule,
     MatCheckboxModule,
     FormsModule,
     CommonModule,
+    TabViewModule,
   ],
   templateUrl: './assign-assessment.component.html',
   styleUrl: './assign-assessment.component.scss',
@@ -41,9 +43,26 @@ export class AssignAssessmentComponent {
   selectedCohort = '';
   hasSelectedItems = false;
 
+  expiryOptions: string[] = [
+    '1 day',
+    '2 days',
+    '3 days',
+    '4 days',
+    '5 days',
+    '6 days',
+    '1 week',
+    '2 weeks',
+    '3 weeks',
+    '1 month',
+    '2 months',
+    '3 months',
+  ];
+  selectedExpiry = '';
+
+  @Output() cancel = new EventEmitter<void>();
+
   onCancel() {
-    // Add your cancel logic here
-    // For example, close the dialog/modal
+    this.cancel.emit();
   }
 
   onAssign() {
