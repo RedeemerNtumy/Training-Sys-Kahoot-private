@@ -17,4 +17,8 @@ export class AssessmentCardComponent {
   onShowAssignAssessmentModal() {
     this.showAssignAssessmentModal = true;
   }
+
+  onCloseAssignAssessmentModal() {
+    this.showAssignAssessmentModal = false;
+  }
 }

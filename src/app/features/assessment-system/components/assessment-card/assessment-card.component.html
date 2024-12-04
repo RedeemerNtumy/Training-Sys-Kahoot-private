@@ -19,6 +19,6 @@
   </div>
 </div>
 
-@if(showAssignAssessmentModal) {
-<app-assign-assessment />
-}
+<div *ngIf="showAssignAssessmentModal">
+  <app-assign-assessment (cancel)="onCloseAssignAssessmentModal()" />
+</div>
