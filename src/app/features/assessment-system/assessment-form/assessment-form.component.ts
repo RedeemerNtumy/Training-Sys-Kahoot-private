@@ -92,7 +92,7 @@ export class AssessmentFormComponent {
       if (this.type === 'quiz') {
         delete formData.attachments;
         this.quizDataService.setQuizData(formData);
-        console.log('sending to backend',formData);
+        console.log('sending to backend', formData);
         this.router.navigate(['/home/trainer/assessment/quiz-creation']);
       } else {
         console.log('sending to backend', formData);
