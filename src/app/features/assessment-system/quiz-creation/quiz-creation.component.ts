@@ -123,13 +123,10 @@ export class QuizCreationComponent {
 
     console.log('submitting');
     const quizData = this.quizForm.value.questions.map(
-      (question: any, index: number) => ({
-        questionNumber: index + 1,
-        questionText: question.text,
-        updatedTime: question.timestamp,
-        options: question.answers.map((answer: any, i: number) => ({
-          option: this.getOption(i),
-          value: answer.text,
+      (question: any) => ({
+        text: question.text,
+        answers: question.answers.map((answer: any) => ({
+          text: answer.text,
           isCorrect: answer.isCorrect,
         })),
         marks: question.marks,
@@ -141,7 +138,7 @@ export class QuizCreationComponent {
         const combinedData = {
           ...assessmentFormData,
           questions: quizData,
-          timeFrame: this.quizForm.value.timeFrame, 
+          timeFrame: this.quizForm.value.timeFrame,
         };
 
         const assessmentFormComponent = new AssessmentFormComponent(
