@@ -34,6 +34,7 @@ export class TrackingListComponent implements OnInit {
       this.phaseOptions = [
         ...new Set([
           ...this.progressData.map(trainee => trainee.currentPhase),
+          'foundation',
           'advance',
           'capstone'
         ])
@@ -55,7 +56,6 @@ export class TrackingListComponent implements OnInit {
   onSort(event: SortEvent) {
     this.sortField = event.field!;
     this.sortOrder = event.order!;
-
     this.progressData.sort((a: any, b: any) => {
       let value1 = a[event.field!];
       let value2 = b[event.field!];
@@ -72,9 +72,33 @@ export class TrackingListComponent implements OnInit {
 
 
   updateTraineePhase(trainee: progress, newPhase: phaseOption) {
-    if (['foundation', 'advance', 'capstone'].includes(newPhase)) {
-      trainee.currentPhase = newPhase as progress['currentPhase'];
-
-    }
+    let progressValue: number;
+  switch (newPhase) {
+    case 'foundation':
+      // If already in foundation range, keep current progress
+      // Otherwise, set to lower boundary of foundation
+      progressValue = (trainee.progress >= 1 && trainee.progress <= 33)
+        ? trainee.progress
+        : 33;
+      break;
+    case 'advance':
+      progressValue = (trainee.progress > 33 && trainee.progress <= 66)
+        ? trainee.progress
+        : 66;
+      break;
+    case 'capstone':
+      progressValue = (trainee.progress > 66 && trainee.progress <= 100)
+        ? trainee.progress
+        : 100;
+      break;
+    default:
+      return;
+  }
+    const updatedTrainee = {
+      ...trainee,
+      currentPhase: newPhase,
+      progress: progressValue
+    };
+    this.progressService.updateTraineeProgress(updatedTrainee);
   }
 }

@@ -30,8 +30,6 @@ export class TrackingService {
           trainee.traineeName.toLowerCase().includes(searchLower)
         );
       }
-
-      
       return filteredData.sort((a, b) => {
         const dateA = new Date(a.completionDate).getTime();
         const dateB = new Date(b.completionDate).getTime();
@@ -60,6 +58,20 @@ export class TrackingService {
    }
 
    updateSortDirection(direction: 'asc' | 'desc'): void {
-     this.sortDirectionSubject.next(direction);
+    this.sortDirectionSubject.next(direction);
    }
+
+   updateTraineeProgress(updatedTrainee: progress): void {
+    this.trackProgress.updateProgress(updatedTrainee).subscribe({
+      next: () => {
+        const currentProgress = this.progressDataSubject.value;
+        const updatedProgress = currentProgress.map(trainee =>
+          trainee.id === updatedTrainee.id ? updatedTrainee : trainee
+        );
+        this.progressDataSubject.next(updatedProgress);
+      },
+      error: (error) => this.errorHandle.handleError(error)
+    });
+  }
+
 }

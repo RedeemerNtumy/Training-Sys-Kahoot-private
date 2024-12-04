@@ -48,7 +48,7 @@
           [options]="phaseOptions"
           [(ngModel)]="trainee.currentPhase"
           (onChange)="updateTraineePhase(trainee, $event.value)"
-          
+
         >
           <ng-template let-item pTemplate="selectedItem">
             {{item | titlecase}}

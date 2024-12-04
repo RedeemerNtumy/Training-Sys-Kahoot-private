@@ -1,4 +1,5 @@
 export interface progress{
+  id: number
   profileImage: string;
   traineeName: string;
   currentPhase: 'foundation' | 'advance' | 'capstone';
