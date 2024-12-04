@@ -17,3 +17,9 @@ export interface CreateAssessment {
   icon: string;
   route: string;
 }
+
+export interface Quiz {
+  questions: any[];
+  timeFrame: number;
+
+}
