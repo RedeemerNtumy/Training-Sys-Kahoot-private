@@ -122,16 +122,14 @@ export class QuizCreationComponent {
     }
 
     console.log('submitting');
-    const quizData = this.quizForm.value.questions.map(
-      (question: any) => ({
-        text: question.text,
-        answers: question.answers.map((answer: any) => ({
-          text: answer.text,
-          isCorrect: answer.isCorrect,
-        })),
-        marks: question.marks,
-      })
-    );
+    const quizData = this.quizForm.value.questions.map((question: any) => ({
+      text: question.text,
+      answers: question.answers.map((answer: any) => ({
+        text: answer.text,
+        isCorrect: answer.isCorrect,
+      })),
+      marks: question.marks,
+    }));
 
     this.quizDataService.getQuizData().subscribe((assessmentFormData) => {
       if (assessmentFormData) {
