@@ -83,8 +83,21 @@ $theme: mat.define-light-theme(
   --mat-tab-header-active-hover-indicator-color: #f98416 !important;
 }
 
+.filters-container {
+  z-index: 1000;
+  
+  .p-dropdown {
+    padding: 1rem 2rem;
+    cursor: pointer;
+  }
+}
+
 .mat-mdc-tab.mdc-tab {
   margin-bottom: 3rem;
+}
+
+.mat-mdc-text-field-wrapper {
+  will-change: unset !important;
 }
 
 .mdc-notched-outline {
