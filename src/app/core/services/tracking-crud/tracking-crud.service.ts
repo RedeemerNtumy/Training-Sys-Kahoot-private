@@ -12,7 +12,7 @@ export class TrackingCrudService {
   private localServer = 'http://localhost:3000/progress';
   constructor(private http:HttpClient,private errorHandle: ErrorHandleService) { }
 
-  getAllProgress(){
+  getAllProgress(): Observable<progress[]> {
     return this.http.get<progress[]>(this.localServer).pipe(
       tap((response: progress[]) => console.log('Progress from Backend:' + response)),
       catchError(this.errorHandle.handleError)

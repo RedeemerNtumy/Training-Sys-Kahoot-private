@@ -5,9 +5,10 @@ main{
   width: 100%;
   padding-right: 4rem;
   @include flexbox($direction: column);
-  gap: 3.6rem;
+
 
   .scrollable-content{
+    margin-top: 4rem;
     max-height: 65vh;
     padding-right: 6rem;
     overflow-y: auto;
@@ -15,6 +16,9 @@ main{
   }
 
   .update-btn{
+    position: absolute;
+    top: 0;
+    bottom: 3.25rem;
     align-self: end;
     cursor: pointer;
     width: 20rem;

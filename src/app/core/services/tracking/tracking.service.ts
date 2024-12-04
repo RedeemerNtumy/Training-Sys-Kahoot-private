@@ -1,4 +1,4 @@
-import { BehaviorSubject, map, Observable, combineLatest,shareReplay } from 'rxjs';
+import { BehaviorSubject, map, Observable, combineLatest, shareReplay, catchError, tap } from 'rxjs';
 import { TrackingCrudService } from './../tracking-crud/tracking-crud.service';
 import { Injectable } from '@angular/core';
 import { progress } from '@core/models/progress.interface';
@@ -8,16 +8,15 @@ import { ErrorHandleService } from '../error-handle/error-handle.service';
   providedIn: 'root'
 })
 export class TrackingService {
-   private progressDataSubject = new BehaviorSubject<progress[]>([]);
-   private searchTermSubject = new BehaviorSubject<string>('');
-   private sortDirectionSubject = new BehaviorSubject<'asc' | 'desc'>('asc');
+  private progressDataSubject = new BehaviorSubject<progress[]>([]);
+  private searchTermSubject = new BehaviorSubject<string>('');
+  private sortDirectionSubject = new BehaviorSubject<'asc' | 'desc'>('asc');
 
-   readonly searchTerm$ = this.searchTermSubject.asObservable()
-   readonly sortDirection$ = this.sortDirectionSubject.asObservable()
-   readonly progressData$ = this.progressDataSubject.asObservable();
+  readonly searchTerm$ = this.searchTermSubject.asObservable();
+  readonly sortDirection$ = this.sortDirectionSubject.asObservable();
+  readonly progressData$ = this.progressDataSubject.asObservable();
 
-
-   readonly filteredProgress$: Observable<progress[]> = combineLatest({
+  readonly filteredProgress$: Observable<progress[]> = combineLatest({
     data: this.progressData$,
     searchTerm: this.searchTerm$,
     sortDirection: this.sortDirection$
@@ -39,39 +38,44 @@ export class TrackingService {
     shareReplay(1)
   );
 
-   constructor(
-     private trackProgress: TrackingCrudService,
-     private errorHandle: ErrorHandleService
-   ) {
-     this.fetchProgress();
-   }
+  constructor(
+    private trackProgress: TrackingCrudService,
+    private errorHandle: ErrorHandleService
+  ) {
+    this.fetchProgress().subscribe();
+  }
 
-   fetchProgress(): void {
-     this.trackProgress.getAllProgress().subscribe({
-       next: (progress: progress[]) => this.progressDataSubject.next(progress),
-       error: (error) => this.errorHandle.handleError(error) // Fixed error handling
-     });
-   }
+  fetchProgress(): Observable<progress[]> {
+    return this.trackProgress.getAllProgress().pipe(
+      tap((progress: progress[]) => this.progressDataSubject.next(progress)),
+      catchError(error => {
+        this.errorHandle.handleError(error);
+        throw error;
+      })
+    );
+  }
 
-   updateSearchTerm(term: string): void {
-     this.searchTermSubject.next(term.trim());
-   }
+  updateSearchTerm(term: string): void {
+    this.searchTermSubject.next(term.trim());
+  }
 
-   updateSortDirection(direction: 'asc' | 'desc'): void {
+  updateSortDirection(direction: 'asc' | 'desc'): void {
     this.sortDirectionSubject.next(direction);
-   }
+  }
 
-   updateTraineeProgress(updatedTrainee: progress): void {
-    this.trackProgress.updateProgress(updatedTrainee).subscribe({
-      next: () => {
+  updateTraineeProgress(updatedTrainee: progress): Observable<progress> {
+    return this.trackProgress.updateProgress(updatedTrainee).pipe(
+      tap(() => {
         const currentProgress = this.progressDataSubject.value;
         const updatedProgress = currentProgress.map(trainee =>
           trainee.id === updatedTrainee.id ? updatedTrainee : trainee
         );
         this.progressDataSubject.next(updatedProgress);
-      },
-      error: (error) => this.errorHandle.handleError(error)
-    });
+      }),
+      catchError(error => {
+        this.errorHandle.handleError(error);
+        throw error;
+      })
+    );
   }
-
 }
