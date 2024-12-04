@@ -47,19 +47,7 @@ export class AssessmentFormComponent {
       description: ['', Validators.required],
       coverImage: [null],
       attachments: [[]],
-      deadline: ['', [Validators.required, this.futureDateValidator]],
     });
-
-  }
-
-  // Custom validator to check if the date is in the future
-  futureDateValidator(control: AbstractControl): ValidationErrors | null {
-    const selectedDate = new Date(control.value);
-    const currentDate = new Date();
-    if (selectedDate < currentDate) {
-      return { pastDate: true };
-    }
-    return null;
   }
 
   ngOnInit() {
@@ -101,12 +89,13 @@ export class AssessmentFormComponent {
         assessmentType: this.type,
       };
 
-      console.log('Form Data:', formData);
-
       if (this.type === 'quiz') {
+        delete formData.attachments;
         this.quizDataService.setQuizData(formData);
+        console.log('sending to backend',formData);
         this.router.navigate(['/home/trainer/assessment/quiz-creation']);
       } else {
+        console.log('sending to backend', formData);
         this.assessmentService.addAssessment(formData).subscribe(() => {
           console.log('sending to backend', formData);
           this.formSubmit.emit(formData);
@@ -114,7 +103,6 @@ export class AssessmentFormComponent {
       }
     }
   }
-
 
   submitQuizWithQuestions(questions: any[]) {
     this.quizDataService.getQuizData().subscribe((formData) => {
