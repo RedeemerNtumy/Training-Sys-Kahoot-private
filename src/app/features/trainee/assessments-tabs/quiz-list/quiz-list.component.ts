@@ -2,7 +2,8 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Assignment, Quiz } from '@core/models/trainee.interface';
-import { Observable, filter, map, of, tap } from 'rxjs';
+import { SearchQuizService } from '@core/services/trainee/search-quiz.service';
+import { BehaviorSubject, Observable, combineLatest, filter, map, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-quiz-list',
@@ -17,12 +18,16 @@ export class QuizListComponent {
 
   quizCount = 0;
   totallyEmpty!: boolean;
+
   assessments$!: Observable<Assignment[]>; // holds the filtered data
+  filteredAssessment$!: Observable<Assignment[]>; // holds the filtered data
+
   showmore: boolean = true;
 
   
   constructor(
     private router: Router,
+    private searchQuiz: SearchQuizService,
   ) {}
 
 
@@ -181,11 +186,28 @@ export class QuizListComponent {
       })
     );
 
-    this.assessments$.subscribe(fitleredAssignments => {
+
+    this.filteredAssessment$ = combineLatest([
+      this.assessments$,
+      this.searchQuiz.searchTerm$
+    ]).pipe(
+      map(([assessments, searchTerm]) => {
+        // Filter assignments by search term
+        return assessments.filter(assignment =>
+          assignment.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      })
+    );
+
+    this.filteredAssessment$.subscribe(fitleredAssignments => {
       this.quizCount = fitleredAssignments.length;
     })
 
+    this.filteredAssessment$.subscribe(data => console.log("filtered data: ", data))
+
   }
+
+
   
 
   toggleShowMore() {

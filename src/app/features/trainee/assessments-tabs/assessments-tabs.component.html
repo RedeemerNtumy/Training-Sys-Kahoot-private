@@ -1,7 +1,10 @@
 <div class="container">
     <app-searchbar 
+        [title]="'Assessments'"
         [placeholder]="'search here...'"
         [showAddButton]="false"
+        (searchChanged)="onSearchChange($event)"
+        
     />
 
     <div class="divider"></div>
