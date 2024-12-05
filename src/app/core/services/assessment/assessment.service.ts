@@ -20,7 +20,6 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class AssessmentService {
-  private apiUrl = 'http://localhost:3000/assessments';
   private getAsessmentTypeUrl = 'assets/data/assessmentType.json';
   private assessmentsSubject = new BehaviorSubject<AssessmentData[]>([]);
   assessments$ = this.assessmentsSubject.asObservable();
