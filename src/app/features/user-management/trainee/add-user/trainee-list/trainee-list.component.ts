@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TraineeInsystemService } from '../../../../../core/services/user-management/trainee/trainee-insystem.service';
-import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, filter, map } from 'rxjs';
 import { User } from '../../../../../core/models/cohort.interface';
 import { AsyncPipe, NgIf, TitleCasePipe } from '@angular/common';
+import { TraineeList } from '@core/models/trainee.interface';
 
 @Component({
   selector: 'app-trainee-list',
