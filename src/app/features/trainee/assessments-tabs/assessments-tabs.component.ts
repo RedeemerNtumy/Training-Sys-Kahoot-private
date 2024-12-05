@@ -1,34 +1,33 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { TabViewModule } from 'primeng/tabview';
 import { QuizListComponent } from './quiz-list/quiz-list.component';
+import { SearchbarComponent } from '@core/shared/searchbar/searchbar.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-assessments-tabs',
   standalone: true,
-  imports: [TabViewModule, QuizListComponent],
+  imports: [QuizListComponent, SearchbarComponent, NgIf],
   templateUrl: './assessments-tabs.component.html',
   styleUrl: './assessments-tabs.component.scss'
 })
 export class AssessmentsTabsComponent {
-
-  activeIndex: number = 0;
+ 
+  empty: boolean = false;
 
   constructor(
     private router: Router,
   ) {}
 
-  onTabChange(event: any) {
-    if (event.index === 1) { // Index of the "Grade History" tab
-      console.log("grade history clicked")
-        this.goToGradeHistory();
+  handleChildEmpty(isEmpty: boolean) {
+    if (isEmpty) {
+      this.empty = true;
+    } else {
+      // If at least one child has data, set `empty` to false
+      this.empty = false;
     }
   }
 
 
-
-  goToGradeHistory() {
-    this.router.navigate(['/home/trainer/grade-management/grade-history'])
-    console.log("working?")
-  }
 }

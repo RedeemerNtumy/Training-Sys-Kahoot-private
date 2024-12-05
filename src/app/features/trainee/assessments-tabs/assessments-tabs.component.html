@@ -1,19 +1,31 @@
-<p-tabView [activeIndex]="activeIndex">
-    <p-tabPanel header="Quiz">
-        <div>
-            <app-quiz-list />
-        </div>
-    </p-tabPanel>
-    
-    <p-tabPanel header="Labs">
-        <p>
-        </p>
-    </p-tabPanel>
+<div class="container">
+    <app-searchbar 
+        [placeholder]="'search here...'"
+        [showAddButton]="false"
+    />
 
-    <p-tabPanel header="Presentations">
-        <p>
-        </p>
-    </p-tabPanel>
-</p-tabView>
+    <div class="divider"></div>
+
+    <div class="content" *ngIf="!empty">
+        <app-quiz-list
+            [assessmentType]="'quiz'"
+            (dataEmpty)="handleChildEmpty($event)"
+        />
+        <app-quiz-list
+            [assessmentType]="'lab'"
+            (dataEmpty)="handleChildEmpty($event)"
+        />
+        <app-quiz-list
+            [assessmentType]="'presentation'"
+            (dataEmpty)="handleChildEmpty($event)"
+        />
+    </div>
+
+    <div class="no-content" *ngIf="empty">
+        <img src="../../../../assets/Images/empty-hint-icon.jpg" alt="empty">
+        <p>Nothing to show...</p>
+    </div>
+
+</div>
 
 
