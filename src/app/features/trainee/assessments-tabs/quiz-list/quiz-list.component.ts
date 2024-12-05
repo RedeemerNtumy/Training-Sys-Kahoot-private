@@ -203,8 +203,6 @@ export class QuizListComponent {
       this.quizCount = fitleredAssignments.length;
     })
 
-    this.filteredAssessment$.subscribe(data => console.log("filtered data: ", data))
-
   }
 
 
@@ -212,11 +210,18 @@ export class QuizListComponent {
 
   toggleShowMore() {
     this.showmore = !this.showmore;
-    console.log("showmore: ", this.showmore)
   }
 
   
-  // takeQuiz(id: number) {
-  //   this.router.navigate([`home/trainee/assessments/quiz/${id}`]);
-  // }
+  takeAssessment(id: number, quizType: string) {
+    if(quizType === 'Quiz') {
+      this.router.navigate([`home/trainee/assessments/quiz/${id}`]);
+    }
+    else if(quizType === 'Lab') {
+      this.router.navigate([`home/trainee/assessments/lab/${id}`]);
+    }
+    else if(quizType === 'Presentation') {
+      this.router.navigate([`home/trainee/assessments/presentation/${id}`]);
+    }
+  }
 }

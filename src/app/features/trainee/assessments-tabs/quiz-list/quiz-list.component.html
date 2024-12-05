@@ -21,9 +21,9 @@
                         <p>{{ assessment.questionCount }} Questions</p>
                     </div>
                     <p class="quiz-description">This quiz is to test Trainees on their knowledge on product design</p>
-                    <button *ngIf="assessment.type === 'Quiz'">Take {{ assessment.type }}</button>
-                    <button *ngIf="assessment.type === 'Lab'">Complete {{ assessment.type }}</button>
-                    <button *ngIf="assessment.type === 'Presentation'">Submit {{ assessment.type }}</button>
+                    <button *ngIf="assessment.type === 'Quiz'" (click)="takeAssessment(assessment.id, assessment.type)">Take {{ assessment.type }}</button>
+                    <button *ngIf="assessment.type === 'Lab'" (click)="takeAssessment(assessment.id, assessment.type)">Complete {{ assessment.type }}</button>
+                    <button *ngIf="assessment.type === 'Presentation'" (click)="takeAssessment(assessment.id, assessment.type)">Submit {{ assessment.type }}</button>
                 </div>
         </div>
     </div>
