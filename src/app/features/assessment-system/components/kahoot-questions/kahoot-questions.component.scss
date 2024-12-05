@@ -1,0 +1,36 @@
+.question-container {
+  padding: 2rem;
+}
+.question-input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.image-upload {
+  margin: 2rem 0;
+  border: 2px dashed #ddd;
+  border-radius: 4px;
+  padding: 2rem;
+  text-align: center;
+}
+.answers {
+  margin-top: 2rem;
+}
+.answer-item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.answer-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.add-answer-btn {
+  padding: 0.5rem 1rem;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
