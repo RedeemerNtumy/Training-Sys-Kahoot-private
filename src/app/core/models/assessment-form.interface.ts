@@ -21,5 +21,4 @@ export interface CreateAssessment {
 export interface Quiz {
   questions: any[];
   timeFrame: number;
-
 }
