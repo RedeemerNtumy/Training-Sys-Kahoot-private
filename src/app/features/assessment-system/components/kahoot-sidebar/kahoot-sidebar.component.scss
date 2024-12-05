@@ -1,0 +1,40 @@
+@import "../../../../../styleSheet/variables";
+@import "../../../../../styleSheet/mixins";
+
+.sidebar {
+  width: 23.1rem;
+  background: $clr-white;
+  padding: 1rem;
+  border-right: 1px solid #f0f0f0;
+  height: 100vh;
+
+  .logo {
+    @include flexbox(row, center, center);
+    gap: 1rem;
+    padding: 1rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #676767;
+
+    .logo-text {
+      span {
+        color: $clr-primary-500;
+      }
+    }
+  }
+}
+.question-item {
+  padding: 1rem;
+  background: white;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+.question-number {
+  font-weight: bold;
+}
+.question-preview {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
