@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { specialization } from '../../../../core/models/specialization.interface';
+import { ActionEvent, specialization } from '../../../../core/models/specialization.interface';
 import { NoSpecializationAddedComponent } from "../no-specialization-added/no-specialization-added.component";
 import { CommonModule, NgFor } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
@@ -12,11 +12,7 @@ import { SpecializationFacadeService } from '../../../../core/services/specializ
 import { PaginatorComponent } from "../../../../core/shared/paginator/paginator.component";
 
 
-interface ActionEvent {
-  event: Event;
-  action: string;
-  spec: specialization;
-}
+
 
 @Component({
   selector: 'app-specialization-list',
@@ -82,7 +78,6 @@ export class SpecializationListComponent implements OnInit {
 
   handleAction(actionEvent: ActionEvent): void {
     actionEvent.event.stopPropagation();
-
     switch (actionEvent.action) {
       case 'update':
         this.navigateToCreate(actionEvent.spec.id);

@@ -47,3 +47,8 @@ export interface IContentResponse <T>{
   totalPages: number;
 }
 
+export interface ActionEvent {
+  event: Event;
+  action: string;
+  spec: specialization;
+}
