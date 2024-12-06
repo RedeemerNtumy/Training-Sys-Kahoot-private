@@ -85,7 +85,7 @@ $theme: mat.define-light-theme(
 
 .filters-container {
   z-index: 1000;
-  
+
   .p-dropdown {
     padding: 1rem 2rem;
     cursor: pointer;
@@ -120,4 +120,35 @@ $theme: mat.define-light-theme(
 
 .p-datatable .p-datatable-tbody {
   gap: 1.5rem;
+}
+
+.select {
+  .p-dropdown {
+    width: 160px;
+  }
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  color: $clr-white;
+  background: $clr-primary-500;
+  border-color: $clr-primary-500;
+}
+
+.p-dropdown-panel
+  .p-dropdown-items
+  .p-dropdown-item:not(.p-highlight):not(.p-disabled).p-focus {
+  color: $clr-white;
+  background: $clr-gray-300;
+  border-color: $clr-primary-500;
+  box-shadow: none;
+}
+
+.p-dropdown:not(.p-disabled):hover {
+  border-color: $clr-primary-500;
+  box-shadow: none;
+}
+
+.p-dropdown {
+  box-shadow: none;
+  border-color: $clr-gray-300;
 }
