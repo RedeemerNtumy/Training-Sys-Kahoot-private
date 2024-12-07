@@ -101,7 +101,7 @@ export class TraineeInsystemService {
   }
   
 
-  // For testing
+  // Get all trainees
   getAllTrainees() { 
     return this.http.get<TraineeList>(`${this.testUrl}/profiles/trainees`).pipe(
       map(res => {
