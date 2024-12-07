@@ -51,7 +51,6 @@ export class UpdateCohortComponent {
     this.retrievedCohortForm$ = this.cohortDataService.getSelectedCohortDetails();
 
     this.retrievedCohortForm$.subscribe((cohortData) => {
-      console.log("Cohort Data received: ", cohortData);
       
       if (cohortData) {
         // Normalize specializations to ensure it's always an array
@@ -105,7 +104,6 @@ export class UpdateCohortComponent {
   // Submit form
   onSubmit() {
     if(this.newCohortForm.valid) {
-      // console.log(this.newCohortForm.value)
       const newForm = {
         ... this.newCohortForm.value,
         specializationIds: this.specializations.value
@@ -113,14 +111,11 @@ export class UpdateCohortComponent {
 
       delete newForm.specializations;
 
-      console.log("after adding: ", newForm)
       this.cohortDataService.updateCohort(newForm).subscribe({
         next: (res) => {
-          console.log(res)
           this.modalService.toggleSuccessModal()
           this.newCohortForm.reset();  
-        },
-        error: (error) => {console.log(error)}
+        }
       })
        
     }
