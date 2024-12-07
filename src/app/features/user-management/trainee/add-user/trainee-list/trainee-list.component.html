@@ -51,8 +51,8 @@
                         </div>
                         <div class="status">
                             
-                            <span *ngIf="trainee.status === 'active'" class="traineeActive">{{trainee.status | titlecase}}</span>
-                            <span *ngIf="trainee.status === 'inactive'" class="traineeInactive">{{trainee.status | titlecase}}</span>
+                            <span *ngIf="trainee.status === 'ACTIVE'" class="traineeActive">{{trainee.status | titlecase}}</span>
+                            <span *ngIf="trainee.status === 'INACTIVE'" class="traineeInactive">{{trainee.status | titlecase}}</span>
                             
                         </div>
                         <div class="contact">
@@ -81,10 +81,10 @@
                             <span>{{ trainee.specialization }}</span>
                         </div>
                         <div class="cohort">
-                            <span>{{ trainee.cohort }}</span>
+                            <span>{{ trainee.cohortId }}</span>
                         </div>
                         <div class="date-added">
-                            {{trainee.date_added}}
+                            {{trainee.enrollmentDate}}
                         </div>
                         <div class="ellipsis" (click)="toggleEllipsis(trainee.firstName, $event)">
                             <svg width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">

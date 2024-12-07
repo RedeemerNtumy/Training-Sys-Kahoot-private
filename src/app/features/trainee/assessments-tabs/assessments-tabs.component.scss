@@ -1,24 +1,48 @@
 @import '../../../../styleSheet/grade_management_mixins';
 
+
 .container {
     width: 100%;
     height: 100%;
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    // margin: 0 8rem;
+    padding: 0 8rem;
 }
 
-.no-data {
-    @include modal-like-card;
+.divider {
+    @include divider;
 }
 
-p-tabPanel {
-    & div {
-        height: 80vh;
-        overflow-y: scroll;
+
+.no-content {
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        font-size: $font-size-subtitle-2;
+        font-weight: 500;
+        color: $clr-gray-500;
+        font-family: $font-lato;
     }
-
-    & p {
-        height: 65vh;
-        overflow-y: scroll;
-    }
 }
+
+// .no-data {
+//     @include modal-like-card;
+// }
+
+// p-tabPanel {
+//     & div {
+//         height: 80vh;
+//         overflow-y: scroll;
+//     }
+
+//     & p {
+//         height: 65vh;
+//         overflow-y: scroll;
+//     }
+// }
