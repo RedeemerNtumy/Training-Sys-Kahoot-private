@@ -176,4 +176,6 @@ export class AddUserComponent {
       this.router.navigate(['/home/admin/user-management/add-user-form'])
     }
   }
+
+
 }
