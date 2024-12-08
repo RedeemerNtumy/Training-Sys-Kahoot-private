@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorHandlerService } from '../../cohort-data/error-handling/error-handler.service';
 import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
@@ -101,9 +101,15 @@ export class TraineeInsystemService {
   }
   
 
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      "ngrok-skip-browser-warning": "69420"
+    });
+  }
+
   // Get all trainees
   getAllTrainees() { 
-    return this.http.get<TraineeList>(`${this.testUrl}/profiles/trainees`).pipe(
+    return this.http.get<TraineeList>(`${this.testUrl}/profiles/trainees`, { headers: this.getHeaders() }).pipe(
       map(res => {
         const trainees = res.content;
         return trainees;
