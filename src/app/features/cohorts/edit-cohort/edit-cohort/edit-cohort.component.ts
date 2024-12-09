@@ -46,30 +46,24 @@ export class EditCohortComponent {
     })
 
     // Set data into form from create cohort form
-    this.cohortDataService.createCohortFormData$.subscribe((cohortData) => {
-      console.log("Cohort Data received: ", cohortData);
-      
+    this.cohortDataService.createCohortFormData$.subscribe((cohortData) => {      
       if (cohortData) {
-        // Ensure specialization is handled correctly
         const specializations = Array.isArray(cohortData.specializations) 
           ? cohortData.specializations 
           : [cohortData.specializations].filter(Boolean);
-  
-        // Patch form values
+    
         this.newCohortForm.patchValue({
           name: cohortData.name,
           startDate: cohortData.startDate,
           endDate: cohortData.endDate,
           description: cohortData.description
         });
-  
-        // Rebuild specialization FormArray
+    
         const specializationArray = this.newCohortForm.get('specializations') as FormArray;
         specializationArray.clear();
-        specializations.forEach((specId: string) => {
+        specializations.forEach((specId) => {
           specializationArray.push(this.fb.control(specId, Validators.required));
         });
-
       }
     });
   
@@ -84,7 +78,7 @@ export class EditCohortComponent {
 
   // Get specializations for from form
   get specializations(): FormArray {
-    return this.newCohortForm.get('specialization') as FormArray;
+    return this.newCohortForm.get('specializations') as FormArray;
   }
 
 
@@ -105,22 +99,24 @@ export class EditCohortComponent {
     if(this.newCohortForm.valid) { 
       const formValue = {
         ...this.newCohortForm.value,
-        specializations: this.specializations.value,
-        description: this.newCohortForm.get('description')?.value
+        specializationIds: this.specializations.value,
+        description: this.newCohortForm.get('description')?.value,
       };
-      console.log("form: value: ", formValue)
+  
+      // Remove original specializations
+      delete formValue.specializations;
+  
       this.cohortDataService.addCohort(formValue).subscribe({
-        next: (res) => {
-          this.newCohortForm.reset();
-          this.modalService.toggleSuccessModal()
+        next: () => {
+          this.modalService.toggleSuccessModal();
+          // this.goBack(); 
         },
-        error: (error) => {
-
+        error: (err) => {
+          console.error('Submission error', err);
         }
       })
     }
     else {
-      console.log("Not valid")
       this.newCohortForm.markAllAsTouched();
     }
   }
@@ -155,6 +151,10 @@ export class EditCohortComponent {
   // Navigate to list of cohorts
   goBack() {
     this.router.navigate(['/home/admin/cohorts'])
+  }
+
+  toggleSuccessModal() {
+    this.isModalOpen = !this.isModalOpen;
   }
   
 }

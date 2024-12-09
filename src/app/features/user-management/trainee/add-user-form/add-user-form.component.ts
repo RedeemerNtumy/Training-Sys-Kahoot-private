@@ -2,7 +2,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { InputFieldComponent } from '../../../../core/shared/input-field/input-field.component';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, first, of, switchMap, } from 'rxjs';
+import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, filter, first, map, of, switchMap, tap, } from 'rxjs';
 import { Countries, Gender, Specialization, User } from '../../../../core/models/cohort.interface';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
@@ -23,6 +23,8 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   newUserForm!: FormGroup;
   genders$!: Observable<Gender[]>;
   countries$!: Observable<Countries[]>;
+
+  restCountries$!: any;
   
 
   //Image upload
@@ -39,6 +41,17 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+
+
+    this.restCountries$ = this.usermanagementService.getAllCountries().pipe(
+      map((response: any) => {
+        const data = Object.entries(response.data).map(([key, value], id) => ({ key, value, id }));
+        console.log(data)
+        return data;
+      })
+    )
+    // this.restCountries$.subscribe((data: any) => console.log(data.data))
+
     this.genders$ = this.usermanagementService.getAllGenders();
     this.countries$ = this.usermanagementService.getAllCountries()
 
