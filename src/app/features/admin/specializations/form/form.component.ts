@@ -18,10 +18,8 @@ import { AddFeedbackComponent } from "../add-feedback/add-feedback.component";
 })
 
 export class FormComponent implements OnInit {
-
   @Input() initialData?: specialization ;
   @Output() formSubmit = new EventEmitter<specialization>();
-
 
   specializationForm!: FormGroup;
   isEditMode = false;
