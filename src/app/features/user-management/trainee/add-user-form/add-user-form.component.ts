@@ -1,9 +1,37 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { InputFieldComponent } from '../../../../core/shared/input-field/input-field.component';
-import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, filter, first, map, of, switchMap, tap, } from 'rxjs';
-import { Countries, Gender, Specialization, User } from '../../../../core/models/cohort.interface';
+import {
+  Observable,
+  Subject,
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  first,
+  of,
+  switchMap,
+} from 'rxjs';
+import {
+  Countries,
+  Gender,
+  Specialization,
+  User,
+} from '../../../../core/models/cohort.interface';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
 import { UserManagementTraineeService } from '@core/services/user-management/trainee/user-management-trainee.service';
@@ -12,22 +40,29 @@ import { specialization } from '@core/models/specialization.interface';
 @Component({
   selector: 'app-add-user-form',
   standalone: true,
-  imports: [InputFieldComponent, ReactiveFormsModule, FormsModule, AsyncPipe, NgFor, NgIf],
+  imports: [
+    InputFieldComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    AsyncPipe,
+    NgFor,
+    NgIf,
+  ],
   templateUrl: './add-user-form.component.html',
-  styleUrl: './add-user-form.component.scss'
+  styleUrl: './add-user-form.component.scss',
 })
 export class AddUserFormComponent implements OnInit, OnDestroy {
-
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   newUserForm!: FormGroup;
   genders$!: Observable<Gender[]>;
   countries$!: Observable<Countries[]>;
 
-
   //Image upload
   previewUrl: string | ArrayBuffer | null = null;
   selectedFile!: File;
+
+  maxDate!: string;
 
   private unsubscribe$ = new Subject<void>();
 
@@ -35,76 +70,67 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     public traineeInsystemService: TraineeInsystemService,
-    public usermanagementService: UserManagementTraineeService,
+    public usermanagementService: UserManagementTraineeService
   ) {}
 
   ngOnInit() {
-
-
-    this.restCountries$ = this.usermanagementService.getAllCountries().pipe(
-      map((response: any) => {
-        const data = Object.entries(response.data).map(([key, value], id) => ({ key, value, id }));
-        console.log(data)
-        return data;
-      })
-    )
-    // this.restCountries$.subscribe((data: any) => console.log(data.data))
+    this.setMaxDateOfBirth();
 
     this.genders$ = this.usermanagementService.getAllGenders();
-    this.countries$ = this.usermanagementService.getAllCountries()
+    this.countries$ = this.usermanagementService.getAllCountries();
 
     this.newUserForm = this.fb.group({
       email: [
         '',
         [Validators.required, Validators.email],
-        [this.emailAsyncValidator.bind(this)]
+        [this.emailAsyncValidator.bind(this)],
       ],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       gender: ['', Validators.required],
-      country: ['', ],
+      country: [''],
       address: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       universityCompleted: ['', Validators.required],
-      userProfilePhoto: ['']
-    })
+      userProfilePhoto: [''],
+    });
 
     this.traineeInsystemService.firstFormState$
-    .pipe(
-      first(), // Ensure we only subscribe once
-      switchMap(firstFormState => {
-        if (firstFormState) {
-          return of(firstFormState); // Use firstFormState if available
+      .pipe(
+        first(), // Ensure we only subscribe once
+        switchMap((firstFormState) => {
+          if (firstFormState) {
+            return of(firstFormState); // Use firstFormState if available
+          }
+          return this.traineeInsystemService.retreivedUserData$; // Otherwise fallback to retrievedUserData$
+        })
+      )
+      .subscribe((data) => {
+        if (data) {
+          this.newUserForm.patchValue(data);
         }
-        return this.traineeInsystemService.retreivedUserData$; // Otherwise fallback to retrievedUserData$
-      })
-    )
-    .subscribe(data => {
-      if (data) {
-        this.newUserForm.patchValue(data);
-      }
-    });
+      });
   }
 
   onSubmit() {
     const formData = this.newUserForm;
 
-    if(!formData.invalid) {
+    if (!formData.invalid) {
       this.setFirstFormState();
       this.goToSecondSection();
+    } else {
+      formData.markAllAsTouched();
     }
-    else {
-      formData.markAllAsTouched()
-    }
-
   }
 
   setFirstFormState() {
-    this.traineeInsystemService.setFirstFormState(this.newUserForm.value)
+    this.traineeInsystemService.setFirstFormState(this.newUserForm.value);
   }
 
-  emailAsyncValidator(control: AbstractControl): Observable<ValidationErrors | null> {
+  emailAsyncValidator(
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> {
     const trimmedValue = (control.value || '').trim(); // Normalize input
     if (!trimmedValue) {
       return of(null);
@@ -113,7 +139,7 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     return this.traineeInsystemService.checkEmail(trimmedValue).pipe(
       debounceTime(1000),
       distinctUntilChanged(),
-      switchMap(response =>
+      switchMap((response) =>
         response?.length ? of({ emailExists: true }) : of(null)
       ),
       catchError(() => of(null)),
@@ -122,20 +148,18 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   }
 
   goToSecondSection() {
-    this.router.navigate(['/home/admin/user-management/section-two'])
+    this.router.navigate(['/home/admin/user-management/section-two']);
   }
-
 
   goBack() {
-    this.newUserForm.reset()
-    this.router.navigate(['/home/admin/user-management'])
+    this.newUserForm.reset();
+    this.router.navigate(['/home/admin/user-management']);
   }
-
 
   //Image upload
   onFileSelected(event: Event) {
     const fileInput = event.target as HTMLInputElement;
-    if(fileInput.files && fileInput.files.length > 0) {
+    if (fileInput.files && fileInput.files.length > 0) {
       this.selectedFile = fileInput.files[0];
 
       const reader = new FileReader();
@@ -162,15 +186,12 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     this.maxDate = this.formatDate(sevenYearsAgo);
   }
 
-
   formatDate(date: Date): string {
     return date.toISOString().split('T')[0];
   }
-
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
-
 }
