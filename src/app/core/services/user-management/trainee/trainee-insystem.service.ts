@@ -1,16 +1,20 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorHandlerService } from '../../cohort-data/error-handling/error-handler.service';
-import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
 import { User } from '../../../models/cohort.interface';
 import { environment } from 'src/environments/environment.development';
+import { TraineeList } from '@core/models/trainee.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TraineeInsystemService {
 
-  private baseUrl: string = environment.BaseUrl
+  private baseUrl: string = environment.BaseUrl;
+  // private testUrl: string = "https://kahoot.free.beeceptor.com";
+  private testUrl: string = "https://caddecf8452c57366047.free.beeceptor.com";
+  // private testUrl: string = "https://mock.apidog.com/m1/752755-729898-default";
 
   public retreivedUserDataSubject = new BehaviorSubject<User | null>(null);
   public retreivedUserData$: Observable<User | null> = this.retreivedUserDataSubject.asObservable();
@@ -97,11 +101,21 @@ export class TraineeInsystemService {
   }
   
 
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      "ngrok-skip-browser-warning": "69420"
+    });
+  }
 
-  getAllTrainees() {
-    return this.http.get<User[]>(`${this.baseUrl}/users/role?role=TRAINEE`).pipe(
-      tap((response) => {
-        this.allTraineesSubject.next(response)
+  // Get all trainees
+  getAllTrainees() { 
+    return this.http.get<TraineeList>(`${this.testUrl}/profiles/trainees`, { headers: this.getHeaders() }).pipe(
+      map(res => {
+        const trainees = res.content;
+        return trainees;
+      }),
+      tap((trainees) => {
+        this.allTraineesSubject.next(trainees)
       }),
       catchError(error => this.errorHandlerService.handleError(error))
     )
