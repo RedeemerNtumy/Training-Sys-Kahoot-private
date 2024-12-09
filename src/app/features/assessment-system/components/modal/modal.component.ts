@@ -12,7 +12,7 @@ import { KahootPageComponent } from '../../kahoot-page/kahoot-page.component';
 })
 export class ModalComponent {
   @Output() closeModal = new EventEmitter<void>();
-  showKahoot = false;
+
 
   constructor(private router: Router) {}
 
@@ -20,11 +20,4 @@ export class ModalComponent {
     this.closeModal.emit();
   }
 
-  openManualQuiz() {
-    this.router.navigate(['/home/trainer/assessment/create/quiz']);
-  }
-
-  openKahootQuiz() {
-    this.showKahoot = !this.showKahoot;
-  }
 }

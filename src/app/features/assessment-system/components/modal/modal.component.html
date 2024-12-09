@@ -5,9 +5,9 @@
     </div>
     <div class="content">
       <div
+        [routerLink]="['/home/trainer/create-kahoot']"
         class="card recommended"
         title="AI quiz creation"
-        (click)="openKahootQuiz()"
       >
         <div class="card-title">Recommended</div>
         <div class="col-1">
@@ -23,7 +23,7 @@
       </div>
       <div
         class="card popular"
-        (click)="openManualQuiz()"
+        [routerLink]="['/home/trainer/assessment/create/quiz']"
         title="Manual quiz creation"
       >
         <div class="card-title">Popular</div>
@@ -43,7 +43,3 @@
     </div>
   </div>
 </div>
-
-@if(showKahoot){
-<app-kahoot-page />
-}
