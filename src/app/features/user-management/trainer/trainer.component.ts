@@ -12,6 +12,7 @@ import {
   debounceTime,
   distinctUntilChanged,
   first,
+  map,
   Observable,
   switchMap,
 } from 'rxjs';
@@ -47,11 +48,12 @@ import { TraineeInsystemService } from '@core/services/user-management/trainee/t
 export class TrainerComponent {
   trainerForm!: FormGroup;
   allSpecializations$!: Observable<Specialization[]>;
-  allGenders: Gender[] = [{ sex: 'Male' }, { sex: 'Female' }, { sex: 'Other' }];
+  allGenders: Gender[] = [{ sex: 'Male' }, { sex: 'Female' }];
   selectedCountry!: string;
   selectedFileName: string | null = null;
   selectedFile: File | null = null;
-  countries: { name: string }[] = [];
+  countries$!: Observable<Countries[]>;
+  restCountries$!: any;
   feedbackVisible: boolean = false;
   feedbackTitle: string = '';
   feedbackMessage: string = '';
@@ -68,11 +70,16 @@ export class TrainerComponent {
 
   ngOnInit() {
     this.trainerForm = this.initTrainerForm();
-    this.userManagementService.getAllCountries().subscribe((countries) => {
-      this.countries = countries.map((country) => ({
-        name: country.name,
-      }));
-    });
+    this.restCountries$ = this.userManagementService.getAllCountries().pipe(
+      map((response: any) => {
+        const data = Object.entries(response.data).map(([key, value], id) => ({
+          key,
+          value,
+          id,
+        }));
+        return data;
+      })
+    );
     this.allSpecializations$ =
       this.userManagementService.getAllspecializations();
 

@@ -71,10 +71,10 @@
             <span>*</span>
           </div>
           <select name="country" id="country" formControlName="country">
-            <option *ngFor="let country of countries" [value]="country.name">
-              {{ country.name }}
+            <option *ngFor="let country of restCountries$ | async" [value]="country.id">
+                {{ country.value.country }}
             </option>
-          </select>
+        </select>
         </div>
       </div>
 
