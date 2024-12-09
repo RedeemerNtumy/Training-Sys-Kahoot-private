@@ -10,6 +10,7 @@
   left: 0;
   top: 0;
   background: $clr-white;
+  overflow-y: hidden;
 
   .quiz-builder-container {
     display: flex;
@@ -24,7 +25,6 @@
   }
   .question-area {
     flex: 1;
-    padding: 20px;
     @include flexbox(row, flex-start, flex-start);
 
     .question {
@@ -33,6 +33,9 @@
 
     .aside {
       width: 23.1rem;
+      height: calc(100vh - 100px);
+      border-left: 1px solid #f0f0f0;
+      padding: 1.6rem 1.2rem;
     }
   }
 }
