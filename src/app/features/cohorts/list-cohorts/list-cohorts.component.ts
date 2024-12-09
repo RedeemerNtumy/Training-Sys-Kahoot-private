@@ -17,43 +17,33 @@ import { PaginatorComponent } from '@core/shared/paginator/paginator.component';
   styleUrl: './list-cohorts.component.scss'
 })
 export class ListCohortsComponent {
-  
-  cohortsList$!: Observable<CohortList[]>; 
+
+  cohortsList$!: Observable<CohortList[]>;
   filteredCohorts$!: Observable<CohortList[]>;
-  private searchTerm$ = new BehaviorSubject<string>(''); 
+  private searchTerm$ = new BehaviorSubject<string>('');
   deleteCohortById: string = '';
 
   ellipsisClicked: boolean = false;
-  selectedCohortId: string | null = ''; 
+  selectedCohortId: string | null = '';
   hideDeleteModal: boolean = true;
 
   listEmptyCheck: boolean = true;
 
-  //Pagination 
+  //Pagination
   private pageSubject = new BehaviorSubject<number>(1);
   currentPage$ = this.pageSubject.asObservable();
   pageSize = 4;
   totalPages = 1;
 
   constructor(
-    private cohortDataService: CohortDataService, 
+    private cohortDataService: CohortDataService,
     private router: Router,
     public modalService: ModalService
-    
+
   ) {}
 
   ngOnInit() {
     this.cohortsList$ = this.cohortDataService.getAllCohorts()
-
-    this.cohortsList$.subscribe({
-      next: (response) => {
-        this.listEmptyCheck = false;
-      },
-      error: (err) => {
-        console.log("cohort list error: ", err)
-      }
-
-    })
 
     this.filteredCohorts$ = combineLatest([this.cohortsList$, this.searchTerm$, this.currentPage$]).pipe(
       map(([cohorts, searchTerm, page]) => {
@@ -86,7 +76,7 @@ export class ListCohortsComponent {
   }
 
   //Get the Id of selected Cohort from list and make http request to get all details for cohort
-  getSelectedCohortDetails(selectedCohortId: string) { 
+  getSelectedCohortDetails(selectedCohortId: string) {
     this.cohortDataService.selectedCohortId = selectedCohortId;
     this.goToTraineesList()
   }
@@ -125,9 +115,7 @@ export class ListCohortsComponent {
       next: (response) => {
         window.location.reload();
       },
-      error: (error) => {
-        console.log("error deleting cohort: ", error)
-      }
+      error: (error) => {}
     })
     this.toggleHideDeleteModal();
     this.modalService.toggleSuccessModal();
@@ -152,7 +140,7 @@ export class ListCohortsComponent {
   }
 
 
-  // Pagination 
+  // Pagination
   onPageChange(page: number) {
     this.pageSubject.next(page);
   }

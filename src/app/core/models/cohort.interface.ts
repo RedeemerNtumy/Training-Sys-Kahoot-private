@@ -55,7 +55,7 @@ export interface User {
     firstName: string;
     lastName: string;
     dateOfBirth: Date;
-    gender: string;
+    gender: 'Male' | 'Female' | 'male' | 'female';
     country: string;
     address: string;
     universityCompleted: string;
@@ -70,10 +70,10 @@ export interface User {
 }
 
 export interface Gender {
-    sex: string;
+    sex: 'Male' | 'Female' | 'male' | 'female';
 }
 
 export interface Countries {
     name: string;
-    code: string;
+    code: string; 
 }
