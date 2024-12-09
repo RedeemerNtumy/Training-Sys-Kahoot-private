@@ -135,20 +135,28 @@ export class QuizCreationComponent {
     const assessmentData: Quiz = {
       questions: quizData,
       timeFrame: this.quizForm.value.timeFrame,
+      assessmentType: 'quiz',
+      coverImage: '',
+      createdAt: new Date().toISOString(),
+      description: '',
+      focusArea: '',
+      title: this.quizTitle,
     };
 
     console.log(quizData);
 
-    this.assessmentService.addAssessment(quizData, this.quizForm.value.timeFrame).subscribe({
-      next: (response) => {
-        console.log('Quiz submitted successfully', response);
-        localStorage.removeItem('quizData');
-        this.router.navigate(['/home/trainer/assessment/quiz-creation']);
-      },
-      error: (err) => {
-        console.error('Error submitting quiz', err);
-      }
-    });
+    this.assessmentService
+      .addAssessment(quizData, this.quizForm.value.timeFrame)
+      .subscribe({
+        next: (response) => {
+          console.log('Quiz submitted successfully', response);
+          localStorage.removeItem('quizData');
+          this.router.navigate(['/home/trainer/assessment/quiz-creation']);
+        },
+        error: (err) => {
+          console.error('Error submitting quiz', err);
+        },
+      });
   }
 
   saveQuizData() {
@@ -186,7 +194,9 @@ export class QuizCreationComponent {
   loadQuizTitle() {
     this.quizDataService.getQuizData().subscribe((assessmentFormData) => {
       if (assessmentFormData) {
-        this.quizTitle = assessmentFormData.title;
+        this.quizTitle = assessmentFormData.quizzes
+          .map((quiz: Quiz) => quiz.title)
+          .join(', ');
       }
     });
   }
