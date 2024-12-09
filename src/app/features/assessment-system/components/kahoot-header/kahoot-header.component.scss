@@ -1,11 +1,23 @@
+@import "../../../../../styleSheet/mixins";
+@import "../../../../../styleSheet/variables";
+
 .header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  @include flexbox(row, space-between, center);
   padding: 1.6rem;
   background: white;
   border-bottom: 1px solid #eee;
   width: 100%;
+
+  .generate-btn {
+    padding: 1.2rem 3.2rem;
+    background: #9f4f04;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
 
   .actions {
     display: flex;
