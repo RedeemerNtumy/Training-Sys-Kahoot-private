@@ -61,7 +61,6 @@ export class TrainerComponent {
     private fb: FormBuilder,
     public trainerService: TrainerService,
     private svgService: SvgService,
-    private countryService: CountryService,
     private userManagementService: UserManagementTraineeService,
     private router: Router,
     private traineeInsystemService: TraineeInsystemService
@@ -93,7 +92,7 @@ export class TrainerComponent {
       lastName: ['', Validators.required],
       gender: [this.allGenders[0].sex, Validators.required],
       country: [null, Validators.required],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       profilePhoto: [null],
       assignSpecialization: ['', Validators.required],
     });
