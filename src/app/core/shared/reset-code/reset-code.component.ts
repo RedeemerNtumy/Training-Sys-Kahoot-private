@@ -29,7 +29,7 @@ export class ResetCodeComponent {
   state: 'sent' | 'enter' = 'sent';
   codeExpiryTime = '10:00';
   private readonly EXPIRY_TIME_IN_SECONDS = 600;
-  private timeRemaining = this.EXPIRY_TIME_IN_SECONDS;
+  timeRemaining = this.EXPIRY_TIME_IN_SECONDS;
   isExpired = false;
   private destroy$ = new Subject<void>();
 
@@ -46,7 +46,7 @@ export class ResetCodeComponent {
   ) {}
 
   otp: FormGroup = this.fb.group({
-    otp: ['', Validators.required],
+    otp: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]],
   });
 
   ngOnInit(): void {
@@ -70,7 +70,7 @@ export class ResetCodeComponent {
         if (this.timeRemaining <= 0) {
           this.timeRemaining = 0;
           this.isExpired = true;
-          this.codeExpiryTime = '00:00';
+          this.codeExpiryTime = 'Code has expired';
           return;
         }
 
@@ -90,6 +90,7 @@ export class ResetCodeComponent {
 
   onVerifyCode() {
     this.isLoading = true;
+    this.showErrorMessage = false;
 
     if (this.otp.valid) {
       const { otp } = this.otp.value;
@@ -118,6 +119,8 @@ export class ResetCodeComponent {
   }
 
   onResendCode() {
+    this.startCountdown();
+
     const decodedToken = this.tokenService.getDecodedTokenValue();
     const email = decodedToken?.email;
     if (!email) {
@@ -126,7 +129,7 @@ export class ResetCodeComponent {
     } else {
       this.authService.resetPassword(email).subscribe({
         next: () => {
-          this.startCountdown();
+          // this.startCountdown();
         },
         error: (err) => {
           console.error('Error resending OTP', err);
