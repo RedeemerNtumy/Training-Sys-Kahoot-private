@@ -11,6 +11,7 @@ import {
 import {
   AssessmentData,
   AssessmentType,
+  Quiz,
 } from '@core/models/assessment-form.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -108,19 +109,17 @@ export class AssessmentFormComponent {
           },
         });
       } else {
-        console.log('sending to backend', formData);
         // this.assessmentService.addAssessment(formData).subscribe(() => {
-        //   console.log('sending to backend', formData);
         //   this.formSubmit.emit(this.form.value);
         // });
       }
     }
   }
 
-  submitQuizWithQuestions(questions: any[]) {
+  submitQuizWithQuestions(questions: Quiz[]) {
     this.quizDataService.getQuizData().subscribe((formData) => {
       if (formData) {
-        formData.questions = questions;
+        formData.quizzes = questions;
         this.formSubmit.emit(formData);
         this.quizDataService.clearQuizData();
       }
