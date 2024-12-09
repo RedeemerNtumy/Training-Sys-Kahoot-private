@@ -6,6 +6,7 @@ export interface Cohort {
     endDate: Date,
     traineesEnrolled: number,
     description: string,
+    status: string;
 }
 
 // For getting a list of cohorts
