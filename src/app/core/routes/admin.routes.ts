@@ -21,11 +21,6 @@ export const adminRoutes: Routes = [
     children: [
       {
         path:'',
-        redirectTo: 'list',
-        pathMatch: 'full'
-      },
-      {
-        path:'list',
         loadComponent:()=> import('../../features/admin/specializations/list/specialization-list.component')
         .then( m => m.SpecializationListComponent)
       },

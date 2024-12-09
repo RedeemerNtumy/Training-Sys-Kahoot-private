@@ -31,12 +31,12 @@ export class CurriculumCrudService {
   }
 
   createCurriculum(curriculum: curriculum){
-    return this.http.post(this.hostedServer,curriculum)
+    return this.http.post<curriculum>(this.hostedServer,curriculum)
   }
 
-  updateCurriculum(id: number, curriculum: curriculum): Observable<any> {
-    const url = `${this.hostedServer}${id}`;
-    return this.http.put(url, curriculum)
+  updateCurriculum(id: number, curriculum: curriculum): Observable<curriculum> {
+    const url = `${this.hostedServer}/${id}`;
+    return this.http.put<curriculum>(url, curriculum)
   }
 
   deleteCurriculum(id: number): Observable<any> {

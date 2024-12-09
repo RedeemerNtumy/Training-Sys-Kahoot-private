@@ -5,10 +5,10 @@
 @use "@angular/material" as mat;
 @include mat.core();
 @import "primeicons/primeicons.css";
-@import './styleSheet/variables';
+@import "./styleSheet/variables";
 
-@import './styleSheet/variables';
-@import './styleSheet/typography';
+@import "./styleSheet/variables";
+@import "./styleSheet/typography";
 
 // Define palettes
 $primary: mat.define-palette(mat.$indigo-palette);
@@ -105,10 +105,11 @@ $theme: mat.define-light-theme(
   gap: 1.5rem;
 }
 
-.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
+.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs
+  > .mat-mdc-tab-header
+  .mat-mdc-tab {
   flex-grow: 0 !important;
 }
-
 
 // PrimeNG styles for tab - used in grade-management\
 ul.p-tabview-nav {
@@ -130,6 +131,16 @@ span.p-tabview-title {
 
 .p-tabview-nav li.p {
   background: none;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs
+  > .mat-mdc-tab-header
+  .mat-mdc-tab {
+  flex-grow: 0 !important;
 }
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
   border-color: $clr-primary-500;
