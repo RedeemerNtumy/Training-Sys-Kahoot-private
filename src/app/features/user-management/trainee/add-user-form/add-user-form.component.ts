@@ -24,8 +24,6 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   genders$!: Observable<Gender[]>;
   countries$!: Observable<Countries[]>;
 
-  restCountries$!: any;
-
 
   //Image upload
   previewUrl: string | ArrayBuffer | null = null;
@@ -154,6 +152,19 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
 
   changeImage() {
     this.triggerFileSelect();
+  }
+
+  setMaxDateOfBirth() {
+    const today = new Date();
+    // Calculate the date 7 years ago
+    const sevenYearsAgo = new Date(today);
+    sevenYearsAgo.setFullYear(today.getFullYear() - 7);
+    this.maxDate = this.formatDate(sevenYearsAgo);
+  }
+
+
+  formatDate(date: Date): string {
+    return date.toISOString().split('T')[0];
   }
 
 
