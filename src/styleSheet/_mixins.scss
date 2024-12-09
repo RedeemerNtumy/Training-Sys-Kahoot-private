@@ -1,3 +1,5 @@
+@use "../styleSheet/variables" as var;
+
 @mixin flexbox(
   $direction: row,
   $justify: flex-start,
@@ -42,10 +44,10 @@
   transition: $btn-transition;
 
   & span {
-      display: flex;
-      gap: 1rem;
-      color: $clr-gray-400;
-      font-size: $font-size-xbody;
+    display: flex;
+    gap: 1rem;
+    color: $clr-gray-400;
+    font-size: $font-size-xbody;
   }
 
   & span:hover {
@@ -59,13 +61,49 @@
   }
 }
 
-
 @mixin dropDownNotVisible {
   display: none;
 
   & span {
-      display: none;
+    display: none;
   }
+}
+
+@mixin font-style-h5($weight: 700, $color: var.$clr-gray-800) {
+  font-size: 32px;
+  font-weight: $weight;
+  color: $color;
+  line-height: 38.4px;
+}
+@mixin font-style-title($weight: 700) {
+  font-size: 24px;
+  font-weight: $weight;
+  color: var.$clr-gray-800;
+  line-height: 28.8px;
+}
+@mixin font-style-subtitle($weight: 600, $color: var.$clr-gray-800) {
+  font-size: 20px;
+  font-weight: $weight;
+  color: $color;
+  line-height: 24px;
+}
+@mixin font-style-body($weight: 400, $color: var.$clr-gray-300) {
+  font-size: 16px;
+  font-weight: $weight;
+  color: $color;
+  line-height: 19.2px;
+}
+@mixin font-style-xbody($weight: 400, $color: var.$clr-gray-300) {
+  font-size: 14px;
+  font-weight: $weight;
+  color: $color;
+  line-height: 16.8px;
+}
+@mixin font-style-label($weight: 400, $color: var.$clr-gray-300) {
+  font-size: 12px;
+  font-weight: $weight;
+  color: $color;
+  line-height: 14.4px;
 }
 
 @mixin pop-in-animation {
@@ -81,10 +119,14 @@
   }
 }
 
+@mixin gradient-card($height: 14rem, $width: 30.5rem, $radius: 1.6rem, $start-color: #2FB4AC, $end-color: #0F7670CC) {
+  height: $height;
+  width: $width;
+  border-radius: $radius;
+  background: linear-gradient(90deg, $start-color 3.92%, $end-color 100%);
+}
 
 @mixin custom-scrollbar($thumb-color: #F98416, $track-color: #f5f5f5) {
-  overflow-y: auto;
-  padding-right: 2rem;
   &::-webkit-scrollbar {
     width: 8px;
     background-color: $track-color;

@@ -15,7 +15,6 @@ export interface ContentItem {
   prerequisites: string[];
   createdAt: string;
   traineesCount?: number;
-  // Add additional fields if necessary
 }
 
 interface Pageable {
@@ -33,7 +32,7 @@ interface Sort {
   empty: boolean;
 }
 
-export interface IContentResponse <T>{
+export interface ContentResponse <T>{
   content: T;
   empty: boolean;
   first: boolean;

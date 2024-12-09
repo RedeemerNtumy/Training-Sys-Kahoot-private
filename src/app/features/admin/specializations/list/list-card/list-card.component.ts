@@ -1,16 +1,17 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { specialization } from '../../../../../core/models/specialization.interface';
-import { DateformatPipe } from '../../../../../core/pipes/dateFormat/dateformat.pipe';
+import { CommonModule, DatePipe } from '@angular/common';
+import { specialization } from '@core/models/specialization.interface';
+
 
 
 @Component({
   selector: 'app-list-card',
   standalone: true,
-  imports: [CommonModule, DateformatPipe],
+  imports: [CommonModule, DatePipe],
   templateUrl: './list-card.component.html',
   styleUrls: ['./list-card.component.scss']
 })
+
 export class ListCardComponent {
   @Input() specialization!: specialization;
   @Input() isDropdownActive = false;

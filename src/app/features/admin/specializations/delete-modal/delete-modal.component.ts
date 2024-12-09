@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { SpecializationFacadeService } from './../../../../core/services/specialization-facade/specialization-facade.service';
+import { SpecializationFacadeService } from '@core/services/specialization-facade/specialization-facade.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { NavigationsComponent } from "../../../sidebar/navigations/navigations.component";
-import { DeleteFeedbackComponent } from "../delete-feedback/delete-feedback.component";
+import { DeleteFeedbackComponent } from '../delete-feedback/delete-feedback.component';
+
+
 
 @Component({
   selector: 'app-delete-modal',
   standalone: true,
-  imports: [DialogModule, ButtonModule, CommonModule, NavigationsComponent, DeleteFeedbackComponent],
+  imports: [DialogModule, ButtonModule, CommonModule, DeleteFeedbackComponent],
   templateUrl: './delete-modal.component.html',
   styleUrl:'./delete-modal.component.scss'
 })

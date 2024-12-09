@@ -1,0 +1,109 @@
+@import "../../../../styleSheet/mixins";
+@import "../../../../styleSheet/variables";
+@import "../../../../styleSheet/button";
+
+.reset-code-container {
+  width: 100%;
+  height: 100vh;
+  background-color: $clr-body;
+  @include flexbox(column, center, center);
+
+  .reset-code-wrapper {
+    @include flexbox(column, center, center);
+    width: 57.9rem;
+    background-color: $clr-white;
+    padding: 5.6rem;
+    gap: 3.6rem;
+    border: 1px solid #f0f0f0;
+    border-radius: 0.4rem;
+
+    .reset-code__text {
+      width: 100%;
+      text-align: center;
+
+      p {
+        color: #676767;
+      }
+    }
+
+    .reset-code-form {
+      width: 100%;
+      @include flexbox(column);
+      gap: 4rem;
+
+      .input-container {
+        width: 100%;
+        @include flexbox(column);
+        gap: 2rem;
+      }
+
+      .btn {
+        @include flexbox(row, center, center);
+        gap: 1rem;
+
+        & .spinner {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          border-top-color: #fff;
+          animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        &:disabled {
+          background-color: #80808018;
+          cursor: not-allowed;
+        }
+
+        &.load {
+          background-color: $clr-primary-500;
+        }
+      }
+    }
+
+    .resend-info {
+      @include flexbox(column, center, center);
+
+      p {
+        color: $clr-gray-500;
+
+        a,
+        a:link,
+        a:visited {
+          color: $clr-primary-500;
+          cursor: pointer;
+          text-decoration: underline;
+        }
+
+        span {
+          color: $clr-primary-500;
+        }
+      }
+    }
+
+    .help-link {
+      p {
+        color: $clr-gray-500;
+
+        a,
+        a:link,
+        a:visited {
+          color: $clr-primary-500;
+          cursor: pointer;
+          text-decoration: underline;
+        }
+
+        span {
+          color: $clr-primary-500;
+        }
+      }
+    }
+  }
+}

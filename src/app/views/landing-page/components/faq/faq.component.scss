@@ -1,0 +1,28 @@
+@use "../../../../../styleSheet/variables" as *;
+@use "../../../../../styleSheet/mixins" as *;
+
+section {
+  @include flexbox(column, center, center);
+  margin-top: 9rem;
+  margin-bottom: 10.8rem;
+
+  h3 {
+    font-size: $font-size-h2;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 3.2rem;
+  }
+
+  p.text-secondary {
+    text-align: center;
+    max-width: 65%;
+    margin-inline: auto;
+    color: #636d79;
+  }
+
+  .accordion {
+    margin-top: 5rem;
+    max-width: 70%;
+    margin-inline: auto;
+  }
+}

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { SpecializationFacadeService } from './../../../../../core/services/specialization-facade/specialization-facade.service';
+import { SpecializationFacadeService } from '@core/services/specialization-facade/specialization-facade.service';
 import { Component } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { Router } from '@angular/router';

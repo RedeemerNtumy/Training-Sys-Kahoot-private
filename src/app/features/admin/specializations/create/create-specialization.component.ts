@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from "../form/form.component";
+import { SpecializationFacadeService } from '@core/services/specialization-facade/specialization-facade.service';
+import { specialization } from '@core/models/specialization.interface';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { SpecializationFacadeService } from '../../../../core/services/specialization-facade/specialization-facade.service';
-import { specialization } from '../../../../core/models/specialization.interface';
 import { switchMap } from 'rxjs/operators';
 import { of,timer } from 'rxjs';
 import { AddFeedbackComponent } from "../add-feedback/add-feedback.component";
+
 
 @Component({
   selector: 'app-create-specialization',
@@ -56,7 +57,6 @@ export class CreateSpecializationComponent {
       : this.facadeService.create(formData);
     formOperation.subscribe({
       next: () => {
-        console.log('Specialization saved successfully');
         this.showFeedback = true;
         timer(3000).subscribe(()=>{
           this.showFeedback = false;
@@ -64,9 +64,14 @@ export class CreateSpecializationComponent {
         })
       },
       error: (error) => {
-        console.error('Error from specialization create/update:', error);
+        this.handleError(error)
       }
     })
+  }
+
+   private handleError(error: any): void {
+    const operation = this.specializationId ? 'updating' : 'creating';
+    throw new Error(`Error ${operation} specialization: ${error}`);
   }
 
   navigateToList(){

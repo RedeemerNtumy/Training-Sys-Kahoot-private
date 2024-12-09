@@ -115,10 +115,14 @@ export class UserCreationComponent implements OnInit, OnDestroy {
     }
 
     const { password, confirmPassword } = this.userCreationForm.value;
-    const user = { password, confirmPassword };
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.isLoading = false;
+      return;
+    }
 
     this.userCreationService
-      .createUser(user)
+      .createUser(password, confirmPassword, token)
       .pipe(
         switchMap(() => timer(2000)),
         switchMap(() => {
@@ -134,8 +138,12 @@ export class UserCreationComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           this.isLoading = false;
-          this.errorMessage =
-            'An error occured while processing your request. Please try again!';
+          if (err instanceof SyntaxError) {
+            this.errorMessage = 'An error occurred while parsing the response. Please try again!';
+          } else {
+            this.errorMessage =
+              'An error occurred while processing your request. Please try again!';
+          }
           console.error('Error creating user:', err);
         },
       });

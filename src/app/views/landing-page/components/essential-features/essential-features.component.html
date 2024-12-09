@@ -1,0 +1,14 @@
+<section class="essential-features home-section content-container">
+  <div class="image">
+    <img src="assets/Images/svg/essential-features-hero.svg" alt="essential-features icon">
+  </div>
+  <div class="features">
+    <h3 class="section-title">Essential Features</h3>
+
+    <ul>
+      @for (feature of essentialFeatures; track feature) {
+      <li>{{ feature }}</li>
+      }
+    </ul>
+  </div>
+</section>

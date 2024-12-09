@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, tap, map, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, map } from 'rxjs';
 import { specialization } from '../../models/specialization.interface';
 import { ErrorHandleService } from '../error-handle/error-handle.service';
 import { SpecializationCrudService } from '../specialization-crud/specialization-crud.service';
@@ -23,6 +22,7 @@ export class SpecializationFacadeService {
 
   private sortSubject = new BehaviorSubject<'asc'|'desc'>('desc');
   sortDirection$ = this.sortSubject.asObservable();
+
 
   constructor(
     private errorService: ErrorHandleService,
@@ -85,6 +85,7 @@ export class SpecializationFacadeService {
       catchError(this.errorService.handleError)
     );
   }
+
 
   delete(id: number): Observable<void> {
     return this.specializationCrud.deleteSpecialization(id)

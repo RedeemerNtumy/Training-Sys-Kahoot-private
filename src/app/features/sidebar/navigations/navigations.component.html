@@ -1,12 +1,12 @@
 <section class="navigations">
   <div class="nav-list">
-    <ng-container *ngIf="role === 'admin'">
+    <ng-container *ngIf="role === 'ADMIN'">
       <app-admin-navigations />
     </ng-container>
-    <ng-container *ngIf="role === 'trainer'">
+    <ng-container *ngIf="role === 'TRAINER'">
       <app-trainer-navigations />
     </ng-container>
-    <ng-container *ngIf="role === 'trainee'">
+    <ng-container *ngIf="role === 'TRAINEE'">
       <app-trainee-navigations />
     </ng-container>
 
