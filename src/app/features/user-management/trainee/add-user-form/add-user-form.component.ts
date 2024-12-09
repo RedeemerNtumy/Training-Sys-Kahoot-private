@@ -153,7 +153,8 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     const sevenYearsAgo = new Date(today);
     sevenYearsAgo.setFullYear(today.getFullYear() - 7);
     this.maxDate = this.formatDate(sevenYearsAgo); 
-  }
+  } 
+  
 
   formatDate(date: Date): string {
     return date.toISOString().split('T')[0];
