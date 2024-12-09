@@ -37,6 +37,7 @@ export class SpecializationListComponent implements OnInit {
   deleteModalVisible = false;
   selectedSpecializationId?: number;
   deleteFeedbackMap = new Map<number | undefined, boolean>();
+
   specializations$!: Observable<specialization[]>;
   private pageSubject = new BehaviorSubject<number>(1);
   currentPage$ = this.pageSubject.asObservable()
@@ -109,7 +110,7 @@ export class SpecializationListComponent implements OnInit {
   }
 
   private navigateToCreate(id: number | undefined): void {
-    this.router.navigate(['home', 'admin', 'specialization', 'create'], {
+    this.router.navigate(['home', 'admin', 'specialization-management', 'create'], {
       queryParams: { id }
     });
   }

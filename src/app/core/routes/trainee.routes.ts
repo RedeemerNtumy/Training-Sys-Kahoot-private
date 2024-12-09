@@ -1,5 +1,7 @@
 
 import { Routes } from '@angular/router';
+import { AssessmentsTabsComponent } from '@features/trainee/assessments-tabs/assessments-tabs.component';
+import { LabSubmittionFormComponent } from '@features/trainee/lab-submittion-form/lab-submittion-form.component';
 import { DashboardComponent } from '@views/trainee/dashboard/dashboard.component';
 
 export const traineeRoutes: Routes = [
@@ -17,7 +19,28 @@ export const traineeRoutes: Routes = [
     path: 'assessments',
     loadComponent : ()=> import('@views/trainee/assessment/assessment.component')
     .then(m => m.AssessmentComponent),
-    data: { role: 'trainee' }
+    data: { role: 'trainee' },
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('../../features/trainee/assessments-tabs/assessments-tabs.component')
+        .then(m => m.AssessmentsTabsComponent)
+      },
+      {
+        path: 'quiz/:id',
+        loadComponent: () => import('../../features/trainee/take-quiz/take-quiz.component')
+        .then(m => m.TakeQuizComponent)
+      },
+      {
+        path: 'feedback',
+        loadComponent: () => import('../../features/trainee/quiz-feedback-page/quiz-feedback-page.component')
+        .then(m => m.QuizFeedbackPageComponent)
+      },
+      {
+        path: 'lab-form',
+        component: LabSubmittionFormComponent
+      }
+    ]
   },
   {
     path: 'modules',

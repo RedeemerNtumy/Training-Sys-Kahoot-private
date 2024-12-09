@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-input-field',
@@ -24,6 +28,9 @@ export class InputFieldComponent implements ControlValueAccessor {
     .toString(36)
     .substr(2, 9)}`;
   @Input() disabled!: boolean;
+  @Input() required!: boolean;
+
+  @Input() minDate?: string;
 
   isPasswordVisible: boolean = false;
   isDisabled: boolean = false;

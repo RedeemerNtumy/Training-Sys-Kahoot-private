@@ -1,0 +1,44 @@
+@import '../../../../../styleSheet/grade_management_mixins';
+@import '../../../../../styleSheet/variables';
+
+.assessment-card {
+    // @include assessment-card;
+    width: 96.6rem;
+    border: none;
+    background: #fcfcfc;
+
+    app-searchbar {
+        margin-bottom: 3.1rem;
+    }
+
+    & .ellipsis {
+        cursor: pointer;
+        position: relative;
+    }
+
+    app-paginator {
+        width: 96.6rem;
+        position: absolute;
+        bottom: 1.5rem;
+    }
+
+}
+
+.table-header {
+    @include table-header-for-images;
+}
+
+.table-items-with-images {
+    @include table-items-with-images;
+}
+
+
+// Ellipsis styling
+.showEllipse {
+    @include ellipsis;
+}
+
+
+.dontShowEllipse {
+    display: none;
+}
