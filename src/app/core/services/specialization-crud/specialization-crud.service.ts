@@ -21,8 +21,6 @@ export class SpecializationCrudService {
   getAllSpecializations():Observable<specialization[]>{
     return this.http.get<specialization[]>(`${this.hostedServer}/specializations`)
     .pipe(
-
-      tap((response) => console.log('Specializations from Backend:', response)),
       catchError(this.errorService.handleError)
     );
   }
