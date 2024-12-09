@@ -7,6 +7,7 @@ import {
   tap,
   throwError,
   BehaviorSubject,
+  map,
 } from 'rxjs';
 import {
   AssessmentData,
@@ -46,11 +47,23 @@ export class AssessmentService {
         headers,
       })
       .pipe(
+        tap((response) => {
+          console.log('API response:', response);
+        }),
+        map((response) => {
+          const assessments: AssessmentData[] = response.map(
+            (item: AssessmentData) => ({
+              quizzes: item.quizzes,
+              labs: item.labs,
+              presentations: item.presentations,
+            })
+          );
+          return assessments;
+        }),
         tap((data) => {
           console.log('Assessments fetched successfully:', data);
           this.assessmentsSubject.next(data);
         }),
-        retry(2),
         catchError((error) => {
           console.error('Error fetching assessments:', error);
           return throwError(() => error);
@@ -70,7 +83,8 @@ export class AssessmentService {
     return this.http
       .post<AssessmentData>(
         `${environment.BaseUrl}/quizzes/${quizId}/questions/batch?quizDuration=${timeFrame}`,
-        assessment
+        assessment,
+        { responseType: 'text' as 'json' }
       )
       .pipe(
         catchError((error) => {
