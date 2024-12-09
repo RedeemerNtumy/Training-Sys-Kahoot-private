@@ -43,21 +43,19 @@ export class AssessmentService {
       'ngrok-skip-browser-warning': '45678',
     });
     return this.http
-      .get<AssessmentData[]>(`${environment.BaseUrl}/assessments/all`, {
+      .get<AssessmentData>(`${environment.BaseUrl}/assessments/all`, {
         headers,
       })
       .pipe(
         tap((response) => {
           console.log('API response:', response);
         }),
-        map((response) => {
-          const assessments: AssessmentData[] = response.map(
-            (item: AssessmentData) => ({
-              quizzes: item.quizzes,
-              labs: item.labs,
-              presentations: item.presentations,
-            })
-          );
+        map((response: AssessmentData) => {
+          const assessments: AssessmentData[] = [{
+            quizzes: response.quizzes,
+            labs: response.labs,
+            presentations: response.presentations,
+          }];
           return assessments;
         }),
         tap((data) => {
