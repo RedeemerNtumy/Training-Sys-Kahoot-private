@@ -101,15 +101,10 @@ export class TraineeInsystemService {
   }
   
 
-  private getHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      "ngrok-skip-browser-warning": "69420"
-    });
-  }
 
   // Get all trainees
   getAllTrainees() { 
-    return this.http.get<TraineeList>(`${this.testUrl}/profiles/trainees`, { headers: this.getHeaders() }).pipe(
+    return this.http.get<TraineeList>(`${this.baseUrl}/profiles/trainees`).pipe(
       map(res => {
         const trainees = res.content;
         return trainees;
