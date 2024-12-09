@@ -34,7 +34,7 @@ export class AuthService {
         map((response: LoginResponse) => {
           if (response) {
             this.tokenService.setToken(response.token);
-            const decodedToken = this.decodeToken(response.token);
+            const decodedToken = this.tokenService.decodeToken(response.token);
 
             this.userRoleService.setUserRole(decodedToken.role as UserRole);
 
