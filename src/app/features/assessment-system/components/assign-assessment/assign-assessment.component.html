@@ -3,70 +3,78 @@
     <div class="col-1">
       <div class="header">
         <p class="assign">Assign</p>
-        <span class="close">
+        <span class="close" (click)="onCancel()">
           <img src="assets/Images/svg/close.svg" alt="close icon"
         /></span>
       </div>
     </div>
     <div class="col-2">
       <div class="filters-container">
-        <mat-form-field
-          appearance="outline"
-          class="w-48"
-          (click)="specializationSelect.open()"
-        >
-          <mat-label>Specialization</mat-label>
-          <mat-select
-            #specializationSelect
-            [(ngModel)]="selectedSpecialization"
-            (selectionChange)="applyFilters()"
-          >
-            <mat-option [value]="''">All</mat-option>
-            <mat-option
-              *ngFor="let spec of filterOptions.specialization"
-              [value]="spec"
-            >
-              {{ spec }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <p-dropdown
+          [options]="filterOptions.specialization"
+          [(ngModel)]="selectedSpecialization"
+          placeholder="Specialization"
+          (onChange)="applyFilters()"
+        ></p-dropdown>
 
-        <mat-form-field
-          appearance="outline"
-          class="w-48"
-          (click)="cohortSelect.open()"
-        >
-          <mat-label>Cohort</mat-label>
-          <mat-select
-            #cohortSelect
-            [(ngModel)]="selectedCohort"
-            (selectionChange)="applyFilters()"
-          >
-            <mat-option [value]="''">All</mat-option>
-            <mat-option
-              *ngFor="let cohort of filterOptions.cohort"
-              [value]="cohort"
-            >
-              {{ cohort }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <p-dropdown
+          [options]="filterOptions.cohort"
+          [(ngModel)]="selectedCohort"
+          placeholder="Cohort"
+          (onChange)="applyFilters()"
+        ></p-dropdown>
         <mat-checkbox>Select All</mat-checkbox>
       </div>
       <div class="filters-wrapper">
-        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+        <div class="filters-container">
+          <p-dropdown
+            [options]="filterOptions.specialization"
+            [(ngModel)]="selectedSpecialization"
+            placeholder="Specialization"
+            (onChange)="applyFilters()"
+          ></p-dropdown>
+
+          <p-dropdown
+            [options]="filterOptions.cohort"
+            [(ngModel)]="selectedCohort"
+            placeholder="Cohort"
+            (onChange)="applyFilters()"
+          ></p-dropdown>
+          <mat-checkbox>Select All</mat-checkbox>
+        </div>
+        <!-- <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
           <mat-tab label="Trainees">
             <app-trainee-list />
           </mat-tab>
           <mat-tab label="Cohort">
             <app-cohort-list />
           </mat-tab>
-        </mat-tab-group>
+        </mat-tab-group> -->
+        <p-tabView>
+          <p-tabPanel header="Trainee">
+            <app-trainee-list />
+          </p-tabPanel>
+          <p-tabPanel header="Cohort">
+            <app-cohort-list />
+          </p-tabPanel>
+          <p-tabPanel header="Cohort">
+
+          </p-tabPanel>
+        </p-tabView>
       </div>
     </div>
     <div class="actions-container">
-      <button class="btn cancel">Cancel</button>
-      <button class="btn assign">Assign</button>
+      <div class="expires">
+        <p-dropdown
+          [options]="expiryOptions"
+          [(ngModel)]="selectedExpiry"
+          placeholder="Expires in"
+        ></p-dropdown>
+      </div>
+      <div class="actions">
+        <button class="btn cancel" (click)="onCancel()">Cancel</button>
+        <button class="btn assign" (click)="onAssign()">Assign</button>
+      </div>
     </div>
   </div>
 </div>

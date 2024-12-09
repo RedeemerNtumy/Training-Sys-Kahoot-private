@@ -1,14 +1,12 @@
 export type AssessmentType = 'quiz' | 'lab' | 'presentation';
 
-export interface AssessmentData {
-  assessmentType: AssessmentType;
-  title: string;
-  focusArea: string;
+export interface AssessmentBase {
+  assessmentType: string;
+  coverImage: string;
+  createdAt: string;
   description: string;
-  coverImage: File;
-  attachments?: File[];
-  questions?: any[];
-  questionsCount?: number;
+  focusArea: string;
+  title: string;
 }
 
 export interface CreateAssessment {
@@ -16,4 +14,27 @@ export interface CreateAssessment {
   label: string;
   icon: string;
   route: string;
+}
+
+export interface Quiz extends AssessmentBase {
+  questions: any[];
+  timeFrame: number;
+}
+
+export interface Attachment {
+  files: any[];
+}
+
+export interface Lab extends AssessmentBase {
+  attachment: Attachment[];
+}
+
+export interface Presentation extends AssessmentBase {
+  attachment: Attachment[];
+}
+
+export interface AssessmentData {
+  quizzes: Quiz[];
+  labs: Lab[];
+  presentations: Presentation[];
 }

@@ -87,6 +87,27 @@ $theme: mat.define-light-theme(
   --mat-tab-header-active-hover-indicator-color: #f98416 !important;
 }
 
+.filters-container {
+  z-index: 1000;
+
+  .p-dropdown {
+    padding: 1rem 2rem;
+    cursor: pointer;
+  }
+}
+
+.mat-mdc-tab.mdc-tab {
+  margin-bottom: 3rem;
+}
+
+.mat-mdc-text-field-wrapper {
+  will-change: unset !important;
+}
+
+.mdc-notched-outline {
+  height: 5rem;
+}
+
 .p-datatable .p-datatable-thead > tr > th {
   font-size: 1.5rem;
   background: #f0f0f0;
@@ -105,47 +126,33 @@ $theme: mat.define-light-theme(
   gap: 1.5rem;
 }
 
-.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs
-  > .mat-mdc-tab-header
-  .mat-mdc-tab {
-  flex-grow: 0 !important;
+.select {
+  .p-dropdown {
+    width: 160px;
+  }
 }
 
-// PrimeNG styles for tab - used in grade-management\
-ul.p-tabview-nav {
-  margin-bottom: 2.8rem;
-  border: none;
-  display: flex;
-  gap: 3.5rem;
-  background: none;
-}
-
-span.p-tabview-title {
-  display: grid;
-  place-items: center;
-  height: 3.5rem;
-  font-family: $font-lato;
-  font-size: $font-size-body;
-  color: $clr-gray-500;
-}
-
-.p-tabview-nav li.p {
-  background: none;
-}
-
-body {
-  min-height: 100vh;
-}
-
-.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs
-  > .mat-mdc-tab-header
-  .mat-mdc-tab {
-  flex-grow: 0 !important;
-}
-.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  color: $clr-white;
+  background: $clr-primary-500;
   border-color: $clr-primary-500;
 }
 
-.p-tabview .p-tabview-nav li .p-tabview-nav-link {
-  background: none;
+.p-dropdown-panel
+  .p-dropdown-items
+  .p-dropdown-item:not(.p-highlight):not(.p-disabled).p-focus {
+  color: $clr-white;
+  background: $clr-gray-300;
+  border-color: $clr-primary-500;
+  box-shadow: none;
+}
+
+.p-dropdown:not(.p-disabled):hover {
+  border-color: $clr-primary-500;
+  box-shadow: none;
+}
+
+.p-dropdown {
+  box-shadow: none;
+  border-color: $clr-gray-300;
 }

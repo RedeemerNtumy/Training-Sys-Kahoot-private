@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="quiz-builder-container">
+    <app-kahoot-sidebar [questions]="questions"></app-kahoot-sidebar>
+
+    <div class="main-content">
+      <app-kahoot-header></app-kahoot-header>
+
+      <div class="question-area">
+        <app-kahoot-questions
+          [question]="currentQuestion"
+          (questionUpdate)="updateQuestion($event)"
+          class="question"
+        ></app-kahoot-questions>
+        <app-kahoot-aside class="aside" />
+      </div>
+    </div>
+  </div>
+</div>

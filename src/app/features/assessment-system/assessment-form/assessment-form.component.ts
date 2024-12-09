@@ -11,6 +11,7 @@ import {
 import {
   AssessmentData,
   AssessmentType,
+  Quiz,
 } from '@core/models/assessment-form.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -47,19 +48,7 @@ export class AssessmentFormComponent {
       description: ['', Validators.required],
       coverImage: [null],
       attachments: [[]],
-      deadline: ['', [Validators.required, this.futureDateValidator]],
     });
-
-  }
-
-  // Custom validator to check if the date is in the future
-  futureDateValidator(control: AbstractControl): ValidationErrors | null {
-    const selectedDate = new Date(control.value);
-    const currentDate = new Date();
-    if (selectedDate < currentDate) {
-      return { pastDate: true };
-    }
-    return null;
   }
 
   ngOnInit() {
@@ -96,30 +85,41 @@ export class AssessmentFormComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      const formData: AssessmentData = {
-        ...this.form.value,
-        assessmentType: this.type,
-      };
-
-      console.log('Form Data:', formData);
+      const formData = new FormData();
+      Object.keys(this.form.value).forEach((key) => {
+        if (key === 'attachments') {
+          this.form.value[key].forEach((file: File) => {
+            formData.append('attachments', file, file.name);
+          });
+        } else {
+          formData.append(key, this.form.value[key]);
+        }
+      });
+      formData.append('assessmentType', this.type);
 
       if (this.type === 'quiz') {
-        this.quizDataService.setQuizData(formData);
-        this.router.navigate(['/home/trainer/assessment/quiz-creation']);
-      } else {
-        this.assessmentService.addAssessment(formData).subscribe(() => {
-          console.log('sending to backend', formData);
-          this.formSubmit.emit(formData);
+        formData.delete('attachments');
+        this.quizDataService.setQuizData(formData, true).subscribe({
+          next: (response) => {
+            this.router.navigate(['/home/trainer/assessment/quiz-creation']);
+            localStorage.setItem('quizId', JSON.stringify(response));
+          },
+          error: (err) => {
+            console.error(err);
+          },
         });
+      } else {
+        // this.assessmentService.addAssessment(formData).subscribe(() => {
+        //   this.formSubmit.emit(this.form.value);
+        // });
       }
     }
   }
 
-
-  submitQuizWithQuestions(questions: any[]) {
+  submitQuizWithQuestions(questions: Quiz[]) {
     this.quizDataService.getQuizData().subscribe((formData) => {
       if (formData) {
-        formData.questions = questions;
+        formData.quizzes = questions;
         this.formSubmit.emit(formData);
         this.quizDataService.clearQuizData();
       }

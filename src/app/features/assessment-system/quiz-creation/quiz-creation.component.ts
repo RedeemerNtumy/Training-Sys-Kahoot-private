@@ -15,6 +15,7 @@ import { AssessmentFormComponent } from '../assessment-form/assessment-form.comp
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizDataService } from '@core/services/assessment/quiz-data.service';
 import { AssessmentService } from '@core/services/assessment/assessment.service';
+import { AssessmentData, Quiz } from '@core/models/assessment-form.interface';
 
 @Component({
   selector: 'app-quiz-creation',
@@ -122,43 +123,40 @@ export class QuizCreationComponent {
     }
 
     console.log('submitting');
-    const quizData = this.quizForm.value.questions.map(
-      (question: any, index: number) => ({
-        questionNumber: index + 1,
-        questionText: question.text,
-        updatedTime: question.timestamp,
-        options: question.answers.map((answer: any, i: number) => ({
-          option: this.getOption(i),
-          value: answer.text,
-          isCorrect: answer.isCorrect,
-        })),
-        marks: question.marks,
-      })
-    );
+    const quizData = this.quizForm.value.questions.map((question: any) => ({
+      text: question.text,
+      answers: question.answers.map((answer: any) => ({
+        text: answer.text,
+        isCorrect: answer.isCorrect,
+      })),
+      mark: question.marks,
+    }));
 
-    this.quizDataService.getQuizData().subscribe((assessmentFormData) => {
-      if (assessmentFormData) {
-        const combinedData = {
-          ...assessmentFormData,
-          questions: quizData,
-          timeFrame: this.quizForm.value.timeFrame, 
-        };
+    const assessmentData: Quiz = {
+      questions: quizData,
+      timeFrame: this.quizForm.value.timeFrame,
+      assessmentType: 'quiz',
+      coverImage: '',
+      createdAt: new Date().toISOString(),
+      description: '',
+      focusArea: '',
+      title: this.quizTitle,
+    };
 
-        const assessmentFormComponent = new AssessmentFormComponent(
-          this.fb,
-          this.route,
-          this.router,
-          this.quizDataService,
-          this.assessmentService
-        );
-        assessmentFormComponent.submitQuizWithQuestions(quizData);
+    console.log(quizData);
 
-        console.log(combinedData);
-
-        // Remove quiz data from local storage after submission
-        localStorage.removeItem('quizData');
-      }
-    });
+    this.assessmentService
+      .addAssessment(quizData, this.quizForm.value.timeFrame)
+      .subscribe({
+        next: (response) => {
+          console.log('Quiz submitted successfully', response);
+          localStorage.removeItem('quizData');
+          this.router.navigate(['/home/trainer/assessment/quiz-creation']);
+        },
+        error: (err) => {
+          console.error('Error submitting quiz', err);
+        },
+      });
   }
 
   saveQuizData() {
@@ -196,7 +194,9 @@ export class QuizCreationComponent {
   loadQuizTitle() {
     this.quizDataService.getQuizData().subscribe((assessmentFormData) => {
       if (assessmentFormData) {
-        this.quizTitle = assessmentFormData.title;
+        this.quizTitle = assessmentFormData.quizzes
+          .map((quiz: Quiz) => quiz.title)
+          .join(', ');
       }
     });
   }
