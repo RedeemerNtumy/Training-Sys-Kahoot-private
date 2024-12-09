@@ -1,3 +1,4 @@
+import { CreateComponent } from './../../features/admin/curriculum/create/create.component';
 
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../views/admin/dashboard/dashboard.component';
@@ -14,18 +15,13 @@ export const adminRoutes: Routes = [
     data: { role: 'admin' }
   },
   {
-    path: 'specialization',
+    path: 'specialization-management',
     loadComponent: () => import('../../views/admin/specializations/specialization-management.component')
       .then(m => m.SpecializationManagementComponent),
     data: { role: 'admin' },
     children: [
       {
         path:'',
-        redirectTo: 'list',
-        pathMatch: 'full'
-      },
-      {
-        path:'list',
         loadComponent:()=> import('../../features/admin/specializations/list/specialization-list.component')
         .then( m => m.SpecializationListComponent)
       },
@@ -151,10 +147,39 @@ export const adminRoutes: Routes = [
     ],
   },
   {
-    path: 'curriculum',
+    path: 'curriculum-management',
     loadComponent: () => import('@views/admin/curriculum/curriculum.component')
     .then(m => m.CurriculumComponent),
-    data: { role: 'admin' }
+    data: { role: 'admin' },
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('@features/admin/curriculum/curriculum-list/curriculum-list.component')
+       .then(m => m.CurriculumListComponent)
+      },
+      {
+        path: 'curriculum/:id',
+        loadComponent: () => import('@features/admin/curriculum/detail/detail.component')
+        .then(m => m.DetailComponent)
+      },
+      {
+        path: 'create-curriculum',
+        loadComponent: () => import('@features/admin/curriculum/create/create.component')
+       .then(m => m.CreateComponent),
+       children:[
+         {
+           path: '',
+           loadComponent: () => import('@features/admin/curriculum/create/form/form.component')
+          .then(m => m.FormComponent)
+         },
+         {
+           path: 'create-module',
+           loadComponent: () => import('@features/admin/curriculum/create/form/module/module.component')
+          .then(m => m.ModuleComponent)
+         },
+       ]
+      }
+    ]
   },
   {
     path: 'report',
