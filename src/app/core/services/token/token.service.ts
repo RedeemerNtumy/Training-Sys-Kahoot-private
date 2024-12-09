@@ -34,4 +34,8 @@ export class TokenService {
     localStorage.removeItem('token');
     this.tokenSubject.next(null);
   }
+
+  decodeToken(token: string): DecodedToken {
+    return jwtDecode<DecodedToken>(token);
+  }
 }
