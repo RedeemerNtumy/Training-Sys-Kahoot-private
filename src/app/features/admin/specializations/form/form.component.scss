@@ -21,6 +21,8 @@ form{
   }
 
   .scrollable-content{
+    overflow-y: auto;
+    padding-right: 1.6rem;
     @include flexbox($direction: column);
     @include custom-scrollbar;
     gap:1.5rem;
