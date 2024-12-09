@@ -43,13 +43,13 @@ export class AssessmentListComponent {
 
   ngOnInit(): void {
     this.fetchAssessments();
-    this.assessments$.subscribe(data => {
-      console.log(data);
-    });
   }
 
   fetchAssessments() {
-    this.assessmentService.getAssessments().subscribe();
+    this.assessments$ = this.assessmentService.getAssessments();
+    this.assessments$.subscribe((data) => {
+      console.log('Fetched assessments:', data);
+    });
   }
 
   navigateToAssessmentForm(type: string) {
