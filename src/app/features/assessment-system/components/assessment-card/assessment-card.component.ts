@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { AssessmentData } from '@core/models/assessment-form.interface';
-import { AssignAssessmentComponent } from "../assign-assessment/assign-assessment.component";
+import { AssignAssessmentComponent } from '../assign-assessment/assign-assessment.component';
 
 @Component({
   selector: 'app-assessment-card',
