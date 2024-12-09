@@ -8,13 +8,19 @@ import {
 import { AssessmentService } from '@core/services/assessment/assessment.service';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { SearchbarComponent } from "../../../core/shared/searchbar/searchbar.component";
-import { AssessmentCardComponent } from "../components/assessment-card/assessment-card.component";
+import { SearchbarComponent } from '../../../core/shared/searchbar/searchbar.component';
+import { AssessmentCardComponent } from '../components/assessment-card/assessment-card.component';
 
 @Component({
   selector: 'app-assessment-list',
   standalone: true,
-  imports: [RouterModule, ModalComponent, CommonModule, SearchbarComponent, AssessmentCardComponent],
+  imports: [
+    RouterModule,
+    ModalComponent,
+    CommonModule,
+    SearchbarComponent,
+    AssessmentCardComponent,
+  ],
   templateUrl: './assessment-list.component.html',
   styleUrl: './assessment-list.component.scss',
 })
@@ -23,11 +29,11 @@ export class AssessmentListComponent {
   assessmentTypes: CreateAssessment[] = [];
   assessments$!: Observable<AssessmentData[]>;
 
-
   constructor(
     private router: Router,
     private assessmentService: AssessmentService
   ) {
+    this.assessments$ = this.assessmentService.assessments$;
     this.assessmentService
       .getAssessmentType()
       .subscribe((data: CreateAssessment[]) => {
@@ -37,11 +43,13 @@ export class AssessmentListComponent {
 
   ngOnInit(): void {
     this.fetchAssessments();
-    this.assessments$ = this.assessmentService.assessments$;
   }
 
   fetchAssessments() {
-    this.assessmentService.getAssessments().subscribe();
+    this.assessments$ = this.assessmentService.getAssessments();
+    this.assessments$.subscribe((data) => {
+      console.log('Fetched assessments:', data);
+    });
   }
 
   navigateToAssessmentForm(type: string) {

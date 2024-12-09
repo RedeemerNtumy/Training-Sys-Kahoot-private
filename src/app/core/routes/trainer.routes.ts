@@ -152,4 +152,11 @@ export const trainerRoutes: Routes = [
       import('@views/help/help.component').then((m) => m.HelpComponent),
     data: { role: 'trainer' },
   },
+  {
+    path: 'create-kahoot',
+    loadComponent: () =>
+      import(
+        '@features/assessment-system/kahoot-page/kahoot-page.component'
+      ).then((m) => m.KahootPageComponent),
+  },
 ];

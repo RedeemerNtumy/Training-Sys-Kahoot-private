@@ -70,28 +70,6 @@
       }
     </div>
 
-    <div class="form-group">
-      <label for="deadline">Deadline</label>
-      <input
-        id="deadline"
-        type="date"
-        formControlName="deadline"
-        placeholder="Enter deadline here"
-      />
-      <span
-        *ngIf="form.get('deadline')?.errors?.['required'] && form.get('deadline')?.touched"
-        class="error"
-      >
-        Deadline is required
-      </span>
-      <span
-        *ngIf="form.get('deadline')?.errors?.['pastDate'] && form.get('deadline')?.touched"
-        class="error"
-      >
-        Deadline cannot be a past date
-      </span>
-    </div>
-
     <!-- Description -->
     <div class="form-group">
       <label for="description">Assessment description</label>

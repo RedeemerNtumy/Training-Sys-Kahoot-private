@@ -1,0 +1,12 @@
+<div class="sidebar">
+  <div class="logo">
+    <img src="assets/Images/svg/logo.svg" alt="logo icon" />
+    <div class="logo-text">Training<span>Suite</span></div>
+  </div>
+  <div *ngFor="let question of questions; let i = index" class="question-item">
+    <span class="question-number">{{ i + 1 }}. Quiz</span>
+    <div class="question-preview">
+      {{ question.text || "What is the biggest insert in..." }}
+    </div>
+  </div>
+</div>
