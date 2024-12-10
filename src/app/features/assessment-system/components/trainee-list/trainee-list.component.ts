@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
+import { TraineeInsystemService } from '@core/services/user-management/trainee/trainee-insystem.service';
+import { User } from '@core/models/cohort.interface';
+import { catchError, filter, Observable, of, map } from 'rxjs';
 
 @Component({
   selector: 'app-trainee-list',
@@ -9,43 +12,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: './trainee-list.component.html',
   styleUrl: './trainee-list.component.scss',
 })
-export class TraineeListComponent {
-  cohorts = [
-    {
-      topic: 'Research Biases',
-      specialization: 'UI/UX Design',
-      trainer: 'Lisa Koomson',
-      time: '1:30pm',
-    },
-    {
-      topic: 'CSS Flexbox & Grids',
-      specialization: 'Front-end Dev',
-      trainer: 'Adjei Fred',
-      time: '12:30pm',
-    },
-    {
-      topic: 'RESTful API Design',
-      specialization: 'Back-end Dev',
-      trainer: 'Ntumi Elias',
-      time: '10:30am',
-    },
-    {
-      topic: 'Unit Testing with Jest',
-      specialization: 'Quality Assurance',
-      trainer: 'Philip Halie',
-      time: '09:30am',
-    },
-    {
-      topic: 'Unit Testing with Jest',
-      specialization: 'Quality Assurance',
-      trainer: 'Philip Halie',
-      time: '09:30am',
-    },
-    {
-      topic: 'Unit Testing with Jest',
-      specialization: 'Quality Assurance',
-      trainer: 'Philip Halie',
-      time: '09:30am',
-    },
-  ];
+export class TraineeListComponent implements OnInit {
+  trainees$!: Observable<User[]>;
+
+  constructor(private traineeService: TraineeInsystemService) {}
+
+  ngOnInit(): void {
+    this.trainees$ = this.traineeService.getAllTrainees();
+  }
 }

@@ -41,6 +41,7 @@
     }
 
     p {
+      text-align: center;
       font-size: 1.6rem !important;
       color: #676767;
     }
@@ -72,6 +73,10 @@
 }
 
 
+.feedback-container{
+  height: 37.1rem;
+  animation: popIn 0.15s ease-out forwards;
+}
 
 
 

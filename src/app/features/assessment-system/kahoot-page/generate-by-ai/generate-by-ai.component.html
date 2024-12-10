@@ -29,18 +29,13 @@
         <div class="questions-div">
           <div class="questions-container">
             @if(isLoading){
-            <div class="lds-roller">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
+            <div class="load">
+              <app-loader />
             </div>
             } @if (errorMessage) {
-            <p class="error">{{ errorMessage }}, Please try again later!</p>
+            <div class="load">
+              <p class="error">{{ errorMessage }}, Please try again later!</p>
+            </div>
             }
             <app-question-card
               class="questions"

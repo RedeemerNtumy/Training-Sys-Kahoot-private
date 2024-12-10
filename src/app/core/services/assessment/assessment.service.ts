@@ -13,6 +13,7 @@ import {
   AssessmentData,
   AssessmentType,
   CreateAssessment,
+  Lab,
   Quiz,
 } from '@core/models/assessment-form.interface';
 import { environment } from 'src/environments/environment.development';
@@ -90,5 +91,10 @@ export class AssessmentService {
           return throwError(() => error);
         })
       );
+  }
+
+  // create lab
+  createLab(data: FormData): Observable<Lab> {
+    return this.http.post<Lab>(`${environment.BaseUrl}/assessments/lab`, data);
   }
 }
