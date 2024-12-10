@@ -109,7 +109,12 @@ export class AssessmentFormComponent {
           },
         });
       } else if (this.type === 'lab') {
-        this.assessmentService.createLab(formData).subscribe(() => {});
+        console.log('Creating Lab', formData);
+        this.assessmentService.createLab(formData).subscribe({
+          next: (response) => {
+            console.log(response);
+          },
+        });
       }
     }
   }
