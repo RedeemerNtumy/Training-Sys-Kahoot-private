@@ -1,18 +1,18 @@
-<div class="card">
-  <p-table [value]="cohorts" [tableStyle]="{ 'min-width': '50rem' }">
+<div class="card" *ngIf="trainees$ | async as trainees">
+  <p-table [value]="trainees" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
         <th>Trainee Name</th>
         <th>Email</th>
-        <th>Specilization</th>
+        <th>Specialization</th>
         <th></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-cohort>
+    <ng-template pTemplate="body" let-trainee>
       <tr>
-        <td>{{ cohort.topic }}</td>
-        <td>{{ cohort.specialization }}</td>
-        <td>{{ cohort.trainer }}</td>
+        <td>{{ trainee.name }}</td>
+        <td>{{ trainee.email }}</td>
+        <td>{{ trainee.specialization }}</td>
         <td>
           <input type="checkbox" />
         </td>
