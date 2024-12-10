@@ -14,6 +14,8 @@ export class AddFeedbackComponent {
   @Input() visible: boolean = false;
   @Input() isUpdate: boolean = false;
 
+  close(){}
+
   get title(): string {
     return this.isUpdate
       ? 'Specialization updated successfully'
