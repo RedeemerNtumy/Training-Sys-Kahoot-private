@@ -72,13 +72,13 @@
                         <p>Specify the duration of the cohort</p>
                         <div class="start-end">
                             <div>
-                                <app-input-field [disabled]="editBtnClicked" type="date" formControlName="startDate" id="start-date" />
+                                <app-input-field [disabled]="editBtnClicked" type="date" formControlName="startDate" id="start-date" [minDate]="startDateMin"/>
                                 <div class="error" *ngIf="newCohortForm.controls['startDate'].invalid && (newCohortForm.controls['startDate'].touched || newCohortForm.controls['startDate'].dirty)">
                                     <span>Field is required</span>
                                 </div>
                             </div>
                             <div>
-                                <app-input-field [disabled]="editBtnClicked" type="date" formControlName="endDate" id="end-date" />
+                                <app-input-field [disabled]="editBtnClicked" type="date" formControlName="endDate" id="end-date" [minDate]="endDateMin"/>
                                 <div class="error" *ngIf="newCohortForm.controls['endDate'].invalid && (newCohortForm.controls['endDate'].touched || newCohortForm.controls['endDate'].dirty)">
                                     <span>Field is required</span>
                                 </div>
