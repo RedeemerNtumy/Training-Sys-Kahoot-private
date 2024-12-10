@@ -12,6 +12,7 @@ import { Question } from '@core/models/kahoot-questions';
 import { KahootService } from '@core/services/assessment/kahoot/kahoot.service';
 import { CommonModule } from '@angular/common';
 import { initializeDropdownOptions } from '../../../../utils/kahootDropDownData';
+import { LoaderComponent } from "../../../../core/shared/loader/loader.component";
 
 @Component({
   selector: 'app-generate-by-ai',
@@ -22,7 +23,8 @@ import { initializeDropdownOptions } from '../../../../utils/kahootDropDownData'
     ReactiveFormsModule,
     QuestionCardComponent,
     CommonModule,
-  ],
+    LoaderComponent
+],
   templateUrl: './generate-by-ai.component.html',
   styleUrl: './generate-by-ai.component.scss',
 })
