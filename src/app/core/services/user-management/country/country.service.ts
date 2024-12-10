@@ -1,21 +1,15 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import * as ct from 'countries-and-timezones';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CountryService {
-  private apiUrl = 'https://restcountries.com/v3.1/all';
-
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   getCountries(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl).pipe(
-      catchError((error) => {
-        console.error('Error fetching countries', error);
-        return [];
-      })
-    );
+    const countries = ct.getAllCountries();
+    return of(Object.values(countries));
   }
 }
