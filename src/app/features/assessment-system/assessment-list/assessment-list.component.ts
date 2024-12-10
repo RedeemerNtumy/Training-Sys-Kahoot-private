@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { SearchbarComponent } from '../../../core/shared/searchbar/searchbar.component';
 import { AssessmentCardComponent } from '../components/assessment-card/assessment-card.component';
-import { LoaderComponent } from "../../../core/shared/loader/loader.component";
+import { LoaderComponent } from '../../../core/shared/loader/loader.component';
 
 @Component({
   selector: 'app-assessment-list',
@@ -21,8 +21,8 @@ import { LoaderComponent } from "../../../core/shared/loader/loader.component";
     CommonModule,
     SearchbarComponent,
     AssessmentCardComponent,
-    LoaderComponent
-],
+    LoaderComponent,
+  ],
   templateUrl: './assessment-list.component.html',
   styleUrl: './assessment-list.component.scss',
 })
@@ -47,18 +47,19 @@ export class AssessmentListComponent {
 
   ngOnInit(): void {
     this.fetchAssessments();
-    this.assessments$.subscribe((data) => {
-      this.isAssessmentsEmpty = data.length === 1;
-      this.isLoading = false;
-    });
   }
 
   fetchAssessments() {
     this.isLoading = true;
     this.assessments$ = this.assessmentService.getAssessments();
     this.assessments$.subscribe(
-      (data) => {
-        this.isAssessmentsEmpty = data.length === 0;
+      (data: AssessmentData[]) => {
+        this.isAssessmentsEmpty = data.every(
+          (assessment) =>
+            assessment.quizzes.length === 0 &&
+            assessment.labs.length === 0 &&
+            assessment.presentations.length === 0
+        );
         this.isLoading = false;
       },
       (error) => {

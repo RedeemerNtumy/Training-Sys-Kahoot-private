@@ -1,15 +1,12 @@
-<!-- <ng-container *ngIf="isLoading; else contentTemplate">
+<ng-container *ngIf="isLoading; else contentTemplate">
   <div class="load">
     <app-loader />
   </div>
-</ng-container> -->
+</ng-container>
 
-<!-- <ng-template #contentTemplate> -->
-  <div *ngIf="!isAssessmentsEmpty; else noDataTemplate">
-    <div
-      *ngIf="assessments$ | async as assessments; else noDataTemplate"
-      class="wrapper"
-    >
+<ng-template #contentTemplate>
+  <ng-container *ngIf="assessments$ | async as assessments; else noDataTemplate">
+    <div *ngIf="!isAssessmentsEmpty; else noDataTemplate" class="wrapper">
       <div class="col-1">
         <app-searchbar [title]="'Assessment'" [placeholder]="'Name'" />
       </div>
@@ -19,8 +16,8 @@
         </div>
       </div>
     </div>
-  </div>
-<!-- </ng-template> -->
+  </ng-container>
+</ng-template>
 
 <ng-template #noDataTemplate>
   <div class="empty-assessment">
