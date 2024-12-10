@@ -46,3 +46,8 @@ export interface ContentResponse <T>{
   totalPages: number;
 }
 
+export interface ActionEvent {
+  event: Event;
+  action: string;
+  spec: specialization;
+}

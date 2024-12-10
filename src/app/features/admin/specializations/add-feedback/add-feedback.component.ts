@@ -23,7 +23,7 @@ export class AddFeedbackComponent {
   get message(): string {
     return this.isUpdate
       ? 'Specialization updated successfully! The changes have been saved and updated details are now available.'
-      : 'Specialization added successfully! You can now view, assign trainees to this specialization, or update the details at any time.';
+      : 'Specialization successfully added! You can now view, assign trainees to this specialization, or update the details at any time.';
   }
 
 }
