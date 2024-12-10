@@ -1,10 +1,10 @@
-<ng-container *ngIf="isLoading; else contentTemplate">
+<!-- <ng-container *ngIf="isLoading; else contentTemplate">
   <div class="load">
     <app-loader />
   </div>
-</ng-container>
+</ng-container> -->
 
-<ng-template #contentTemplate>
+<!-- <ng-template #contentTemplate> -->
   <div *ngIf="!isAssessmentsEmpty; else noDataTemplate">
     <div
       *ngIf="assessments$ | async as assessments; else noDataTemplate"
@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-</ng-template>
+<!-- </ng-template> -->
 
 <ng-template #noDataTemplate>
   <div class="empty-assessment">

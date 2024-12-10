@@ -48,7 +48,7 @@ export class AssessmentListComponent {
   ngOnInit(): void {
     this.fetchAssessments();
     this.assessments$.subscribe((data) => {
-      this.isAssessmentsEmpty = data.length === 0;
+      this.isAssessmentsEmpty = data.length === 1;
       this.isLoading = false;
     });
   }
