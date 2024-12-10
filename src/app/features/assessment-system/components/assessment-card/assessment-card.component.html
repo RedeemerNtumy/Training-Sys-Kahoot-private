@@ -28,25 +28,27 @@
 
     <!-- labs -->
     <div *ngFor="let lab of assessment.labs" class="cards">
-      <div class="img-div">
-        <img
-          [src]="'data:image/png;base64,' + lab.coverImage"
-          alt="Quiz Cover"
-        />
-      </div>
-      <div class="col-1">
-        <div class="content">
-          <h3>{{ lab.title }}</h3>
-          <div class="label">
-            <div><span>&#8226;</span> {{ lab.assessmentType }}</div>
-            <div><span>&#8226;</span> {{ lab.focusArea }}</div>
-          </div>
-          <p>{{ lab.description }}</p>
+      <div class="content">
+        <div class="img-div">
+          <img
+            [src]="'data:image/png;base64,' + lab.coverImage"
+            alt="Quiz Cover"
+          />
         </div>
-        <button (click)="onShowAssignAssessmentModal()">
-          <span>+</span>
-          <p>Assign</p>
-        </button>
+        <div class="col-1">
+          <div class="content">
+            <h3>{{ lab.title }}</h3>
+            <div class="label">
+              <div><span>&#8226;</span> {{ lab.assessmentType }}</div>
+              <div><span>&#8226;</span> {{ lab.focusArea }}</div>
+            </div>
+            <p>{{ lab.description }}</p>
+          </div>
+          <button (click)="onShowAssignAssessmentModal()">
+            <span>+</span>
+            <p>Assign</p>
+          </button>
+        </div>
       </div>
     </div>
 
