@@ -19,18 +19,18 @@ import { specialization } from '@core/models/specialization.interface';
 export class AddUserFormComponent implements OnInit, OnDestroy {
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-  
+
   newUserForm!: FormGroup;
   genders$!: Observable<Gender[]>;
   countries$!: Observable<Countries[]>;
 
-  restCountries$!: any;
-  
+  restCountries!: any;
+
 
   //Image upload
   previewUrl: string | ArrayBuffer | null = null;
   selectedFile!: File;
-  
+
   private unsubscribe$ = new Subject<void>();
 
   constructor(
@@ -42,14 +42,18 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    this.usermanagementService.getAllCountries().subscribe((data) => {
+      this.restCountries = data;
+    });
 
-    this.restCountries$ = this.usermanagementService.getAllCountries().pipe(
-      map((response: any) => {
-        const data = Object.entries(response.data).map(([key, value], id) => ({ key, value, id }));
-        console.log(data)
-        return data;
-      })
-    )
+
+    // this.restCountries$ = this.usermanagementService.getAllCountries().pipe(
+    //   map((response: any) => {
+    //     const data = Object.entries(response.data).map(([key, value], id) => ({ key, value, id }));
+    //     console.log(data)
+    //     return data;
+    //   })
+    // )
     // this.restCountries$.subscribe((data: any) => console.log(data.data))
 
     this.genders$ = this.usermanagementService.getAllGenders();
@@ -103,11 +107,11 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     if (!trimmedValue) {
       return of(null);
     }
-  
+
     return this.traineeInsystemService.checkEmail(trimmedValue).pipe(
       debounceTime(1000),
       distinctUntilChanged(),
-      switchMap(response => 
+      switchMap(response =>
         response?.length ? of({ emailExists: true }) : of(null)
       ),
       catchError(() => of(null)),
