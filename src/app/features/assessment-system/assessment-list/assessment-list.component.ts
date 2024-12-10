@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { SearchbarComponent } from '../../../core/shared/searchbar/searchbar.component';
 import { AssessmentCardComponent } from '../components/assessment-card/assessment-card.component';
+import { LoaderComponent } from "../../../core/shared/loader/loader.component";
 
 @Component({
   selector: 'app-assessment-list',
@@ -20,7 +21,8 @@ import { AssessmentCardComponent } from '../components/assessment-card/assessmen
     CommonModule,
     SearchbarComponent,
     AssessmentCardComponent,
-  ],
+    LoaderComponent
+],
   templateUrl: './assessment-list.component.html',
   styleUrl: './assessment-list.component.scss',
 })
@@ -28,6 +30,8 @@ export class AssessmentListComponent {
   showModal = false;
   assessmentTypes: CreateAssessment[] = [];
   assessments$!: Observable<AssessmentData[]>;
+  isAssessmentsEmpty = true;
+  isLoading = true;
 
   constructor(
     private router: Router,
@@ -43,13 +47,25 @@ export class AssessmentListComponent {
 
   ngOnInit(): void {
     this.fetchAssessments();
+    this.assessments$.subscribe((data) => {
+      this.isAssessmentsEmpty = data.length === 0;
+      this.isLoading = false;
+    });
   }
 
   fetchAssessments() {
+    this.isLoading = true;
     this.assessments$ = this.assessmentService.getAssessments();
-    this.assessments$.subscribe((data) => {
-      console.log('Fetched assessments:', data);
-    });
+    this.assessments$.subscribe(
+      (data) => {
+        this.isAssessmentsEmpty = data.length === 0;
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error fetching assessments:', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   navigateToAssessmentForm(type: string) {

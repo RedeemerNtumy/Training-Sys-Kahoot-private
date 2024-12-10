@@ -1,6 +1,10 @@
 @import "../../../../styleSheet/mixins";
 @import "../../../../styleSheet/variables";
 
+.load {
+  height: 80vh;
+}
+
 .wrapper {
   @include flexbox(column, flex-start, flex-start);
   gap: 2.9rem;

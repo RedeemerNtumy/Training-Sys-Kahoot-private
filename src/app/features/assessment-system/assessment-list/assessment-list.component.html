@@ -1,16 +1,26 @@
-<div
-  *ngIf="assessments$ | async as assessments; else noDataTemplate"
-  class="wrapper"
->
-  <div class="col-1">
-    <app-searchbar [title]="'Assessment'" [placeholder]="'Name'" />
+<ng-container *ngIf="isLoading; else contentTemplate">
+  <div class="load">
+    <app-loader />
   </div>
-  <div class="assessments">
-    <div *ngFor="let assessment of assessments">
-      <app-assessment-card [assessment]="assessment" />
+</ng-container>
+
+<ng-template #contentTemplate>
+  <div *ngIf="!isAssessmentsEmpty; else noDataTemplate">
+    <div
+      *ngIf="assessments$ | async as assessments; else noDataTemplate"
+      class="wrapper"
+    >
+      <div class="col-1">
+        <app-searchbar [title]="'Assessment'" [placeholder]="'Name'" />
+      </div>
+      <div class="assessments">
+        <div *ngFor="let assessment of assessments">
+          <app-assessment-card [assessment]="assessment" />
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</ng-template>
 
 <ng-template #noDataTemplate>
   <div class="empty-assessment">
