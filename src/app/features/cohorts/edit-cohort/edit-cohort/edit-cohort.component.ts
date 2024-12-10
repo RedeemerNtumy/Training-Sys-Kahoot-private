@@ -25,6 +25,10 @@ export class EditCohortComponent {
 
   allSpecializations$!: Observable<Specialization[]>;
 
+  
+  startDateMin!: string;
+  endDateMin!: string;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -34,6 +38,7 @@ export class EditCohortComponent {
   ) {}
 
   ngOnInit() {
+    this.setMinMaxDates()
 
     this.allSpecializations$ = this.usermanagementservice.getAllspecializations();
 
@@ -156,6 +161,18 @@ export class EditCohortComponent {
 
   toggleSuccessModal() {
     this.isModalOpen = !this.isModalOpen;
+  }
+
+  setMinMaxDates() {
+    const today = new Date();
+    this.startDateMin = this.formatDate(today); // Start date is from today
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    this.endDateMin = this.formatDate(tomorrow); 
+  }
+
+  formatDate(date: Date): string {
+    return date.toISOString().split('T')[0];
   }
   
 }
