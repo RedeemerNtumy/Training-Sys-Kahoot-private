@@ -107,4 +107,12 @@
       Continue
     </button>
   </form>
+
+  <app-feedback
+      [visible]="feedbackVisible"
+      [title]="feedbackTitle"
+      [message]="feedbackMessage"
+      [imageSrc]="feedbackImageSrc"
+      (closeDialog)="onCloseFeedback()"
+    ></app-feedback>
 </div>
