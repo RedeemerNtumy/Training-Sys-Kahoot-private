@@ -44,7 +44,6 @@ Thumbs.db
 /src/environments
 
 db.json
-src/assets/data/assessmentType.json
 
 # Json Webserver folder
 /jws-dbs
