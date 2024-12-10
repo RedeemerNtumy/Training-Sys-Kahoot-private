@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorHandlerService } from '../../cohort-data/error-handling/error-handler.service';
-import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { User } from '../../../models/cohort.interface';
 import { environment } from 'src/environments/environment.development';
 import { TraineeList } from '@core/models/trainee.interface';
@@ -47,7 +47,10 @@ export class TraineeInsystemService {
 
   // Get the email entered into the input field
   checkEmail(email: string) {
-    return this.http.get<User[]>(`${this.baseUrl}?email=${encodeURIComponent(email)}`).pipe(
+    return this.http.get<User[]>(`${this.baseUrl}/profiles/trainees/find`, {
+      headers: this.getHeaders(),
+      params: {email: email},
+    }).pipe(
       tap(response => {
         const [data] = response;
         this.retreivedUserDataSubject.next(data);
