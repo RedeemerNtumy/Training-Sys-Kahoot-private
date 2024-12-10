@@ -50,7 +50,7 @@ export class ListCohortsComponent {
         this.listEmptyCheck = false;
       },
       error: (err) => {
-        console.log("cohort list error: ", err)
+        console.error("cohort list error: ", err)
       }
 
     })
@@ -126,7 +126,7 @@ export class ListCohortsComponent {
         window.location.reload();
       },
       error: (error) => {
-        console.log("error deleting cohort: ", error)
+        console.error("error deleting cohort: ", error)
       }
     })
     this.toggleHideDeleteModal();

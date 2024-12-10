@@ -25,7 +25,6 @@ export class CohortDataService {
     private http: HttpClient,
     public errorhandlerService: ErrorHandlerService
     ) { }
-
   
   //(HTTP Request) Retriev a list of cohorts from backend 
   getAllCohorts(): Observable<CohortList[]> { 
@@ -38,9 +37,10 @@ export class CohortDataService {
 
   //(HTTP Request) Make a post request to backend to add cohort
   addCohort(formData: Cohort) {
-    console.log("formData", formData)
 
-    return this.http.post<CohortList>(this.cohortsListUrl, formData).pipe(
+    return this.http.post<CohortList>(this.cohortsListUrl, {
+      formData,
+    }).pipe(
       catchError(error => this.errorhandlerService.handleError(error))
     )
   }
@@ -60,8 +60,9 @@ export class CohortDataService {
   }
 
   updateCohort(formData: Cohort) {
-    console.log("formData: ", formData)
-    return this.http.put<Cohort>(`${this.cohortsListUrl}/${this.selectedCohortForUpdate}`, formData).pipe(
+    return this.http.put<Cohort>(`${this.cohortsListUrl}/${this.selectedCohortForUpdate}`, {
+      formData,
+    }).pipe(
       catchError(error => this.errorhandlerService.handleError(error))
     )
   }

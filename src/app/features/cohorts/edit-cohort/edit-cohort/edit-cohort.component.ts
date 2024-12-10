@@ -111,11 +111,9 @@ export class EditCohortComponent {
       // Remove original specializations
       delete formValue.specializations;
   
-      console.log("before request: ", formValue)
       this.cohortDataService.addCohort(formValue).subscribe({
         next: () => {
           this.modalService.toggleSuccessModal();
-          // this.goBack(); 
         },
         error: (err) => {
           console.error('Submission error', err);
