@@ -26,6 +26,7 @@
     "@ngrx/entity": "^17.2.0",
     "@ngrx/store": "^17.2.0",
     "@ngrx/store-devtools": "^17.2.0",
+    "countries-and-timezones": "^3.7.2",
     "jwt-decode": "^4.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.11",

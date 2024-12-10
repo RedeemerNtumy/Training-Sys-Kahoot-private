@@ -58,6 +58,9 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   genders$!: Observable<Gender[]>;
   countries$!: Observable<Countries[]>;
 
+  restCountries!: any;
+
+
   //Image upload
   previewUrl: string | ArrayBuffer | null = null;
   selectedFile!: File;
@@ -75,6 +78,20 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setMaxDateOfBirth();
+
+    this.usermanagementService.getAllCountries().subscribe((data) => {
+      this.restCountries = data;
+    });
+
+
+    // this.restCountries$ = this.usermanagementService.getAllCountries().pipe(
+    //   map((response: any) => {
+    //     const data = Object.entries(response.data).map(([key, value], id) => ({ key, value, id }));
+    //     console.log(data)
+    //     return data;
+    //   })
+    // )
+    // this.restCountries$.subscribe((data: any) => console.log(data.data))
 
     this.genders$ = this.usermanagementService.getAllGenders();
     this.countries$ = this.usermanagementService.getAllCountries();
@@ -139,7 +156,7 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     return this.traineeInsystemService.checkEmail(trimmedValue).pipe(
       debounceTime(1000),
       distinctUntilChanged(),
-      switchMap((response) =>
+      switchMap(response =>
         response?.length ? of({ emailExists: true }) : of(null)
       ),
       catchError(() => of(null)),

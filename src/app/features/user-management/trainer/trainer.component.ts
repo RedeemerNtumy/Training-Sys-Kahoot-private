@@ -52,8 +52,7 @@ export class TrainerComponent {
   selectedCountry!: string;
   selectedFileName: string | null = null;
   selectedFile: File | null = null;
-  countries$!: Observable<Countries[]>;
-  restCountries$!: any;
+  restCountries!: any;
   feedbackVisible: boolean = false;
   feedbackTitle: string = '';
   feedbackMessage: string = '';
@@ -65,21 +64,16 @@ export class TrainerComponent {
     private svgService: SvgService,
     private userManagementService: UserManagementTraineeService,
     private router: Router,
-    private traineeInsystemService: TraineeInsystemService
+    private traineeInsystemService: TraineeInsystemService,
+    private countryService: CountryService
   ) {}
 
   ngOnInit() {
     this.trainerForm = this.initTrainerForm();
-    this.restCountries$ = this.userManagementService.getAllCountries().pipe(
-      map((response: any) => {
-        const data = Object.entries(response.data).map(([key, value], id) => ({
-          key,
-          value,
-          id,
-        }));
-        return data;
-      })
-    );
+    this.countryService.getCountries().subscribe((data) => {
+      this.restCountries = data;
+    });
+
     this.allSpecializations$ =
       this.userManagementService.getAllspecializations();
 
