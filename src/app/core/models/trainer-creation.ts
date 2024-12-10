@@ -1,3 +1,5 @@
+export type Status = 'ACTIVE' | 'INACTIVE' | 'DEACTIVATED';
+
 export interface TrainerCreation {
   email: string;
   firstName: string;
@@ -7,5 +9,5 @@ export interface TrainerCreation {
   country: string;
   phoneNumber: string;
   profilePhoto: File;
-  status: 'ACTIVE' | 'INACTIVE' | 'DEACTIVATED';
+  status: Status;
 }
