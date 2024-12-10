@@ -108,10 +108,13 @@ export class AssessmentFormComponent {
             console.error(err);
           },
         });
-      } else {
-        // this.assessmentService.addAssessment(formData).subscribe(() => {
-        //   this.formSubmit.emit(this.form.value);
-        // });
+      } else if (this.type === 'lab') {
+        console.log('Creating Lab', formData);
+        this.assessmentService.createLab(formData).subscribe({
+          next: (response) => {
+            console.log(response);
+          },
+        });
       }
     }
   }

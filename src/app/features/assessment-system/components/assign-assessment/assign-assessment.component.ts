@@ -1,4 +1,4 @@
-import { Component, model, Output, EventEmitter } from '@angular/core';
+import { Component, model, Output, EventEmitter, OnInit } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TraineeListComponent } from '../trainee-list/trainee-list.component';
 import { CohortListComponent } from '../cohort-list/cohort-list.component';
@@ -8,6 +8,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TabViewModule } from 'primeng/tabview';
+import { TraineeInsystemService } from '@core/services/user-management/trainee/trainee-insystem.service';
 
 interface FilterOptions {
   specialization: string[];
@@ -31,11 +32,19 @@ interface FilterOptions {
   templateUrl: './assign-assessment.component.html',
   styleUrl: './assign-assessment.component.scss',
 })
-export class AssignAssessmentComponent {
+export class AssignAssessmentComponent implements OnInit {
+  constructor(private traineeInsystem: TraineeInsystemService) {}
+
   filterOptions: FilterOptions = {
     specialization: ['UI/UX Design', 'Frontend', 'Backend', 'DevOps'],
     cohort: ['Cohort 1', 'Cohort 2', 'Cohort 3'],
   };
+
+  ngOnInit(): void {
+    this.traineeInsystem
+      .getAllTrainees()
+      .subscribe((data) => console.log(data));
+  }
 
   readonly checked = model(false);
 
