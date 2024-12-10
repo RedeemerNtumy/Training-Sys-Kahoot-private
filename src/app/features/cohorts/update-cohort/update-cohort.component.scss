@@ -9,6 +9,7 @@
     overflow-x: scroll;
     // padding-top: 5rem;
     font-family: $font-lato;
+    padding: 0 8rem;
 
     & .wrapper {
         width: 100%;
@@ -216,6 +217,16 @@
                         & #start-date {
                             width: 100%;
                         }
+
+                        & .error {
+                            text-align: right;
+
+                            & span {
+                                font-size: $font-size-xbody;
+                                font-weight: 400;
+                                color: $clr-red-500;
+                            }
+                        }
                     }
                     & div {
                         width: 100%; 
@@ -267,5 +278,6 @@
 .error {
     text-align: right; 
     color: $clr-red-500;
+    font-size: $font-size-xbody;
 }
   
