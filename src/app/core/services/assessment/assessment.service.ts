@@ -12,6 +12,7 @@ import {
 import {
   AssessmentData,
   AssessmentType,
+  AssignAssessment,
   CreateAssessment,
   Lab,
   Quiz,
@@ -52,11 +53,13 @@ export class AssessmentService {
           console.log('API response:', response);
         }),
         map((response: AssessmentData) => {
-          const assessments: AssessmentData[] = [{
-            quizzes: response.quizzes,
-            labs: response.labs,
-            presentations: response.presentations,
-          }];
+          const assessments: AssessmentData[] = [
+            {
+              quizzes: response.quizzes,
+              labs: response.labs,
+              presentations: response.presentations,
+            },
+          ];
           return assessments;
         }),
         tap((data) => {
@@ -96,5 +99,9 @@ export class AssessmentService {
   // create lab
   createLab(data: FormData): Observable<Lab> {
     return this.http.post<Lab>(`${environment.BaseUrl}/assessments/lab`, data);
+  }
+
+  assignAssessment(data: AssignAssessment) {
+    return this.http.post(`${environment.BaseUrl}/assignments/batch`, data, {responseType: 'text'});
   }
 }
