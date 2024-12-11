@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, tap } from 'rxjs';
-import {
-  ContentResponse,
-  specialization,
-} from '../../models/specialization.interface';
 import { ErrorHandleService } from '../error-handle/error-handle.service';
 import { environment } from '../../../../environments/environment.development';
+import { specialization } from '../../models/specialization.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -19,19 +16,16 @@ export class SpecializationCrudService {
     private errorService: ErrorHandleService
   ) {}
 
-  getAllSpecializations(): Observable<ContentResponse<specialization[]>> {
+  getAllSpecializations(): Observable<specialization[]> {
     const headers = new HttpHeaders({
       'ngrok-skip-browser-warning': '69420',
     });
     return this.http
-      .get<ContentResponse<specialization[]>>(
+      .get<specialization[]>(
         `${this.hostedServer}/specializations`,
         { headers }
       )
       .pipe(
-        tap((response) =>
-          console.log('Specializations from Backend:', response.content)
-        ),
         catchError(this.errorService.handleError)
       );
   }

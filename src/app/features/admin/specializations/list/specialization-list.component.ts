@@ -109,7 +109,7 @@ export class SpecializationListComponent implements OnInit {
   }
 
   private navigateToCreate(id: number | undefined): void {
-    this.router.navigate(['home', 'admin', 'specialization', 'create'], {
+    this.router.navigate(['home', 'admin', 'specialization-management', 'create'], {
       queryParams: { id }
     });
   }
