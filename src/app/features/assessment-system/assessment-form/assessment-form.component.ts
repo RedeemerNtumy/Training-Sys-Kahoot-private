@@ -17,11 +17,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizDataService } from '@core/services/assessment/quiz-data.service';
 import { AssessmentService } from '@core/services/assessment/assessment.service';
+import { FeedbackComponent } from '../../../core/shared/modal/feedback/feedback.component';
 
 @Component({
   selector: 'app-assessment-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatIconModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    MatIconModule,
+    FeedbackComponent,
+  ],
   templateUrl: './assessment-form.component.html',
   styleUrl: './assessment-form.component.scss',
 })
@@ -33,6 +39,18 @@ export class AssessmentFormComponent {
   upLoadedFile: string = '';
 
   form: FormGroup;
+
+  feedbackVisible: boolean = false;
+  feedbackTitle: string = '';
+  feedbackMessage: string = '';
+  feedbackImageSrc: string = '';
+
+  showFeedback(title: string, message: string, imageSrc: string) {
+    this.feedbackTitle = title;
+    this.feedbackMessage = message;
+    this.feedbackImageSrc = imageSrc;
+    this.feedbackVisible = true;
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -112,6 +130,11 @@ export class AssessmentFormComponent {
         console.log('Creating Lab', formData);
         this.assessmentService.createLab(formData).subscribe({
           next: (response) => {
+            this.showFeedback(
+              'Lab Assignment Saved Successfully',
+              'Your lab assignment has been successfully created. You can now proceed to assign it to the relevant trainees or cohorts when ready!',
+              'assets/Images/svg/add-spec.svg'
+            );
             console.log(response);
           },
         });
@@ -127,5 +150,10 @@ export class AssessmentFormComponent {
         this.quizDataService.clearQuizData();
       }
     });
+  }
+
+  onCloseFeedback() {
+    this.feedbackVisible = false;
+    this.router.navigate(['/home/trainer/assessment']);
   }
 }
