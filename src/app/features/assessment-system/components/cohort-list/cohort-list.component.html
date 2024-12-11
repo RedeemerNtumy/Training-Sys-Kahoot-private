@@ -1,5 +1,5 @@
 <div class="card">
-  <p-table [value]="cohorts" [tableStyle]="{ 'min-width': '50rem' }">
+  <p-table [value]="activeCohort" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
         <th>Cohorts</th>
@@ -11,10 +11,10 @@
     </ng-template>
     <ng-template pTemplate="body" let-cohort>
       <tr>
-        <td>{{ cohort.topic }}</td>
-        <td>{{ cohort.specialization }}</td>
-        <td>{{ cohort.trainer }}</td>
-        <td>{{ cohort.time }}</td>
+        <td>{{ cohort.name }}</td>
+        <td>{{ cohort.startDate }}</td>
+        <td>{{ cohort.endDate }}</td>
+        <td>{{ cohort.traineesEnrolled }}</td>
         <td>
           <input type="checkbox" />
         </td>
