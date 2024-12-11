@@ -1,4 +1,3 @@
-import { CreateComponent } from './../../features/admin/curriculum/create/create.component';
 
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../views/admin/dashboard/dashboard.component';
@@ -85,7 +84,7 @@ export const adminRoutes: Routes = [
   },
   {
     path: 'progression-tracking',
-    loadComponent: () => import('@views/trainer/progress-tracking/progress-tracking.component')
+    loadComponent: () => import('@views/admin/progress-tracking/progress-tracking.component')
     .then(m => m.ProgressTrackingComponent)
   },
   {

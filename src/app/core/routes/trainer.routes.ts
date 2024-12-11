@@ -1,6 +1,7 @@
 
 import { Routes } from '@angular/router';
-import { DashboardComponent } from '@views/trainer/dashboard/dashboard.component';
+import { WelcomePageComponent } from '@features/grade-management/welcome-page/welcome-page.component';
+
 
 export const trainerRoutes: Routes = [
   {
@@ -10,7 +11,7 @@ export const trainerRoutes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    component: WelcomePageComponent,
     data: { role: 'trainer' }
   },
   {
@@ -23,7 +24,38 @@ export const trainerRoutes: Routes = [
     path: 'grade-management',
     loadComponent : ()=> import('@views/trainer/grade-management/grade-management.component')
     .then(m => m.GradeManagementComponent),
-    data: { role: 'trainerer' }
+    data: { role: 'trainer' },
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('../../features/grade-management/assessment-tabs/assessment-tabs.component')
+        .then(m => m.AssessmentTabsComponent),
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('../../features/grade-management/view-assessment-list/view-assessment-list.component')
+            .then(m => m.ViewAssessmentListComponent),
+          },
+          {
+            path: 'trainee-list',
+            loadComponent: () => import('../../features/grade-management/view-ungraded-trainees-list/trainees-list/trainees-list.component')
+            .then(m => m.TraineesListComponent),
+          },
+        ]
+      },
+      {
+        path: 'grade-history',
+        loadComponent: () => import('../../features/grade-management/assessment-tabs-second/assessment-tabs-second.component')
+        .then(m => m.AssessmentTabsSecondComponent),
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('../../features/grade-management/view-grade-history-list/view-grade-history/view-grade-history.component')
+            .then(m => m.ViewGradeHistoryComponent),
+          },
+        ]
+      },
+    ]
   },
   {
     path: 'trainee-management',

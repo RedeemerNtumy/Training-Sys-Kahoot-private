@@ -1,0 +1,61 @@
+@import '../../../../styleSheet/grade_management_mixins';
+@import '../../../../styleSheet/variables';
+
+.container {
+    font-family: $font-lato;
+    width: 96.7rem;
+    height: 90vh;
+}
+
+.title-and-trainee-name {
+    @include title-and-trainee-name;
+}
+
+.score {
+    @include score;
+}
+
+.directions {
+    @include directions;
+}
+
+.divider {
+    @include divider;
+}
+
+.questions-container {
+    @include questions-container;
+}
+
+.questions-list-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    & .questions-list {
+        @include question-list;
+        height: 7rem;
+    }
+}
+
+.questions-content {
+    @include questions-content;
+
+    & .content-top {
+        @include questions-content;
+        display: flex;
+        flex-direction: column;
+        gap: 3.2rem;
+
+        & .question-header {
+            @include question-header;
+        }
+
+        & .trainees-answer {
+            @include trainees-answer;
+        }
+    }
+
+    & .grading-btns {
+        @include grading-btns;
+    }
+}
