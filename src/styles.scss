@@ -5,10 +5,10 @@
 @use "@angular/material" as mat;
 @include mat.core();
 @import "primeicons/primeicons.css";
-@import './styleSheet/variables';
+@import "./styleSheet/variables";
 
-@import './styleSheet/variables';
-@import './styleSheet/typography';
+@import "./styleSheet/variables";
+@import "./styleSheet/typography";
 
 // Define palettes
 $primary: mat.define-palette(mat.$indigo-palette);
@@ -30,6 +30,23 @@ $theme: mat.define-light-theme(
 
 // Include theme styles
 @include mat.all-component-themes($theme);
+
+.mat-mdc-tab-group,
+.mat-mdc-tab-nav-bar {
+  --mdc-tab-indicator-active-indicator-color: #f98416 !important;
+  --mat-tab-header-disabled-ripple-color: #f98416 !important;
+  --mat-tab-header-pagination-icon-color: #f98416 !important;
+  --mat-tab-header-inactive-label-text-color: #676767 !important;
+  --mat-tab-header-active-label-text-color: #676767 !important;
+  --mat-tab-header-active-ripple-color: #fff !important;
+  --mat-tab-header-inactive-ripple-color: #fff !important;
+  --mat-tab-header-inactive-focus-label-text-color: #676767 !important;
+  --mat-tab-header-inactive-hover-label-text-color: #676767 !important;
+  --mat-tab-header-active-focus-label-text-color: #676767 !important;
+  --mat-tab-header-active-hover-label-text-color: #676767 !important;
+  --mat-tab-header-active-focus-indicator-color: #f98416 !important;
+  --mat-tab-header-active-hover-indicator-color: #f98416 !important;
+}
 
 .accordion {
   .p-accordion {
@@ -70,19 +87,90 @@ $theme: mat.define-light-theme(
   }
 }
 
-<<<<<<<<< Temporary merge branch 1
-
-.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
+.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs
+  > .mat-mdc-tab-header
+  .mat-mdc-tab {
   flex-grow: 0 !important;
 }
-=========
-body{
-  min-height: 100vh;
-}
+
+// body {
+//   min-height: 100vh;
+// }
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
   border-color: $clr-primary-500;
 }
 
 .p-tabview .p-tabview-nav li .p-tabview-nav-link {
   background: none;
+}
+
+
+.filters-container {
+  z-index: 1000;
+
+  .p-dropdown {
+    padding: 1rem 2rem;
+    cursor: pointer;
+  }
+}
+
+.mat-mdc-tab.mdc-tab {
+  margin-bottom: 3rem;
+}
+
+.mat-mdc-text-field-wrapper {
+  will-change: unset !important;
+}
+
+.mdc-notched-outline {
+  height: 5rem;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  font-size: 1.5rem;
+  background: #f0f0f0;
+  padding: 0.8rem 1.6rem;
+  font-weight: 400;
+  color: #676767;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 2.3rem 1.6rem;
+  font-size: 1.5rem;
+  color: #676767;
+}
+
+.p-datatable .p-datatable-tbody {
+  gap: 1.5rem;
+}
+
+.select {
+  .p-dropdown {
+    width: 160px;
+  }
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  color: $clr-white;
+  background: $clr-primary-500;
+  border-color: $clr-primary-500;
+}
+
+.p-dropdown-panel
+  .p-dropdown-items
+  .p-dropdown-item:not(.p-highlight):not(.p-disabled).p-focus {
+  color: $clr-white;
+  background: $clr-gray-300;
+  border-color: $clr-primary-500;
+  box-shadow: none;
+}
+
+.p-dropdown:not(.p-disabled):hover {
+  border-color: $clr-primary-500;
+  box-shadow: none;
+}
+
+.p-dropdown {
+  box-shadow: none;
+  border-color: $clr-gray-300;
 }
