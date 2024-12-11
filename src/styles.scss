@@ -156,3 +156,23 @@ $theme: mat.define-light-theme(
   box-shadow: none;
   border-color: $clr-gray-300;
 }
+
+.mdc-checkbox
+  .mdc-checkbox__native-control:enabled:checked
+  ~ .mdc-checkbox__background,
+.mdc-checkbox
+  .mdc-checkbox__native-control:enabled:indeterminate
+  ~ .mdc-checkbox__background,
+.mdc-checkbox
+  .mdc-checkbox__native-control[data-indeterminate="true"]:enabled
+  ~ .mdc-checkbox__background {
+  background-color: $clr-primary-500 !important;
+  border-color: $clr-primary-500 !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  input[type="checkbox"] {
+    background-color: #f98416 !important;
+    border-color: #f98416 !important;
+  }
+}
