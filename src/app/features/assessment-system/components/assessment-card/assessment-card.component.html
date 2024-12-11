@@ -1,24 +1,83 @@
-<div *ngIf="assessment" class="cards">
-  <div class="img-div">
-    <img [src]="assessment.coverImage" [alt]="assessment.title" />
-  </div>
-  <div class="col-1">
-    <div class="content">
-      <h3>{{ assessment.title }}</h3>
-      <div class="label">
-        <div><span>&#8226;</span> {{ assessment.assessmentType }}</div>
-        <div><span>&#8226;</span> {{ assessment.focusArea }}</div>
-        <div><span>&#8226;</span>{{ assessment.questionsCount }} Question</div>
+<ng-container *ngIf="assessment">
+  <div class="container">
+    <!-- quizzes -->
+    <div *ngFor="let quiz of assessment.quizzes" class="cards">
+      <div class="content">
+        <div class="img-div">
+          <img
+            [src]="'data:image/png;base64,' + quiz.coverImage"
+            alt="Quiz Cover"
+          />
+        </div>
+        <div class="col-1">
+          <div class="content">
+            <h3>{{ quiz.title }}</h3>
+            <div class="label">
+              <div><span>&#8226;</span> {{ quiz.assessmentType }}</div>
+              <div><span>&#8226;</span> {{ quiz.focusArea }}</div>
+            </div>
+            <p>{{ quiz.description }}</p>
+          </div>
+          <button (click)="onShowAssignAssessmentModal()">
+            <span>+</span>
+            <p>Assign</p>
+          </button>
+        </div>
       </div>
-      <p>{{ assessment.description }}</p>
     </div>
-    <button (click)="onShowAssignAssessmentModal()">
-      <span>+</span>
-      <p>Assign</p>
-    </button>
-  </div>
-</div>
 
-@if(showAssignAssessmentModal) {
-<app-assign-assessment />
-}
+    <!-- labs -->
+    <div *ngFor="let lab of assessment.labs" class="cards">
+      <div class="content">
+        <div class="img-div">
+          <img
+            [src]="'data:image/png;base64,' + lab.coverImage"
+            alt="Quiz Cover"
+          />
+        </div>
+        <div class="col-1">
+          <div class="content">
+            <h3>{{ lab.title }}</h3>
+            <div class="label">
+              <div><span>&#8226;</span> {{ lab.assessmentType }}</div>
+              <div><span>&#8226;</span> {{ lab.focusArea }}</div>
+            </div>
+            <p>{{ lab.description }}</p>
+          </div>
+          <button (click)="onShowAssignAssessmentModal()">
+            <span>+</span>
+            <p>Assign</p>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- presentations -->
+    <div *ngFor="let presentation of assessment.presentations" class="cards">
+      <div class="img-div">
+        <img
+          [src]="'data:image/png;base64,' + presentation.coverImage"
+          alt="Quiz Cover"
+        />
+      </div>
+      <div class="col-1">
+        <div class="content">
+          <h3>{{ presentation.title }}</h3>
+          <div class="label">
+            <div><span>&#8226;</span> {{ presentation.assessmentType }}</div>
+            <div><span>&#8226;</span> {{ presentation.focusArea }}</div>
+          </div>
+          <p>{{ presentation.description }}</p>
+        </div>
+        <button (click)="onShowAssignAssessmentModal()">
+          <span>+</span>
+          <p>Assign</p>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div *ngIf="showAssignAssessmentModal">
+  <app-assign-assessment (cancel)="onCloseAssignAssessmentModal()" />
+</div>

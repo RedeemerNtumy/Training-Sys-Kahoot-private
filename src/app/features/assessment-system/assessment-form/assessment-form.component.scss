@@ -101,6 +101,14 @@
         background: $clr-white;
         position: relative;
         cursor: pointer;
+
+        .file-upload {
+          @include flexbox(column, center, center);
+
+          .img {
+            color: $clr-primary-500;
+          }
+        }
       }
     }
 
@@ -114,6 +122,7 @@
       font-size: 1.8rem;
       font-weight: 700;
       color: $clr-white;
+      cursor: pointer;
 
       &:disabled {
         background-color: $clr-gray-300;

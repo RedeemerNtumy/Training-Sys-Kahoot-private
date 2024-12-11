@@ -22,8 +22,8 @@
           (change)="onCoverImageSelected($event)"
           accept="image/png, image/jpeg, image/webp"
         />
-        <p class="add-img" *ngIf="!selectedFileName">Add image here</p>
-        <p class="image-name" *ngIf="selectedFileName">
+        <p class="img" *ngIf="!selectedFileName">Add image here</p>
+        <p class="img image-name" *ngIf="selectedFileName">
           {{ selectedFileName }}
         </p>
         <p class="file-info">Supports: PNG, JPG, JPEG, WEBP</p>
@@ -92,9 +92,13 @@
           #fileInput
           style="display: none"
           (change)="onFileSelected($event)"
-          accept="image/png, image/jpeg, image/webp"
+          accept="image/png, image/jpeg, image/webp, application/pdf"
         />
-        <p class="file-info">Supports: PNG, JPG, JPEG, WEBP</p>
+        <p class="img" *ngIf="!upLoadedFile">Add image here</p>
+        <p class="img image-name" *ngIf="upLoadedFile">
+          {{ upLoadedFile }}
+        </p>
+        <p class="file-info">Supports: PNG, JPG, JPEG, WEBP, PDF</p>
       </div>
     </div>
     }
@@ -103,4 +107,12 @@
       Continue
     </button>
   </form>
+
+  <app-feedback
+      [visible]="feedbackVisible"
+      [title]="feedbackTitle"
+      [message]="feedbackMessage"
+      [imageSrc]="feedbackImageSrc"
+      (closeDialog)="onCloseFeedback()"
+    ></app-feedback>
 </div>

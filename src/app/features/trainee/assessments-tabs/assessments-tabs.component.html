@@ -1,0 +1,34 @@
+<div class="container">
+    <app-searchbar 
+        [title]="'Assessments'"
+        [placeholder]="'search here...'"
+        [showAddButton]="false"
+        (searchChanged)="onSearchChange($event)"
+        
+    />
+
+    <div class="divider"></div>
+
+    <div class="content" *ngIf="!empty">
+        <app-quiz-list
+            [assessmentType]="'quiz'"
+            (dataEmpty)="handleChildEmpty($event)"
+        />
+        <app-quiz-list
+            [assessmentType]="'lab'"
+            (dataEmpty)="handleChildEmpty($event)"
+        />
+        <app-quiz-list
+            [assessmentType]="'presentation'"
+            (dataEmpty)="handleChildEmpty($event)"
+        />
+    </div>
+
+    <div class="no-content" *ngIf="empty">
+        <img src="../../../../assets/Images/empty-hint-icon.jpg" alt="empty">
+        <p>Nothing to show...</p>
+    </div>
+
+</div>
+
+

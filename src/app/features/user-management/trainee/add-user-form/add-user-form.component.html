@@ -26,36 +26,36 @@
                 <span>Field is required</span>
             </div>
 
-            <div class="first-last-name">
-                <div class="form-field  first-name">
-                    <div class="label-wrapper">
-                        <label for="first-name">First name</label>
-                        <span>*</span>
-                    </div>
-                    <input type="text" formControlName="firstName">
-                </div>
-                <div class="form-field last-name">
-                    <div class="label-wrapper">
-                        <label for="last-name">Last name</label>
-                        <span>*</span>
-                    </div>
-                    <input type="text" formControlName="lastName">
-                </div>
-            </div>
-            <div class="error" *ngIf="newUserForm.controls['lastName'].invalid && (newUserForm.controls['lastName'].touched || newUserForm.controls['lastName'].dirty)">
-                <span>Field is required</span>
-            </div>
+          <div class="first-last-name">
+              <div class="form-field  first-name">
+                  <div class="label-wrapper">
+                      <label for="first-name">First name</label>
+                      <span>*</span>
+                  </div>
+                  <input type="text" formControlName="firstName">
+              </div>
+              <div class="form-field last-name">
+                  <div class="label-wrapper">
+                      <label for="last-name">Last name</label>
+                      <span>*</span>
+                  </div>
+                  <input type="text" formControlName="lastName">
+              </div>
+          </div>
+          <div class="error" *ngIf="newUserForm.controls['lastName'].invalid && (newUserForm.controls['lastName'].touched || newUserForm.controls['lastName'].dirty)">
+              <span>Field is required</span>
+          </div>
 
-            <div class="form-field date-of-birth">
-                <div class="label-wrapper">
-                    <label for="dob">Date of birth</label>
-                    <span>*</span>
-                </div>
-                <input type="date" formControlName="dateOfBirth">
-            </div>
-            <div class="error" *ngIf="newUserForm.controls['dateOfBirth'].invalid && (newUserForm.controls['dateOfBirth'].touched || newUserForm.controls['dateOfBirth'].dirty)">
-                <span>Field is required</span>
-            </div>
+          <div class="form-field date-of-birth">
+              <div class="label-wrapper">
+                  <label for="dob">Date of birth</label>
+                  <span>*</span>
+              </div>
+              <input type="date" formControlName="dateOfBirth" [max]="maxDate">
+          </div>
+          <div class="error" *ngIf="newUserForm.controls['dateOfBirth'].invalid && (newUserForm.controls['dateOfBirth'].touched || newUserForm.controls['dateOfBirth'].dirty)">
+              <span>Field is required</span>
+          </div>
 
             <div class="gender-country">
                 <div class="error-wrapper">
@@ -92,38 +92,38 @@
                 </div>
             </div>
 
-            <div class="form-field address">
-                <div class="label-wrapper">
-                    <label for="address">Address</label>
-                    <span>*</span>
-                </div>
-                <input type="text" formControlName="address">
-            </div>
-            <div class="error" *ngIf="newUserForm.controls['address'].invalid && (newUserForm.controls['address'].touched || newUserForm.controls['address'].dirty)">
-                <span>Field is required</span>
-            </div>
+          <div class="form-field address">
+              <div class="label-wrapper">
+                  <label for="address">Address</label>
+                  <span>*</span>
+              </div>
+              <input type="text" formControlName="address">
+          </div>
+          <div class="error" *ngIf="newUserForm.controls['address'].invalid && (newUserForm.controls['address'].touched || newUserForm.controls['address'].dirty)">
+              <span>Field is required</span>
+          </div>
 
-            <div class="form-field phone-number">
-                <div class="label-wrapper">
-                    <label for="address">Phone Number</label>
-                    <span>*</span>
-                </div>
-                <input type="text" formControlName="phoneNumber">
-            </div>
-            <div class="error" *ngIf="newUserForm.controls['phoneNumber'].invalid && (newUserForm.controls['phoneNumber'].touched || newUserForm.controls['phoneNumber'].dirty)">
-                <span>Field is required</span>
-            </div>
+          <div class="form-field phone-number">
+              <div class="label-wrapper">
+                  <label for="address">Phone Number</label>
+                  <span>*</span>
+              </div>
+              <input type="number" formControlName="phoneNumber">
+          </div>
+          <div class="error" *ngIf="newUserForm.controls['phoneNumber'].invalid && (newUserForm.controls['phoneNumber'].touched || newUserForm.controls['phoneNumber'].dirty)">
+              <span>Field is required</span>
+          </div>
 
-            <div class="form-field university-completed">
-                <div class="label-wrapper">
-                    <label for="university-completed">University Completed</label>
-                    <span>*</span>
-                </div>
-                <input type="text" formControlName="universityCompleted">
-            </div>
-            <div class="error" *ngIf="newUserForm.controls['universityCompleted'].invalid && (newUserForm.controls['universityCompleted'].touched || newUserForm.controls['universityCompleted'].dirty)">
-                <span>Field is required</span>
-            </div>
+          <div class="form-field university-completed">
+              <div class="label-wrapper">
+                  <label for="university-completed">University Completed</label>
+                  <span>*</span>
+              </div>
+              <input type="text" formControlName="universityCompleted">
+          </div>
+          <div class="error" *ngIf="newUserForm.controls['universityCompleted'].invalid && (newUserForm.controls['universityCompleted'].touched || newUserForm.controls['universityCompleted'].dirty)">
+              <span>Field is required</span>
+          </div>
 
             <div class="form-field upload-photo">
                 <div class="label-wrapper">
@@ -161,9 +161,9 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn">Continue</button>
+          <button type="submit" class="btn">Continue</button>
 
-        </form>
-    </div>
+      </form>
+  </div>
 
 </div>

@@ -1,0 +1,11 @@
+<header class="header">
+  <button class="generate-btn" (click)="onOpenAiModal()">Generate</button>
+  <div class="actions">
+    <button class="btn" [routerLink]="['/home/trainer/assessment']">Exit</button>
+    <button class="btn primary">Share</button>
+  </div>
+</header>
+
+@if(openAiModal){
+<app-generate-by-ai (closeModal)="onCloseAiModal()" />
+}

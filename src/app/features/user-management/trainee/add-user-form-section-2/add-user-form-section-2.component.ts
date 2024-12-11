@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Cohort, Specialization } from '../../../../core/models/cohort.interface';
-import { Observable } from 'rxjs';
+import { Observable, first, map, of, switchMap, tap } from 'rxjs';
 import { UserManagementTraineeService } from '../../../../core/services/user-management/trainee/user-management-trainee.service';
 import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
 
@@ -20,6 +20,8 @@ export class AddUserFormSection2Component {
   allSpecializations$!: Observable<Specialization[]>;
   allCohorts$!: Observable<Cohort[]>;
 
+  selectedCohortStatus: string | undefined = '';
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -32,37 +34,61 @@ export class AddUserFormSection2Component {
       specialization: ['', Validators.required],
       cohort: ['', Validators.required],
       enrollementDate: ['', Validators.required],
-      status: ['', Validators.required],
+      status: ['',],
       // trainingId: ['', Validators.required]
     })
 
     this.allSpecializations$ = this.userManagementTraineeService.getAllspecializations();
-    this.allCohorts$ = this.userManagementTraineeService.getAllCohorts();
+    this.allCohorts$ = this.userManagementTraineeService.getAllCohorts();  
+    
      
-    this.traineeInSystemService.retreivedUserData$.subscribe(data => {
-      if(data) {
-        const capitalizedStatus = this.capitalizeFirstLetter(data.status);
-        this.newUserFormSecTwo.patchValue({
-          specialization: data.specialization?? '',
-          cohort: data.cohort?? '',
-          enrollementDate: data.enrollementDate?? '',
-          status: capitalizedStatus?? '',
-          // trainingId: data.trainingId?? '',
-        })
+    this.traineeInSystemService.secondFormState$
+    .pipe(
+      first(), // Ensure we only subscribe once
+      switchMap(secondFormState => {
+        if (secondFormState) {
+          return of(secondFormState); // Use firstFormState if available
+        }
+        return this.traineeInSystemService.retreivedUserData$; // Otherwise fallback to retrievedUserData$
+      })
+    )
+    .subscribe(data => {
+      if (data) {
+        this.newUserFormSecTwo.patchValue(data);
       }
-    })
+    });
 
   }
 
   onSubmit() {
-    const formData = this.newUserFormSecTwo;
 
-    if(!formData.invalid) {
+    const selectedCohort = this.newUserFormSecTwo.get('cohort')?.value;
+    console.log(selectedCohort);
+
+    this.allCohorts$
+    .pipe(
+      map((cohorts) => cohorts.filter((cohort) => cohort.id == selectedCohort)) // Filter the array
+    )
+    .subscribe((filteredCohorts) => {
+      console.log('Filtered Cohort:', filteredCohorts);
+  
+      this.selectedCohortStatus = filteredCohorts[0].status;
+      console.log('Selected Cohort Status:', this.selectedCohortStatus);
+
+      this.newUserFormSecTwo.patchValue({
+        status: this.selectedCohortStatus,
+      });
+
+      console.log("new user: ", this.newUserFormSecTwo.value)
+
+    });
+
+    if(!this.newUserFormSecTwo.invalid) {
       this.setSecondFormState()
       this.goToConfirmPage();
     }
     else {
-      formData.markAllAsTouched();
+      this.newUserFormSecTwo.markAllAsTouched();
     }
   }
 

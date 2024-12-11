@@ -77,12 +77,6 @@ export const adminRoutes: Routes = [
     ],
   },
   {
-    path: 'cohorts',
-    loadComponent: () => import('@views/admin/cohorts/cohorts-management.component')
-    .then(m => m.CohortsManagementComponent),
-    data: { role: 'admin' }
-  },
-  {
     path: 'progression-tracking',
     loadComponent: () => import('@views/trainer/progress-tracking/progress-tracking.component')
     .then(m => m.ProgressTrackingComponent)

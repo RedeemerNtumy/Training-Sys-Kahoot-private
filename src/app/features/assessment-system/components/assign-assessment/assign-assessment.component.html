@@ -3,17 +3,67 @@
     <div class="col-1">
       <div class="header">
         <p class="assign">Assign</p>
-        <span class="close">
+        <span class="close" (click)="onCancel()">
           <img src="assets/Images/svg/close.svg" alt="close icon"
         /></span>
       </div>
     </div>
     <div class="col-2">
-      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-        <mat-tab label="First">Content 1</mat-tab>
-        <mat-tab label="Second">Content 2</mat-tab>
-        <mat-tab label="Third">Content 3</mat-tab>
-      </mat-tab-group>
+      <div class="filters-container">
+        <p-dropdown
+          [options]="filterOptions.specialization"
+          [(ngModel)]="selectedSpecialization"
+          placeholder="Specialization"
+          (onChange)="applyFilters()"
+        ></p-dropdown>
+
+        <p-dropdown
+          [options]="filterOptions.cohort"
+          [(ngModel)]="selectedCohort"
+          placeholder="Cohort"
+          (onChange)="applyFilters()"
+        ></p-dropdown>
+        <mat-checkbox>Select All</mat-checkbox>
+      </div>
+      <div class="filters-wrapper">
+        <div class="filters-container">
+          <p-dropdown
+            [options]="filterOptions.specialization"
+            [(ngModel)]="selectedSpecialization"
+            placeholder="Specialization"
+            (onChange)="applyFilters()"
+          ></p-dropdown>
+
+          <p-dropdown
+            [options]="filterOptions.cohort"
+            [(ngModel)]="selectedCohort"
+            placeholder="Cohort"
+            (onChange)="applyFilters()"
+          ></p-dropdown>
+          <mat-checkbox>Select All</mat-checkbox>
+        </div>
+        <p-tabView>
+          <p-tabPanel header="Trainee">
+            <app-trainee-list />
+          </p-tabPanel>
+          <p-tabPanel header="Cohort">
+            <app-cohort-list />
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+    </div>
+    <div class="actions-container">
+      <div class="expires">
+        <p-dropdown
+          [options]="expiryOptions"
+          [(ngModel)]="selectedExpiry"
+          placeholder="Expires in"
+        ></p-dropdown>
+      </div>
+      <div class="actions">
+        <button class="btn cancel" (click)="onCancel()">Cancel</button>
+        <button class="btn assign" (click)="onAssign()">Assign</button>
+      </div>
     </div>
   </div>
 </div>

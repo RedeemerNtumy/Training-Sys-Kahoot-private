@@ -6,6 +6,7 @@ export interface Cohort {
     endDate: Date,
     traineesEnrolled: number,
     description: string,
+    status: string;
 }
 
 // For getting a list of cohorts
@@ -61,9 +62,11 @@ export interface User {
     userProfilePhoto: string;
     specialization: string;
     cohort: string;
-    enrollementDate: Date;
+    cohortId: string;
+    enrollementDate?: Date;
+    enrollmentDate?: Date;
     trainingId: string;
-    status: 'active' | 'inactive';
+    status: 'ACTIVE' | 'INACTIVE';
     phoneNumber: string;
     date_added: Date;
 }

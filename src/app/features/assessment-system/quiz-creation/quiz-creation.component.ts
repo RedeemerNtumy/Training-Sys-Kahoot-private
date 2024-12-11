@@ -8,11 +8,14 @@ import {
   FormArray,
   FormBuilder,
   FormGroup,
+  FormsModule,
+  Validators,
 } from '@angular/forms';
 import { AssessmentFormComponent } from '../assessment-form/assessment-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizDataService } from '@core/services/assessment/quiz-data.service';
 import { AssessmentService } from '@core/services/assessment/assessment.service';
+import { AssessmentData, Quiz } from '@core/models/assessment-form.interface';
 
 @Component({
   selector: 'app-quiz-creation',
@@ -23,6 +26,7 @@ import { AssessmentService } from '@core/services/assessment/assessment.service'
     CommonModule,
     AnswerComponent,
     ReactiveFormsModule,
+    FormsModule,
   ],
   templateUrl: './quiz-creation.component.html',
   styleUrl: './quiz-creation.component.scss',
@@ -31,6 +35,7 @@ export class QuizCreationComponent {
   quizForm: FormGroup;
   selectedQuestionIndex: number | null = null;
   quizTitle: string = '';
+  showErrors: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -41,7 +46,9 @@ export class QuizCreationComponent {
   ) {
     this.quizForm = this.fb.group({
       questions: this.fb.array([]),
+      timeFrame: [10, Validators.required],
     });
+    this.addQuestion();
     this.loadQuizData();
     this.loadQuizTitle();
   }
@@ -61,9 +68,10 @@ export class QuizCreationComponent {
 
   addQuestion() {
     const questionGroup = this.fb.group({
-      text: '',
-      answers: this.fb.array([]),
+      text: ['', Validators.required],
+      answers: this.fb.array([], Validators.required),
       timestamp: new Date().toISOString(),
+      marks: [0, Validators.required],
     });
     this.questions.push(questionGroup);
     this.selectedQuestionIndex = this.questions.length - 1;
@@ -77,14 +85,23 @@ export class QuizCreationComponent {
     const answers = (this.questions.at(questionIndex) as FormGroup).get(
       'answers'
     ) as FormArray;
-    answers.push(this.fb.control(''));
+    answers.push(this.fb.group({ text: '', isCorrect: false }));
   }
 
   updateAnswer(questionIndex: number, answerIndex: number, value: string) {
     const answers = (this.questions.at(questionIndex) as FormGroup).get(
       'answers'
     ) as FormArray;
-    answers.at(answerIndex).setValue(value);
+    answers.at(answerIndex).get('text')?.setValue(value);
+  }
+
+  toggleCorrectAnswer(questionIndex: number, answerIndex: number) {
+    const answers = (this.questions.at(questionIndex) as FormGroup).get(
+      'answers'
+    ) as FormArray;
+    answers.controls.forEach((answer, i) => {
+      answer.get('isCorrect')?.setValue(i === answerIndex);
+    });
   }
 
   removeAnswer(questionIndex: number, answerIndex: number) {
@@ -99,37 +116,47 @@ export class QuizCreationComponent {
   }
 
   submitQuiz() {
-    const quizData = this.quizForm.value.questions.map(
-      (question: any, index: number) => ({
-        questionNumber: index + 1,
-        questionText: question.text,
-        updatedTime: question.timestamp,
-        options: question.answers.map((answer: string, i: number) => ({
-          option: this.getOption(i),
-          value: answer,
-        })),
-      })
-    );
+    this.showErrors = true;
 
-    this.quizDataService.getQuizData().subscribe((assessmentFormData) => {
-      if (assessmentFormData) {
-        const combinedData = {
-          ...assessmentFormData,
-          questions: quizData,
-        };
+    if (this.quizForm.invalid) {
+      return;
+    }
 
-        const assessmentFormComponent = new AssessmentFormComponent(
-          this.fb,
-          this.route,
-          this.router,
-          this.quizDataService,
-          this.assessmentService
-        );
-        assessmentFormComponent.submitQuizWithQuestions(quizData);
+    console.log('submitting');
+    const quizData = this.quizForm.value.questions.map((question: any) => ({
+      text: question.text,
+      answers: question.answers.map((answer: any) => ({
+        text: answer.text,
+        isCorrect: answer.isCorrect,
+      })),
+      mark: question.marks,
+    }));
 
-        console.log(combinedData);
-      }
-    });
+    const assessmentData: Quiz = {
+      questions: quizData,
+      timeFrame: this.quizForm.value.timeFrame,
+      assessmentType: 'quiz',
+      coverImage: '',
+      createdAt: new Date().toISOString(),
+      description: '',
+      focusArea: '',
+      title: this.quizTitle,
+    };
+
+    console.log(quizData);
+
+    this.assessmentService
+      .addAssessment(quizData, this.quizForm.value.timeFrame)
+      .subscribe({
+        next: (response) => {
+          console.log('Quiz submitted successfully', response);
+          localStorage.removeItem('quizData');
+          this.router.navigate(['/home/trainer/assessment/quiz-creation']);
+        },
+        error: (err) => {
+          console.error('Error submitting quiz', err);
+        },
+      });
   }
 
   saveQuizData() {
@@ -141,14 +168,35 @@ export class QuizCreationComponent {
     const savedQuizData = localStorage.getItem('quizData');
     if (savedQuizData) {
       const quizData = JSON.parse(savedQuizData);
-      this.quizForm.setValue(quizData);
+      if (quizData.questions) {
+        const questionsArray = this.fb.array(
+          quizData.questions.map((question: any) =>
+            this.fb.group({
+              text: question.text,
+              answers: this.fb.array(
+                question.answers.map((answer: any) =>
+                  this.fb.group({
+                    text: answer.text,
+                    isCorrect: answer.isCorrect,
+                  })
+                )
+              ),
+              timestamp: question.timestamp,
+              marks: question.marks,
+            })
+          )
+        );
+        this.quizForm.setControl('questions', questionsArray);
+      }
     }
   }
 
   loadQuizTitle() {
     this.quizDataService.getQuizData().subscribe((assessmentFormData) => {
       if (assessmentFormData) {
-        this.quizTitle = assessmentFormData.title;
+        this.quizTitle = assessmentFormData.quizzes
+          .map((quiz: Quiz) => quiz.title)
+          .join(', ');
       }
     });
   }

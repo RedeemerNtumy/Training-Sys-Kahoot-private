@@ -1,0 +1,32 @@
+<div class="container" *ngIf="quizCount !== 0">
+    <div class="title-quiz-count">
+        <p *ngIf="assessmentType === 'quiz'" class="assessmentType" [textContent]="assessmentType.charAt(0).toUpperCase() + assessmentType.slice(1).toLowerCase() + 'es'"></p> 
+        <p *ngIf="assessmentType !== 'quiz'" class="assessmentType" [textContent]="assessmentType.charAt(0).toUpperCase() + assessmentType.slice(1).toLowerCase() + 's'"></p> 
+        <span>{{ quizCount }} Quizes in total</span>  
+    </div>
+    
+    <div
+        [class]="showmore? 'assessment-card-list' : 'assessment-card-list-not-hidden'"
+    > 
+        <div class="assessment-card" *ngFor="let assessment of filteredAssessment$ | async">
+                <img src="../../../../../assets/Images/profile-images/profile 1.jpg" alt="profile image">
+                <div class="detail-content">
+                    <p>{{ assessment.title }}</p>
+                    <div class="quiz-details">
+                        <p class="circle"></p>
+                        <p>{{ assessment.type }}</p>
+                        <p class="circle"></p>
+                        <p>Design</p>
+                        <p class="circle"></p>
+                        <p>{{ assessment.questionCount }} Questions</p>
+                    </div>
+                    <p class="quiz-description">This quiz is to test Trainees on their knowledge on product design</p>
+                    <button *ngIf="assessment.type === 'Quiz'" (click)="takeAssessment(assessment.id, assessment.type)">Take {{ assessment.type }}</button>
+                    <button *ngIf="assessment.type === 'Lab'" (click)="takeAssessment(assessment.id, assessment.type)">Complete {{ assessment.type }}</button>
+                    <button *ngIf="assessment.type === 'Presentation'" (click)="takeAssessment(assessment.id, assessment.type)">Submit {{ assessment.type }}</button>
+                </div>
+        </div>
+    </div>
+    <p class="show-more" *ngIf="showmore === true" (click)="toggleShowMore()">Show more...</p>
+    <p class="show-less" *ngIf="showmore === false" (click)="toggleShowMore()">Show less...</p>
+</div>
