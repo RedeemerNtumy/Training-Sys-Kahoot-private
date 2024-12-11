@@ -83,63 +83,12 @@ export const adminRoutes: Routes = [
   },
   {
     path: 'user-management',
-    loadComponent: () =>
-      import('@views/admin/users/user-management.component').then(
-        (m) => m.UserManagementComponent
-      ),
-    data: { role: 'admin' },
-    children: [
-      {
-        path: '',
-        loadComponent: () =>
-          import(
-            '../../features/user-management/trainee/add-user/add-user.component'
-          ).then((m) => m.AddUserComponent),
-        },
-        {
-          path: 'trainee-list',
-          loadComponent: () =>
-            import(
-              '../../features/user-management/trainee/add-user/trainee-list/trainee-list.component'
-            ).then((m) => m.TraineeListComponent)
-        },
-      {
-        path: 'add-user-form',
-        loadComponent: () =>
-          import(
-            '../../features/user-management/trainee/add-user-form/add-user-form.component'
-          ).then((m) => m.AddUserFormComponent),
-      },
-      {
-        path: 'section-two',
-        loadComponent: () => import('../../features/user-management/trainee/add-user-form-section-2/add-user-form-section-2.component')
-          .then(m => m.AddUserFormSection2Component),
-      },
-      {
-        path: 'confirm-contacts',
-        loadComponent: () => import('../../features/user-management/trainee/confirm-contact-details/confirm-contact-details.component')
-          .then(m => m.ConfirmContactDetailsComponent),
-      },
-      {
-        path: 'confirm-training',
-        loadComponent: () => import('../../features/user-management/trainee/confirm-training-details/confirm-training-details.component')
-          .then(m => m.ConfirmTrainingDetailsComponent),
-      },
-      {
-        path: 'user-profile',
-        loadComponent: () => import('../../features/user-management/trainee/trainee-profile/trainee-profile.component')
-          .then(m => m.TraineeProfileComponent),
-      },
-      {
-        path: 'add-trianer',
-        loadComponent: () =>
-          import(
-            '../../features/user-management/trainer/trainer.component'
-          ).then((t) => t.TrainerComponent),
-      },
-    ],
+    loadComponent: () => import('@views/admin/users/user-management.component')
+    .then(m => m.UserManagementComponent),
+    data: { role: 'admin' }
   },
   {
+
     path: 'curriculum-management',
     loadComponent: () => import('@views/admin/curriculum/curriculum.component')
     .then(m => m.CurriculumComponent),

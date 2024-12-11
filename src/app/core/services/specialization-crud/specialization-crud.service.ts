@@ -16,7 +16,7 @@ export class SpecializationCrudService {
     private errorService: ErrorHandleService
   ) {}
 
-  getAllSpecializations(): Observable<specialization[]> {
+ getAllSpecializations(): Observable<specialization[]> {
     const headers = new HttpHeaders({
       'ngrok-skip-browser-warning': '69420',
     });
