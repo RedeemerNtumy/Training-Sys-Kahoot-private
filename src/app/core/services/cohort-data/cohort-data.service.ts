@@ -39,50 +39,79 @@ export class CohortDataService {
   constructor(
     private http: HttpClient,
     public errorhandlerService: ErrorHandlerService
-    ) { }
+  ) {}
 
   //(HTTP Request) Retriev a list of cohorts from backend
   getAllCohorts(): Observable<CohortList[]> {
-    return this.http.get<CohortList[]>(this.cohortsListUrl).pipe(
-      catchError(error => this.errorhandlerService.handleError(error))
-    );
+    const headers = new HttpHeaders({
+      'ngrok-skip-browser-warning': '54657',
+    });
+    return this.http
+      .get<CohortList[]>(this.cohortsListUrl, { headers })
+      .pipe(catchError((error) => this.errorhandlerService.handleError(error)));
   }
 
   //(HTTP Request) Make a post request to backend to add cohort
   addCohort(formData: Cohort) {
-
-    return this.http.post<CohortList>(this.cohortsListUrl, {
-      formData,
-    }).pipe(
-      catchError(error => this.errorhandlerService.handleError(error))
-    )
+    const headers = new HttpHeaders({
+      'ngrok-skip-browser-warning': '54657',
+    });
+    return this.http
+      .post<CohortList>(
+        this.cohortsListUrl,
+        {
+          formData,
+        },
+        { headers }
+      )
+      .pipe(catchError((error) => this.errorhandlerService.handleError(error)));
   }
 
   //(HTTP Request) Make a post request to backend for Cohort Details including trainee list
   getSelectedCohortDetails() {
+    const headers = new HttpHeaders({
+      'ngrok-skip-browser-warning': '54657',
+    });
     return this.http
-      .get<CohortDetails>(`${this.cohortsListUrl}/${this.selectedCohortId}`)
+      .get<CohortDetails>(`${this.cohortsListUrl}/${this.selectedCohortId}`, {
+        headers,
+      })
       .pipe(catchError((error) => this.errorhandlerService.handleError(error)));
   }
 
   //(HTTP Request) Get cohort for update
   getCohortFormData(): Observable<Cohort> {
+    const headers = new HttpHeaders({
+      'ngrok-skip-browser-warning': '54657',
+    });
     return this.http
-      .get<Cohort>(`${this.cohortsListUrl}/cohorts/${this.selectedCohortId}`)
+      .get<Cohort>(`${this.cohortsListUrl}/cohorts/${this.selectedCohortId}`, {
+        headers,
+      })
       .pipe(catchError((error) => this.errorhandlerService.handleError(error)));
   }
 
   updateCohort(formData: Cohort) {
-    return this.http.put<Cohort>(`${this.cohortsListUrl}/${this.selectedCohortForUpdate}`, {
-      formData,
-    }).pipe(
-      catchError(error => this.errorhandlerService.handleError(error))
-    )
+    const headers = new HttpHeaders({
+      'ngrok-skip-browser-warning': '54657',
+    });
+    return this.http
+      .put<Cohort>(
+        `${this.cohortsListUrl}/${this.selectedCohortForUpdate}`,
+        {
+          formData,
+        },
+        { headers }
+      )
+      .pipe(catchError((error) => this.errorhandlerService.handleError(error)));
   }
 
   deleteCohort(id: string) {
+    const headers = new HttpHeaders({
+      'ngrok-skip-browser-warning': '54657',
+    });
     return this.http
-      .delete<CohortList>(`${this.cohortsListUrl}/${id}`)
+      .delete<CohortList>(`${this.cohortsListUrl}/${id}`, { headers })
       .pipe(catchError((error) => this.errorhandlerService.handleError(error)));
   }
 
