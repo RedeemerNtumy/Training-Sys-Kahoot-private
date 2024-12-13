@@ -27,6 +27,14 @@
         </div>
         <div class="questions-div">
           <div class="questions-container">
+            <div class="load">
+              @if (isLoading) {
+              <app-loader />
+              } @if (errorMessage) {
+              <p class="error">{{ errorMessage }}</p>
+              }
+            </div>
+
             <app-question-card
               class="questions"
               *ngFor="let quiz of quizzes"
