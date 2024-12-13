@@ -12,10 +12,14 @@ import { AssignAssessmentComponent } from '../assign-assessment/assign-assessmen
 })
 export class AssessmentCardComponent {
   @Input() assessment!: AssessmentData;
+  assessmentId?: number;
 
   showAssignAssessmentModal = false;
-  onShowAssignAssessmentModal() {
+
+  onShowAssignAssessmentModal(id: number | undefined) {
+    console.log(id);
     this.showAssignAssessmentModal = true;
+    this.assessmentId = id;
   }
 
   onCloseAssignAssessmentModal() {

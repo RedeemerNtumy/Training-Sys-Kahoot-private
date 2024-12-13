@@ -1,4 +1,4 @@
-<div class="card" *ngIf="trainees$ | async as trainees">
+<div class="card" *ngIf="trainees">
   <p-table [value]="trainees" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
@@ -10,11 +10,11 @@
     </ng-template>
     <ng-template pTemplate="body" let-trainee>
       <tr>
-        <td>{{ trainee.name }}</td>
+        <td>{{ trainee.firstName }} {{ trainee.lastName }}</td>
         <td>{{ trainee.email }}</td>
         <td>{{ trainee.specialization }}</td>
         <td>
-          <input type="checkbox" />
+          <input type="checkbox" (change)="onTraineeSelect(trainee, $event)" [checked]="selectAllChecked || selectedTraineeEmails.includes(trainee.email)" />
         </td>
       </tr>
     </ng-template>

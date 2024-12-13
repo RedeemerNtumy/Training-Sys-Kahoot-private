@@ -65,7 +65,7 @@ export class AssessmentFormComponent {
       focusArea: ['', Validators.required],
       description: ['', Validators.required],
       coverImage: [null],
-      attachments: [[]],
+      files: [[]],
     });
   }
 
@@ -96,7 +96,7 @@ export class AssessmentFormComponent {
     if (files.length) {
       this.upLoadedFile = files[0].name;
       this.form.patchValue({
-        attachments: files,
+        files: files,
       });
     }
   }
@@ -105,9 +105,9 @@ export class AssessmentFormComponent {
     if (this.form.valid) {
       const formData = new FormData();
       Object.keys(this.form.value).forEach((key) => {
-        if (key === 'attachments') {
+        if (key === 'files') {
           this.form.value[key].forEach((file: File) => {
-            formData.append('attachments', file, file.name);
+            formData.append('files', file, file.name);
           });
         } else {
           formData.append(key, this.form.value[key]);
@@ -116,7 +116,7 @@ export class AssessmentFormComponent {
       formData.append('assessmentType', this.type);
 
       if (this.type === 'quiz') {
-        formData.delete('attachments');
+        formData.delete('files');
         this.quizDataService.setQuizData(formData, true).subscribe({
           next: (response) => {
             this.router.navigate(['/home/trainer/assessment/quiz-creation']);
@@ -126,16 +126,14 @@ export class AssessmentFormComponent {
             console.error(err);
           },
         });
-      } else if (this.type === 'lab') {
-        console.log('Creating Lab', formData);
+      } else if (this.type === 'lab' || this.type === 'presentation') {
         this.assessmentService.createLab(formData).subscribe({
           next: (response) => {
             this.showFeedback(
-              'Lab Assignment Saved Successfully',
-              'Your lab assignment has been successfully created. You can now proceed to assign it to the relevant trainees or cohorts when ready!',
+              `${this.type} Saved Successfully'`,
+              `Your ${this.type} assignment has been successfully created. You can now proceed to assign it to the relevant trainees or cohorts when ready!`,
               'assets/Images/svg/add-spec.svg'
             );
-            console.log(response);
           },
         });
       }

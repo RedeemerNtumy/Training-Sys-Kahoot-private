@@ -122,7 +122,6 @@ export class QuizCreationComponent {
       return;
     }
 
-    console.log('submitting');
     const quizData = this.quizForm.value.questions.map((question: any) => ({
       text: question.text,
       answers: question.answers.map((answer: any) => ({
@@ -131,19 +130,6 @@ export class QuizCreationComponent {
       })),
       mark: question.marks,
     }));
-
-    const assessmentData: Quiz = {
-      questions: quizData,
-      timeFrame: this.quizForm.value.timeFrame,
-      assessmentType: 'quiz',
-      coverImage: '',
-      createdAt: new Date().toISOString(),
-      description: '',
-      focusArea: '',
-      title: this.quizTitle,
-    };
-
-    console.log(quizData);
 
     this.assessmentService
       .addAssessment(quizData, this.quizForm.value.timeFrame)
@@ -193,7 +179,7 @@ export class QuizCreationComponent {
 
   loadQuizTitle() {
     this.quizDataService.getQuizData().subscribe((assessmentFormData) => {
-      if (assessmentFormData) {
+      if (assessmentFormData && assessmentFormData.quizzes) {
         this.quizTitle = assessmentFormData.quizzes
           .map((quiz: Quiz) => quiz.title)
           .join(', ');

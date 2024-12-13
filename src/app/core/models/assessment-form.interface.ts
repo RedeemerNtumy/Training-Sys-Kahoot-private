@@ -7,13 +7,19 @@ export interface AssessmentBase {
   description: string;
   focusArea: string;
   title: string;
+  id?: number | undefined;
 }
-
 export interface CreateAssessment {
   type: AssessmentType;
   label: string;
   icon: string;
   route: string;
+}
+
+export interface AssignAssessment{
+  deadline: string
+  assessmentId: number;
+  traineeEmail: string[]
 }
 
 export interface Quiz extends AssessmentBase {

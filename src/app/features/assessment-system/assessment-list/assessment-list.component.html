@@ -1,18 +1,18 @@
-<ng-container *ngIf="isLoading; else contentTemplate">
+<ng-container *ngIf="isLoading; else loadedContent">
   <div class="load">
-    <app-loader />
+    <app-loader></app-loader>
   </div>
 </ng-container>
 
-<ng-template #contentTemplate>
-  <ng-container *ngIf="assessments$ | async as assessments; else noDataTemplate">
-    <div *ngIf="!isAssessmentsEmpty; else noDataTemplate" class="wrapper">
+<ng-template #loadedContent>
+  <ng-container *ngIf="!isAssessmentsEmpty; else noDataTemplate">
+    <div class="wrapper">
       <div class="col-1">
         <app-searchbar [title]="'Assessment'" [placeholder]="'Name'" />
       </div>
       <div class="assessments">
-        <div *ngFor="let assessment of assessments">
-          <app-assessment-card [assessment]="assessment" />
+        <div *ngFor="let assessment of assessments$ | async">
+          <app-assessment-card [assessment]="assessment"></app-assessment-card>
         </div>
       </div>
     </div>
@@ -36,8 +36,8 @@
       </div>
 
       <div class="assessment-types">
-        @for (item of assessmentTypes; track item.type) {
         <a
+          *ngFor="let item of assessmentTypes; trackBy: trackByType"
           (click)="navigateToAssessmentForm(item.type)"
           class="assessment-type"
         >
@@ -47,12 +47,9 @@
           <span class="label">{{ item.label }}</span>
           <span class="plus">+</span>
         </a>
-        }
       </div>
     </div>
   </div>
 </ng-template>
 
-@if (showModal) {
-<app-modal (closeModal)="handleCloseModal()"></app-modal>
-}
+<app-modal *ngIf="showModal" (closeModal)="handleCloseModal()"></app-modal>

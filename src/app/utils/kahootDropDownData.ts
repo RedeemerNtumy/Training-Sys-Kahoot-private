@@ -1,4 +1,10 @@
 export function initializeDropdownOptions() {
+  const calculateExpiryDate = (days: number) => {
+    const date = new Date();
+    date.setDate(date.getDate() + days);
+    return date;
+  };
+
   return {
     levels: [
       { name: 'Beginner' },
@@ -34,5 +40,19 @@ export function initializeDropdownOptions() {
       { name: 'No Point' },
     ],
     answerOptions: [{ name: 'Single Select' }, { name: 'Multi-select' }],
+    expiryOptions: [
+      { name: '1 day', value: calculateExpiryDate(1) },
+      { name: '2 days', value: calculateExpiryDate(2) },
+      { name: '3 days', value: calculateExpiryDate(3) },
+      { name: '4 days', value: calculateExpiryDate(4) },
+      { name: '5 days', value: calculateExpiryDate(5) },
+      { name: '6 days', value: calculateExpiryDate(6) },
+      { name: '1 week', value: calculateExpiryDate(7) },
+      { name: '2 weeks', value: calculateExpiryDate(14) },
+      { name: '3 weeks', value: calculateExpiryDate(21) },
+      { name: '1 month', value: calculateExpiryDate(30) },
+      { name: '2 months', value: calculateExpiryDate(60) },
+      { name: '3 months', value: calculateExpiryDate(90) },
+    ],
   };
 }

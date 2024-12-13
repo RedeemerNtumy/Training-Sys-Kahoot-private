@@ -40,6 +40,8 @@ export class TraineeInsystemService {
 
   deleteModalSuccessful!: boolean;
 
+
+
   constructor(
     private http: HttpClient,
     private errorHandlerService: ErrorHandlerService
@@ -111,18 +113,20 @@ export class TraineeInsystemService {
       );
   }
 
+
+
+  // Get all trainees
   getAllTrainees() {
-    const headers = new HttpHeaders({
-      'ngrok-skip-browser-warning': '69420',
-    })
-    return this.http
-      .get<User[]>(`${this.baseUrl}/users/role?role=TRAINEE`,{ headers })
-      .pipe(
-        tap((response) => {
-          this.allTraineesSubject.next(response);
-        }),
-        catchError((error) => this.errorHandlerService.handleError(error))
-      );
+    return this.http.get<TraineeList>(`${this.baseUrl}/profiles/trainees`).pipe(
+      map(res => {
+        const trainees = res.content;
+        return trainees;
+      }),
+      tap((trainees) => {
+        this.allTraineesSubject.next(trainees)
+      }),
+      catchError(error => this.errorHandlerService.handleError(error))
+    )
   }
 
   getSelectedTrainee(trainee: User) {
@@ -140,4 +144,6 @@ export class TraineeInsystemService {
         catchError((error) => this.errorHandlerService.handleError(error))
       );
   }
+
+
 }
