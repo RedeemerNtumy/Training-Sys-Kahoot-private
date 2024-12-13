@@ -1,7 +1,11 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { DecodedToken } from '@core/models/iuser';
 import { Assignment, Quiz } from '@core/models/trainee.interface';
+import { TokenService } from '@core/services/token/token.service';
+import { TraineeQuizService } from '@core/services/trainee-quiz/trainee-quiz.service';
+import { QuizService } from '@core/services/trainee/quiz-questions/quiz.service';
 import { SearchQuizService } from '@core/services/trainee/search-quiz.service';
 import { BehaviorSubject, Observable, combineLatest, filter, map, of, tap } from 'rxjs';
 
@@ -18,6 +22,9 @@ export class QuizListComponent {
 
   quizCount = 0;
   totallyEmpty!: boolean;
+  decodedToken!: DecodedToken | null;
+  traineeEmail!: string | undefined;
+
 
   assessments$!: Observable<Assignment[]>; // holds the filtered data
   filteredAssessment$!: Observable<Assignment[]>; // holds the filtered data
@@ -28,6 +35,8 @@ export class QuizListComponent {
   constructor(
     private router: Router,
     private searchQuiz: SearchQuizService,
+    private traineeAssessentsService: TraineeQuizService,
+    private tokenService: TokenService,
   ) {}
 
 
@@ -165,6 +174,11 @@ export class QuizListComponent {
   }
 
   init() {
+    //Get email from decoded token
+    this.decodedToken = this.tokenService.getDecodedTokenValue()
+    this.traineeEmail = this.decodedToken?.email;
+
+    this.assessments$ = this.traineeAssessentsService.getAllAssignments(this.traineeEmail)
 
     this.assessments$ = of(this.quizes).pipe(
       map((quizes) => {

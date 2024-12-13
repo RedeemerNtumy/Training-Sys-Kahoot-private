@@ -152,7 +152,7 @@ export class TrainerComponent {
     });
   }
 
-  emailAsyncValidator(control: AbstractControl): Observable<User[] | null> {
+  emailAsyncValidator(control: AbstractControl): Observable<User | null> {
     return control.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged(),

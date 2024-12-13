@@ -8,6 +8,7 @@
     justify-content: center;
     overflow-x: scroll;
     font-family: $font-lato;
+    padding: 0 8rem;
 
     & .wrapper {
         width: 100%;
@@ -18,7 +19,8 @@
 
         & .back-button {
             width: fit-content;
-            display: flex;         
+            display: flex;
+            align-items: center;    
             gap: 0.4rem;
             margin-bottom: 2.1rem;
             cursor: pointer;
@@ -214,6 +216,14 @@
                         & #start-date {
                             width: 100%;
                         }
+
+                        & .error {
+                            & span {
+                                color: $clr-red-500;
+                                font-size: $font-size-xbody;
+                                font-weight: 400;
+                            }
+                        }
                     }
                     & div {
                         width: 100%; 
@@ -265,5 +275,10 @@
 .error {
     text-align: right; 
     color: $clr-red-500;
+
+    & span {
+        font-size: $font-size-xbody;
+        color: $clr-red-500;
+    }
 }
   

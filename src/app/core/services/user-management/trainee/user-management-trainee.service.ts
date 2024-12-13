@@ -24,7 +24,7 @@ export class UserManagementTraineeService {
     // restCountries: 'https://api.first.org/data/v1/countries',
   };
 
-  private genders: Gender[] = [{ sex: 'Male' }, { sex: 'Female' }];
+  private genders: Gender[] = [{ sex: 'male' }, { sex: 'female' }];
 
   constructor(
     private http: HttpClient,
