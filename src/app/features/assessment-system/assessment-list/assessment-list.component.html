@@ -5,7 +5,7 @@
 </ng-container>
 
 <ng-template #loadedContent>
-<ng-container *ngIf="!isAssessmentsEmpty; else noDataTemplate">
+  <ng-container *ngIf="!isAssessmentsEmpty; else noDataTemplate">
     <div class="wrapper">
       <div class="col-1">
         <app-searchbar [title]="'Assessment'" [placeholder]="'Name'" />
