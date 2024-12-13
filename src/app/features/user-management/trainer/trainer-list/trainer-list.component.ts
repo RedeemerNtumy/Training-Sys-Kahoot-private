@@ -56,7 +56,7 @@ export class TrainerListComponent {
       })
     );
 
-    
+
   }
 
   tabClicked() {
@@ -144,5 +144,10 @@ export class TrainerListComponent {
 
   toggleDeleteModalSuccess() {
     this.deleteModalSuccess = !this.deleteModalSuccess;
+  }
+
+  openMenu() {
+    console.log('testing');
+    this.ellipsisClicked = true;
   }
 }

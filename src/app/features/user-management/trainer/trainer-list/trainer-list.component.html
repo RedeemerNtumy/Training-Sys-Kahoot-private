@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="trainers">
+    <div class="trainers" *ngIf="trainers.length > 0; else noTrainers">
       <div class="headers">
         <div>No.</div>
         <div>Name</div>
@@ -34,10 +34,16 @@
             {{ trainer.status | titlecase }}
           </div>
           <div class="menu">
-            <mat-icon svgIcon="dots"></mat-icon>
+            <mat-icon svgIcon="dots" (click)="openMenu()"></mat-icon>
           </div>
         </div>
       </div>
     </div>
+    <ng-template #noTrainers>
+      <div class="no-trainer">
+        <mat-icon svgIcon="info"></mat-icon>
+        No Trainer Created
+      </div>
+    </ng-template>
   </div>
 </div>

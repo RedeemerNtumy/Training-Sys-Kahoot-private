@@ -45,16 +45,6 @@ export class ListCohortsComponent {
   ngOnInit() {
     this.cohortsList$ = this.cohortDataService.getAllCohorts()
 
-    this.cohortsList$.subscribe({
-      next: (response) => {
-        this.listEmptyCheck = false;
-      },
-      error: (err) => {
-        console.error("cohort list error: ", err)
-      }
-
-    })
-
     this.filteredCohorts$ = combineLatest([this.cohortsList$, this.searchTerm$, this.currentPage$]).pipe(
       map(([cohorts, searchTerm, page]) => {
         // Fixed the filter and return syntax
@@ -125,9 +115,7 @@ export class ListCohortsComponent {
       next: (response) => {
         window.location.reload();
       },
-      error: (error) => {
-        console.error("error deleting cohort: ", error)
-      }
+      error: (error) => {}
     })
     this.toggleHideDeleteModal();
     this.modalService.toggleSuccessModal();

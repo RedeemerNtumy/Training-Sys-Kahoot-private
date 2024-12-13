@@ -2,7 +2,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { InputFieldComponent } from '../../../../core/shared/input-field/input-field.component';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, first, of, switchMap, } from 'rxjs';
+import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, filter, first, map, of, switchMap, tap, } from 'rxjs';
 import { Countries, Gender, Specialization, User } from '../../../../core/models/cohort.interface';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
@@ -19,11 +19,13 @@ import { specialization } from '@core/models/specialization.interface';
 export class AddUserFormComponent implements OnInit, OnDestroy {
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-  
+
   newUserForm!: FormGroup;
   genders$!: Observable<Gender[]>;
   countries$!: Observable<Countries[]>;
-  
+
+  restCountries!: any;
+
 
   //Image upload
   previewUrl: string | ArrayBuffer | null = null;
@@ -42,6 +44,10 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setMaxDateOfBirth();
+
+    this.usermanagementService.getAllCountries().subscribe((data) => {
+      this.restCountries = data;
+    });
 
     this.genders$ = this.usermanagementService.getAllGenders();
     this.countries$ = this.usermanagementService.getAllCountries()
@@ -102,11 +108,11 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     if (!trimmedValue) {
       return of(null);
     }
-  
+
     return this.traineeInsystemService.checkEmail(trimmedValue).pipe(
       debounceTime(1000),
       distinctUntilChanged(),
-      switchMap(response => 
+      switchMap(response =>
         response?.length ? of({ emailExists: true }) : of(null)
       ),
       catchError(() => of(null)),

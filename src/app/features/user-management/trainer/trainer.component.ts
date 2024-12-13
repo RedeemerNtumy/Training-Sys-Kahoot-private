@@ -7,7 +7,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { catchError, debounceTime, distinctUntilChanged, first, Observable, switchMap } from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  first,
+  map,
+  Observable,
+  switchMap,
+} from 'rxjs';
 import {
   Countries,
   Gender,
@@ -40,11 +48,11 @@ import { TraineeInsystemService } from '@core/services/user-management/trainee/t
 export class TrainerComponent {
   trainerForm!: FormGroup;
   allSpecializations$!: Observable<Specialization[]>;
-  allGenders: Gender[] = [{ sex: 'Male' }, { sex: 'Female' }, { sex: 'Other' }];
+  allGenders: Gender[] = [{ sex: 'Male' }, { sex: 'Female' }];
   selectedCountry!: string;
   selectedFileName: string | null = null;
   selectedFile: File | null = null;
-  countries: { name: string }[] = [];
+  restCountries!: any;
   feedbackVisible: boolean = false;
   feedbackTitle: string = '';
   feedbackMessage: string = '';
@@ -54,19 +62,18 @@ export class TrainerComponent {
     private fb: FormBuilder,
     public trainerService: TrainerService,
     private svgService: SvgService,
-    private countryService: CountryService,
     private userManagementService: UserManagementTraineeService,
     private router: Router,
-    private traineeInsystemService: TraineeInsystemService
+    private traineeInsystemService: TraineeInsystemService,
+    private countryService: CountryService
   ) {}
 
   ngOnInit() {
     this.trainerForm = this.initTrainerForm();
-    this.countryService.getCountries().subscribe((countries) => {
-      this.countries = countries.map((country) => ({
-        name: country.name.common,
-      }));
+    this.countryService.getCountries().subscribe((data) => {
+      this.restCountries = data;
     });
+
     this.allSpecializations$ =
       this.userManagementService.getAllspecializations();
 
@@ -86,7 +93,7 @@ export class TrainerComponent {
       lastName: ['', Validators.required],
       gender: [this.allGenders[0].sex, Validators.required],
       country: [null, Validators.required],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       profilePhoto: [null],
       assignSpecialization: ['', Validators.required],
     });

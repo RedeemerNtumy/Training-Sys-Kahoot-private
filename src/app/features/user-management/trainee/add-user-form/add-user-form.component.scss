@@ -22,6 +22,7 @@
     & .back-button {
       width: fit-content;
       display: flex;
+      align-items: Center;
       gap: 0.4rem;
       margin-bottom: 2.1rem;
       cursor: pointer;
@@ -61,10 +62,18 @@
       padding-bottom: 14rem;
 
       & .first-last-name {
+        height: fit-content;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        // align-items: center;
         gap: 2.4rem;
+
+        & .first-name {
+          height: fit-content;
+        }
+        & .last-name {
+          height: fit-content;
+        }
       }
 
       & .gender-country {

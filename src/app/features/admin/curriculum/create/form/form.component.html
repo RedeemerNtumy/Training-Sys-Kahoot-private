@@ -20,12 +20,19 @@
             <div class="field-title">
               <h4>Curriculum Title</h4>
               <span>*</span>
+
             </div>
             <input
               type="text"
               formControlName="title"
+              [class.invalid]="formControls.title?.touched && formControls.title?.invalid"
               placeholder="Enter curriculum name here">
+              <small class="error" *ngIf="formControls.title?.touched && formControls.title?.invalid">
+                Curriculum title is required*
+              </small>
           </div>
+
+
 
           <!-- curriculum desc input field -->
           <div class="type-field form-section">
@@ -35,9 +42,13 @@
             </div>
             <textarea
               formControlName="description"
+              [class.invalid]="formControls.description?.touched && formControls.description?.invalid"
               placeholder="Enter Curriculum description Here"
               rows="8">
             </textarea>
+            <small class="error" *ngIf="formControls.description?.touched && formControls.description?.invalid">
+              Description is required*
+            </small>
           </div>
 
           <!-- curriculum assigned specialization select field -->
@@ -46,29 +57,26 @@
               <h4>Assign to specialization</h4>
               <span>*</span>
             </div>
-            <select class="custom-select"  formControlName="assignedSpecialization">
+            <select class="custom-select"  formControlName="assignedSpecialization"
+            [class.invalid]="formControls.assignedSpecialization?.touched && formControls.assignedSpecialization?.invalid"
+            >
               <option value="" disabled selected>Select specialization</option>
               <option value="frontend">Frontend Development</option>
               <option value="backend">Backend Development</option>
               <option value="fullstack">Full Stack Development</option>
               <option value="mobile">Mobile Development</option>
+              <option value="cloud">Cloud Computing/Devops</option>
+              <option value="AI">AI/ML</option>
+              <option value="fullstack">Game Development</option>
+              <option value="cybersecurity">Cybersecurity</option>
             </select>
+
+            <small class="error" *ngIf="formControls.assignedSpecialization?.touched && formControls.assignedSpecialization?.invalid">
+              Specialization is required*
+            </small>
           </div>
 
-          <!-- curriculum assigned cohort select field -->
-          <div class="type-field form-section">
-            <div class="field-title">
-              <h4>Assign to Cohort</h4>
-              <span>*</span>
-            </div>
-            <select class="custom-select" formControlName="assignedCohort">
-              <option value="" disabled selected>Select Cohort</option>
-              <option value="cohort1">Cohort 1</option>
-              <option value="cohort2">Cohort 2</option>
-              <option value="cohort3">Cohort 3</option>
-              <option value="cohort4">Cohort 4</option>
-            </select>
-          </div>
+
 
           <!-- curriculum objectives input field -->
           <div class="type-field form-section">
@@ -78,12 +86,15 @@
             </div>
 
             <div formArrayName="learningObjectives">
-              <div *ngFor="let obj of learningObjectives.controls; let i = index"
-                class="obj-input-container">
+              <div class="obj-input-container" *ngFor="let obj of learningObjectives.controls; let i = index">
                 <input
                   [formControlName]="i"
+                  [class.invalid]="obj.touched && obj.invalid"
                   type="text"
                   placeholder="Enter Objectives here">
+                <small class="error" *ngIf="obj.touched && obj.errors?.['required']">
+                  Objective is required
+                </small>
                 <img
                   *ngIf="learningObjectives.length > 1"
                   class="close"

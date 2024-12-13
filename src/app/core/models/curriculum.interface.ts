@@ -3,11 +3,19 @@ export interface module {
   title: string;
   description: string;
   topics: string[];
-  moduleFile: string;
+  files: ModuleFile[];
 }
 
+interface ModuleFile {
+  name: string;
+  size: string;
+  type: string;
+}
+
+
 export interface curriculum {
-  createdAt?: string;
+  id:number;
+  createdAt: string;
   title: string;
   description: string;
   assignedSpecialization: string;
