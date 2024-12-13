@@ -1,14 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorHandlerService } from '../../cohort-data/error-handling/error-handler.service';
-import {
-  BehaviorSubject,
-  Observable,
-  catchError,
-  map,
-  tap,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { User } from '../../../models/cohort.interface';
 import { environment } from 'src/environments/environment.development';
 import { TraineeList } from '@core/models/trainee.interface';
@@ -22,7 +15,7 @@ export class TraineeInsystemService {
   public retreivedUserDataSubject = new BehaviorSubject<User | null>(null);
   public retreivedUserData$: Observable<User | null> =
     this.retreivedUserDataSubject.asObservable();
-  public userDataRetrieved!: boolean;
+  public userDataRetrieved: boolean = false;
 
   public finalFormStateSubject = new BehaviorSubject<User | null>(null);
   public finalFormState$: Observable<User | null> =
@@ -47,56 +40,65 @@ export class TraineeInsystemService {
 
   deleteModalSuccessful!: boolean;
 
+  public selectedEmailSubject = new BehaviorSubject<string | null>('');
+  public selectedEmail$: Observable<string | null> = this.selectedEmailSubject.asObservable();
+
+
   constructor(
     private http: HttpClient,
     private errorHandlerService: ErrorHandlerService
   ) {}
 
-  // Get the email entered into the input field
-  checkEmail(email: string) {
-    const headers = new HttpHeaders({
-      'ngrok-skip-browser-warning': '69420',
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      "ngrok-skip-browser-warning": "69420"
     });
-    return this.http
-      .get<User[]>(`${this.baseUrl}?email=${encodeURIComponent(email)}`, {
-        headers,
-      })
-      .pipe(
-        tap((response) => {
-          const [data] = response;
-          this.retreivedUserDataSubject.next(data);
-          this.userDataRetrieved = true;
-        }),
-        catchError((error) => {
-          this.errorHandlerService.handleError(error);
-          return [];
-        })
-      );
   }
+
+
+  checkEmail(email: string): Observable<User | null> {
+    return this.http.post<User>(`${this.baseUrl}/profiles/trainees/find`, { email }, {
+      headers: this.getHeaders(),
+    }).pipe(
+      tap(response => {
+        // Only update if the response is different from the current value
+        if (response !== this.retreivedUserDataSubject.getValue()) {
+          this.retreivedUserDataSubject.next(response || null);
+        }
+      }),
+      catchError(error => {
+        console.error('Error in checkEmail:', error);
+        // Only update if not already null
+        if (this.retreivedUserDataSubject.getValue() !== null) {
+          this.retreivedUserDataSubject.next(null);
+        }
+        return of(null);
+      })
+    );
+  }
+
+
+
 
   setFinalFormState(data: User) {
     this.finalFormStateSubject.next(data);
   }
 
-  setFirstFormState(data: User) {
+  setFirstFormState(data: User | null) {
     this.firstFormStateSubject.next(data);
   }
 
-  setSecondFormState(data: User) {
+  setSecondFormState(data: User | null) {
     this.secondFormStateSubject.next(data);
   }
 
   //Usermanagment add user requests
   //Put request to backend
   updateUserData(updateFormData: {}, email: string | undefined) {
-    const headers = new HttpHeaders({
-      'ngrok-skip-browser-warning': '69420',
-    });
     return this.http
       .put<User>(
         `${this.baseUrl}?email=${encodeURIComponent(email || '')}`,
-        updateFormData,
-        { headers }
+        updateFormData
       )
       .pipe(
         tap(() => {
@@ -108,42 +110,31 @@ export class TraineeInsystemService {
   }
 
   createNewUser(formData: FormData) {
-    const headers = new HttpHeaders({
-      'ngrok-skip-browser-warning': '69420',
-    });
-    return this.http
-      .post<User>(`${this.baseUrl}/users/trainee/create`, formData, { headers })
-      .pipe(
-        tap(() => {
-          // Reset form states
-          this.firstFormStateSubject.next(null);
-          this.secondFormStateSubject.next(null);
-          console.log('Submitting trainee details to API');
-        }),
-        catchError((error) => {
-          console.error('Error creating user:', error);
-          return throwError(() => new Error('Failed to create user'));
-        })
-      );
+    return this.http.post<User>(`${this.baseUrl}/users/trainee/create`, formData).pipe(
+      tap(() => {
+        // Reset form states
+        this.firstFormStateSubject.next(null);
+        this.secondFormStateSubject.next(null);
+      }),
+      catchError((error) => {
+        console.error('Error creating user:', error);
+        return throwError(() => new Error("Failed to create user"));
+      })
+    );
   }
 
   // Get all trainees
   getAllTrainees() {
-    const headers = new HttpHeaders({
-      'ngrok-skip-browser-warning': '69420',
-    });
-    return this.http
-      .get<TraineeList>(`${this.baseUrl}/profiles/trainees`, { headers })
-      .pipe(
-        map((res) => {
-          const trainees = res.content;
-          return trainees;
-        }),
-        tap((trainees) => {
-          this.allTraineesSubject.next(trainees);
-        }),
-        catchError((error) => this.errorHandlerService.handleError(error))
-      );
+    return this.http.get<TraineeList>(`${this.baseUrl}/profiles/trainees`, { headers: this.getHeaders() }).pipe(
+      map(res => {
+        const trainees = res.content;
+        return trainees;
+      }),
+      tap((trainees) => {
+        this.allTraineesSubject.next(trainees)
+      }),
+      catchError(error => this.errorHandlerService.handleError(error))
+    )
   }
 
   getSelectedTrainee(trainee: User) {
@@ -151,19 +142,13 @@ export class TraineeInsystemService {
   }
 
   deleteSelectedTrainee(email: string) {
-    const headers = new HttpHeaders({
-      'ngrok-skip-browser-warning': '69420',
-    });
-    return this.http
-      .delete<User>(`${this.baseUrl}?email=${encodeURIComponent(email)}`, {
-        headers,
-      })
-      .pipe(
-        tap((response) => {
-          console.log(response);
-          this.deleteModalSuccessful = true;
-        }),
-        catchError((error) => this.errorHandlerService.handleError(error))
-      );
+    const params = new HttpParams().set('email', email); // Properly set the parameter
+    return this.http.delete<User>(`${this.baseUrl}/deactivate`, { params }).pipe(
+      tap((response) => {
+        this.deleteModalSuccessful = true;
+        console.log('Delete Response:', response);
+      }),
+      catchError((error) => this.errorHandlerService.handleError(error))
+    );
   }
 }

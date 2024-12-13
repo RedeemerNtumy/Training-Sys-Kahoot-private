@@ -19,6 +19,9 @@
                     {{ option.name }}
                   </option>
                 </select>
+                <div class="error" *ngIf="newUserFormSecTwo.controls['specialization'].invalid && (newUserFormSecTwo.controls['specialization'].touched || newUserFormSecTwo.controls['specialization'].dirty)">
+                    <span>Field is required</span>
+                </div>
             </div>
 
             <div class="cohort">
@@ -28,15 +31,9 @@
                     {{ option.name }}
                   </option>
                 </select>
-            </div>
-
-
-            <div class="form-field enrollment-date">
-                <div class="label-wrapper">
-                    <label for="enrollment-date">Enrollement Date</label>
-                    <span>*</span>
+                <div class="error" *ngIf="newUserFormSecTwo.controls['cohort'].invalid && (newUserFormSecTwo.controls['cohort'].touched || newUserFormSecTwo.controls['cohort'].dirty)">
+                    <span>Field is required</span>
                 </div>
-                <input type="date" formControlName="enrollementDate">
             </div>
             
             <button type="submit" class="btn">Continue</button>

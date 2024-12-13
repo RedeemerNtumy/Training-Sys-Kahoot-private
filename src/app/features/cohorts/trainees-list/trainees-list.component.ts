@@ -124,12 +124,6 @@ export class TraineesListComponent {
     }
   }
 
-  // Delete item from trainees list
-  deleteCohort(id: string) {
-    // this.toggleHideDeleteModal()
-    // this.deleteCohortById = id;
-  }
-
 
   goToCreateCohort() {
     this.router.navigate(['home/admin/cohorts/create-cohort'])
