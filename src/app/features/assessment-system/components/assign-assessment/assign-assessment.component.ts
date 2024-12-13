@@ -27,6 +27,8 @@ import { UserManagementTraineeService } from '@core/services/user-management/tra
 import { initializeDropdownOptions } from '../../../../utils/kahootDropDownData';
 import { AssessmentService } from '@core/services/assessment/assessment.service';
 import { AssignAssessment } from '@core/models/assessment-form.interface';
+import { FeedbackComponent } from '../../../../core/shared/modal/feedback/feedback.component';
+import { Router } from '@angular/router';
 
 interface FilterOptions {
   specialization: string[];
@@ -47,6 +49,7 @@ interface FilterOptions {
     CommonModule,
     TabViewModule,
     ReactiveFormsModule,
+    FeedbackComponent,
   ],
   templateUrl: './assign-assessment.component.html',
   styleUrl: './assign-assessment.component.scss',
@@ -60,11 +63,24 @@ export class AssignAssessmentComponent implements OnInit {
 
   assignAssessmentForm!: FormGroup;
 
+  feedbackVisible: boolean = false;
+  feedbackTitle: string = '';
+  feedbackMessage: string = '';
+  feedbackImageSrc: string = '';
+
+  showFeedback(title: string, message: string, imageSrc: string) {
+    this.feedbackTitle = title;
+    this.feedbackMessage = message;
+    this.feedbackImageSrc = imageSrc;
+    this.feedbackVisible = true;
+  }
+
   constructor(
     private traineeInsystem: TraineeInsystemService,
     private userManagementTraineeService: UserManagementTraineeService,
     private fb: FormBuilder,
-    private assessmentService: AssessmentService
+    private assessmentService: AssessmentService,
+    private router: Router
   ) {}
   activeCohort: CohortDetails[] = [];
   trainees: User[] = [];
@@ -119,7 +135,7 @@ export class AssignAssessmentComponent implements OnInit {
 
   initAssignAssessmentForm() {
     this.assignAssessmentForm = this.fb.group({
-      deadline: ['', [Validators.required]],
+      deadline: [this.selectedExpiry, [Validators.required]],
     });
   }
 
@@ -156,8 +172,12 @@ export class AssignAssessmentComponent implements OnInit {
 
     this.assessmentService.assignAssessment(assessmentData).subscribe({
       next: () => {
+        this.showFeedback(
+          `Assigned Successfully`,
+          `Your quiz has been successfully assigned to the selected trainees. They can now access and complete it within the given time-frame`,
+          'assets/Images/svg/add-spec.svg'
+        );
         console.log('Assessment assigned successfully');
-        this.cancel.emit();
       },
       error: (error) => console.error('Error assigning assessment:', error),
     });
@@ -179,12 +199,24 @@ export class AssignAssessmentComponent implements OnInit {
 
   onSelectAll(event: any) {
     this.selectAllChecked = event.checked;
-    this.filteredTrainees.forEach(trainee => {
-      const checkbox = document.querySelector(`input[type="checkbox"][value="${trainee.email}"]`);
+    this.filteredTrainees.forEach((trainee) => {
+      const checkbox = document.querySelector(
+        `input[type="checkbox"][value="${trainee.email}"]`
+      );
       if (checkbox) {
         (checkbox as HTMLInputElement).checked = this.selectAllChecked;
       }
     });
-    this.onTraineeSelectionChange(this.selectAllChecked ? this.filteredTrainees.map(trainee => trainee.email) : []);
+    this.onTraineeSelectionChange(
+      this.selectAllChecked
+        ? this.filteredTrainees.map((trainee) => trainee.email)
+        : []
+    );
+  }
+
+  onCloseFeedback() {
+    this.feedbackVisible = false;
+    this.onCancel()
+    this.router.navigate(['/home/trainer/assessment']);
   }
 }
