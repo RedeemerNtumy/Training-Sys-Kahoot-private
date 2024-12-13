@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -12,7 +18,7 @@ import { Question } from '@core/models/kahoot-questions';
 import { KahootService } from '@core/services/assessment/kahoot/kahoot.service';
 import { CommonModule } from '@angular/common';
 import { initializeDropdownOptions } from '../../../../utils/kahootDropDownData';
-import { LoaderComponent } from "../../../../core/shared/loader/loader.component";
+import { LoaderComponent } from '../../../../core/shared/loader/loader.component';
 
 @Component({
   selector: 'app-generate-by-ai',
@@ -23,22 +29,25 @@ import { LoaderComponent } from "../../../../core/shared/loader/loader.component
     ReactiveFormsModule,
     QuestionCardComponent,
     CommonModule,
-    LoaderComponent
-],
+  ],
   templateUrl: './generate-by-ai.component.html',
   styleUrl: './generate-by-ai.component.scss',
 })
 export class GenerateByAiComponent implements OnInit {
   quizzes: Question[] = [];
+  addedQuestions: Question[] = [];
   levels: { name: string }[] | undefined;
   questionType: { name: string }[] | undefined;
   includeCode: { name: string }[] | undefined;
-  errorMessage = ''
+  errorMessage = '';
 
   generateQuizForm!: FormGroup;
   isLoading = false;
 
   @Output() closeModal = new EventEmitter<void>();
+  @Output() questionsAdded = new EventEmitter<Question[]>();
+  @ViewChild(QuestionCardComponent)
+  questionCardComponent!: QuestionCardComponent;
 
   constructor(private fb: FormBuilder, private kahootService: KahootService) {}
 
@@ -48,6 +57,12 @@ export class GenerateByAiComponent implements OnInit {
     this.questionType = dropdownOptions.questionType;
     this.includeCode = dropdownOptions.includeCode;
     this.onGenerateQuizForm();
+
+    this.kahootService.getGenerateQuiz().subscribe({
+      next: (response) => {
+        this.quizzes = response;
+      },
+    });
   }
 
   onGenerateQuizForm(): void {
@@ -62,7 +77,7 @@ export class GenerateByAiComponent implements OnInit {
   onSubmit() {
     this.isLoading = true;
     this.quizzes = [];
-    this.errorMessage = ''
+    this.errorMessage = '';
 
     if (this.generateQuizForm.valid) {
       const formValue = this.generateQuizForm.value;
@@ -72,16 +87,13 @@ export class GenerateByAiComponent implements OnInit {
         includeCode: formValue.includeCode.name,
         topic: formValue.topic,
       };
-      console.log(formattedValue);
       this.kahootService.generateQuiz(formattedValue).subscribe({
         next: (response: Question[]) => {
           this.quizzes = response;
-          console.log(response);
         },
         error: (error) => {
           this.isLoading = false;
-          console.error('Error generating quiz:', error);
-          this.errorMessage = error.message
+          this.errorMessage = error.message;
         },
         complete: () => {
           this.isLoading = false;
@@ -92,5 +104,28 @@ export class GenerateByAiComponent implements OnInit {
 
   onClose() {
     this.closeModal.emit();
+  }
+
+  onAddQuestionToKahootQuestions(question: Question) {
+    question.timeLimit = { name: '15 seconds', value: 15 };
+    question.points = { name: 'Standard', value: 50 };
+    this.addedQuestions.push(question);
+    this.questionsAdded.emit([...this.addedQuestions]);
+  }
+
+  onAddAllQuestions() {
+    this.quizzes.forEach((quiz) => {
+      quiz.timeLimit = { name: '15 seconds', value: 15 },
+      quiz.points = { name: 'Standard', value: 50 };
+    });
+    this.addedQuestions.push(...this.quizzes);
+  }
+
+  onDone() {
+    this.questionsAdded.emit(this.addedQuestions);
+  }
+
+  onQuestionsUpdated(updatedQuestions: Question[]) {
+    this.addedQuestions = updatedQuestions;
   }
 }

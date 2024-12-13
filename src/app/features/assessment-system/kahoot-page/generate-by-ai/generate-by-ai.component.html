@@ -25,22 +25,13 @@
             <p>Generate</p>
           </button>
         </div>
-        <!-- <div class="questions-div" *ngIf="quizzes"> -->
         <div class="questions-div">
           <div class="questions-container">
-            @if(isLoading){
-            <div class="load">
-              <app-loader />
-            </div>
-            } @if (errorMessage) {
-            <div class="load">
-              <p class="error">{{ errorMessage }}, Please try again later!</p>
-            </div>
-            }
             <app-question-card
               class="questions"
               *ngFor="let quiz of quizzes"
               [question]="quiz"
+              (addQuestion)="onAddQuestionToKahootQuestions($event)"
             />
           </div>
         </div>
@@ -83,10 +74,10 @@
           </div>
         </div>
         <div class="add">
-          <button type="button" class="btn">
+          <button type="button" class="btn" (click)="onAddAllQuestions()">
             Add all {{ quizzes.length }}
           </button>
-          <button type="button" class="btn">Done</button>
+          <button type="button" class="btn" (click)="onDone()">Done</button>
         </div>
       </div>
     </form>
