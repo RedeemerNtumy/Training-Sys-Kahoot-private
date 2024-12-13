@@ -6,6 +6,7 @@ export interface Cohort {
     endDate: Date,
     traineesEnrolled: number,
     description: string,
+    status: string;
 }
 
 // For getting a list of cohorts
@@ -50,26 +51,30 @@ export interface Specialization {
 
 
 export interface User {
+    id: number;
     email: string;
     firstName: string;
     lastName: string;
     dateOfBirth: Date;
-    gender: 'Male' | 'Female' | 'male' | 'female';
+    gender: Gender;
     country: string;
     address: string;
     universityCompleted: string;
-    userProfilePhoto: string;
+    userProfilePhoto: File;
     specialization: string;
+    specializationId: string;
     cohort: string;
-    enrollementDate: Date;
+    cohortId: string;
+    enrollementDate?: Date;
+    enrollmentDate?: Date;
     trainingId: string;
-    status: 'active' | 'inactive';
+    status: 'ACTIVE' | 'INACTIVE';
     phoneNumber: string;
-    date_added: Date;
+    dateAdded: Date;
 }
 
 export interface Gender {
-    sex: 'Male' | 'Female' | 'male' | 'female';
+    sex: 'male' | 'female' | 'Male' | 'Female';
 }
 
 export interface Countries {

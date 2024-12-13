@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TraineeInsystemService } from '../../../../../core/services/user-management/trainee/trainee-insystem.service';
-import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, filter, map, tap } from 'rxjs';
 import { User } from '../../../../../core/models/cohort.interface';
-import { AsyncPipe, NgIf, TitleCasePipe } from '@angular/common';
+import { AsyncPipe, DatePipe, NgIf, TitleCasePipe } from '@angular/common';
+import { PaginatorComponent } from '@core/shared/paginator/paginator.component';
+import { SearchbarService } from '@core/services/searchbar/searchbar.service';
 
 @Component({
   selector: 'app-trainee-list',
   standalone: true,
-  imports: [AsyncPipe, NgIf, TitleCasePipe],
+  imports: [AsyncPipe, NgIf, TitleCasePipe, PaginatorComponent, DatePipe],
   templateUrl: './trainee-list.component.html',
   styleUrl: './trainee-list.component.scss'
 })
@@ -23,21 +25,28 @@ export class TraineeListComponent {
   private specializationFilter$ = new BehaviorSubject<string | null>(null);
 
   ellipsisClicked: boolean = false;
-  selectedTraineeName: string | null = '';
+  selectedTraineeId: number | null = 0;
   isConfirmDeleteModalOpen = false;
 
   deleteModalSuccess = false;
+
+  //Pagination
+  private pageSubject = new BehaviorSubject<number>(1);
+  currentPage$ = this.pageSubject.asObservable();
+  pageSize = 4;
+  totalPages = 1;
   
   constructor(
     private router: Router,
-    private traineesInsystemService: TraineeInsystemService
+    private traineesInsystemService: TraineeInsystemService,
+    private searchService: SearchbarService,
   ) {}
 
 
 
   ngOnInit() {
     // Get cohort details with trainees list from service
-    this.traineeUsers$ = this.traineesInsystemService.getAllTrainees(); 
+    this.traineeUsers$ = this.traineesInsystemService.getAllTrainees();
 
     this.filteredTrainees$ = combineLatest([
       this.traineeUsers$, 
@@ -75,8 +84,8 @@ export class TraineeListComponent {
 
 
   // Update search term on changes from the search bar
-  onSearchChange(searchTerm: string): void {
-    this.searchTerm$.next(searchTerm);
+  onSearchChange(): void {
+    this.searchTerm$.next(this.searchService.searchValue);
   }
 
   onSortList() {
@@ -110,24 +119,24 @@ export class TraineeListComponent {
     this.specializationFilter$.next(null);
   }
 
-  toggleEllipsis(selectedTrainee: string, event:Event) {
+  toggleEllipsis(selectedTrainee: number, event:Event) {
     event.stopPropagation();
-    this.selectedTraineeName = this.selectedTraineeName === selectedTrainee ? null : selectedTrainee;
-    if(this.selectedTraineeName === null) {
+    this.selectedTraineeId = this.selectedTraineeId === selectedTrainee ? null : selectedTrainee;
+    if(this.selectedTraineeId === null) {
       this.ellipsisClicked = false;
     }
-    else if(this.selectedTraineeName === selectedTrainee) {
+    else if(this.selectedTraineeId === selectedTrainee) {
       this.ellipsisClicked = true;
     }
   }
 
-  getSelectedUser(traineeId: string, trainee: User) {
-    this.traineesInsystemService.getSelectedTrainee(trainee);
-    this.goToProfile(traineeId);
+  getSelectedUser(traineeEmail: string) {
+    this.traineesInsystemService.selectedEmailSubject.next(traineeEmail)
+    this.goToCreateUser();
   }
 
-  goToProfile(id: string) {
-    this.router.navigate(['/home/admin/user-management/user-profile/'])
+  goToCreateUser() {
+    this.router.navigate(['/home/admin/user-management/add-user-form'])
   }
 
   deleteUser(email: string) {
@@ -136,11 +145,12 @@ export class TraineeListComponent {
   }
 
   confirmDelete() {
-    this.traineesInsystemService.deleteSelectedTrainee(this.deleteTraineeEmail)
+    this.traineesInsystemService.deleteSelectedTrainee(this.deleteTraineeEmail).pipe(
+      tap(res => {
+        console.log("deletion response: ", res)
+      })
+    )
     this.toggleConfirmDeleteModal();
-    if(this.traineesInsystemService.deleteModalSuccessful) {
-      this.toggleDeleteModalSuccess();
-    }
   }
 
   toggleConfirmDeleteModal() {
@@ -154,5 +164,12 @@ export class TraineeListComponent {
   toggleDeleteModalSuccess() {
     this.deleteModalSuccess = !this.deleteModalSuccess;
   }
+
+  
+  // Pagination
+  onPageChange(page: number) {
+    this.pageSubject.next(page);
+  }
+
 
 }
