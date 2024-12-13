@@ -4,23 +4,25 @@
 
 .container {
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
-  overflow-x: scroll;
-  // padding-top: 5rem;
+  overflow-x: hidden;
+  background: #fdfdfc;
 
   & .wrapper {
-    // width: 67.5rem;
-    height: 90vh;
-    overflow-y: scroll;
+    width: 100%;
+    height: 85vh;
+    overflow-y: hidden;
     margin-top: 2.6rem;
-    padding-bottom: 8rem;
+    padding-left: 8rem;
+    padding-right: 8rem;
     scrollbar-width: none;
 
     & .back-button {
       width: fit-content;
       display: flex;
-      // align-items: center;
+      align-items: Center;
       gap: 0.4rem;
       margin-bottom: 2.1rem;
       cursor: pointer;
@@ -55,20 +57,39 @@
     }
 
     & form {
+      height: 80vh;
       overflow-y: scroll;
+      padding-bottom: 14rem;
 
       & .first-last-name {
+        height: fit-content;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        // align-items: center;
         gap: 2.4rem;
+
+        & .first-name {
+          height: fit-content;
+        }
+        & .last-name {
+          height: fit-content;
+        }
       }
 
       & .gender-country {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        // align-items: center;
         gap: 4.9rem;
+
+        div:first-of-type {
+          width: 100%;
+        }
+
+        div:last-of-type {
+          width: 100%;
+        }
+
       }
 
       & button {
@@ -201,13 +222,20 @@ select:focus {
     }
 }
 
+}
+
+
 .error-wrapper {
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .error {
   text-align: right;
-  color: $clr-red-500;
-}
 
+  span {
+    color: $clr-red-500;
+    font-size: $font-size-xbody;
+  }
 }

@@ -3,18 +3,17 @@
 
 .container {
     width: 100%;
-    // height: 90vh;
-    background: $clr-white;
+    margin-top: 1.6rem;
 
     & .list-wrapper {
         width: 100%;
         height: 100%;
+        padding-top: 0 8rem;
     
         & .headers { 
             width: 100%; 
             display: flex;
-            // justify-content: space-between;  
-            gap: 0;  
+            justify-content: space-between;  
             margin-bottom: 44px;  
             font-size: $font-size-subtitle-2;  
             font-weight: 600;  
@@ -43,22 +42,19 @@
             & div:nth-child(6) {
                 width: 13rem;
             }
-
-            // & div:nth-child(7) {
-            //     // width: 10rem;
-            // }
         }
     
         & .scroll-list-wrapper {
-            height: 100%;
-            overflow-y: scroll;
+            height: fit-content;
+            overflow-y: hidden;
             padding-bottom: 5rem;
+            overflow-y: scroll;
     
             & .list {
                 width: 100%;
                 height: 50px;
                 display: flex;
-                // justify-content: space-between;
+                justify-content: space-between;
                 background: $clr-white;
                 font-size: $font-size-xbody;
                 font-weight: 400;
@@ -105,11 +101,13 @@
                     overflow-x: hidden;
     
                     & .email {
+                        width: max-content;
                         display: flex;
                         gap: 1.089rem;
                     }
     
                     & .telephone {
+                        width: max-content;
                         display: flex;
                         gap: 1.089rem;
                     }
@@ -152,15 +150,10 @@
                 }
     
                 & .ellipsis {
-                    // width: 16rem;
                     display: flex;
                     align-items: center;
                     position: relative;
                 }
-
-                // & .after-ellipsis {
-                //     width: 10rem;
-                // }
             }
         }
     
@@ -290,6 +283,3 @@
 .notConfirmDeleteModal {
     display: none;
 }
-
-
-
