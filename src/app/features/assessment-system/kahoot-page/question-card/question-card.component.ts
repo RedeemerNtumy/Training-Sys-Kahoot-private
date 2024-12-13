@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Question } from '@core/models/kahoot-questions';
 
 @Component({
@@ -11,4 +11,9 @@ import { Question } from '@core/models/kahoot-questions';
 })
 export class QuestionCardComponent {
   @Input() question!: Question;
+  @Output() addQuestion = new EventEmitter<Question>();
+
+  onAddQuestion(question: Question) {
+    this.addQuestion.emit(question);
+  }
 }
