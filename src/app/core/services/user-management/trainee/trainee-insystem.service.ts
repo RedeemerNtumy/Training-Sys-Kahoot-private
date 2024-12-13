@@ -1,7 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorHandlerService } from '../../cohort-data/error-handling/error-handler.service';
-import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  map,
+  tap,
+  throwError,
+} from 'rxjs';
 import { User } from '../../../models/cohort.interface';
 import { environment } from 'src/environments/environment.development';
 import { TraineeList } from '@core/models/trainee.interface';
@@ -40,8 +47,6 @@ export class TraineeInsystemService {
 
   deleteModalSuccessful!: boolean;
 
-
-
   constructor(
     private http: HttpClient,
     private errorHandlerService: ErrorHandlerService
@@ -53,7 +58,9 @@ export class TraineeInsystemService {
       'ngrok-skip-browser-warning': '69420',
     });
     return this.http
-      .get<User[]>(`${this.baseUrl}?email=${encodeURIComponent(email)}`,{ headers })
+      .get<User[]>(`${this.baseUrl}?email=${encodeURIComponent(email)}`, {
+        headers,
+      })
       .pipe(
         tap((response) => {
           const [data] = response;
@@ -82,10 +89,14 @@ export class TraineeInsystemService {
   //Usermanagment add user requests
   //Put request to backend
   updateUserData(updateFormData: {}, email: string | undefined) {
+    const headers = new HttpHeaders({
+      'ngrok-skip-browser-warning': '69420',
+    });
     return this.http
       .put<User>(
         `${this.baseUrl}?email=${encodeURIComponent(email || '')}`,
-        updateFormData
+        updateFormData,
+        { headers }
       )
       .pipe(
         tap(() => {
@@ -97,8 +108,11 @@ export class TraineeInsystemService {
   }
 
   createNewUser(formData: FormData) {
+    const headers = new HttpHeaders({
+      'ngrok-skip-browser-warning': '69420',
+    });
     return this.http
-      .post<User>(`${this.baseUrl}/users/trainee/create`, formData)
+      .post<User>(`${this.baseUrl}/users/trainee/create`, formData, { headers })
       .pipe(
         tap(() => {
           // Reset form states
@@ -113,20 +127,23 @@ export class TraineeInsystemService {
       );
   }
 
-
-
   // Get all trainees
   getAllTrainees() {
-    return this.http.get<TraineeList>(`${this.baseUrl}/profiles/trainees`).pipe(
-      map(res => {
-        const trainees = res.content;
-        return trainees;
-      }),
-      tap((trainees) => {
-        this.allTraineesSubject.next(trainees)
-      }),
-      catchError(error => this.errorHandlerService.handleError(error))
-    )
+    const headers = new HttpHeaders({
+      'ngrok-skip-browser-warning': '69420',
+    });
+    return this.http
+      .get<TraineeList>(`${this.baseUrl}/profiles/trainees`, { headers })
+      .pipe(
+        map((res) => {
+          const trainees = res.content;
+          return trainees;
+        }),
+        tap((trainees) => {
+          this.allTraineesSubject.next(trainees);
+        }),
+        catchError((error) => this.errorHandlerService.handleError(error))
+      );
   }
 
   getSelectedTrainee(trainee: User) {
@@ -134,8 +151,13 @@ export class TraineeInsystemService {
   }
 
   deleteSelectedTrainee(email: string) {
+    const headers = new HttpHeaders({
+      'ngrok-skip-browser-warning': '69420',
+    });
     return this.http
-      .delete<User>(`${this.baseUrl}?email=${encodeURIComponent(email)}`)
+      .delete<User>(`${this.baseUrl}?email=${encodeURIComponent(email)}`, {
+        headers,
+      })
       .pipe(
         tap((response) => {
           console.log(response);
@@ -144,6 +166,4 @@ export class TraineeInsystemService {
         catchError((error) => this.errorHandlerService.handleError(error))
       );
   }
-
-
 }
