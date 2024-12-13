@@ -34,6 +34,7 @@ export class ConfirmTrainingDetailsComponent implements OnDestroy {
   ngOnInit() {
     this.initForm();
     this.loadFormData();
+    
   }
 
   private initForm() {
@@ -41,7 +42,7 @@ export class ConfirmTrainingDetailsComponent implements OnDestroy {
       specialization: [{value: '', disabled: true}, Validators.required],
       cohort: [{value: '', disabled: true}, Validators.required],
       enrollementDate: [{value: '', disabled: true}, Validators.required],
-      status: [{value: '', disabled: true}, Validators.required],
+      status: ['']
     });
   }
 
@@ -53,19 +54,17 @@ export class ConfirmTrainingDetailsComponent implements OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         if (data) {
-          const capitalizedStatus = this.capitalizeFirstLetter(data.status);
           this.newUserFormSecTwo.patchValue({
             specialization: data.specialization,
             cohort: data.cohort,
             enrollementDate: data.enrollementDate,
-            status: capitalizedStatus,
+            status: data.status,
           }); 
         }
       });
   }
 
   onSubmit() {
-    this.errorMessage = '';
     combineLatest([
       this.traineeInSystemService.firstFormState$,
       this.traineeInSystemService.secondFormState$,
@@ -74,7 +73,6 @@ export class ConfirmTrainingDetailsComponent implements OnDestroy {
       takeUntil(this.destroy$),
       catchError(error => {
         this.errorMessage = 'Failed to retrieve form data. Please try again.';
-        console.error(error);
         throw error;
       })
     )
@@ -88,20 +86,13 @@ export class ConfirmTrainingDetailsComponent implements OnDestroy {
         ...firstFormState, 
         ...secondFormState,
         cohortId: secondFormState.cohort,
-        status: 'ACTIVE',
-        trainingId: 304,
       };
 
       delete (newForm as any).cohort;
 
-      console.log(newForm)
-
-      
-
       // Convert newForm to FormData
       const formData = this.convertToFormData(newForm);
 
-      console.log(formData)
       // Submit the FormData to the service
       this.traineeInSystemService.createNewUser(formData)
         .pipe(
@@ -111,15 +102,9 @@ export class ConfirmTrainingDetailsComponent implements OnDestroy {
           }),
           catchError(err => {
             this.errorMessage = 'Failed to create user. Please try again.';
-            console.error(err);
             throw err;
           }),
-          // finalize(() => this.toggleModal())
-        )
-        .subscribe(res => {
-          console.log('User created successfully:', res);
-          this.routeToUserList();
-        });
+        ).subscribe();
     });
   }
 

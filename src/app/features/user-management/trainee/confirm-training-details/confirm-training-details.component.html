@@ -37,41 +37,20 @@
             <div class="cohort">
                 <label for="specialization">Cohort</label>
                 <select formControlName="cohort" id="cohort-select-list">
-                  <option *ngFor="let option of allCohorts$ | async" [value]="option.name">
+                  <option *ngFor="let option of allCohorts$ | async" [value]="option.id">
                     {{ option.name }}
                   </option>
                 </select>
             </div>
 
 
-            <div class="form-field enrollment-date">
+            <div class="form-field enrollement-date">
                 <div class="label-wrapper">
                     <label for="enrollment-date">Enrollement Date</label>
                     <span>*</span>
                 </div>
                 <input type="date" formControlName="enrollementDate">
             </div>
-
-            <div class="form-field status">
-                <div class="label-wrapper">
-                    <label for="training-id">Status</label>
-                    <span>*</span>
-                </div>
-                <select formControlName="status" id="status-select-list">
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                </select>
-            </div>
-
-
-            <!-- <div class="form-field training-id">
-                <div class="label-wrapper">
-                    <label for="training-id">Training ID</label>
-                    <span>*</span>
-                </div>
-                <input type="text" formControlName="trainingId">
-            </div> -->
-
             
             <div class="btn-wrapper">
                 <button class="btn" (click)="cancel()">Cancel</button>
