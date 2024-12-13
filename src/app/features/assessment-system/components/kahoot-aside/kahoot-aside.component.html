@@ -6,46 +6,26 @@
         <p>Time Limit</p>
       </label>
       <p-dropdown
-        [options]="timeLimit"
+        [options]="timeLimitOptions"
         optionLabel="name"
         id="timeLimit"
         placeholder="select level"
+        [(ngModel)]="timeLimit"
+        (onChange)="onTimeLimitChange($event)"
       ></p-dropdown>
     </div>
     <div class="select">
-      <label for="timeLimit">
+      <label for="points">
         <img src="assets/Images/png/gem.png" alt="icon" />
         <p>Points</p></label
       >
       <p-dropdown
-        [options]="timeLimit"
+        [options]="pointsOptions"
         optionLabel="name"
-        id="timeLimit"
+        id="points"
         placeholder="select level"
-      ></p-dropdown>
-    </div>
-    <div class="select">
-      <label for="timeLimit">
-        <img src="assets/Images/png/interactive.png" alt="icon" />
-        <p>Answer Options</p></label
-      >
-      <p-dropdown
-        [options]="timeLimit"
-        optionLabel="name"
-        id="timeLimit"
-        placeholder="select level"
-      ></p-dropdown>
-    </div>
-    <div class="select">
-      <label for="timeLimit">
-        <img src="assets/Images/png/interactive.png" alt="icon" />
-        <p>Add Code snippet</p></label
-      >
-      <p-dropdown
-        [options]="timeLimit"
-        optionLabel="name"
-        id="timeLimit"
-        placeholder="select level"
+        [(ngModel)]="points"
+        (onChange)="onPointsChange($event)"
       ></p-dropdown>
     </div>
   </div>

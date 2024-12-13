@@ -20,7 +20,8 @@
 
         & .back-button {
             width: fit-content;
-            display: flex;         
+            display: flex;
+            align-items: Center;
             gap: 0.4rem;
             margin-bottom: 2.1rem;
             cursor: pointer;
@@ -57,7 +58,7 @@
         & form {
             overflow-y: hidden;
 
-            & .status {
+            & .cohort {
                 margin-bottom: 20rem;
             }
 
@@ -108,7 +109,7 @@ div.cohort {
 
 
 .error {
-    text-align: right; 
+    text-align: right;
     color: $clr-red-500;
 }
-  
+

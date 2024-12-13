@@ -26,17 +26,16 @@
     </div>
   </div>
   <div class="applicants-info">
-    @if(specialization.traineesCount){
+    @if(specialization.traineeCount){
     <div class="profiles">
-      <img src="https://avatar.iran.liara.run/public/girl" alt="">
-      <img src="https://avatar.iran.liara.run/public" alt="">
-      <img src="https://avatar.iran.liara.run/public/girl" alt="">
-      <img src="https://avatar.iran.liara.run/username?username=[firstname+lastname]" alt="">
+      <ng-container *ngFor="let item of [].constructor(Math.min(specialization.traineeCount, 4)); let i = index">
+        <img src="https://avatar.iran.liara.run/public" alt="">
+      </ng-container>
     </div>
-    <p>{{ specialization.traineesCount }}+ Trainees enrolled</p>
+    <p class="enrolled">{{ specialization.traineeCount }}+ Trainee(s) enrolled</p>
     } @else {
       <img src="https://avatar.iran.liara.run/username?username=[firstname+lastname]" alt="">
-      <p class="none-enrolled">0+ Trainees enrolled</p>
+      <p class="enrolled">0+ Trainees enrolled</p>
     }
   </div>
 </li>

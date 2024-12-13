@@ -4,7 +4,7 @@ export interface specialization {
   description: string;
   prerequisites: string[];
   createdAt: string;
-  traineesCount?: number;
+  traineeCount?: number;
 }
 
 

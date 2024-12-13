@@ -9,57 +9,47 @@
       </div>
     </div>
     <div class="col-2">
-      <div class="filters-container">
-        <p-dropdown
-          [options]="filterOptions.specialization"
-          [(ngModel)]="selectedSpecialization"
-          placeholder="Specialization"
-          (onChange)="applyFilters()"
-        ></p-dropdown>
-
-        <p-dropdown
-          [options]="filterOptions.cohort"
-          [(ngModel)]="selectedCohort"
-          placeholder="Cohort"
-          (onChange)="applyFilters()"
-        ></p-dropdown>
-        <mat-checkbox>Select All</mat-checkbox>
-      </div>
       <div class="filters-wrapper">
         <div class="filters-container">
-          <p-dropdown
-            [options]="filterOptions.specialization"
-            [(ngModel)]="selectedSpecialization"
-            placeholder="Specialization"
-            (onChange)="applyFilters()"
-          ></p-dropdown>
-
           <p-dropdown
             [options]="filterOptions.cohort"
             [(ngModel)]="selectedCohort"
             placeholder="Cohort"
             (onChange)="applyFilters()"
           ></p-dropdown>
-          <mat-checkbox>Select All</mat-checkbox>
+          <p-dropdown
+            [options]="filterOptions.specialization"
+            [(ngModel)]="selectedSpecialization"
+            placeholder="Specialization"
+            (onChange)="applyFilters()"
+          ></p-dropdown>
+          <mat-checkbox (change)="onSelectAll($event)" [checked]="selectAllChecked">Select All</mat-checkbox>
+          
         </div>
         <p-tabView>
           <p-tabPanel header="Trainee">
-            <app-trainee-list />
+            <app-trainee-list
+              [trainees]="filteredTrainees"
+              [selectAllChecked]="selectAllChecked"
+              (selectedTrainees)="onTraineeSelectionChange($event)"
+            ></app-trainee-list>
           </p-tabPanel>
           <p-tabPanel header="Cohort">
-            <app-cohort-list />
+            <app-cohort-list [activeCohort]="activeCohort" />
           </p-tabPanel>
         </p-tabView>
       </div>
     </div>
     <div class="actions-container">
-      <div class="expires">
+      <form [formGroup]="assignAssessmentForm" class="expires">
         <p-dropdown
-          [options]="expiryOptions"
-          [(ngModel)]="selectedExpiry"
+          [options]="selectedExpiry"
           placeholder="Expires in"
+          optionLabel="name"
+          optionValue="value"
+          formControlName="deadline"
         ></p-dropdown>
-      </div>
+      </form>
       <div class="actions">
         <button class="btn cancel" (click)="onCancel()">Cancel</button>
         <button class="btn assign" (click)="onAssign()">Assign</button>

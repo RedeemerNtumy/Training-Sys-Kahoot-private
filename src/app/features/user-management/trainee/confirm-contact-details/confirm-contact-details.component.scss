@@ -14,7 +14,7 @@
 
     & .wrapper {
         width: 100%;
-        height: 85vh;   
+        height: 85vh;
         height: 90vh;
         overflow-y: hidden;
         margin-top: 2.6rem;
@@ -24,7 +24,8 @@
 
         & .back-button {
             width: fit-content;
-            display: flex;         
+            display: flex;
+            align-items: Center;
             gap: 0.4rem;
             margin-bottom: 2.1rem;
             cursor: pointer;
@@ -62,7 +63,7 @@
             height: 80vh;
             overflow-y: scroll;
             padding-bottom: 14rem;
-                
+
             & .first-last-name {
                 display: flex;
                 justify-content: space-between;
@@ -75,6 +76,20 @@
                 justify-content: space-between;
                 align-items: center;
                 gap: 4.9rem;
+            }
+
+            & .upload-photo {
+                position: relative;
+
+                & img {
+                    width: 100%;
+                    height: 20.7rem;
+                    border-radius: .9rem;
+                    position: absolute;
+                    z-index: 3;
+                    object-fit: cover;
+                    top: 0;
+                }
             }
 
             & button {
@@ -157,7 +172,7 @@ select:focus {
 }
 
 .error {
-    text-align: right; 
+    text-align: right;
     color: $clr-red-500;
 }
-  
+
