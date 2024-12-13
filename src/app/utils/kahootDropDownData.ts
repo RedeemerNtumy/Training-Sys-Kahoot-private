@@ -29,9 +29,9 @@ export function initializeDropdownOptions() {
       { name: '4 minutes', value: 240 },
     ],
     point: [
-      { name: 'Standard' },
-      { name: 'Double Point' },
-      { name: 'No Point' },
+      { name: 'Standard', value: 50 },
+      { name: 'Double Point', value: 100 },
+      { name: 'No Point', value: 0 },
     ],
     answerOptions: [{ name: 'Single Select' }, { name: 'Multi-select' }],
   };
