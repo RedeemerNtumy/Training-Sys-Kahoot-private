@@ -28,11 +28,13 @@ export class AssessmentService {
   assessments$ = this.assessmentsSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    this.loadAssessments();
+    // Ensure no redundant calls to loadAssessments
   }
 
   private loadAssessments() {
-    this.getAssessments().subscribe();
+    this.getAssessments().subscribe((data) => {
+      console.log('Assessments loaded in service:', data);
+    });
   }
 
   getAssessmentType() {
@@ -69,6 +71,9 @@ export class AssessmentService {
         catchError((error) => {
           console.error('Error fetching assessments:', error);
           return throwError(() => error);
+        }),
+        tap(() => {
+          console.log('Assessments fetch completed');
         })
       );
   }
