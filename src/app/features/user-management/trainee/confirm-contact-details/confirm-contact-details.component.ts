@@ -20,6 +20,10 @@ export class ConfirmContactDetailsComponent {
   countries$!: Observable<Countries[]>;
   disabled: boolean = true;
 
+  restCountries!: any;
+
+  previewUrl: string | ArrayBuffer | null = null; 
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -31,6 +35,8 @@ export class ConfirmContactDetailsComponent {
 
     this.genders$ = this.usermanagementService.getAllGenders();
     this.countries$ = this.usermanagementService.getAllCountries();
+
+    this.countries$.subscribe(data => this.restCountries = data)
 
     this.newUserFormConfirm = this.fb.group({
       email: [{value: '', disabled: true},Validators.required, Validators.email],
@@ -59,28 +65,27 @@ export class ConfirmContactDetailsComponent {
           universityCompleted: data.universityCompleted,
           userProfilePhoto: data.userProfilePhoto,
         });
+        
+        this.handleFile(data.userProfilePhoto);
+
       }
     })
   }
 
-  setFirstFormData() {
-    this.traineeInsystemService.setFirstFormState(this.newUserFormConfirm.value)
+  private handleFile(file: File | null) {
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result; // This sets the preview URL for the image
+      };
+      reader.readAsDataURL(file); // Generate a Data URL
+    } else {
+      this.previewUrl = null; // Clear the preview if there's no file
+    }
   }
 
-
-  emailAsyncValidator(control: AbstractControl): Observable<User[] | null> {
-    return control.valueChanges.pipe(
-      debounceTime(500), 
-      distinctUntilChanged(),
-      switchMap(value => {
-        return this.traineeInsystemService.checkEmail(value).pipe(
-          catchError(() => {
-            return []; 
-          })
-        );
-      }),
-      first()
-    );
+  setFirstFormData() {
+    this.traineeInsystemService.setFirstFormState(this.newUserFormConfirm.value)
   }
 
 

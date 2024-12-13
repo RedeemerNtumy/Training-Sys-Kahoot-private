@@ -11,6 +11,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { TrainerListComponent } from '../../trainer/trainer-list/trainer-list.component';
 import { Trainer } from '@core/models/trainer.interface';
 import { TrainerService } from '@core/services/user-management/trainer/trainer.service';
+import { SearchbarService } from '@core/services/searchbar/searchbar.service';
 
 @Component({
   selector: 'app-add-user',
@@ -47,7 +48,7 @@ export class AddUserComponent {
   constructor(
     private router: Router,
     private traineesInsystemService: TraineeInsystemService,
-    private trainersService: TrainerService
+    private trainersService: TrainerService,
   ) {}
 
   ngOnInit(): void {
@@ -152,15 +153,14 @@ export class AddUserComponent {
 
   setToTrainerTab() {
     this.trainerTabClicked = true;
-    console.log(this.trainerTabClicked, 'trainer');
   }
 
   setToTraineeTab() {
     this.trainerTabClicked = false;
-    console.log(this.trainerTabClicked, 'trainee');
   }
 
-  goToAddUserForm() {
+  goToAddTraineeForm() {
+    this.resetForms()
     this.router.navigate(['/home/admin/user-management/add-user-form']);
   }
 
@@ -172,9 +172,14 @@ export class AddUserComponent {
     if (this.trainerTabClicked === true) {
       this.goToAddTrainerForm();
     } else if (this.trainerTabClicked === false) {
-      this.goToAddUserForm();
+      this.goToAddTraineeForm();
     }
   }
 
-
+  resetForms() {
+    this.traineesInsystemService.selectedEmailSubject.next(null);
+    this.traineesInsystemService.setFirstFormState(null);
+    this.traineesInsystemService.setSecondFormState(null);
+    this.traineesInsystemService.retreivedUserDataSubject.next(null)
+  }
 }

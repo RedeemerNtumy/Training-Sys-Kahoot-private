@@ -2,8 +2,8 @@ import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Cohort, Specialization } from '../../../../core/models/cohort.interface';
-import { Observable, first, map, of, switchMap, tap } from 'rxjs';
+import { Cohort, Specialization, User } from '../../../../core/models/cohort.interface';
+import { Observable, Subject, catchError, distinctUntilChanged, filter, first, map, of, switchMap, take, takeUntil, tap } from 'rxjs';
 import { UserManagementTraineeService } from '../../../../core/services/user-management/trainee/user-management-trainee.service';
 import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
 
@@ -20,7 +20,10 @@ export class AddUserFormSection2Component {
   allSpecializations$!: Observable<Specialization[]>;
   allCohorts$!: Observable<Cohort[]>;
 
-  selectedCohortStatus: string | undefined = '';
+  traineeEnrollementDate: Date | undefined ;
+  traineeStatus: string | undefined ;
+
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -30,68 +33,72 @@ export class AddUserFormSection2Component {
   ) {}
 
   ngOnInit() {
+    this.traineeInSystemService.firstFormState$.subscribe(data => {
+      console.log("first form data: ", data)
+    })
+
     this.newUserFormSecTwo = this.fb.group({
       specialization: ['', Validators.required],
       cohort: ['', Validators.required],
-      enrollementDate: ['', Validators.required],
+      enrollementDate: ['',],
       status: ['',],
-      // trainingId: ['', Validators.required]
     })
 
     this.allSpecializations$ = this.userManagementTraineeService.getAllspecializations();
     this.allCohorts$ = this.userManagementTraineeService.getAllCohorts();  
     
      
-    this.traineeInSystemService.secondFormState$
-    .pipe(
-      first(), // Ensure we only subscribe once
-      switchMap(secondFormState => {
-        if (secondFormState) {
-          return of(secondFormState); // Use firstFormState if available
-        }
-        return this.traineeInSystemService.retreivedUserData$; // Otherwise fallback to retrievedUserData$
-      })
-    )
-    .subscribe(data => {
-      if (data) {
-        this.newUserFormSecTwo.patchValue(data);
+    this.traineeInSystemService.retreivedUserData$.subscribe((data) => {
+      if(data) {
+        this.newUserFormSecTwo.patchValue({
+          specialization: data.specialization,
+          cohort: data.cohortId
+        })
       }
     });
 
   }
 
   onSubmit() {
-
-    const selectedCohort = this.newUserFormSecTwo.get('cohort')?.value;
-    console.log(selectedCohort);
-
-    this.allCohorts$
-    .pipe(
-      map((cohorts) => cohorts.filter((cohort) => cohort.id == selectedCohort)) // Filter the array
-    )
-    .subscribe((filteredCohorts) => {
-      console.log('Filtered Cohort:', filteredCohorts);
+    const selectedCohortId = this.newUserFormSecTwo.get('cohort')?.value;
   
-      this.selectedCohortStatus = filteredCohorts[0].status;
-      console.log('Selected Cohort Status:', this.selectedCohortStatus);
-
-      this.newUserFormSecTwo.patchValue({
-        status: this.selectedCohortStatus,
+    this.allCohorts$
+      .pipe(
+        map((cohorts) => {
+          const cohortId = cohorts.filter((cohort) => cohort.id == selectedCohortId)
+          return cohortId;
+        }), 
+        take(1) 
+      )
+      .subscribe((filteredCohorts) => {
+        if (filteredCohorts.length > 0) {
+          this.traineeEnrollementDate = filteredCohorts[0].startDate;
+          this.traineeStatus = filteredCohorts[0].status;
+  
+          // Patch the form value
+          this.newUserFormSecTwo.patchValue({
+            enrollementDate: this.traineeEnrollementDate,
+            status: this.traineeStatus,
+          });
+  
+          console.log(this.newUserFormSecTwo.value)
+          // Submit the form after updating
+          this.finalizeFormSubmission();
+        } else {
+          this.newUserFormSecTwo.markAllAsTouched();
+        }
       });
-
-      console.log("new user: ", this.newUserFormSecTwo.value)
-
-    });
-
-    if(!this.newUserFormSecTwo.invalid) {
-      this.setSecondFormState()
+  }
+  
+  finalizeFormSubmission() {
+    if (!this.newUserFormSecTwo.invalid) {
+      this.setSecondFormState();
       this.goToConfirmPage();
-    }
-    else {
+    } else {
       this.newUserFormSecTwo.markAllAsTouched();
     }
   }
-
+  
   setSecondFormState() {
     this.traineeInSystemService.setSecondFormState(this.newUserFormSecTwo.value)
   }
@@ -108,4 +115,10 @@ export class AddUserFormSection2Component {
   capitalizeFirstLetter(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
   }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
 }

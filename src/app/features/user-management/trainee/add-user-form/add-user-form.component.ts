@@ -2,9 +2,9 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { InputFieldComponent } from '../../../../core/shared/input-field/input-field.component';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, filter, first, map, of, switchMap, tap, } from 'rxjs';
+import { Observable, Subject, catchError, combineLatest, debounceTime, distinctUntilChanged, filter, first, map, of, switchMap, takeUntil, tap, } from 'rxjs';
 import { Countries, Gender, Specialization, User } from '../../../../core/models/cohort.interface';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { TraineeInsystemService } from '../../../../core/services/user-management/trainee/trainee-insystem.service';
 import { UserManagementTraineeService } from '@core/services/user-management/trainee/user-management-trainee.service';
 import { specialization } from '@core/models/specialization.interface';
@@ -12,7 +12,7 @@ import { specialization } from '@core/models/specialization.interface';
 @Component({
   selector: 'app-add-user-form',
   standalone: true,
-  imports: [InputFieldComponent, ReactiveFormsModule, FormsModule, AsyncPipe, NgFor, NgIf],
+  imports: [ReactiveFormsModule, FormsModule, AsyncPipe, NgFor, NgIf, TitleCasePipe],
   templateUrl: './add-user-form.component.html',
   styleUrl: './add-user-form.component.scss'
 })
@@ -29,7 +29,7 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
 
   //Image upload
   previewUrl: string | ArrayBuffer | null = null;
-  selectedFile!: File;
+  selectedFile: File | null = null;
 
   maxDate!: string;
   
@@ -43,15 +43,25 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.initializeFormData();
+    this.createForm();
+    this.setupEmailSubscriptions();
+    this.setupFormStateSubscriptions();
+    // this.displayRetrievedImage();
+  }
+
+  private initializeFormData() {
     this.setMaxDateOfBirth();
-
-    this.usermanagementService.getAllCountries().subscribe((data) => {
-      this.restCountries = data;
-    });
-
+    
+    // Initialize observables
     this.genders$ = this.usermanagementService.getAllGenders();
-    this.countries$ = this.usermanagementService.getAllCountries()
+    this.countries$ = this.usermanagementService.getAllCountries();
 
+    this.countries$.subscribe(data => this.restCountries = data)
+
+  }
+
+  private createForm() {
     this.newUserForm = this.fb.group({
       email: [
         '',
@@ -62,39 +72,72 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
       lastName: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       gender: ['', Validators.required],
-      country: ['', ],
+      country: ['', Validators.required],
       address: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       universityCompleted: ['', Validators.required],
       userProfilePhoto: ['']
-    })
+    });
 
+    
+  }
+
+  private setupEmailSubscriptions() {
+    // Populate email from selected email subject
+    this.traineeInsystemService.selectedEmail$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (email) => {
+          if (email) {
+            this.newUserForm.patchValue({ email });
+          }
+        }
+      });
+  }
+
+  private setupFormStateSubscriptions() {
+    // Prioritize firstFormState, fallback to retrievedUserData
     this.traineeInsystemService.firstFormState$
-    .pipe(
-      first(), // Ensure we only subscribe once
-      switchMap(firstFormState => {
-        if (firstFormState) {
-          return of(firstFormState); // Use firstFormState if available
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        switchMap(firstFormState => 
+          firstFormState 
+            ? of(firstFormState) 
+            : this.traineeInsystemService.retreivedUserData$
+        ),
+        // Change filter to explicitly check for non-null data
+        filter(data => data !== null && data !== undefined),
+        distinctUntilChanged((prev, curr) => 
+          JSON.stringify(prev) === JSON.stringify(curr)
+        )
+      )
+      .subscribe(data => {
+        if (data) {
+          this.newUserForm.patchValue(data);
         }
         return this.traineeInsystemService.retreivedUserData$; // Otherwise fallback to retrievedUserData$
       })
-    )
-    .subscribe(data => {
-      if (data) {
-        this.newUserForm.patchValue(data);
-      }
-    });
   }
 
+
   onSubmit() {
+  
+
     const formData = this.newUserForm;
 
-    if(!formData.invalid) {
+    const otherFieldsValid = Object.keys(formData.controls)
+      .filter(key => key !== 'email')
+      .every(key => {
+        const control = formData.get(key);
+        return control?.valid;
+      })
+
+    if(otherFieldsValid) {
       this.setFirstFormState();
       this.goToSecondSection();
     }
     else {
-      formData.markAllAsTouched()
+      this.newUserForm.markAllAsTouched()
     }
 
   }
@@ -104,21 +147,23 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   }
 
   emailAsyncValidator(control: AbstractControl): Observable<ValidationErrors | null> {
-    const trimmedValue = (control.value || '').trim(); // Normalize input
+    const trimmedValue = (control.value || '').trim();
+    
     if (!trimmedValue) {
       return of(null);
     }
-
+  
     return this.traineeInsystemService.checkEmail(trimmedValue).pipe(
       debounceTime(1000),
       distinctUntilChanged(),
-      switchMap(response =>
-        response?.length ? of({ emailExists: true }) : of(null)
-      ),
-      catchError(() => of(null)),
-      first()
+      map(response => {
+        return response ? { emailExists: true } : null;
+      }),
+      catchError(() => of(null))
     );
   }
+
+
 
   goToSecondSection() {
     this.router.navigate(['/home/admin/user-management/section-two'])
@@ -126,8 +171,19 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
 
 
   goBack() {
-    this.newUserForm.reset()
+    this.resetFormFields();
     this.router.navigate(['/home/admin/user-management'])
+  }
+
+  resetFormFields() {
+    this.unsubscribe$.next(); // Stop active subscriptions
+  
+    // Reset service-related states
+    this.newUserForm.reset();
+    this.traineeInsystemService.selectedEmailSubject.next(null);
+    this.traineeInsystemService.setFirstFormState(null);
+    this.traineeInsystemService.setSecondFormState(null);
+    this.traineeInsystemService.retreivedUserDataSubject.next(null)
   }
 
 
@@ -142,6 +198,8 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
         this.previewUrl = reader.result;
       };
       reader.readAsDataURL(this.selectedFile);
+
+      this.newUserForm.patchValue({ userProfilePhoto: this.selectedFile });
     }
   }
 

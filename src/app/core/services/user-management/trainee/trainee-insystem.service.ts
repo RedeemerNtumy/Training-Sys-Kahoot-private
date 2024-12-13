@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorHandlerService } from '../../cohort-data/error-handling/error-handler.service';
 import { BehaviorSubject, Observable, catchError, map, of, tap, throwError } from 'rxjs';
@@ -7,85 +7,106 @@ import { environment } from 'src/environments/environment.development';
 import { TraineeList } from '@core/models/trainee.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TraineeInsystemService {
-
   private baseUrl: string = environment.BaseUrl;
-  // private testUrl: string = "https://kahoot.free.beeceptor.com";
-  private testUrl: string = "https://caddecf8452c57366047.free.beeceptor.com";
-  // private testUrl: string = "https://mock.apidog.com/m1/752755-729898-default";
 
   public retreivedUserDataSubject = new BehaviorSubject<User | null>(null);
-  public retreivedUserData$: Observable<User | null> = this.retreivedUserDataSubject.asObservable();
-  public userDataRetrieved!: boolean;
+  public retreivedUserData$: Observable<User | null> =
+    this.retreivedUserDataSubject.asObservable();
+  public userDataRetrieved: boolean = false;
 
   public finalFormStateSubject = new BehaviorSubject<User | null>(null);
-  public finalFormState$: Observable<User | null> = this.finalFormStateSubject.asObservable();
+  public finalFormState$: Observable<User | null> =
+    this.finalFormStateSubject.asObservable();
   // public finalFormData!: User | null;
 
   private firstFormStateSubject = new BehaviorSubject<User | null>(null);
-  public firstFormState$: Observable<User | null> = this.firstFormStateSubject.asObservable();
+  public firstFormState$: Observable<User | null> =
+    this.firstFormStateSubject.asObservable();
 
   private secondFormStateSubject = new BehaviorSubject<User | null>(null);
-  public secondFormState$: Observable<User | null> = this.secondFormStateSubject.asObservable();
+  public secondFormState$: Observable<User | null> =
+    this.secondFormStateSubject.asObservable();
 
   private allTraineesSubject = new BehaviorSubject<User[] | null>(null);
-  public allTrainees$: Observable<User[] | null> = this.allTraineesSubject.asObservable();
+  public allTrainees$: Observable<User[] | null> =
+    this.allTraineesSubject.asObservable();
 
   private selectedTraineesSubject = new BehaviorSubject<User | null>(null);
-  public selectedTrainee$: Observable<User | null> = this.selectedTraineesSubject.asObservable();
+  public selectedTrainee$: Observable<User | null> =
+    this.selectedTraineesSubject.asObservable();
 
   deleteModalSuccessful!: boolean;
 
-  
+  public selectedEmailSubject = new BehaviorSubject<string | null>('');
+  public selectedEmail$: Observable<string | null> = this.selectedEmailSubject.asObservable();
+
 
   constructor(
     private http: HttpClient,
-    private errorHandlerService: ErrorHandlerService,
-  ) { }
+    private errorHandlerService: ErrorHandlerService
+  ) {}
 
-  // Get the email entered into the input field
-  checkEmail(email: string) {
-    return this.http.get<User[]>(`${this.baseUrl}/profiles/trainees/find`, {
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      "ngrok-skip-browser-warning": "69420" 
+    });
+  }
+
+
+  checkEmail(email: string): Observable<User | null> {
+    return this.http.post<User>(`${this.baseUrl}/profiles/trainees/find`, { email }, {
       headers: this.getHeaders(),
-      params: {email: email},
     }).pipe(
       tap(response => {
-        const [data] = response;
-        this.retreivedUserDataSubject.next(data);
-        this.userDataRetrieved = true;
+        // Only update if the response is different from the current value
+        if (response !== this.retreivedUserDataSubject.getValue()) {
+          this.retreivedUserDataSubject.next(response || null);
+        }
       }),
       catchError(error => {
-        this.errorHandlerService.handleError(error);
-        return [];
+        console.error('Error in checkEmail:', error);
+        // Only update if not already null
+        if (this.retreivedUserDataSubject.getValue() !== null) {
+          this.retreivedUserDataSubject.next(null);
+        }
+        return of(null);
       })
-    )
+    );
   }
+  
+  
+  
 
   setFinalFormState(data: User) {
     this.finalFormStateSubject.next(data);
   }
 
-  setFirstFormState(data: User) {
+  setFirstFormState(data: User | null) {
     this.firstFormStateSubject.next(data);
   }
 
-  setSecondFormState(data: User) {
+  setSecondFormState(data: User | null) {
     this.secondFormStateSubject.next(data);
   }
-
 
   //Usermanagment add user requests
   //Put request to backend
   updateUserData(updateFormData: {}, email: string | undefined) {
-    return this.http.put<User>(`${this.baseUrl}?email=${encodeURIComponent(email || '')}`, updateFormData).pipe(
-      tap(() => {
-        this.firstFormStateSubject.next(null)
-        this.secondFormStateSubject.next(null)
-      }),
-      catchError(error => this.errorHandlerService.handleError(error))
-    )
+    return this.http
+      .put<User>(
+        `${this.baseUrl}?email=${encodeURIComponent(email || '')}`,
+        updateFormData
+      )
+      .pipe(
+        tap(() => {
+          this.firstFormStateSubject.next(null);
+          this.secondFormStateSubject.next(null);
+        }),
+        catchError((error) => this.errorHandlerService.handleError(error))
+      );
   }
 
   createNewUser(formData: FormData) {
@@ -94,7 +115,6 @@ export class TraineeInsystemService {
         // Reset form states
         this.firstFormStateSubject.next(null);
         this.secondFormStateSubject.next(null);
-        console.log('Submitting trainee details to API');
       }),
       catchError((error) => {
         console.error('Error creating user:', error);
@@ -103,16 +123,9 @@ export class TraineeInsystemService {
     );
   }
   
-
-  private getHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      "ngrok-skip-browser-warning": "69420"
-    });
-  }
-
   // Get all trainees
   getAllTrainees() { 
-    return this.http.get<TraineeList>(`${this.testUrl}/profiles/trainees`, { headers: this.getHeaders() }).pipe(
+    return this.http.get<TraineeList>(`${this.baseUrl}/profiles/trainees`, { headers: this.getHeaders() }).pipe(
       map(res => {
         const trainees = res.content;
         return trainees;
@@ -125,17 +138,18 @@ export class TraineeInsystemService {
   }
 
   getSelectedTrainee(trainee: User) {
-    this.selectedTraineesSubject.next(trainee)
+    this.selectedTraineesSubject.next(trainee);
   }
 
   deleteSelectedTrainee(email: string) {
-    return this.http.delete<User>(`${this.baseUrl}?email=${encodeURIComponent(email)}`).pipe(
+    const params = new HttpParams().set('email', email); // Properly set the parameter
+    return this.http.delete<User>(`${this.baseUrl}/deactivate`, { params }).pipe(
       tap((response) => {
-        console.log(response);
         this.deleteModalSuccessful = true;
+        console.log('Delete Response:', response);
       }),
-      catchError(error => this.errorHandlerService.handleError(error))
-    )
+      catchError((error) => this.errorHandlerService.handleError(error))
+    );
   }
   
 

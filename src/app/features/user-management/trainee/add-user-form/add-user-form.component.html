@@ -21,9 +21,12 @@
                     formControlName="email"
                     placeholder="Enter email here..."
                 />
-            </div>
-            <div class="error" *ngIf="newUserForm.controls['email'].invalid && (newUserForm.controls['email'].touched || newUserForm.controls['email'].dirty)">
-                <span>Field is required</span>
+                <div class="error" *ngIf="newUserForm.controls['email'].hasError('required') && (newUserForm.controls['email'].touched || newUserForm.controls['email'].dirty)">
+                    <span>Field is required</span>
+                </div>
+                <div class="error" *ngIf="newUserForm.controls['email'].hasError('email') && (newUserForm.controls['email'].touched || newUserForm.controls['email'].dirty)">
+                    <span>Enter correct email</span>
+                </div>            
             </div>
 
             <div class="first-last-name">
@@ -33,6 +36,9 @@
                         <span>*</span>
                     </div>
                     <input type="text" formControlName="firstName">
+                    <div class="error" *ngIf="newUserForm.controls['firstName'].invalid && (newUserForm.controls['firstName'].touched || newUserForm.controls['firstName'].dirty)">
+                        <span>Field is required</span>
+                    </div>
                 </div>
                 <div class="form-field last-name">
                     <div class="label-wrapper">
@@ -40,10 +46,10 @@
                         <span>*</span>
                     </div>
                     <input type="text" formControlName="lastName">
+                    <div class="error" *ngIf="newUserForm.controls['lastName'].invalid && (newUserForm.controls['lastName'].touched || newUserForm.controls['lastName'].dirty)">
+                        <span>Field is required</span>
+                    </div>
                 </div>
-            </div>
-            <div class="error" *ngIf="newUserForm.controls['lastName'].invalid && (newUserForm.controls['lastName'].touched || newUserForm.controls['lastName'].dirty)">
-                <span>Field is required</span>
             </div>
 
             <div class="form-field date-of-birth">
@@ -52,9 +58,9 @@
                     <span>*</span>
                 </div>
                 <input type="date" formControlName="dateOfBirth" [max]="maxDate">
-            </div>
-            <div class="error" *ngIf="newUserForm.controls['dateOfBirth'].invalid && (newUserForm.controls['dateOfBirth'].touched || newUserForm.controls['dateOfBirth'].dirty)">
-                <span>Field is required</span>
+                <div class="error" *ngIf="newUserForm.controls['dateOfBirth'].invalid && (newUserForm.controls['dateOfBirth'].touched || newUserForm.controls['dateOfBirth'].dirty)">
+                    <span>Field is required</span>
+                </div>
             </div>
 
             <div class="gender-country">
@@ -66,12 +72,12 @@
                         </div>
                         <select name="gender" id="gender" formControlName="gender">
                             <option *ngFor="let gender of genders$ | async" [value]="gender.sex">
-                                {{ gender.sex }}
+                                {{ gender.sex | titlecase }}
                             </option>
                         </select>
-                    </div>
-                    <div class="error" *ngIf="newUserForm.controls['gender'].invalid && (newUserForm.controls['gender'].touched || newUserForm.controls['gender'].dirty)">
-                        <span>Field is required</span>
+                        <div class="error" *ngIf="newUserForm.controls['gender'].invalid && (newUserForm.controls['gender'].touched || newUserForm.controls['gender'].dirty)">
+                            <span>Field is required</span>
+                        </div>
                     </div>
                 </div>
                 <div class="error-wrapper">
@@ -81,13 +87,13 @@
                             <span>*</span>
                         </div>
                         <select name="country" id="country" formControlName="country">
-                            <option *ngFor="let country of restCountries" [value]="country.id">
+                            <option *ngFor="let country of restCountries" [value]="country.name">
                                 {{ country.name }}
                             </option>
                         </select>
-                    </div>
-                    <div class="error" *ngIf="newUserForm.controls['country'].invalid && (newUserForm.controls['country'].touched || newUserForm.controls['country'].dirty)">
-                        <span>Field is required</span>
+                        <div class="error" *ngIf="newUserForm.controls['country'].invalid && (newUserForm.controls['country'].touched || newUserForm.controls['country'].dirty)">
+                            <span>Field is required</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -98,9 +104,9 @@
                     <span>*</span>
                 </div>
                 <input type="text" formControlName="address">
-            </div>
-            <div class="error" *ngIf="newUserForm.controls['address'].invalid && (newUserForm.controls['address'].touched || newUserForm.controls['address'].dirty)">
-                <span>Field is required</span>
+                <div class="error" *ngIf="newUserForm.controls['address'].invalid && (newUserForm.controls['address'].touched || newUserForm.controls['address'].dirty)">
+                    <span>Field is required</span>
+                </div>
             </div>
 
             <div class="form-field phone-number">
@@ -108,10 +114,10 @@
                     <label for="address">Phone Number</label>
                     <span>*</span>
                 </div>
-                <input type="number" formControlName="phoneNumber">
-            </div>
-            <div class="error" *ngIf="newUserForm.controls['phoneNumber'].invalid && (newUserForm.controls['phoneNumber'].touched || newUserForm.controls['phoneNumber'].dirty)">
-                <span>Field is required</span>
+                <input type="tel" formControlName="phoneNumber">
+                <div class="error" *ngIf="newUserForm.controls['phoneNumber'].invalid && (newUserForm.controls['phoneNumber'].touched || newUserForm.controls['phoneNumber'].dirty)">
+                    <span>Field is required</span>
+                </div>
             </div>
 
             <div class="form-field university-completed">
@@ -120,9 +126,9 @@
                     <span>*</span>
                 </div>
                 <input type="text" formControlName="universityCompleted">
-            </div>
-            <div class="error" *ngIf="newUserForm.controls['universityCompleted'].invalid && (newUserForm.controls['universityCompleted'].touched || newUserForm.controls['universityCompleted'].dirty)">
-                <span>Field is required</span>
+                <div class="error" *ngIf="newUserForm.controls['universityCompleted'].invalid && (newUserForm.controls['universityCompleted'].touched || newUserForm.controls['universityCompleted'].dirty)">
+                    <span>Field is required</span>
+                </div>
             </div>
 
             <div class="form-field upload-photo">
