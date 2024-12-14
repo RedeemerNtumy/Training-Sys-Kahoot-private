@@ -87,8 +87,6 @@
             border: 0.15rem solid $clr-primary-500;
           }
         }
-
-
       }
 
       .actions {
@@ -107,6 +105,10 @@
           &.assign {
             background: $clr-primary-500;
             color: $clr-white;
+
+            & .disabled {
+              cursor: not-allowed;
+            }
           }
 
           &.cancel {
@@ -115,8 +117,6 @@
           }
         }
       }
-
-
     }
   }
 }
