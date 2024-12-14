@@ -72,9 +72,6 @@ export class AssessmentService {
           console.error('Error fetching assessments:', error);
           return throwError(() => error);
         }),
-        tap(() => {
-          console.log('Assessments fetch completed');
-        })
       );
   }
 
@@ -101,9 +98,10 @@ export class AssessmentService {
       );
   }
 
-  // create lab
-  createLab(data: FormData): Observable<Lab> {
-    return this.http.post<Lab>(`${environment.BaseUrl}/assessments/lab`, data);
+  // create lab or presentation
+  createLabOrPresentation(data: FormData, type: 'lab' | 'presentation'): Observable<Lab> {
+    const url = type === 'presentation' ? `${environment.BaseUrl}/assessments/presentation` : `${environment.BaseUrl}/assessments/lab`;
+    return this.http.post<Lab>(url, data);
   }
 
   assignAssessment(data: AssignAssessment) {
