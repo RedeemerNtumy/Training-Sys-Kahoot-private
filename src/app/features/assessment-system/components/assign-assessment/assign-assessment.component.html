@@ -23,8 +23,11 @@
             placeholder="Specialization"
             (onChange)="applyFilters()"
           ></p-dropdown>
-          <mat-checkbox (change)="onSelectAll($event)" [checked]="selectAllChecked">Select All</mat-checkbox>
-          
+          <mat-checkbox
+            (change)="onSelectAll($event)"
+            [checked]="selectAllChecked"
+            >Select All</mat-checkbox
+          >
         </div>
         <p-tabView>
           <p-tabPanel header="Trainee">
@@ -52,8 +55,15 @@
       </form>
       <div class="actions">
         <button class="btn cancel" (click)="onCancel()">Cancel</button>
-        <button class="btn assign" (click)="onAssign()">Assign</button>
+        <button class="btn assign" [disabled]="assignAssessmentForm.invalid" (click)="onAssign()">Assign</button>
       </div>
     </div>
   </div>
+  <app-feedback
+    [visible]="feedbackVisible"
+    [title]="feedbackTitle"
+    [message]="feedbackMessage"
+    [imageSrc]="feedbackImageSrc"
+    (closeDialog)="onCloseFeedback()"
+  ></app-feedback>
 </div>

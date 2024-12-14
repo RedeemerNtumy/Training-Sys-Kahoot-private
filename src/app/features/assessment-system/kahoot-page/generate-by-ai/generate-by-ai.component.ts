@@ -29,7 +29,8 @@ import { LoaderComponent } from '../../../../core/shared/loader/loader.component
     ReactiveFormsModule,
     QuestionCardComponent,
     CommonModule,
-  ],
+    LoaderComponent
+],
   templateUrl: './generate-by-ai.component.html',
   styleUrl: './generate-by-ai.component.scss',
 })

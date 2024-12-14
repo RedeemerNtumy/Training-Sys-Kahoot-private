@@ -20,55 +20,37 @@
 
 .add-container {
   display: flex;
+  padding: 1.6rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
   gap: 4.1rem;
-
-  .close-btn{
-    position: absolute;
-    top: 1.6rem;
-    right: 1.6rem;
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
-
-    img{
-      width: 1.5rem;
-      height: 1.5rem;
-    }
-  }
+  background-color: #fff;
+  border-radius: 0.8rem;
 
   .add-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     gap: 1.6rem;
 
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
     h3 {
-      font-size: 2.4rem;
-      margin: 0;
-      line-height: 1.2;
+      font-size: 6.4rem;
+      text-align: center !important;
     }
 
     p {
       font-size: 1.6rem !important;
       color: #676767;
-      margin: 0;
-      line-height: 1.5;
+      text-align: center !important;
     }
   }
 
-  .delete-actions {
-    .cancel-btn {
-      margin-right: 2.7rem;
-    }
-  }
+  // .delete-actions {
+  //   .cancel-btn {
+  //     // margin-right: 2.7rem;
+  //   }
+  // }
 }

@@ -30,7 +30,7 @@ export class AssessmentListComponent {
   showModal = false;
   assessmentTypes: CreateAssessment[] = [];
   assessments$!: Observable<AssessmentData[]>;
-  isAssessmentsEmpty = false;
+  isAssessmentsEmpty = true;
   isLoading = true;
 
   constructor(

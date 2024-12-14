@@ -123,17 +123,30 @@ export class AssessmentFormComponent {
             localStorage.setItem('quizId', JSON.stringify(response));
           },
           error: (err) => {
+            this.showFeedback(
+              `Failed to save ${this.type}`,
+              `Your ${this.type} assessment could not be saved. Please try again later!`,
+              'assets/Images/svg/add-spec.svg'
+            );
             console.error(err);
           },
         });
       } else if (this.type === 'lab' || this.type === 'presentation') {
-        this.assessmentService.createLab(formData).subscribe({
+        this.assessmentService.createLabOrPresentation(formData, this.type).subscribe({
           next: (response) => {
             this.showFeedback(
-              `${this.type} Saved Successfully'`,
+              `${this.type} Saved Successfully`,
               `Your ${this.type} assignment has been successfully created. You can now proceed to assign it to the relevant trainees or cohorts when ready!`,
               'assets/Images/svg/add-spec.svg'
             );
+          },
+          error: (err) => {
+            this.showFeedback(
+              `Failed to save ${this.type}`,
+              `Your ${this.type} assessment could not be saved. Please try again later!`,
+              'assets/Images/svg/add-spec.svg'
+            );
+            console.error(err);
           },
         });
       }
